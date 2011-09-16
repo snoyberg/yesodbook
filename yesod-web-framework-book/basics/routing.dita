@@ -46,6 +46,6 @@
         <p>A lot of the examples you'll see in the book will use quasi-quotation in one way or
             another. However, many developers prefer to keep their code and declarations separate.
             Yesod also lets you declare your routes in external files using <term>Template
-                Haskell</term>:<codeblock importance="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
+                Haskell</term>:<codeblock outputclass="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
         <p>In general, we recommend for actual development to use external files. But for short
             examples and tutorials, quais-quotation is a great fit.</p></conbody></concept>
