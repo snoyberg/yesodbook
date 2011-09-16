@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="advanced-forms"><title>Advanced Forms</title><topicref chunk="to-content" id="advanced-forms" href="../yesod-web-framework-book/advanced-forms/advanced-forms.dita"/></map>
+<map id="advanced-forms"><title id="x-1">Advanced Forms</title><topicref id="x-2" chunk="to-content" href="../yesod-web-framework-book/advanced-forms/advanced-forms.dita"/></map>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="fastcgi-on-lighttpd"><title>FastCGI on lighttpd</title><conbody><p id="l1">For this example, I've left off some of the basic FastCGI settings like mime-types. I also have a more complex file in production that prepends "www." when absent and serves static files from a separate domain. However, this should serve to show the basics.</p><p id="l2">Here, "/home/michael/fastcgi" is the fastcgi application. The idea is to rewrite all requests to start with "/app", and then serve everything beginning with "/app" via the FastCGI executable.</p><codeblock outputclass="nginx-conf" id="x1">server.port = 3000
+<concept id="fastcgi-on-lighttpd"><title id="x-1">FastCGI on lighttpd</title><conbody id="x-2"><p id="l1">For this example, I've left off some of the basic FastCGI settings like mime-types. I also have a more complex file in production that prepends "www." when absent and serves static files from a separate domain. However, this should serve to show the basics.</p><p id="l2">Here, "/home/michael/fastcgi" is the fastcgi application. The idea is to rewrite all requests to start with "/app", and then serve everything beginning with "/app" via the FastCGI executable.</p><codeblock outputclass="nginx-conf" id="x1">server.port = 3000
 server.document-root = "/home/michael"
 server.modules = ("mod_fastcgi", "mod_rewrite")
 

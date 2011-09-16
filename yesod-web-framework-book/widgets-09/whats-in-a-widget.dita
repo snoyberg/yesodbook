@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="whats-in-a-widget"><title>What's in a Widget?</title><conbody><p id="ww1">At a very superficial level, an HTML document is just a
+<concept id="whats-in-a-widget"><title id="x-1">What's in a Widget?</title><conbody id="x-2"><p id="ww1">At a very superficial level, an HTML document is just a
             bunch of nested tags. This is the approach most HTML generation
             tools take: you simply define hierarchies of tags and are done with
             it. But let's imagine that I want to write a component of a page

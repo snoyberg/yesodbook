@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="pieces"><title>Pieces</title><conbody><p id="pieces1">The first thing Yesod does when it gets a request (well, maybe
+<concept id="pieces"><title id="x-1">Pieces</title><conbody id="x-2"><p id="pieces1">The first thing Yesod does when it gets a request (well, maybe
                 not the <i id="x1">first</i>) is split up the requested path into
                 pieces. The pieces are simply tokenized at all forward slashes.
                 So:</p><codeblock id="x2" outputclass="haskell">toPieces "/" = []

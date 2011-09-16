@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="attributes"><title>Attributes</title><conbody>
+<concept id="attributes"><title id="x-1">Attributes</title><conbody id="x-2">
   <p id="x1">If you paid close attention there, you'll have noticed that we put an href attribute on the "a"
    tag. That syntax is pretty straight-forward, but let's clarify some things:<ul id="ul_zmk_qnu_id">
     <li id="x2">You can have interpolations on the right-hand-side of the equals sign.</li>

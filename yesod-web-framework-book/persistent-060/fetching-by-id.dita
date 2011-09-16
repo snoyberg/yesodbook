@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="fetching-by-id"><title>Fetching by ID</title><conbody>
+<concept id="fetching-by-id"><title id="x-1">Fetching by ID</title><conbody id="x-2">
   <p id="x1">The simplest query you can perform in Persistent is getting based on an ID. Since this value
    may or may not exist, its return type is wrapped in a Maybe.</p>
   <fig id="x2">

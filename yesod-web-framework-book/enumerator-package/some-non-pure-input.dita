@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="some-non-pure-input"><title>Some non-pure input</title><conbody><p id="np1">Enumerators are much more interesting when they aren't simply dealing with pure values. In the first part of this tutorial, we gave the example of the user entering numbers on the command line:</p><codeblock outputclass="haskell" id="x1">getNumber :: IO (Maybe Int)
+<concept id="some-non-pure-input"><title id="x-1">Some non-pure input</title><conbody id="x-2"><p id="np1">Enumerators are much more interesting when they aren't simply dealing with pure values. In the first part of this tutorial, we gave the example of the user entering numbers on the command line:</p><codeblock outputclass="haskell" id="x1">getNumber :: IO (Maybe Int)
 getNumber = do
     x &lt;- getLine
     if x == "q"

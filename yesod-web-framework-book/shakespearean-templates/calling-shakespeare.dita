@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="calling-shakespeare"><title>Calling Shakespeare</title><conbody>  <p id="x1">The question of course arises at some point: how do I actually use this stuff? There are three
+<concept id="calling-shakespeare"><title id="x-1">Calling Shakespeare</title><conbody id="x-2">  <p id="x1">The question of course arises at some point: how do I actually use this stuff? There are three
    different ways to call out to Shakespeare from your Haskell code:</p>
   <dl id="x2">
    <dlentry id="x3">

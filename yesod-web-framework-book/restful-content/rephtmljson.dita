@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="rephtmljson"><title>RepHtmlJson</title><conbody><p id="rhj1">An example to the contrary is RepHtmlJson, which provides either an HTML or JSON representation. This instance helps greatly in programming AJAX applications that degrade nicely. Here is an example that returns either HTML or JSON data, depending on what the client wants.</p><codeblock id="x1" outputclass="haskell">-- START
+<concept id="rephtmljson"><title id="x-1">RepHtmlJson</title><conbody id="x-2"><p id="rhj1">An example to the contrary is RepHtmlJson, which provides either an HTML or JSON representation. This instance helps greatly in programming AJAX applications that degrade nicely. Here is an example that returns either HTML or JSON data, depending on what the client wants.</p><codeblock id="x1" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, OverloadedStrings #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 import Yesod

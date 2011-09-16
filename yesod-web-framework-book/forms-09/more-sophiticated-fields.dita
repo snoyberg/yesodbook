@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="more-sophiticated-fields"><title>More sophiticated fields</title><conbody>
+<concept id="more-sophiticated-fields"><title id="x-1">More sophiticated fields</title><conbody id="x-2">
   <p id="x1">Our color entry field is nice, but it's not exactly user-friendly. What we really want is a
    dropdown list.</p>
   <fig id="x2">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="resources-and-type-safe-urls"><title>Resources and type-safe URLs</title><conbody><p id="resources1">In our hello world, we defined just a single resource (HomeR). A web application is usually much more exciting with more than one page on it. Let's take a look:</p><codeblock id="x1" outputclass="haskell">-- START
+<concept id="resources-and-type-safe-urls"><title id="x-1">Resources and type-safe URLs</title><conbody id="x-2"><p id="resources1">In our hello world, we defined just a single resource (HomeR). A web application is usually much more exciting with more than one page on it. Let's take a look:</p><codeblock id="x1" outputclass="haskell">-- START
 {-# LANGUAGE TypeFamilies, QuasiQuotes, MultiParamTypeClasses, TemplateHaskell, OverloadedStrings #-}
 import Yesod
 
@@ -24,13 +24,11 @@ main = warpDebug 3000 Links
             of HelloWorld, and in addition to the HomeR resource, we've added Page1R and Page2R. As
             such, we've also added two more handler functions: getPage1R and getPage2R.</p><p id="resources3">The only truly new feature is inside the whamlet quasi-quotation. We'll delve
             into syntax later, but we can see that:</p><codeblock outputclass="hamlet" id="x2">&lt;a href=@{Page1R}&gt;Go to page 1!</codeblock><p id="resources4">creates a link to the Page1R resource. The important thing to note here is that Page1R is a data constructor. By making each resource a data constructor, we have a feature called <term id="x3">type-safe URLs</term>. Instead of splicing together strings to create URLs, we simply create a plain old Haskell value. By using at-sign interpolation (@{...}), Yesod automatically renders those values to textual URLs before sending things off to the user.</p>
-        <p>It's hard to over-estimate the value of type-safe URLs. They give you a huge amount of
+        <p id="x-3">It's hard to over-estimate the value of type-safe URLs. They give you a huge amount of
             flexibility and robustness when developing your application. You can easily move URLs
-            around at will without every breaking links. Later, <xref
-                href="../routing-and-handlers/routing-and-handlers.dita#routing-and-handlers"
-                format="dita">we'll see that routes can take parameters</xref>, such as a blog entry
+            around at will without every breaking links. Later, <xref id="x-4" href="../routing-and-handlers/routing-and-handlers.dita#routing-and-handlers" format="dita">we'll see that routes can take parameters</xref>, such as a blog entry
             URL taking the blog post ID.</p>
-        <p>Let's say you want to switch from routing on the numerical post ID to a year/month/slug
+        <p id="x-5">Let's say you want to switch from routing on the numerical post ID to a year/month/slug
             setup. In a traditional web framework, you would need to go through every single
             referenced to your blog post route and update appropriately. If you miss one, you'll
             have 404s at runtime. In Yesod, all you do is update your route and compile: GHC will

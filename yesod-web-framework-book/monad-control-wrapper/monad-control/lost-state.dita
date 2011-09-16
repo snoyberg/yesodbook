@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="lost-state"><title>Lost State</title><conbody>
+<concept id="lost-state"><title id="x-1">Lost State</title><conbody id="x-2">
   <p id="x1">Let's rewind a bit to our onExceptionError. It uses onException under the surface, which has a
    type signature: <codeph id="x2">IO a -&gt; IO b -&gt; IO a</codeph>. Let me ask you something: what happened to
    the b in the output? Well, it was thoroughly ignored. But that seems to cause us a bit of a

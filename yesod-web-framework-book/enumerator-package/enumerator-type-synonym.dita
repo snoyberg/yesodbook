@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="enumerator-type-synonym"><title>Enumerator type synonym</title><conbody><p id="ets1">What we've done with sum7 and sum8 is perform a transformation on the Iteratee. But we've done this in a very limited way: we've hard-coded in the original Iteratee function (sum6). We could just make this an argument to the function:</p><codeblock outputclass="haskell" id="x1">sum9 :: Monad m =&gt; Iteratee Int m Int -&gt; Iteratee Int m Int
+<concept id="enumerator-type-synonym"><title id="x-1">Enumerator type synonym</title><conbody id="x-2"><p id="ets1">What we've done with sum7 and sum8 is perform a transformation on the Iteratee. But we've done this in a very limited way: we've hard-coded in the original Iteratee function (sum6). We could just make this an argument to the function:</p><codeblock outputclass="haskell" id="x1">sum9 :: Monad m =&gt; Iteratee Int m Int -&gt; Iteratee Int m Int
 sum9 orig = Iteratee $ do
     step &lt;- runIteratee orig
     case step of

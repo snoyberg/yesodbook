@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="synopsis"><title>Synopsis</title><conbody>  <codeblock id="x1" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, TypeFamilies, OverloadedStrings #-}
+<concept id="synopsis"><title id="x-1">Synopsis</title><conbody id="x-2">  <codeblock id="x1" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, TypeFamilies, OverloadedStrings #-}
 {-# LANGUAGE GADTs #-}
 import Database.Persist
 import Database.Persist.Sqlite

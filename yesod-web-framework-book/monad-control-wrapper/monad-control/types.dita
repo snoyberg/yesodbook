@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="types"><title>Types</title><conbody>
+<concept id="types"><title id="x-1">Types</title><conbody id="x-2">
   <p id="x1">I purposely started with the ErrorT transformer, as it is one of the simplest for this
    inversion mechanism. Unfortunately, others are a bit more complicated. Take for instance ReaderT.
    It is defined as <codeph id="x2">newtype ReaderT r m a = ReaderT { runReaderT :: r -&gt; m a }</codeph>. If

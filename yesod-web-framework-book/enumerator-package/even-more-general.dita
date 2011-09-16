@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="even-more-general"><title>Even more general</title><conbody><p id="moregen1">Of course, it would be nice if we could apply this transformation to *any* iteratee. To start with, let's just pass the inner iteratee and the mapping function as parameters.</p><codeblock outputclass="haskell" id="x1">mapIter :: Monad m =&gt; (aOut -&gt; aIn) -&gt; Iteratee aIn m b -&gt; Iteratee aOut m b
+<concept id="even-more-general"><title id="x-1">Even more general</title><conbody id="x-2"><p id="moregen1">Of course, it would be nice if we could apply this transformation to *any* iteratee. To start with, let's just pass the inner iteratee and the mapping function as parameters.</p><codeblock outputclass="haskell" id="x1">mapIter :: Monad m =&gt; (aOut -&gt; aIn) -&gt; Iteratee aIn m b -&gt; Iteratee aOut m b
 mapIter f innerIter = Iteratee $ do
     innerStep &lt;- runIteratee innerIter
     return $ go innerStep

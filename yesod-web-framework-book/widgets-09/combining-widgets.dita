@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="combining-widgets"><title>Combining Widgets</title><conbody>
+<concept id="combining-widgets"><title id="x-1">Combining Widgets</title><conbody id="x-2">
   <p id="x1">The whole idea of widgets is to composability. You can easily take these individual pieces of
    HTML, CSS and Javascript, combine them together into something more complicated, and then combine
    these larger entities into complete pages. This all works naturally through the Monad instance of

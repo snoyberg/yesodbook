@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="implementing-head"><title>Implementing head</title><conbody><p id="ihead1">As a last example, let's actually implement the head function.</p><codeblock outputclass="haskell" id="x1">head' :: Monad m =&gt; Iteratee a m (Maybe a)
+<concept id="implementing-head"><title id="x-1">Implementing head</title><conbody id="x-2"><p id="ihead1">As a last example, let's actually implement the head function.</p><codeblock outputclass="haskell" id="x1">head' :: Monad m =&gt; Iteratee a m (Maybe a)
 head' =
     continue go
   where

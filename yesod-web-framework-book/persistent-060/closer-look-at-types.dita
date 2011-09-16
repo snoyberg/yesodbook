@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="closer-look-at-types"><title>Closer look at types</title><conbody>
+<concept id="closer-look-at-types"><title id="x-1">Closer look at types</title><conbody id="x-2">
   <p id="x1">So far, we've spoken about Person and PersonId without really explaining what they are. In the
    simplest sense, for a SQL-only system, the PersonId could just be <codeph id="x2">type PersonId =
     Int64</codeph>. However, that means there is nothing binding a PersonId at the type level to the

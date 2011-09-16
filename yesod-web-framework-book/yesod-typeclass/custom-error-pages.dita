@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="custom-error-pages"><title>Custom error pages</title><conbody><p id="cep1">One of the marks of a professional web site is a properly designed error page. Yesod gets you a long way there by automatically using your defaultLayout for displaying error pages. But sometimes, you'll want to go even further. For this, you'll want to override the errorHandler method:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings #-}
+<concept id="custom-error-pages"><title id="x-1">Custom error pages</title><conbody id="x-2"><p id="cep1">One of the marks of a professional web site is a properly designed error page. Yesod gets you a long way there by automatically using your defaultLayout for displaying error pages. But sometimes, you'll want to go even further. For this, you'll want to override the errorHandler method:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 import Yesod
 data Layout = Layout

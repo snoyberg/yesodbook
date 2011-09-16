@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="alternate-hamlet-types"><title>Alternate Hamlet Types</title><conbody>
+<concept id="alternate-hamlet-types"><title id="x-1">Alternate Hamlet Types</title><conbody id="x-2">
   <p id="x1">So far, we've seen how to generate an <codeph id="x2">HtmlUrl</codeph> value from Hamlet, which is a
    piece of HTML with embedded type-safe URLs. There are currently three other values we can
    generate using Hamlet: plain HTML, HTML with URLs <b id="x3">and</b> internationalized messages, and

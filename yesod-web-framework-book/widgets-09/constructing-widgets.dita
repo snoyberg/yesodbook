@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="constructing-widgets"><title>Constructing Widgets</title><conbody>
+<concept id="constructing-widgets"><title id="x-1">Constructing Widgets</title><conbody id="x-2">
   <p id="x1">In order to use widgets, you'll obviously need to be able to get your hands on them. The most
    common way will be via the ToWidget typeclass, and its toWidget method. This allows you to
    convert your Shakespearean templates directly to a Widget: Hamlet code will appear in the body,

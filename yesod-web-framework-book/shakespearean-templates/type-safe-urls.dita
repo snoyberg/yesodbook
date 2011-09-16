@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="type-safe-urls"><title>Type-safe URLs</title><conbody>
+<concept id="type-safe-urls"><title id="x-1">Type-safe URLs</title><conbody id="x-2">
   <p id="x1">One of the biggest unique features in Yesod is type-safe URLs, and the ability to use them
    conveniently is provided directly by Shakespeare. Usage is very similar to variable
    interpolation, we just use the at-sign (@) instead. We'll cover the syntax later; first, let's

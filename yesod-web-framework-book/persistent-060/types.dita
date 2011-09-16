@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="types"><title>Types</title><conbody><p id="ba1">Like routing, there is nothing intrinsically difficult about type-safe data access. It
+<concept id="types"><title id="x-1">Types</title><conbody id="x-2"><p id="ba1">Like routing, there is nothing intrinsically difficult about type-safe data access. It
             just requires a lot of monotonous, error prone, boiler plate code. As usual, this means
             we can use the type system to keep us honest. And to avoid some of the drudgery, we'll
             use a sprinkling of Template Haskell.</p>

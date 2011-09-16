@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="routing"><title>Routing</title><conbody><p id="routing1">Like most modern web frameworks, Yesod follows a <xref id="x1" href="http://en.wikipedia.org/wiki/Front_Controller_pattern" scope="external" format="html">front controller pattern</xref>. This means that every request to a Yesod application enters at the same point and is routed from there. As a contrast, in systems like PHP and ASP you often times create a number of different files, and the web server automatically directs requests to the relevant file.</p>
-        <p>In addition, Yesod uses a declarative style for specifying routes. In our example above,
+<concept id="routing"><title id="x-1">Routing</title><conbody id="x-2"><p id="routing1">Like most modern web frameworks, Yesod follows a <xref id="x1" href="http://en.wikipedia.org/wiki/Front_Controller_pattern" scope="external" format="html">front controller pattern</xref>. This means that every request to a Yesod application enters at the same point and is routed from there. As a contrast, in systems like PHP and ASP you often times create a number of different files, and the web server automatically directs requests to the relevant file.</p>
+        <p id="x-3">In addition, Yesod uses a declarative style for specifying routes. In our example above,
             this looked like:</p>
-        <codeblock outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
+        <codeblock id="x-4" outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
 / HomeR GET
 |]</codeblock>
-        <p>In English, all this means <q>In the HelloWorld application, create one route. I'd like
-                to call it HomeR, it should listen for requests to <codeph>/</codeph> (the root of
+        <p id="x-5">In English, all this means <q id="x-6">In the HelloWorld application, create one route. I'd like
+                to call it HomeR, it should listen for requests to <codeph id="x-7">/</codeph> (the root of
                 the application), and should answer GET requests</q>. We call HomeR a
-                <term>resource</term>, which is where the "R" suffix comes from.<note>The R suffix
+                <term id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9">The R suffix
                 on resource names is simply convention, but it's a fairly universally followed
                 convention. It makes it just a bit easier to read and understand code.</note></p>
-        <p>As mentioned, most modern web frameworks have some kind of routing system. Most of them,
-            however, are <i>not</i> declarative. Let's take a quick example from
-                    Django:<lq><codeblock outputclass="python">urlpatterns = patterns('',
+        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system. Most of them,
+            however, are <i id="x-11">not</i> declarative. Let's take a quick example from
+                    Django:<lq id="x-12"><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
     (r'^articles/2003/$', 'news.views.special_case_2003'),
     (r'^articles/(\d{4})/$', 'news.views.year_archive'),
     (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
     (r'^articles/(\d{4})/(\d{2})/(\d+)/$', 'news.views.article_detail'),
-)</codeblock><cite>https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These
+)</codeblock><cite id="x-14">https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These
             routes are specified via a regular expression. This is mostly declarative, but the fact
             is that routes are really being resolved by running some extra code. This has some
             practical ramifications. Firstly, there's no great ways to optimize the routing: the
             only way to determine which route matches is to go through every single regular
             expression linearly. Yesod's routes are broken down into individual pieces, and can thus
             be optimized for routing.</p>
-        <p>But the more important issue is overlapping. Yesod will stop you from accidently writing
+        <p id="x-15">But the more important issue is overlapping. Yesod will stop you from accidently writing
             two routes that would match the same URL. This fits in with Yesod's overall philosophy
             of catching as many errors at possible at compile time.</p>
-        <note>You're probably wondering what the Django example would look like in Yesod. It looks
+        <note id="x-16">You're probably wondering what the Django example would look like in Yesod. It looks
             very similar
-            actually:<codeblock outputclass="haskell">/articles/2003 News2003R GET
+            actually:<codeblock id="x-17" outputclass="haskell">/articles/2003 News2003R GET
 /articles/#Year NewsYearR GET
 /articles/#Year/#Month NewsMonthR GET
 /articles/#Year/#Month/#ArticleId NewsArticleR GET</codeblock>But
             if you notice, the first two routes overlap! By default, Yesod will give you a compiler
             error about this. If you really want to do it anyway, you can replace
-                <codeph>parseRoutes</codeph> with <codeph>parseRoutesNoCheck</codeph>.</note>
-        <p>One other quick note: you may have noticed that parseRoutes is called with a bit of a
+                <codeph id="x-18">parseRoutes</codeph> with <codeph id="x-19">parseRoutesNoCheck</codeph>.</note>
+        <p id="x-20">One other quick note: you may have noticed that parseRoutes is called with a bit of a
             strange syntax with the square brackets and pipes. That's because it's a
-                <term>quasi-quoter</term>. Quasiquotation is a powerful Haskell feature that allows
+                <term id="x-21">quasi-quoter</term>. Quasiquotation is a powerful Haskell feature that allows
             you to embed any arbitrary syntax within your Haskell source files. This allows us to
             keep our route declarations short and sweet.</p>
-        <p>A lot of the examples you'll see in the book will use quasi-quotation in one way or
+        <p id="x-22">A lot of the examples you'll see in the book will use quasi-quotation in one way or
             another. However, many developers prefer to keep their code and declarations separate.
-            Yesod also lets you declare your routes in external files using <term>Template
-                Haskell</term>:<codeblock outputclass="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
-        <p>In general, we recommend for actual development to use external files. But for short
+            Yesod also lets you declare your routes in external files using <term id="x-23">Template
+                Haskell</term>:<codeblock id="x-24" outputclass="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
+        <p id="x-25">In general, we recommend for actual development to use external files. But for short
             examples and tutorials, quais-quotation is a great fit.</p></conbody></concept>

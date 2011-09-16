@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="controlling-sessions"><title>Controlling sessions</title><conbody><p id="c1">There are three functions in the Yesod typeclass that
+<concept id="controlling-sessions"><title id="x-1">Controlling sessions</title><conbody id="x-2"><p id="c1">There are three functions in the Yesod typeclass that
             control how sessions work. <codeph id="x1">encryptKey</codeph> returns the
             encryption key used. By default, it will take this from a local
             file, so that sessions can persist between database shutdowns. This

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="update"><title>Update</title><conbody>  <p id="x1">Now, in the context of that discussion, let's think about updating. The simplest way to update
+<concept id="update"><title id="x-1">Update</title><conbody id="x-2">  <p id="x1">Now, in the context of that discussion, let's think about updating. The simplest way to update
    is:<codeblock id="x2" outputclass="haskell">let michael = Person "Michael" 26
     michaelAfterBirthday = michael { personAge = 27 }</codeblock>But
    that's not actually updating anything, it's just creating a new person value based on the old

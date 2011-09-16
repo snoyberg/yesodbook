@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="selectopt"><title>SelectOpt</title><conbody>
+<concept id="selectopt"><title id="x-1">SelectOpt</title><conbody id="x-2">
   <p id="x1">All of our selectList calls have included an empty list as the second parameter. That specifies
    no options, meaning: sort however the database wants, return all results, and don't skip any
    results. A SelectOpt has four constructors that can be used to change all that.</p>

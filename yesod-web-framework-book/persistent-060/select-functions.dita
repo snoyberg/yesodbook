@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="select-functions"><title>Select functions</title><conbody>
+<concept id="select-functions"><title id="x-1">Select functions</title><conbody id="x-2">
   <p id="x1">But likely, you're going to want more powerful queries. You'll want to find everyone over a
    certain age; all cars available in blue; all users without a registered email address. For this,
    you need one of the select functions.</p>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="tags"><title>Tags</title><conbody>  <p id="x1">Obviously tags will play an important part of any HTML template language. In Hamlet, we try to
+<concept id="tags"><title id="x-1">Tags</title><conbody id="x-2">  <p id="x1">Obviously tags will play an important part of any HTML template language. In Hamlet, we try to
    stick very close to existing HTML syntax to make the language more comfortable. However, instead
    of using closing tags to denote nesting, we use indentation. So something like this in
    HTML:<codeblock outputclass="html" id="x2">&lt;body&gt;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="generate-ids"><title>Generate IDs</title><conbody>
+<concept id="generate-ids"><title id="x-1">Generate IDs</title><conbody id="x-2">
   <p id="x1">If we're really going for true code reuse here, we're eventually going to run into name
    conflicts. Let's say that there are two helper libraries that both use the class name "foo" to
    affect styling. We want to avoid such a possibility. Therefore, we have the newIdent function.

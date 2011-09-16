@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="blog-posts-that-should-be-chapters"><title>Blog posts that should be chapters</title><topicref chunk="to-content" id="blog-posts-that-should-be-chapters" href="../yesod-web-framework-book/blog-posts-that-should-be-chapters/blog-posts-that-should-be-chapters.dita"/></map>
+<map id="blog-posts-that-should-be-chapters"><title id="x-1">Blog posts that should be chapters</title><topicref id="x-2" chunk="to-content" href="../yesod-web-framework-book/blog-posts-that-should-be-chapters/blog-posts-that-should-be-chapters.dita"/></map>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="some-built-in-enumerators"><title>Some built-in enumerators</title><conbody><p id="builtin1">Of course, writing a whole function just to pass some numbers to our sum function seems a bit tedious. We could easily make the list an argument to the function:</p><codeblock outputclass="haskell" id="x1">sum12 :: Monad m =&gt; [Int] -&gt; Enumerator Int m Int
+<concept id="some-built-in-enumerators"><title id="x-1">Some built-in enumerators</title><conbody id="x-2"><p id="builtin1">Of course, writing a whole function just to pass some numbers to our sum function seems a bit tedious. We could easily make the list an argument to the function:</p><codeblock outputclass="haskell" id="x1">sum12 :: Monad m =&gt; [Int] -&gt; Enumerator Int m Int
 sum12 nums (Continue k) = k $ Chunks nums
 sum12 _ step = returnI step</codeblock><p id="builtin2">But now there's not even anything Int-specific in our function. We could easily generalize this to:</p><codeblock outputclass="haskell" id="x2">genericSum12 :: Monad m =&gt; [a] -&gt; Enumerator a m b
 genericSum12 nums (Continue k) = k $ Chunks nums

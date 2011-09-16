@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="hamlet-html"><title>Hamlet (HTML)</title><conbody>
+<concept id="hamlet-html"><title id="x-1">Hamlet (HTML)</title><conbody id="x-2">
   <codeblock outputclass="hamlet" id="x1">!!!
 &lt;html&gt;
     &lt;head&gt;

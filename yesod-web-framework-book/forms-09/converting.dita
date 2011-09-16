@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="converting"><title>Converting</title><conbody>
+<concept id="converting"><title id="x-1">Converting</title><conbody id="x-2">
   <p id="x1">"But wait a minute," you say. "You said the synopsis uses applicative forms, but I'm sure the
    type signature said Form. Shouldn't it be Monadic?" That's true, the final form we produced was
    monadic. But what really happened is that we converted an applicative form to a monadic one.</p>

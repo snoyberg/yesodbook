@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="the-foundation"><title>The Foundation</title><conbody><p id="foundation1">The word "HelloWorld" shows up a number of times in our example. Every Yesod
-            application has a <term>foundation</term> datatype. This datatype must be an instance of
-                <xref href="../yesod-typeclass/yesod-typeclass.dita#yesod-typeclass" format="dita"
-                >the Yesod typeclass</xref>, which provides a central place for declaring a number
+<concept id="the-foundation"><title id="x-1">The Foundation</title><conbody id="x-2"><p id="foundation1">The word "HelloWorld" shows up a number of times in our example. Every Yesod
+            application has a <term id="x-3">foundation</term> datatype. This datatype must be an instance of
+                <xref id="x-4" href="../yesod-typeclass/yesod-typeclass.dita#yesod-typeclass" format="dita">the Yesod typeclass</xref>, which provides a central place for declaring a number
             of different settings controlling the execution of our application.</p>
-        <p>In our case, this datatype is pretty boring: it doesn't contain any information.
+        <p id="x-5">In our case, this datatype is pretty boring: it doesn't contain any information.
             Nonetheless, the foundation is central to how our example runs: it ties together the
             routes with the instance declaration and lets it all be run. We'll see throughout this
             book that the foundation pops up in a whole bunch of places.</p>
-        <p>But foundations don't have to be boring: they can be used to store lots of useful
+        <p id="x-6">But foundations don't have to be boring: they can be used to store lots of useful
             information, usually stuff that needs to be initialized at program launch and used
             throughout. Some very common examples are:</p>
         <ul id="ul_vzn_ucu_qd">
-            <li>A database connection pool.</li>
-            <li>Settings loaded from a settings file.</li>
+            <li id="x-7">A database connection pool.</li>
+            <li id="x-8">Settings loaded from a settings file.</li>
         </ul><note id="x4">
             <p id="foundation3">By the way, the word Yesod (יסוד) means <i id="x5">foundation</i> in
                 Hebrew.</p>

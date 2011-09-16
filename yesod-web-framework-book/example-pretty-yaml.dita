@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="example-pretty-yaml"><title>Example: Pretty YAML</title><conbody><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;This example uses the &lt;a href="http://hackage.haskell.org/package/data-object-yaml"&gt;data-object-yaml package&lt;/a&gt; to display YAML files as cleaned-up HTML. If you've read through the other tutorials, this one should be easy to follow.&lt;/p&gt;
+<concept id="example-pretty-yaml"><title id="x-1">Example: Pretty YAML</title><conbody id="x-2"><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;This example uses the &lt;a href="http://hackage.haskell.org/package/data-object-yaml"&gt;data-object-yaml package&lt;/a&gt; to display YAML files as cleaned-up HTML. If you've read through the other tutorials, this one should be easy to follow.&lt;/p&gt;
 
 &gt; {-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
 

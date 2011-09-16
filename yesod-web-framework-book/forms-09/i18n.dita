@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="i18n"><title>i18n</title><conbody>
+<concept id="i18n"><title id="x-1">i18n</title><conbody id="x-2">
   <p id="x1">There have been a few references to i18n in this chapter. The topic will get more thorough
    coverage in its own chapter, but since it has such a profound effect on yesod-form, I wanted to
    give a brief overview. The idea behind i18n in Yesod is to have data types represent messages.

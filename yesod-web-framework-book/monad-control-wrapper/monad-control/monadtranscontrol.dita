@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="monadtranscontrol"><title>MonadTransControl</title><conbody>
+<concept id="monadtranscontrol"><title id="x-1">MonadTransControl</title><conbody id="x-2">
   <p id="x1">Obviously in the specific case we have before us, we could use our knowledge of the ErrorT
    transformer to beat the types into submission and create our Run function manually. But what we
     <i id="x2">really</i> want is a general solution for many transformers. At this point, you know we need

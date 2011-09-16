@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="types"><title>Types</title><conbody>
+<concept id="types"><title id="x-1">Types</title><conbody id="x-2">
   <p id="x1">The <apiname id="x2">yesod-form:Yesod.Form.Types</apiname> module declares a few types. Let's start off
    with some simple helpers:</p>
   <dl id="x3">

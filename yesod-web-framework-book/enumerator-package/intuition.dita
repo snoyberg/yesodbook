@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="intuition"><title>Intuition</title><conbody><p id="intuition1">Let's say we want to write a function that sums the numbers in a list. Forgetting uninteresting details like space leaks, a perfectly good implementation could be:</p><codeblock outputclass="haskell" id="x1">sum1 :: [Int] -&gt; Int
+<concept id="intuition"><title id="x-1">Intuition</title><conbody id="x-2"><p id="intuition1">Let's say we want to write a function that sums the numbers in a list. Forgetting uninteresting details like space leaks, a perfectly good implementation could be:</p><codeblock outputclass="haskell" id="x1">sum1 :: [Int] -&gt; Int
 sum1 [] = 0
 sum1 (x:xs) = x + sum1 xs</codeblock><p id="intuition2">But let's say that we don't have a list of numbers. Instead, the user is typing numbers on the command line, and hitting "q" when done. In other words, we have a function like:</p><codeblock outputclass="haskell" id="x2">getNumber :: IO (Maybe Int)
 getNumber = do

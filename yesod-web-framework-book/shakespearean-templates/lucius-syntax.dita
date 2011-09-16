@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="lucius-syntax"><title>Lucius Syntax</title><conbody>
+<concept id="lucius-syntax"><title id="x-1">Lucius Syntax</title><conbody id="x-2">
   <p id="x1">While Cassius uses a modified, whitespace-sensitive syntax for CSS, Lucius is true to the
    original. You can take almost any CSS file out there and it will be a valid Lucius file. There
    are, however, two additions to Lucius:<ul id="ul_a847e33f-f3af-4fe1-9a3b-d7b2353921f7">

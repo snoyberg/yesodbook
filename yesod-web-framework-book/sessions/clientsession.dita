@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="clientsession"><title>Clientsession</title><conbody><p id="cs1">One of the earliest packages spun off from Yesod was
+<concept id="clientsession"><title id="x-1">Clientsession</title><conbody id="x-2"><p id="cs1">One of the earliest packages spun off from Yesod was
             <apiname id="x1">clientsession</apiname>. This package uses encryption and
             signatures to store data in a client-side cookie. The encryption
             prevents the user from tampering with the data, and the signature

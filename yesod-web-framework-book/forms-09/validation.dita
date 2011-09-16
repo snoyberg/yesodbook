@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="validation"><title>Validation</title><conbody>
+<concept id="validation"><title id="x-1">Validation</title><conbody id="x-2">
   <p id="x1">Let's say we only want to accept cars created after 1990. How would we go about limiting
    things? If you remember, we said above that the Field itself contained the information on what is
    a valid entry. So all we need to do is write a new Field, right? Well, that would be a bit

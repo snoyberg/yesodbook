@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="monadcontrolio"><title>MonadControlIO</title><conbody>
+<concept id="monadcontrolio"><title id="x-1">MonadControlIO</title><conbody id="x-2">
   <p id="x1">The MonadTrans class provides the lift method, which allows you to lift an action one level in
    the stack. There is also the MonadIO class that provides liftIO, which lifts an IO action as far
    in the stack as desired. We have the same breakdown in monad-control. But first, we need a

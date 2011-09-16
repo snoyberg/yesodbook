@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="representations"><title>Representations</title><conbody><p id="rp1">Let's say we have a Haskell datatype and value:</p><codeblock outputclass="haskell" id="x1">data Person = Person { name :: String, age :: Int }
+<concept id="representations"><title id="x-1">Representations</title><conbody id="x-2"><p id="rp1">Let's say we have a Haskell datatype and value:</p><codeblock outputclass="haskell" id="x1">data Person = Person { name :: String, age :: Int }
 michael = Person "Michael" 25</codeblock><p id="rp2">We could represent that data as HTML:</p><codeblock outputclass="html" id="x2">&lt;table&gt;
     &lt;tr&gt;
         &lt;th&gt;Name&lt;/th&gt;

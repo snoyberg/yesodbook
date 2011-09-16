@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="uniqueness"><title>Uniqueness</title><conbody><p id="u1">In addition to declaring fields within an entity, you can also declare uniqueness
+<concept id="uniqueness"><title id="x-1">Uniqueness</title><conbody id="x-2"><p id="u1">In addition to declaring fields within an entity, you can also declare uniqueness
             constraints. A typical example would be requiring that a username be unique.</p>
         <fig id="x1">
             <title id="x4">Unique Username</title>

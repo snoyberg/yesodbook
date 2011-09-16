@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="types"><title>Types</title><conbody>
+<concept id="types"><title id="x-1">Types</title><conbody id="x-2">
   <p id="x1">You may have noticed that I've been avoiding type signatures so far. That's because there's a
    little bit of a complication involved here. At the most basic level, all you need to know is that
    the scaffolded site defines a type synonym called Widget which you will almost always use. The

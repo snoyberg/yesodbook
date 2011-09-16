@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="shakespearean-templates"><title>Shakespearean Templates</title><conbody>
+<concept id="shakespearean-templates"><title id="x-1">Shakespearean Templates</title><conbody id="x-2">
   <p id="x1">Yesod uses the Shakespearean family of template languages as its standard approach to HTML, CSS
    and Javascript creation. This language family shares some common syntax, as well as overarching
     principles:<ul id="ul_49ef34dd-2fd1-41b2-9c21-eb1bf09ac57a">

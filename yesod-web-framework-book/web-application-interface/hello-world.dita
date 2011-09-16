@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="hello-world"><title>Hello World</title><conbody><p id="helloworld1">To demonstrate the simplicity of WAI, let's look at a hello world example. In this example, we're going to use the OverloadedStrings language extension to avoid explicitly packing string values into bytestrings.</p><codeblock outputclass="haskell" id="x1">1 {-# LANGUAGE OverloadedStrings #-}
+<concept id="hello-world"><title id="x-1">Hello World</title><conbody id="x-2"><p id="helloworld1">To demonstrate the simplicity of WAI, let's look at a hello world example. In this example, we're going to use the OverloadedStrings language extension to avoid explicitly packing string values into bytestrings.</p><codeblock outputclass="haskell" id="x1">1 {-# LANGUAGE OverloadedStrings #-}
 2 import Network.Wai
 3 import Network.HTTP.Types (statusOK)
 4 import Network.Wai.Handler.Warp (run)

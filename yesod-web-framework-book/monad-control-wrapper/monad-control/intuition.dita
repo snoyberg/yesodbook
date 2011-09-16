@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="intuition"><title>Intuition</title><conbody>
+<concept id="intuition"><title id="x-1">Intuition</title><conbody id="x-2">
   <p id="x1">Let's try and develop an external intuition of what's happening here. The ErrorT monad
    transformer adds extra functionality to the IO monad. We've defined a way to "tack on" that extra
    functionality to normal IO actions: we add that Right constructor and wrap it all in ErrorT.

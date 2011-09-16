@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="client"><title>Client</title><conbody>
+<concept id="client"><title id="x-1">Client</title><conbody id="x-2">
   <p id="x1"><apiname id="x2">http-enumerator</apiname> was written as a comapnion to WAI. It too uses enumerator
    and blaze-builder pervasively, meaning we once again get easy interop with aeson. A few extra
    comments for those not familiar with http-enumerator:</p>

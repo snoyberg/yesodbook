@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="arguments"><title>Arguments</title><conbody><p id="arguments1">But not every route is as simple as the HomeR we just defined.
+<concept id="arguments"><title id="x-1">Arguments</title><conbody id="x-2"><p id="arguments1">But not every route is as simple as the HomeR we just defined.
                 Take for instance our PersonR route from earlier. The name of
                 the person needs to be passed to the handler function. This
                 translation is very straight-forward, and hopefully intuitive.

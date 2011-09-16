@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="stream-datatype"><title>Stream Datatype</title><conbody><p id="stream1">The first datatype defined in the enumerator package is:</p><codeblock outputclass="haskell" id="x1">data Stream a = Chunks [a] | EOF</codeblock><p id="stream2">The EOF constructor indicates that no more data is available. The Chunks constructor simply allows us to put multiple pieces of data together for efficiency. We could now rewrite sum2 to use this Stream datatype:</p><codeblock outputclass="haskell" id="x2">getNumber2 :: IO (Stream Int)
+<concept id="stream-datatype"><title id="x-1">Stream Datatype</title><conbody id="x-2"><p id="stream1">The first datatype defined in the enumerator package is:</p><codeblock outputclass="haskell" id="x1">data Stream a = Chunks [a] | EOF</codeblock><p id="stream2">The EOF constructor indicates that no more data is available. The Chunks constructor simply allows us to put multiple pieces of data together for efficiency. We could now rewrite sum2 to use this Stream datatype:</p><codeblock outputclass="haskell" id="x2">getNumber2 :: IO (Stream Int)
 getNumber2 = do
     maybeNum &lt;- getNumber -- using the original getNumber function
     case maybeNum of

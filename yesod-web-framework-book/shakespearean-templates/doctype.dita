@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="doctype"><title>Doctype</title><conbody>
+<concept id="doctype"><title id="x-1">Doctype</title><conbody id="x-2">
   <p id="x1">Last bit of syntactic sugar: the doctype statement. Just use the triple exclamation point on a
    line by itself. Hamlet uses HTML5 by default, so the generated doctype is <codeph id="x2">&lt;!DOCTYPE
     html&gt;</codeph>.<codeblock outputclass="hamlet" id="x3">!!!

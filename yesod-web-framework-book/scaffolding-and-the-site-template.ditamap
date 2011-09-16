@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="scaffolding-and-the-site-template"><title>Scaffolding and the Site Template</title><topicref chunk="to-content" id="scaffolding-and-the-site-template" href="../yesod-web-framework-book/scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita"/></map>
+<map id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template</title><topicref id="x-2" chunk="to-content" href="../yesod-web-framework-book/scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita"/></map>

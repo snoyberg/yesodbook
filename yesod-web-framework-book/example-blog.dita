@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="example-blog"><title>Example: Blog</title><conbody><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;Well, just about every web framework I've seen starts with a blog tutorial- so here's mine! Actually, you'll see that this is actually a much less featureful blog than most, but gives a good introduction to Yesod basics. I recommend you start by &lt;a href="/book/basics"&gt;reading the basics chapter&lt;/a&gt;.&lt;/p&gt;
+<concept id="example-blog"><title id="x-1">Example: Blog</title><conbody id="x-2"><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;Well, just about every web framework I've seen starts with a blog tutorial- so here's mine! Actually, you'll see that this is actually a much less featureful blog than most, but gives a good introduction to Yesod basics. I recommend you start by &lt;a href="/book/basics"&gt;reading the basics chapter&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This file is literate Haskell, so we'll start off with our language pragmas and import statements. Basically every Yesod application will start off like this:&lt;/p&gt;
 

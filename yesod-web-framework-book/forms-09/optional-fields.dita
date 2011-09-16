@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="optional-fields"><title>Optional fields</title><conbody>  <p id="x1">Now let's say that we wanted to have an optional field (like the car color). All we do instead
+<concept id="optional-fields"><title id="x-1">Optional fields</title><conbody id="x-2">  <p id="x1">Now let's say that we wanted to have an optional field (like the car color). All we do instead
    is use the aopt function.</p>
   <fig id="x2">
    <title id="x3">Optional fields</title>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="sessions"><title>Sessions</title><conbody><p id="i1">As much as possible, RESTful applications should avoid
+<concept id="sessions"><title id="x-1">Sessions</title><conbody id="x-2"><p id="i1">As much as possible, RESTful applications should avoid
             storing state about an interaction with a client. However, it is
             sometimes unavoidable. Features like shopping carts are the classic
             example, but other more mundane interactions like proper login

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="conditionals"><title>Conditionals</title><conbody>
+<concept id="conditionals"><title id="x-1">Conditionals</title><conbody id="x-2">
   <p id="x1">Eventually, you'll want to put in some logic in your page. The goal of Hamlet is to make the
    logic as minimalistic as possible, pushing the heavy lifting into Haskell. As such, our logical
    statements are very basic... so basic, that it's if, elseif, and

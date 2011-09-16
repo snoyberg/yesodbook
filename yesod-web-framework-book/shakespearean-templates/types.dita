@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="types"><title>Types</title><conbody>  <p id="x1">Before we jump into syntax, let's take a look at the various types involved. We mentioned in
+<concept id="types"><title id="x-1">Types</title><conbody id="x-2">  <p id="x1">Before we jump into syntax, let's take a look at the various types involved. We mentioned in
    the introduction that types help protect us from XSS attacks. For example, let's say that we have
    an HTML template that should display someone's name; it might look like
     this:<codeblock outputclass="hamlet" id="x2">&lt;p&gt;Hello, my name is #{name}</codeblock><note id="x3">Yes, #{...} is how we do

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="messages"><title>Messages</title><conbody><p id="m1">One usage of sessions previously alluded to is messages.
+<concept id="messages"><title id="x-1">Messages</title><conbody id="x-2"><p id="m1">One usage of sessions previously alluded to is messages.
             They come to solve a common problem in web development: the user
             performs a POST request, the web app makes a change, and then the
             web app wants to <i id="x1">simultaneously</i> redirect the user to a new

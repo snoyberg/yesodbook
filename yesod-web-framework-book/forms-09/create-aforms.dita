@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="create-aforms"><title>Create AForms</title><conbody>
+<concept id="create-aforms"><title id="x-1">Create AForms</title><conbody id="x-2">
   <p id="x1">Now that I've (hopefully) convinced you that in our synopsis we were really dealing with
    applicative forms, let's have a look and try to understand how these things get created. Let's
    take a simple example:</p>

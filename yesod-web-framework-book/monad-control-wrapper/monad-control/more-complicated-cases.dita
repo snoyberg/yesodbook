@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="more-complicated-cases"><title>More Complicated Cases</title><conbody>
+<concept id="more-complicated-cases"><title id="x-1">More Complicated Cases</title><conbody id="x-2">
   <p id="x1">In order to make our tricks work so far, we've needed to have functions that give us full
    access to play around with their values. Sometimes, this isn't the case. Take, for instance:</p>
   <codeblock id="x2" outputclass="haskell">addMVarFinalizer :: MVar a -&gt; IO () -&gt; IO ()</codeblock>

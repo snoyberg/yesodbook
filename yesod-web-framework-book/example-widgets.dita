@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="example-widgets"><title>Example: Widgets</title><conbody><codeblock id="x1" outputclass="lhaskell">&gt; {-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings, MultiParamTypeClasses, TemplateHaskell #-}
+<concept id="example-widgets"><title id="x-1">Example: Widgets</title><conbody id="x-2"><codeblock id="x1" outputclass="lhaskell">&gt; {-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings, MultiParamTypeClasses, TemplateHaskell #-}
 &gt; import Yesod
 &gt; import Yesod.Helpers.Static
 &gt; import Yesod.Form.Jquery

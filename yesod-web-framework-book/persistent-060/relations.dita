@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="relations"><title>Relations</title><conbody><p id="r1">Persistent allows references between your data types in a manner that is consistent with
+<concept id="relations"><title id="x-1">Relations</title><conbody id="x-2"><p id="r1">Persistent allows references between your data types in a manner that is consistent with
             supporting non-SQL databases. We do this by embedding an ID in the related entity. So if
             a person has many cars:</p><codeblock id="x1" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}

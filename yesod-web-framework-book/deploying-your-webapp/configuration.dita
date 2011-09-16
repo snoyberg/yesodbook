@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="configuration"><title>Configuration</title><conbody><p id="config1">In general, Nginx will listen on port 80 and your Yesod/Warp app will listen on some unprivileged port (lets say 4321). You will then need to provide a nginx.conf file, such as:</p><codeblock outputclass="nginx-conf" id="x1">daemon off; # Don't run nginx in the background, good for monitoring apps
+<concept id="configuration"><title id="x-1">Configuration</title><conbody id="x-2"><p id="config1">In general, Nginx will listen on port 80 and your Yesod/Warp app will listen on some unprivileged port (lets say 4321). You will then need to provide a nginx.conf file, such as:</p><codeblock outputclass="nginx-conf" id="x1">daemon off; # Don't run nginx in the background, good for monitoring apps
 events {
     worker_connections 4096;
 }

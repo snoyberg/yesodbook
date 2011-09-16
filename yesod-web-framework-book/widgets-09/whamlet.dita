@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="whamlet"><title>whamlet</title><conbody>
+<concept id="whamlet"><title id="x-1">whamlet</title><conbody id="x-2">
   <p id="x1">Let's say you've got a fairly standard Hamlet template, that embeds another Hamlet template to
    represent the footer:</p>
   <codeblock outputclass="haskell" id="x2">page = [hamlet|

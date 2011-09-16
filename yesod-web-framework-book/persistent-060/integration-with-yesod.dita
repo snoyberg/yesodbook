@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="integration-with-yesod"><title>Integration with Yesod</title><conbody>
+<concept id="integration-with-yesod"><title id="x-1">Integration with Yesod</title><conbody id="x-2">
   <p id="x1">So you've been convinced of the power of Persistent. How do you integrate it with your Yesod
    application? Well, if you use the scaffolding, most of the work is done for you already. But as
    we normally do, we'll build up everything manually here to point out how it works under the

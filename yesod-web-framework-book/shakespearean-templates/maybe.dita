@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="maybe"><title>Maybe</title><conbody>
+<concept id="maybe"><title id="x-1">Maybe</title><conbody id="x-2">
   <p id="x1">Similarly, we have a special construct for dealing with Maybe values. This could technically be
    dealt with using if, isJust and fromJust, but this is more convenient and avoids partial
    functions.<codeblock outputclass="hamlet" id="x2">$maybe name &lt;- maybeName

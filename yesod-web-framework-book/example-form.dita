@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="example-form"><title>Example: Form</title><conbody><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;Forms can be a tedious part of web development since they require synchronization of code in many different areas: the HTML form declaration, parsing of the form and reconstructing a datatype from the raw values. The Yesod form library simplifies things greatly. We'll start off with a basic application.&lt;/p&gt;
+<concept id="example-form"><title id="x-1">Example: Form</title><conbody id="x-2"><codeblock id="x1" outputclass="lhaskell">&lt;p&gt;Forms can be a tedious part of web development since they require synchronization of code in many different areas: the HTML form declaration, parsing of the form and reconstructing a datatype from the raw values. The Yesod form library simplifies things greatly. We'll start off with a basic application.&lt;/p&gt;
 
 
 &gt; {-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings, MultiParamTypeClasses, TemplateHaskell #-}

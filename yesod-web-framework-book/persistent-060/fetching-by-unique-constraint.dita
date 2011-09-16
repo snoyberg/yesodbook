@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="fetching-by-unique-constraint"><title>Fetching by unique constraint</title><conbody>
+<concept id="fetching-by-unique-constraint"><title id="x-1">Fetching by unique constraint</title><conbody id="x-2">
   <p id="x1">getBy is almost identical to get, except it takes a uniqueness constraint instead of an ID it
    takes a Unique value.</p>
   <fig id="x2">

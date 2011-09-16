@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="julius-syntax"><title>Julius Syntax</title><conbody>
+<concept id="julius-syntax"><title id="x-1">Julius Syntax</title><conbody id="x-2">
   <p id="x1">Julius is the simplest of the languages discussed here. In fact, some might even say it's not
    really its own language. Julius allows the three forms of interpolation we've mentioned so far,
    and otherwise applies no transformations to your content.<note id="x2">If you use Julius with the

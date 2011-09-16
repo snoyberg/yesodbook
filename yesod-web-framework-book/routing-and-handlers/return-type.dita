@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="return-type"><title>Return Type</title><conbody><p id="dispatch2">Let's look at a simple handler function:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
+<concept id="return-type"><title id="x-1">Return Type</title><conbody id="x-2"><p id="dispatch2">Let's look at a simple handler function:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}
 import Yesod

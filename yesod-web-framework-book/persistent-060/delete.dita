@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="delete"><title>Delete</title><conbody>
+<concept id="delete"><title id="x-1">Delete</title><conbody id="x-2">
   <p id="x1">As much as it pains us, sometimes we must part with our data. To do so, we have three
    functions:</p>
   <dl id="x2">

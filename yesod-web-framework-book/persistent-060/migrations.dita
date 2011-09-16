@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="migrations"><title>Migrations</title><conbody><p id="m1">I'm sorry to tell you, but so far I have lied to you a bit: the example from the previous section does not actually work. If you try to run it, you will get an error message about a missing table.</p><p id="m2">For SQL databases, one of the major pains can be managing schema changes. Instead of leaving this to the user, Persistent steps in to help, but you have to <i id="x1">ask</i> it to help. Let's see what this looks like:</p><codeblock id="x2" outputclass="haskell">-- START
+<concept id="migrations"><title id="x-1">Migrations</title><conbody id="x-2"><p id="m1">I'm sorry to tell you, but so far I have lied to you a bit: the example from the previous section does not actually work. If you try to run it, you will get an error message about a missing table.</p><p id="m2">For SQL databases, one of the major pains can be managing schema changes. Instead of leaving this to the user, Persistent steps in to help, but you have to <i id="x1">ask</i> it to help. Let's see what this looks like:</p><codeblock id="x2" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
 import Database.Persist
 import Database.Persist.TH

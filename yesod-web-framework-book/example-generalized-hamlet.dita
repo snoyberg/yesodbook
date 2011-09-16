@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="example-generalized-hamlet"><title>Example: Generalized Hamlet</title><conbody><codeblock id="x1" outputclass="lhaskell">This example shows how generalized hamlet templates allow the creation of
+<concept id="example-generalized-hamlet"><title id="x-1">Example: Generalized Hamlet</title><conbody id="x-2"><codeblock id="x1" outputclass="lhaskell">This example shows how generalized hamlet templates allow the creation of
 different types of values. The key component here is the HamletValue typeclass.
 Yesod has instances for:
 

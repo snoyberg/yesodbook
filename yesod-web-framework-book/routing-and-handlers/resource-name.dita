@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="resource-name"><title>Resource name</title><conbody><p id="rn1">Each resource pattern also has a name associated with it. That
+<concept id="resource-name"><title id="x-1">Resource name</title><conbody id="x-2"><p id="rn1">Each resource pattern also has a name associated with it. That
                 name will become the constructor for the <term id="x1">type safe
                     URL</term> datatype associated with your application.
                 Therefore, it has to start with a capital letter. By

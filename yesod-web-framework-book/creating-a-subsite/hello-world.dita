@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="hello-world"><title>Hello World</title><conbody><p id="hw1">Writing subsites is a little bit tricky, involving a number of different types. Let's start off with a simple Hello World subsite:</p><codeblock id="x1" outputclass="haskell">-- START
+<concept id="hello-world"><title id="x-1">Hello World</title><conbody id="x-2"><p id="hw1">Writing subsites is a little bit tricky, involving a number of different types. Let's start off with a simple Hello World subsite:</p><codeblock id="x1" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, MultiParamTypeClasses #-}
 {-# LANGUAGE TemplateHaskell, FlexibleInstances, OverloadedStrings #-}
 import Yesod

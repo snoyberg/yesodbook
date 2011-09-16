@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="insert"><title>Insert</title><conbody>  <p id="x1">It's all well and good to be able to play with data in the database, but how does it get there
+<concept id="insert"><title id="x-1">Insert</title><conbody id="x-2">  <p id="x1">It's all well and good to be able to play with data in the database, but how does it get there
    in the first place? The answer is the insert function. Its usage is incredibly simple, as you've
    seen already. You just give it a value, and it gives back an ID.</p>
   <p id="x2">At this point, it makes sense to explain a it of the philosophy behind Persistent. In many

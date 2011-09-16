@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="persistent-raw-sql"><title>Persistent: Raw SQL</title><conbody>  <p id="x1">The Persistent package provides a type safe interface to data stores. It tries to be
+<concept id="persistent-raw-sql"><title id="x-1">Persistent: Raw SQL</title><conbody id="x-2">  <p id="x1">The Persistent package provides a type safe interface to data stores. It tries to be
             backend-agnostic, such as not relying on relational features of SQL. My experience has
             been you can easily perform 95% of what you need to do with the high-level interface.
             (In fact, most of my web apps use the high level interface exclusively.)</p>

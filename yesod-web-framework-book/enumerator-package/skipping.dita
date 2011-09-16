@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="skipping"><title>Skipping</title><conbody><p id="skipping1">Let's write a slightly more interesting enumeratee: this one skips every other input value.</p><codeblock outputclass="haskell" id="x1">skip :: Monad m =&gt; Enumeratee a a m b
+<concept id="skipping"><title id="x-1">Skipping</title><conbody id="x-2"><p id="skipping1">Let's write a slightly more interesting enumeratee: this one skips every other input value.</p><codeblock outputclass="haskell" id="x1">skip :: Monad m =&gt; Enumeratee a a m b
 skip (Continue k) = do
     x &lt;- head
     _ &lt;- head -- the one we're skipping

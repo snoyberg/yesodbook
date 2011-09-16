@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="testing"><title>Testing</title><conbody><p id="i1">FIXME This is just an outline. This chapter will mostly describe how to use wai-test.</p></conbody></concept>
+<concept id="testing"><title id="x-1">Testing</title><conbody id="x-2"><p id="i1">FIXME This is just an outline. This chapter will mostly describe how to use wai-test.</p></conbody></concept>

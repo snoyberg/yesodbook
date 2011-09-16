@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="session-operations"><title>Session Operations</title><conbody><p id="o1">Like most frameworks, sessions in Yesod are simple key-value
+<concept id="session-operations"><title id="x-1">Session Operations</title><conbody id="x-2"><p id="o1">Like most frameworks, sessions in Yesod are simple key-value
             stores. The base session API boils down to just three functions:
             <codeph id="x1">lookupSession</codeph> gets a value for a key (if available),
             <codeph id="x2">setSession</codeph> sets a value for a key, and

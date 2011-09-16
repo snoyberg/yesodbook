@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="cassius-syntax"><title>Cassius Syntax</title><conbody>
+<concept id="cassius-syntax"><title id="x-1">Cassius Syntax</title><conbody id="x-2">
   <p id="x1">Cassius is the original CSS template language. It uses simple whitespace rules to delimit
    blocks, making braces and semicolons unnecessary. It supports both variable and URL
    interpolation, but not embedding. The syntax is very

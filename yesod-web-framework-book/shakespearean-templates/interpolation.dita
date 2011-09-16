@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="interpolation"><title>Interpolation</title><conbody>  <p id="x1">What we have so far is a nice, simplified HTML, but it doesn't let us interact with our Haskell
+<concept id="interpolation"><title id="x-1">Interpolation</title><conbody id="x-2">  <p id="x1">What we have so far is a nice, simplified HTML, but it doesn't let us interact with our Haskell
    code at all. How do we pass in variables? Simple: with
    interpolation:<codeblock outputclass="hamlet" id="x2">&lt;head&gt;
     &lt;title&gt;#{title}</codeblock>The hash followed be a pair
