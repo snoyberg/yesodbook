@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="monadtranscontrol"><title>MonadTransControl</title><conbody>
+  <p id="x1">Obviously in the specific case we have before us, we could use our knowledge of the ErrorT
+   transformer to beat the types into submission and create our Run function manually. But what we
+    <i id="x2">really</i> want is a general solution for many transformers. At this point, you know we need
+   a typeclass.</p>
+  <p id="x3">So let's review what we need: access to a Run function, and some way to restructure our
+   original transformer after the fact. And thus was born MonadTransControl, with its single method
+   liftControl:</p>
+  <codeblock id="x4" outputclass="haskell">class MonadTrans t =&gt; MonadTransControl t where
+    liftControl :: Monad m =&gt; (Run t -&gt; m a) -&gt; t m a</codeblock>
+  <p id="x5">Let's look at this closely. liftControl takes a function (the one we'll be writing). That
+   function is provided with a Run function, and must return a value in some monad (m). liftControl
+   will then take the result of that function and reinstate the original transformer on top of
+   everything.</p>
+  <codeblock id="x6" outputclass="haskell">useMyFileError3 :: Monad m =&gt; ErrorT MyError IO (ErrorT MyError m ())
+useMyFileError3 =
+    liftControl inside
+  where
+    inside :: Monad m =&gt; Run (ErrorT MyError) -&gt; IO (ErrorT MyError m ())
+    inside run = withMyFile $ helper run
+    helper :: Monad m
+           =&gt; Run (ErrorT MyError) -&gt; Handle -&gt; IO (ErrorT MyError m ())
+    helper run handle = run (sayHiError handle :: ErrorT MyError IO ())</codeblock>
+  <p id="x7">Close, but not exactly what I had in mind. What's up with the double monads? Well, let's start
+   at the end: sayHiError handle returns a value of type <codeph id="x8">ErrorT MyError IO ()</codeph>. This
+   we knew already, no surprises. What might be a little surprising (it got me, at least) is the
+   next two steps.</p>
+  <p id="x9">First we apply run to that value. Like we'd discussed before, the result is that the IO inner
+   monad is popped to the outside, to be replaced by some arbitrary monad (represented by m here).
+   So we end up with an IO (ErrorT MyError m ()). Ok... We then get the same result after applying
+   withMyFile. Not surprising.</p>
+  <p id="x10">The last step took me a long time to understand correctly. Remember how we said that we
+   reconstruct the original transformer? Well, so we do: by plopping it right on top of everything
+   else we have. So our end result is the previous type- <codeph id="x11">IO (ErrorT MyError m ())</codeph>-
+   with a <codeph id="x12">ErrorT MyError</codeph> stuck on the front.</p>
+  <p id="x13">Well, that seems just about utterly worthless, right? Well, almost. But don't forget, that "m"
+   can be any monad, including IO. If we treat it that way, we get <codeph id="x14">ErrorT MyError IO (ErrorT
+    MyError IO ())</codeph>. That looks a lot like <codeph id="x15">m (m a)</codeph>, and we want just plain
+   old <codeph id="x16">m a</codeph>. Fortunately, now we're in
+   luck:<codeblock id="x17" outputclass="haskell">useMyFileError4 :: ErrorT MyError IO ()
+useMyFileError4 = join useMyFileError3</codeblock>And
+   it turns out that this usage is so common, that Bas had mercy on us and defined a helper
+   function:<codeblock id="x18" outputclass="haskell">control :: (Monad m, Monad (t m), MonadTransControl t)
+        =&gt; (Run t -&gt; m (t m a)) -&gt; t m a
+control = join . liftControl</codeblock>So
+   all we need to write
+   is:<codeblock id="x19" outputclass="haskell">useMyFileError5 :: ErrorT MyError IO ()
+useMyFileError5 =
+    control inside
+  where
+    inside :: Monad m =&gt; Run (ErrorT MyError) -&gt; IO (ErrorT MyError m ())
+    inside run = withMyFile $ helper run
+    helper :: Monad m
+           =&gt; Run (ErrorT MyError) -&gt; Handle -&gt; IO (ErrorT MyError m ())
+    helper run handle = run (sayHiError handle :: ErrorT MyError IO ())</codeblock></p>
+  <p id="x20">And just to make it a little
+   shorter:<codeblock id="x21" outputclass="haskell">useMyFileError6 :: ErrorT MyError IO ()
+useMyFileError6 = control $ \run -&gt; withMyFile $ run . sayHiError</codeblock></p>
+ </conbody></concept>

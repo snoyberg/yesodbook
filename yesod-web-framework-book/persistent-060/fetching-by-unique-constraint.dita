@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="fetching-by-unique-constraint"><title>Fetching by unique constraint</title><conbody>
+  <p id="x1">getBy is almost identical to get, except it takes a uniqueness constraint instead of an ID it
+   takes a Unique value.</p>
+  <fig id="x2">
+   <title id="x3">Using getBy</title>
+   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+import Control.Monad.IO.Class (liftIO)
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person
+    firstName String
+    lastName String
+    age Int Gt Desc
+    UniqueName firstName lastName
+|]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigrationSilent migrateAll
+-- START
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    maybePerson &lt;- getBy $ UniqueName "Michael" "Snoyman"
+    case maybePerson of
+        Nothing -&gt; liftIO $ putStrLn "Just kidding, not really there"
+        Just person -&gt; liftIO $ print person
+-- STOP</codeblock>
+  </fig>
+ </conbody></concept>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="stream-datatype"><title>Stream Datatype</title><conbody><p id="stream1">The first datatype defined in the enumerator package is:</p><codeblock outputclass="haskell" id="x1">data Stream a = Chunks [a] | EOF</codeblock><p id="stream2">The EOF constructor indicates that no more data is available. The Chunks constructor simply allows us to put multiple pieces of data together for efficiency. We could now rewrite sum2 to use this Stream datatype:</p><codeblock outputclass="haskell" id="x2">getNumber2 :: IO (Stream Int)
+getNumber2 = do
+    maybeNum &lt;- getNumber -- using the original getNumber function
+    case maybeNum of
+        Nothing -&gt; return EOF
+        Just num -&gt; return $ Chunks [num]
+
+sum3 :: IO Int
+sum3 = do
+    stream &lt;- getNumber2
+    case stream of
+        EOF -&gt; return 0
+        Chunks nums -&gt; do
+            let nums' = sum nums
+            rest &lt;- sum3
+            return $ nums' + rest</codeblock><p id="stream3">Not that it's much better than sum2, but at least it shows how to use the Stream datatype. The problem here is that we still refer explicitly to the getNumber2 function, hard-coding the data source.</p><p id="stream4">One possible solution is to make the data source an argument to the sum function, ie:</p><codeblock outputclass="haskell" id="x3">sum4 :: IO (Stream Int) -&gt; IO Int
+sum4 getNum = do
+    stream &lt;- getNum
+    case stream of
+        EOF -&gt; return 0
+        Chunks nums -&gt; do
+            let nums' = sum nums
+            rest &lt;- sum4 getNum
+            return $ nums' + rest</codeblock><p id="stream5">That's all well and good, but let's pretend we want to have <i id="x4">two</i> datasources to sum over: values the user enters on the command line, and some numbers we read over an HTTP connection, perhaps. The problem here is one of <b id="x5">control</b>: sum4 is running the show here by calling getNum. This is a <b id="x6">pull</b> data model. Enumerators have an <b id="x7">inversion of control/push</b> model, putting the enumerator in charge. This allows cool things like feeding in multiple data sources, and also makes it easier to write enumerators that properly deal with resource allocation.</p></conbody></concept>

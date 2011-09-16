@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="summary"><title>Summary</title><conbody><p id="summary1">Routing and dispatch is arguably the core of Yesod: it is from here that our type-safe URLs are defined, and the majority of our code is written within the GHandler monad. This chapter covered some of the most important and central concepts of Yesod, so it is important that you properly digest it.</p><p id="summary2">This chapter also hinted at a number of more complex Yesod topics that we will be covering later. But you should be able to write some very sophisticated web applications with just the knowledge you have learned up until here.</p></conbody></concept>

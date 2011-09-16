@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="attributes"><title>Attributes</title><conbody><p id="attr1">So far, we have seen a very simple syntax for our persist blocks: a line for the name of our entities, and then an indented line for each field with two words: the name of the field and the datatype of the field. Persistent handles more than this: you can assign an arbitrary list of attributes after the first two words on a line.</p><p id="attr2">Let's say that we want to have a Person entity with an (optional) age and the timestamp of when he/she was added to the system. For entities already in the database, we want to just use the current date-time for that timestamp.</p><codeblock id="x1" outputclass="haskell">-- START
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+import Control.Monad.IO.Class
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person
+    name String
+    age Int Maybe
+    created UTCTime default=now()
+|]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    time &lt;- liftIO getCurrentTime
+    runMigration migrateAll
+    insert $ Person "Michael" (Just 26) time
+    insert $ Person "Greg" Nothing time
+-- STOP
+</codeblock><p id="attr3"><codeph id="x2">Maybe</codeph> is a built in, single word attribute. It makes the
+            field optional. In Haskell, this means it is wrapped in a Maybe. In SQL, it makes the
+            column nullable.</p>
+        <p id="x8">The <codeph id="x3">default</codeph> attribute is backend specific, and uses whatever
+            syntax is understood by the database. In this case, it uses the database's built-in
+            now() function. Let's say we now want to add a field for favorite programming
+            language:</p><codeblock id="x4" outputclass="haskell">-- START
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person
+    name String
+    age Int Maybe
+    created UTCTime default=now()
+    language String default='Haskell'
+|]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigration migrateAll
+-- STOP
+</codeblock>
+<note id="x5">The <codeph id="x6">default</codeph> attribute has absolutely no impact on the Haskell code itself; you still need to fill in all values. This will only affect the database schema and automatic migrations.</note>
+<p id="attr4">We need to surround the string with single quotes so that the database can properly interpret it. Finally, Persistent can use double quotes for containing white space, so let's say we want to set someone's default home country to the El Salvador:</p><codeblock id="x7" outputclass="haskell">-- START
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person
+    name String
+    age Int Maybe
+    created UTCTime default=now()
+    language String default='Haskell'
+    country String "default='El Salvador'"
+|]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigration migrateAll
+-- STOP</codeblock>
+        <p id="x9">One last trick you can do with attributes is to specify the names to be used for the SQL
+            tables and columns. This can be very convenient when interacting with existing
+            databases.</p>
+        <codeblock id="x10" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+import Control.Monad.IO.Class (liftIO)
+
+-- START
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person sql=the-person-table
+    firstName String sql=first_name
+    lastName String sql=fldLastName
+    age Int Gt Desc "sql=The Age of the Person"
+    UniqueName firstName lastName
+|]
+-- STOP
+
+resultsForPage pageNumber = do
+    let resultsPerPage = 10
+    selectList
+        [ PersonAge &gt;=. 18
+        ]
+        [ Desc PersonAge
+        , Asc PersonLastName
+        , Asc PersonFirstName
+        , LimitTo resultsPerPage
+        , OffsetBy $ (pageNumber - 1) * resultsPerPage
+        ]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigration migrateAll
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    resultsForPage 1 &gt;&gt;= liftIO . print</codeblock></conbody></concept>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="the-interface"><title>The Interface</title><conbody><p id="interface1">The interface itself is very straight-forward: an application takes a request and returns a response. A response is an HTTP status, a list of headers and a response body. A request contains various information: the requested path, query string, request body, HTTP version, and so on.</p></conbody></concept>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="adding-data"><title>Adding data</title><conbody><p id="addingdata1">Let's say that we actually want to sum some numbers. For example, the numbers 1 to 10. We need some way to feed that into our sum6 iteratee. In order to approach this, we'll once again need to unwrap our Iteratee and deal with the Step value directly.</p><p id="addingdata2">In our case, we know with certainty that the Step constructor we used is Continue, so it's safe to write our function as:</p><codeblock outputclass="haskell" id="x1">sum7 :: Monad m =&gt; Iteratee Int m Int
+sum7 = Iteratee $ do
+    Continue k &lt;- runIteratee sum6
+    runIteratee $ k $ Chunks [1..10]</codeblock><p id="addingdata3">But in general, we won't know what constructor will be lying in wait for us. We need to properly deal with Continue, Yield and Error. We've seen what to do with Continue: feed it the data. With Yield and Error, the right action in general is to <b id="x2">do nothing</b>, since we've already arrived at our final result (either a successful Yield or an Error). So the "proper" way to write the above function is:</p><codeblock outputclass="haskell" id="x3">sum8 :: Monad m =&gt; Iteratee Int m Int
+sum8 = Iteratee $ do
+    step &lt;- runIteratee sum6
+    case step of
+        Continue k -&gt; runIteratee $ k $ Chunks [1..10]
+        _ -&gt; return step</codeblock></conbody></concept>

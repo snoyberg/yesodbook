@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="monad-control"><title>monad-control</title><conbody><p id="x1"><apiname id="x2">monad-control</apiname> is used in a few places within Yesod, most notably to ensure properly exception handling within Persistent. It is a general purpose package to extend standard functionality in monad transformers.</p></conbody></concept>

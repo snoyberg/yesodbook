@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="clientsession"><title>Clientsession</title><conbody><p id="cs1">One of the earliest packages spun off from Yesod was
+            <apiname id="x1">clientsession</apiname>. This package uses encryption and
+            signatures to store data in a client-side cookie. The encryption
+            prevents the user from tampering with the data, and the signature
+            ensures that the session cannot be hijacked.</p><p id="cs2">It might sound like a bad idea from an efficiency
+            standpoint to store data in a cookie: after all, this means that
+            the data must be sent on every request. However, in practice,
+            clientsession can be a great boon for performance.</p><ul id="x2"><li id="x3">No server side database lookup is required to service a request.</li><li id="x4">We can easily scale horizontally: each request contains all the information we need to send a response.</li><li id="x5">Production sites should serve their static content from a separate domain name to avoid the overhead of transmitting the session cookie for each request.</li></ul><p id="cs3">Obviously, storing megabytes of information in the session
+            will be a bad idea. But for that matter, most session
+            implementations recommend against such practices. If you really
+            need massive storage for a user, it is best to simply store a
+            lookup key in the session, and put the actual data in a
+            database.</p></conbody></concept>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="generate-ids"><title>Generate IDs</title><conbody>
+  <p id="x1">If we're really going for true code reuse here, we're eventually going to run into name
+   conflicts. Let's say that there are two helper libraries that both use the class name "foo" to
+   affect styling. We want to avoid such a possibility. Therefore, we have the newIdent function.
+   This function automatically generates a word that is unique for this handler.</p>
+  <fig id="x2">
+   <title id="x3">Using newIdent</title>
+   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+import Yesod
+
+data W = W
+
+instance Yesod W where
+    approot _ = ""
+
+mkYesod "W" [parseRoutes|
+/ RootR GET
+|]
+
+-- START
+getRootR = defaultLayout $ do
+    headerClass &lt;- lift newIdent
+    toWidget [hamlet|&lt;h1 .#{headerClass}&gt;My Header|]
+    toWidget [lucius| .#{headerClass} { color: green; } |]
+-- STOP
+
+main = warpDebug 3000 W</codeblock>
+  </fig>
+  <note id="x5">You might be wondering: what does lift mean? A Widget is a monad transformer, sitting on top
+   of a Handler. newIdent is a function of a handler, so we need to "lift" the function from the
+   Handler layer to the Widget layer to use it. This approach gets used fairly frequently in
+   Yesod.</note>
+ </conbody></concept>

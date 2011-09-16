@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="json-web-service"><title>JSON Web Service</title><conbody>
+  <p id="x1">Let's create a very simple web service: it takes a JSON request and returns a JSON response.
+   We're going to write the server in WAI/Warp, and the client in http-enumerator. We'll be using
+    <apiname id="x2">aeson</apiname> for JSON parsing and rendering.</p>
+ </conbody></concept>

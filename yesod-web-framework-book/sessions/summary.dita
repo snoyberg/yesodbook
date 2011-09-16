@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="summary"><title>Summary</title><conbody><p id="s1">The session API in Yesod is very simple. It provides a
+            simple key-value store, and a few convenience functions built on
+            top for common use cases. If used properly, with small payloads,
+            sessions should be an unobtrusive part of your web development.</p></conbody></concept>

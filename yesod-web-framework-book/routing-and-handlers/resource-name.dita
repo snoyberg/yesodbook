@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="resource-name"><title>Resource name</title><conbody><p id="rn1">Each resource pattern also has a name associated with it. That
+                name will become the constructor for the <term id="x1">type safe
+                    URL</term> datatype associated with your application.
+                Therefore, it has to start with a capital letter. By
+                convention, these resource names all end with a capital R.
+                There is nothing forcing you to do this, it is just
+                common practice.</p><p id="rn2">The exact definition of our constructor depends upon the
+                resource pattern it is attached to. Whatever datatypes are
+                included in single and multi pieces of the pattern become
+                arguments to the datatype. This gives us a 1-to-1
+                correspondence between our type safe URL values and valid URLs
+                in our application.</p><note id="x2" type="other" othertype="advanced"><p id="rn3">This doesn't necessarily mean that <i id="x3">every</i> value
+                    is a working page, just that it is is a potentially valid
+                    URL. As an example, that value <codeph id="x4">PersonR
+                        "Michael"</codeph> may not resolve to a valid page if
+                    there is no Michael in the database.</p></note><p id="rn4">Let's get some real examples going here. If you had the resource
+                patterns <codeph id="x5">/person/#String</codeph> named
+                <codeph id="x6">PersonR</codeph>, <codeph id="x7">/year/#Int</codeph> named
+                <codeph id="x8">YearR</codeph> and <codeph id="x9">/page/faq</codeph> named
+                <codeph id="x10">FaqR</codeph>, you would end up with a route data type
+                roughly looking like:</p><codeblock id="x11" outputclass="haskell">data MyRoute = PersonR String
+             | YearR Int
+             | FaqR</codeblock><p id="rn5">If a user requests the relative URL of
+                 <codeph id="x12">/year/2009</codeph>, Yesod will convert it into the value
+                 <codeph id="x13">YearR 2009</codeph>. <codeph id="x14">/person/Michael</codeph> becomes
+                 <codeph id="x15">PersonR "Michael"</codeph> and <codeph id="x16">/page/faq</codeph>
+                 becomes <codeph id="x17">FaqR</codeph>. On the other hand,
+                 <codeph id="x18">/year/two-thousand-nine</codeph>,
+                 <codeph id="x19">/person/michael/snoyman</codeph> and
+                 <codeph id="x20">/page/FAQ</codeph> would all result in 404 errors without
+                 ever seeing your code.</p><note id="x21" type="other" othertype="advanced"><p id="rn6">Throughout the above discussion, I used the terms type-safe URLs and routes datatype interchangeably. Don't be confused, they are the exact same thing. They just sound better in different contexts.</p></note></conbody></concept>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="types-of-pieces"><title>Types of Pieces</title><conbody><p id="pieces5">When you are declaring your routes, you have three types of pieces at your disposal:</p><dl id="x1"><dlentry id="x2"><dt id="x3">Static</dt><dd id="x4">This is a plain string that must be matched against precisely in the URL.</dd></dlentry><dlentry id="x5"><dt id="x6">Dynamic single</dt><dd id="x7">This is a single piece (ie, between two forward slashes), but can be a user-submitted value. This is the primary method of receiving extra user input on a page request. These pieces begin with a hash (#) and are followed by a data type. The datatype must be an instance of <codeph id="x8">SinglePiece</codeph>.</dd></dlentry><dlentry id="x9"><dt id="x10">Dynamic multi</dt><dd id="x11">The same as before, but can receive multiple pieces of the URL. This must always be the last piece in a resource pattern. It is specified by an asterisk (*) followed by a datatype, which must be an instance of <codeph id="x12">MultiPiece</codeph>. Multi pieces are not as common as the other two, though they are very important for implementing features like static trees representing file structure or wikis with arbitrary hierarchies.</dd></dlentry></dl><p id="pieces6">Let us take a look at some standard kinds of resource patterns you may want to write. Starting simply, the root of an application will just be <codeph id="x13">/</codeph>. Similarly, you may want to place your FAQ at <codeph id="x14">/page/faq</codeph>.</p><p id="pieces7">Now let's say you are going to write a Fibonacci website. You may construct your URLs like <codeph id="x15">/fib/#Int</codeph>. But there's a slight problem with this: we do not want to allow negative numbers or zero to be passed into our application. Fortunately, the type system can protect us:</p><codeblock id="x16" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings #-}
+import Yesod
+import qualified Data.Text as T
+import Web.PathPieces
+data Fibs = Fibs
+-- START
+newtype Natural = Natural Int -- we might even like to go with Word here
+-- STOP
+    deriving (Show, Read, Eq, Num, Ord)
+-- START
+instance SinglePiece Natural where
+    toSinglePiece (Natural i) = T.pack $ show i
+    fromSinglePiece s =
+        case reads $ T.unpack s of
+            (i, _):_
+                | i &lt; 1 -&gt; Nothing
+                | otherwise -&gt; Just $ Natural i
+            [] -&gt; Nothing
+-- STOP
+mkYesod "Fibs" [parseRoutes|
+/fibs/#Natural FibsR GET
+|]
+instance Yesod Fibs where approot _ = ""
+fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+getFibsR :: Natural -&gt; GHandler Fibs Fibs RepPlain
+getFibsR (Natural i) = return $ RepPlain $ toContent $ show $ fibs !! (i - 1)
+main = warpDebug 3000 Fibs
+</codeblock><p id="pieces8">On line 1 we define a simple newtype wrapper around Int to protect ourselves from invalid input. We can see that SinglePiece is a typeclass with two methods. <codeph id="x17">toSinglePiece</codeph> does nothing more than convert to a <codeph id="x18">Text</codeph>. <codeph id="x19">fromSinglePiece</codeph> <i id="x20">attempts</i> to convert a <codeph id="x21">Text</codeph> to our datatype, returning <codeph id="x22">Nothing</codeph> when this conversion is impossible. By using this datatype, we can ensure that our handler function is only ever given natural numbers, allowing us to once again use the type system to battle the boundary issue.</p><p id="pieces10">Defining a MultiPiece is just as simple. Let's say we want to have a Wiki with at least two levels of hierarchy; we might define a datatype such as:</p><codeblock id="x23" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings #-}
+import Yesod
+import Data.Text (Text)
+import Web.PathPieces
+data Fibs = Fibs
+-- START
+data Page = Page Text Text [Text] -- 2 or more
+instance MultiPiece Page where
+    toMultiPiece (Page x y z) = x : y : z
+    fromMultiPiece (x:y:z) = Just $ Page x y z
+    fromMultiPiece _ = Nothing
+-- STOP
+main = return ()
+</codeblock></conbody></concept>

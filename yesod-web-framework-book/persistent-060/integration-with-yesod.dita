@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="integration-with-yesod"><title>Integration with Yesod</title><conbody>
+  <p id="x1">So you've been convinced of the power of Persistent. How do you integrate it with your Yesod
+   application? Well, if you use the scaffolding, most of the work is done for you already. But as
+   we normally do, we'll build up everything manually here to point out how it works under the
+   surface.</p>
+  <p id="x2">The <apiname id="x3">yesod-persistent</apiname> package provides the meeting point between Persistent
+   and Yesod. It provides the YesodPersist typeclass, to standardize access to the database via the
+   runDB method. Let's see this in action.</p>
+  <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
+import Yesod
+import Database.Persist.Sqlite
+
+-- Define our entities as usual
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person
+    firstName String
+    lastName String
+    age Int Gt Desc
+|]
+
+-- We keep our connection pool in the foundation. At program initialization, we
+-- create our initial pool, and each time we need to perform an action we check
+-- out a single connection from the pool.
+data PersistTest = PersistTest ConnectionPool
+
+-- We'll create a single route, to access a person. It's a very common
+-- occurrence to use an Id type in routes.
+mkYesod "PersistTest" [parseRoutes|
+/person/#PersonId PersonR GET
+|]
+
+-- Nothing special here
+instance Yesod PersistTest where
+    approot _ = ""
+
+-- Now we need to define a YesodPersist instance, which will keep track of
+-- which backend we're using and how to run an action.
+instance YesodPersist PersistTest where
+    type YesodPersistBackend PersistTest = SqlPersist
+
+    -- This is a bit complicated, but liftIOHandler is necessary for proper
+    -- handling of exceptions.
+    runDB action = liftIOHandler $ do
+        PersistTest pool &lt;- getYesod
+        runSqlPool action pool
+
+-- We'll just return the show value of a person, or a 404 if the Person doesn't
+-- exist.
+getPersonR :: PersonId -&gt; Handler RepPlain
+getPersonR personId = do
+    person &lt;- runDB $ get404 personId
+    return $ RepPlain $ toContent $ show person
+
+openConnectionCount :: Int
+openConnectionCount = 10
+
+main :: IO ()
+main = withSqlitePool "test.db3" openConnectionCount $ \pool -&gt; do
+    runSqlPool (runMigration migrateAll) pool
+    runSqlPool (insert $ Person "Michael" "Snoyman" 26) pool
+    warpDebug 3000 $ PersistTest pool</codeblock>
+  <p id="x5">There are two important pieces here for general use. runDB is used to run a DB action from
+   within a Handler. That liftIOHandler is a little scary, but it can be safely ignored. It is
+   necessary in order to properly catch exceptions and rollback changes. Within the runDB, you can
+   use any of the functions we've spoken about so far, such as insert and selectList.</p>
+  <p id="x6">The other new feature is get404. It works just like get, but instead of returning a Nothing
+   when a result can't be found, it returns a 404 message page. The getPersonR function is a very
+   common approach used in real-world Yesod applications: get404 a value and then return a response
+   based on it.</p>
+ </conbody></concept>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="types"><title>Types</title><conbody>
+  <p id="x1">You may have noticed that I've been avoiding type signatures so far. That's because there's a
+   little bit of a complication involved here. At the most basic level, all you need to know is that
+   the scaffolded site defines a type synonym called Widget which you will almost always use. The
+   technical details follow, but don't worry if it's a little hazy.</p>
+  <p id="x2">Earlier, we said that a Widget is a monad transformer around a Handler. Well, that's mostly
+   true, but we actually have a little more flexibility than that. We have a base datatype:
+    <codeph id="x3">GGWidget master monad a</codeph>. The first parameter is the master site's foundation
+   datatype. We'll be covering the difference between master and subsites in much more detail later,
+   but for now, suffice it to say that the master foundation type is what uniquely represents your
+   application.</p>
+  <p id="x4">The second parameter is the inner monad. This in theory could be any monad, but as we'll see
+   soon, it's almost always a Handler. Finally, the last parameter is the value contained by the
+   GGWidget (remember, a GGWidget is a Monad).</p>
+  <p id="x5">In practice, you will almost never see a GGWidget; that extra flexibility is really only needed
+   internally to Yesod. What you will bump into occassionally is the GWidget, defined as
+    <codeph id="x6">type GWidget sub master = GGWidget master (GHandler sub master)</codeph>. This spells
+   out that our GWidget has a subsite and master site foundation (explained in a second), and that
+   the inner monad is a GHandler, using the same sub and master sites.</p>
+  <p id="x7">So what's the deal with that sub/master stuff? Well, when you're writing some reusable code,
+   such as a CRUD application, you can write it as a subsite that can be embedded within any other
+   Yesod application. In such a case, we need to keep track of information for both the sub and
+   master sites. The simplest example is for the type-safe URLs: Yesod needs to know how to take a
+   route for your CRUD subsite and turn it into a route for the master site so that it can be
+   properly rendered.</p>
+  <p id="x8">However, that sub/master distinction only ever matters when you're interacting with subsites.
+   When you're writing your standard response code, you're dealing with just your application, and
+   so the sub and master sites will be the same. Since this is the most common case, the scaffolded
+   site declares a type synonym to help you out. Let's say your foundation type is MyCoolApp, it
+   will define <codeph id="x9">type Widget = GWidget MyCoolApp MyCoolApp ()</codeph>. Therefore, we can get
+   some very user-friendly type signatures on our widgets:</p>
+  <codeblock outputclass="haskell" id="x10">footer :: Widget
+footer = do
+    toWidget [lucius| footer { font-weight: bold; text-align: center } |]
+    toWidget [hamlet|
+&lt;footer&gt;
+    &lt;p&gt;That's all folks!
+|]
+
+page :: Widget
+page = [whamlet|
+&lt;p&gt;This is my page. I hope you enjoyed it.
+^{footer}
+|]</codeblock>
+  <p id="x11">And in case you were wondered: we have an almost identical breakdown for the Handler datatypes:
+   a less-used GGHandler, GHandler and finally a per-application Handler, defined as <codeph id="x12">type
+    Handler = GHandler MyCoolApp MyCoolApp</codeph>.</p>
+ </conbody></concept>

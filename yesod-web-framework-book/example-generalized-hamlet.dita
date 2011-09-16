@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="example-generalized-hamlet"><title>Example: Generalized Hamlet</title><conbody><codeblock id="x1" outputclass="lhaskell">This example shows how generalized hamlet templates allow the creation of
+different types of values. The key component here is the HamletValue typeclass.
+Yesod has instances for:
+
+* Html
+
+* Hamlet url (= (url -&gt; [(String, String)] -&gt; String) -&gt; Html)
+
+* GWidget s m ()
+
+This example uses all three. You are of course free in your own code to make
+your own instances.
+
+&gt; {-# LANGUAGE QuasiQuotes, TypeFamilies, MultiParamTypeClasses, OverloadedStrings, TemplateHaskell #-}
+&gt; import Yesod
+&gt; data NewHamlet = NewHamlet
+&gt; mkYesod "NewHamlet" [parseRoutes|/ RootR GET|]
+&gt; instance Yesod NewHamlet where approot _ = ""
+&gt; type Widget = GWidget NewHamlet NewHamlet
+&gt; 
+&gt; myHtml :: Html
+&gt; myHtml = [hamlet|&lt;p&gt;Just don't use any URLs in here!|]
+&gt;
+&gt; myInnerWidget :: Widget ()
+&gt; myInnerWidget = do
+&gt;     addHamlet [hamlet|
+&gt;   &lt;div #inner&gt;Inner widget
+&gt;   #{myHtml}
+&gt; |]
+&gt;     addCassius [cassius|
+&gt;#inner
+&gt;     color: red|]
+&gt; 
+&gt; myPlainTemplate :: Hamlet NewHamletRoute
+&gt; myPlainTemplate = [hamlet|
+&gt; &lt;p
+&gt;     &lt;a href=@{RootR}&gt;Link to home
+&gt; |]
+&gt; 
+&gt; myWidget :: Widget ()
+&gt; myWidget = [hamlet|
+&gt;     &lt;h1&gt;Embed another widget
+&gt;     \^{myInnerWidget}
+&gt;     &lt;h1&gt;Embed a Hamlet
+&gt;     \^{addHamlet myPlainTemplate}
+&gt; |]
+&gt; 
+&gt; getRootR :: GHandler NewHamlet NewHamlet RepHtml
+&gt; getRootR = defaultLayout myWidget
+&gt; 
+&gt; main :: IO ()
+&gt; main = warpDebug 3000 NewHamlet
+</codeblock></conbody></concept>

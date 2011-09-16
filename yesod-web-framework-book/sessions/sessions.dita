@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="sessions"><title>Sessions</title><conbody><p id="i1">As much as possible, RESTful applications should avoid
+            storing state about an interaction with a client. However, it is
+            sometimes unavoidable. Features like shopping carts are the classic
+            example, but other more mundane interactions like proper login
+            handling can be greatly enhanced by proper usage of sessions.</p><p id="i2">This chapter will describe how Yesod stores session data,
+            how you can access this data, and some special functions to help
+            you make the most of sessions.</p></conbody></concept>

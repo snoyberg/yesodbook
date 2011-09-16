@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="synopsis"><title>Synopsis</title><conbody>
+  <codeblock id="x1" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+import Yesod
+
+data W = W
+
+instance Yesod W where
+    approot _ = ""
+
+mkYesod "W" [parseRoutes|
+/ RootR GET
+|]
+
+-- START
+getRootR = defaultLayout $ do
+    setTitle "My Page Title"
+    toWidget [lucius| h1 { color: green; } |]
+    addScriptRemote "https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"
+    toWidget [julius|
+$(function() {
+    $("h1").click(function(){ alert("You clicked on the heading!"); });
+});
+|]
+    toWidgetHead [hamlet| &lt;meta name=keywords content="some sample keywords"&gt;|]
+    toWidget [hamlet| &lt;h1&gt;Here's one way of including content |]
+    [whamlet| &lt;h2&gt;Here's another |]
+    toWidgetBody [julius| alert("This is included in the body itself"); |]
+-- STOP
+
+main = warpDebug 3000 W</codeblock>
+  <p id="x2">This produces the following HTML (indentation added):</p>
+  <codeblock outputclass="html" id="x3">&lt;!DOCTYPE html&gt; 
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My Page Title&lt;/title&gt;
+        &lt;style&gt;h1 { color : green }&lt;/style&gt;
+        &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+$(function() {
+    $("h1").click(function(){ alert("You clicked on the heading!"); });
+});
+&lt;/script&gt;
+        &lt;meta name="keywords" content="some sample keywords"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Here's one way of including content &lt;/h1&gt;
+        &lt;h2&gt;Here's another &lt;/h2&gt;
+        &lt;script&gt; alert("This is included in the body itself"); &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</codeblock>
+ </conbody></concept>

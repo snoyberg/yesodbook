@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="hamlet-html"><title>Hamlet (HTML)</title><conbody>
+  <codeblock outputclass="hamlet" id="x1">!!!
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{pageTitle} - My Site
+        &lt;link rel="stylesheet" href=@{Stylesheet}
+    &lt;body&gt;
+        &lt;h1 .page-title&gt;#{pageTitle}
+        &lt;p&gt;Here is a list of your friends:
+        $if null friends
+            &lt;p&gt;Sorry, I lied, you don't have any friends.
+        $else
+            &lt;ul&gt;
+                $forall friend &lt;- friends
+                    &lt;li&gt;#{friendName friend} (#{show $ friendAge friend} years old)
+        &lt;footer&gt;^{copyright}</codeblock>
+ </conbody></concept>

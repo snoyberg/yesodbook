@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="hello-world"><title>Hello World</title><conbody><p id="hw1">Let's get this book started properly: a simple web page that says Hello World:</p><codeblock id="x1" outputclass="haskell">-- START
+{-# LANGUAGE TypeFamilies, QuasiQuotes, MultiParamTypeClasses, TemplateHaskell, OverloadedStrings #-}
+import Yesod
+
+data HelloWorld = HelloWorld
+
+mkYesod "HelloWorld" [parseRoutes|
+/ HomeR GET
+|]
+
+instance Yesod HelloWorld where
+    approot _ = ""
+
+getHomeR = defaultLayout [whamlet|Hello World!|]
+
+main = warpDebug 3000 HelloWorld
+-- STOP
+</codeblock><note id="x2" type="other" othertype="advanced"><p id="hw1a">I have purposely left out the type signature of getHomeR in this snippet because it looks scarier than it really is, and because in real life code with the scaffolding tool it would look different anyway. For the curious, the type signature would be:</p><codeblock id="x3" outputclass="haskell">getHomeR :: GHandler HelloWorld HelloWorld RepHtml
+
+-- But the scaffolding tool defines an alias:
+type Handler = GHandler HelloWorld HelloWorld
+
+-- So the type signature would just be
+getHomeR :: Handler RepHtml</codeblock></note><p id="hw2">If you save that code in <codeph id="x4">helloworld.hs</codeph> and run it with <codeph id="x5">runhaskell helloworld.hs</codeph>, you'll get a web server running on port 3000. If you point your browser to <xref id="x6" href="http://localhost:3000" scope="external" format="html">http://localhost:3000</xref>, you'll get the following HTML:</p><codeblock id="x7" outputclass="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Hello World!&lt;/body&gt;&lt;/html&gt;</codeblock></conbody></concept>

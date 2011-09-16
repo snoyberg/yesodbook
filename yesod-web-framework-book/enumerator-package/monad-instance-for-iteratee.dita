@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="monad-instance-for-iteratee"><title>Monad instance for Iteratee</title><conbody><p id="mi1">This is all very nice: we now have an iteratee that can be fed numbers from any monad and sum them. It can even take input from different sources and sum them together. (By the way, I haven't actually shown you how to feed those numbers in: that is in part 2 about enumerators.) But let's be honest: sum5 is an ugly function. Isn't there something easier?</p><p id="mi2">In fact, there is. Remember how I said Iteratee really just existed to facilitate typeclass instances? This includes a monad instance. Feel free to look at the code to see how that instance is defined, but here we'll just look at how to use it:</p><codeblock outputclass="haskell" id="x1">sum6 :: Monad m =&gt; Iteratee Int m Int
+sum6 = do
+    maybeNum &lt;- head -- not head from Prelude!
+    case maybeNum of
+        Nothing -&gt; return 0
+        Just i -&gt; do
+            rest &lt;- sum6
+            return $ i + rest</codeblock><p id="mi3">That head function is not from Prelude, it's from the Data.Enumerator module. Its type signature is:</p><codeblock outputclass="haskell" id="x2">head :: Monad m =&gt; Iteratee a m (Maybe a)</codeblock><p id="mi4">which basically means give me the next piece of input if it's there. We'll look at this function in more depth in a bit.</p><p id="mi5">Go compare the code for sum6 with sum2: they are amazingly similar. You can often build up more complicated iteratees by using some simple iteratees and the Monad instance of Iteratee.</p></conbody></concept>

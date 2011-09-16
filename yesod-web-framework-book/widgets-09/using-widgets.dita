@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="using-widgets"><title>Using Widgets</title><conbody>  <p id="x1">It's all well and good that we have these beautiful Widget datatypes, but how exactly do we
+   turn them into something the user can interact with? The most commonly used function is
+   defaultLayout, which essentially has the type signature <codeph id="x2">Widget () -&gt; Handler
+    RepHtml</codeph>. (I say "essentially" because of the whole GHandler issue.) RepHtml is a
+   datatype containing some raw HTML output ready to be sent over the wire.</p>
+  <p id="x3">defaultLayout is actually a typeclass method, which can be overridden for each application.
+   This is how Yesod apps are themed. So we're still left with the question: when we're inside
+   defaultLayout, how do we unwrap a Widget? The answer is widgetToPageContent. Let's look at some
+   (simplified) types:</p>
+  <codeblock id="x4" outputclass="haskell">widgetToPageContent :: Widget -&gt; Handler (PageContent url)
+data PageContent url = PageContent
+    { pageTitle :: Html
+    , pageHead :: HtmlUrl url
+    , pageBody :: HtmlUrl url
+    }</codeblock>
+  <p id="x5">This is getting closer to what we need. We now have direct access to the HTML making up the
+   head and body, as well as the title. At this point, we can use Hamlet to combine them all
+   together into a single document, along with our site layout, and we use hamletToRepHtml to render
+   that Hamlet result into actual HTML that's ready to be shown to the user.</p>
+  <fig id="x6">
+   <title id="x7">Using widgetToPageContent</title>
+   <codeblock id="x8" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+import Yesod
+
+data MyApp = MyApp
+
+mkYesod "MyApp" [parseRoutes|
+/ RootR GET
+|]
+
+getRootR = defaultLayout $ do
+    headerId &lt;- lift newIdent
+    toWidget [hamlet|&lt;h1 ##{headerId}&gt;My Header|]
+    toWidget [lucius| ##{headerId} { color: green; } |]
+-- START
+myLayout :: GWidget s MyApp () -&gt; GHandler s MyApp RepHtml
+myLayout widget = do
+    pc &lt;- widgetToPageContent widget
+    hamletToRepHtml [hamlet|
+!!!
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{pageTitle pc}
+        &lt;meta charset=utf-8&gt;
+        &lt;style&gt;body { font-family: verdana }
+        ^{pageHead pc}
+    &lt;body&gt;
+        &lt;article&gt;
+            ^{pageBody pc}
+|]
+
+instance Yesod MyApp where
+    approot _ = ""
+    defaultLayout = myLayout
+-- STOP
+
+main = warpDebug 3000 MyApp</codeblock>
+  </fig>
+  <note id="x9">You may have noticed that we used GWidget and GHandler instead of Widget and Handler. That's
+   because defaultLayout is a method that can be called by subsites to ensure that they get the same
+   styling as the master site. Therefore, we need to keep our types flexible here.</note>
+  <p id="x10">This is all well and good, but there's one thing that bothers me: that style tag. There are a
+   few problems with it:</p>
+  <ul id="ul_utj_zvv_jd">
+   <li id="x11">Unlike Lucius or Cassius, it doesn't get compile-time checked for correctness.</li>
+   <li id="x12">Granted that the current example is very simple, but in something more complicated we could
+    get into character escaping issues.</li>
+   <li id="x13">We'll now have two style tags instead of one: the one produced by myLayout, and the one
+    generated in the pageHead based on the styles set in the widget.</li>
+  </ul>
+  <p id="x14">We have one more trick in our bag to address this: we apply some last-minute adjustments to the
+   widget itself before calling widgetToPageContent. It's actually very easy to do, we just use
+   do-notation again.</p>
+  <fig id="x15">
+   <title id="x16">Last-Minute Widget Adjustment</title>
+   <codeblock id="x17" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+import Yesod
+
+data MyApp = MyApp
+
+mkYesod "MyApp" [parseRoutes|
+/ RootR GET
+|]
+
+getRootR = defaultLayout $ do
+    headerId &lt;- lift newIdent
+    toWidget [hamlet|&lt;h1 ##{headerId}&gt;My Header|]
+    toWidget [lucius| ##{headerId} { color: green; } |]
+-- START
+myLayout :: GWidget s MyApp () -&gt; GHandler s MyApp RepHtml
+myLayout widget = do
+    pc &lt;- widgetToPageContent $ do
+        widget
+        toWidget [lucius| body { font-family: verdana } |]
+    hamletToRepHtml [hamlet|
+!!!
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{pageTitle pc}
+        &lt;meta charset=utf-8&gt;
+        ^{pageHead pc}
+    &lt;body&gt;
+        &lt;article&gt;
+            ^{pageBody pc}
+|]
+-- STOP
+
+instance Yesod MyApp where
+    approot _ = ""
+    defaultLayout = myLayout
+
+main = warpDebug 3000 MyApp</codeblock>
+  </fig>
+ </conbody></concept>

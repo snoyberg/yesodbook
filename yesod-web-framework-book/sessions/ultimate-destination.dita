@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="ultimate-destination"><title>Ultimate Destination</title><conbody><p id="u1">Not to be confused with a horror film, this concept is used
+            internally in <apiname id="x1">yesod-auth</apiname>. Simply put, let's say
+            a user requests a page that requires authentication. Clearly, you
+            need to send them to the login page. A well-designed web app will
+            then <i id="x2">send them back to the first page they requested</i>. That's
+            what we call the ultimate destination.</p><p id="u2"><codeph id="x3">redirectUltDest</codeph> sends the user to the ultimate
+            destination set in his/her session, clearing that value from the
+            session. It takes a default destination as well, in case there is
+            no destination set. For setting the session, there are three
+            variants: <codeph id="x4">setUltDest</codeph> sets the destination to the given
+            type-safe URL, <codeph id="x5">setUltDestString</codeph> does the same with a
+            text URL, and <codeph id="x6">setUltDest'</codeph> sets the destination to the
+            currently requested URL.</p></conbody></concept>

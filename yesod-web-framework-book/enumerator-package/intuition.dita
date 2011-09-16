@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="intuition"><title>Intuition</title><conbody><p id="intuition1">Let's say we want to write a function that sums the numbers in a list. Forgetting uninteresting details like space leaks, a perfectly good implementation could be:</p><codeblock outputclass="haskell" id="x1">sum1 :: [Int] -&gt; Int
+sum1 [] = 0
+sum1 (x:xs) = x + sum1 xs</codeblock><p id="intuition2">But let's say that we don't have a list of numbers. Instead, the user is typing numbers on the command line, and hitting "q" when done. In other words, we have a function like:</p><codeblock outputclass="haskell" id="x2">getNumber :: IO (Maybe Int)
+getNumber = do
+    x &lt;- readLine
+    if x == "q"
+        then return Nothing
+        else return $ Just $ read x</codeblock><p id="intuition3">We could write our new sum function as:</p><codeblock outputclass="haskell" id="x3">sum2 :: IO Int
+sum2 = do
+    maybeNum &lt;- getNumber
+    case maybeNum of
+        Nothing -&gt; return 0
+        Just num -&gt; do
+            rest &lt;- sum2
+            return $ num + rest</codeblock><p id="intuition4">It's fairly annoying to have to write two completely separate sum functions just because our data source changed. Ideally, we would like to generalize things a bit. Let's start by noticing a similarity between these two functions: they both only <b id="x4">yield</b> a value when they are informed that there are no more numbers. In the case of sum1, we check for an empty list; in sum2, we check for Nothing.</p></conbody></concept>

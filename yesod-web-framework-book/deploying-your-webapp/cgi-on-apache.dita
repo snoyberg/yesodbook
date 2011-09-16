@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="cgi-on-apache"><title>CGI on Apache</title><conbody><p id="cgi1">CGI and FastCGI work almost identically on Apache, so it should be fairly straight-forward to port this configuration. You essentially need to accomplish two goals:</p><ol id="x1"><li id="x2">Get the server to serve your file as (Fast)CGI.</li><li id="x3">Rewrite all requests to your site to go through the (Fast)CGI executable.</li></ol><p id="cgi2">Here is a configuration file for serving a blog application, with an executable named "bloggy.cgi", living in a subfolder named "blog" of the document root. This example was taken from an application living in the path <codeph id="x4">/f5/snoyman/public/blog</codeph>.</p><codeblock outputclass="apache-conf" id="x5">Options +ExecCGI
+AddHandler cgi-script .cgi
+Options +FollowSymlinks
+
+RewriteEngine On
+RewriteRule ^/f5/snoyman/public/blog$ /blog/ [R=301,S=1]
+RewriteCond $1 !^bloggy.cgi
+RewriteCond $1 !^static/
+RewriteRule ^(.*) bloggy.cgi/$1 [L]</codeblock><p id="cgi3">The first RewriteRule is to deal with subfolders. In particular, it redirects a request for <codeph id="x6">/blog</codeph> to <codeph id="x7">/blog/</codeph>. The first RewriteCond prevents directly requesting the executable, the second allows Apache to serve the static files, and the last line does the actual rewriting.</p></conbody></concept>

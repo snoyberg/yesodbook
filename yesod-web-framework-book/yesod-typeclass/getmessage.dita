@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="getmessage"><title>getMessage</title><conbody><p id="gm1">Even though we haven't covered sessions yet, I'd like to mention getMessage here. A common pattern in web development is setting a message in one handler and displaying it in another. For example, if a user POSTs a form, you may want to redirect him/her to another page along with a "Form submission complete" message.</p><p id="gm2">To facilitate this, Yesod comes built in with a pair of functions: setMessage sets a message in the user session, and getMessage retrieves the message (and clears it, so it doesn't appear a second time). It's recommended that you put the result of getMessage into your defaultLayout. For example:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
+{-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings #-}
+import Yesod
+data Layout = Layout
+mkYesod "Layout" [parseRoutes|
+/ RootR GET
+/msg MsgR GET
+|]
+instance Yesod Layout where
+    approot _ = ""
+-- START
+    defaultLayout contents = do
+        PageContent title headTags bodyTags &lt;- widgetToPageContent contents
+        mmsg &lt;- getMessage
+        hamletToRepHtml [hamlet|
+!!!
+
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{title}
+        ^{headTags}
+    &lt;body&gt;
+        $maybe msg &lt;- mmsg
+            &lt;div #message&gt;#{msg}
+        ^{bodyTags}
+|]
+-- STOP
+getRootR = defaultLayout [whamlet|&lt;a href="@{MsgR}"&gt;message|]
+getMsgR = setMessage "foo" &gt;&gt; redirect RedirectTemporary RootR &gt;&gt; return ()
+main = warpDebug 4000 Layout
+</codeblock><p id="gm3">We'll cover getMessage/setMessage in more detail when we <xref id="x2" href="../../yesod-web-framework-book/sessions/sessions.dita">discuss sessions</xref>.</p></conbody></concept>

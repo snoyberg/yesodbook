@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="code-generation"><title>Code Generation</title><conbody><p id="bb1">In order to ensure that the PersistEntity instances match up properly with your Haskell datatypes, Persistent takes responsibility for both. This is also good from a DRY (Don't Repeat Yourslef) perspective: you only need to define your entities once. Let's see a quick example:</p><codeblock id="x1" outputclass="haskell">-- START
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.TH
+import Database.Persist.Sqlite
+
+mkPersist sqlSettings [persist|
+Person
+    name String
+    age Int
+|]
+-- STOP
+main = return ()
+</codeblock><p id="bb2">We use a combination of Template Haskell and Quasi-Quotation (like when defining
+            routes): <codeph id="x6">persistent-template:Database.Persist.TH:persist</codeph> is a
+            quasi-quoter which converts a whitespace-sensitive syntax into a list of entity
+            definitions. (You can also declare your entities in a separate file using
+                <codeph id="x9">persistent-template:Database.Persist.TH:persistFile</codeph>.)
+                <codeph id="x10">persistent-template:Database.Persist.TH:mkPersist</codeph> takes that list
+            of entities and declares:</p><ul id="x2"><li id="x3">One Haskell datatype for each entity.</li><li id="x4">A PersistEntity instance for each datatype defined.</li></ul><p id="bb3">Of course, the interesting part is how to use this datatype once it is defined.</p><codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.TH
+import Database.Persist.Sqlite
+import Control.Monad.IO.Class (liftIO)
+
+mkPersist sqlSettings [persist|
+Person
+    name String
+    age Int
+|]
+-- START
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    michaelId &lt;- insert $ Person "Michael" 26
+    michael &lt;- get michaelId
+    liftIO $ print michael
+-- STOP
+</codeblock><p id="bb4">We start off with some standard database connection code. In this case, we used the single-connection functions. Persistent also comes built in with connection pool functions, which we will generally want to use in production.</p><p id="bb5">In this example, we have seen two functions: insert creates a new record in the database and returns its ID. Like everything else in Persistent, IDs are type safe. We'll get into more details of how these IDs work later. So when you call <codeph id="x7">insert $ Person "Michael" 25</codeph>, it gives you a value back of type <codeph id="x8">PersonId</codeph>.</p>
+<p id="bb6">The next function we see is get, which attempts to load a value from the database using an <codeph id="x11">Id</codeph>. In Persistent, you never need to worry that you are using the key from the wrong table: trying to load up a different entity (like House) using a <codeph id="x12">PersonId</codeph> will never compile.</p></conbody></concept>

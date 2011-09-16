@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="chooserep"><title>ChooseRep</title><conbody><p id="chooserep1">That just leaves us one thing: <codeph id="x1">RepHtml</codeph>. When we
+                    <xref id="x2" href="../../yesod-web-framework-book/restful-content/representations.dita">discuss
+                        representations</xref> we will explore the <i id="x3">why</i> of
+                    things more; for now, we are just interested in the
+                    <i id="x4">how</i>.</p><p id="chooserep2">As you might guess, RepHtml is a datatype for HTML responses.
+                    But as you also may guess, web sites need to return responses
+                    besides HTML. CSS, Javascript, images, XML are all necessities
+                    of a website. Therefore, the return  value of a handler
+                    function can be any instance of <codeph id="x5">HasReps</codeph>.</p><p id="chooserep3">HasReps is a powerful concept that allows Yesod to automatically
+                    choose the correct representation of your data based on the
+                    client request. For now, we will focus just on simple instances
+                    such as RepHtml, which only provide one representation.</p></conbody></concept>

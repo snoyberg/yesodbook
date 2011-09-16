@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="representations"><title>Representations</title><conbody><p id="rp1">Let's say we have a Haskell datatype and value:</p><codeblock outputclass="haskell" id="x1">data Person = Person { name :: String, age :: Int }
+michael = Person "Michael" 25</codeblock><p id="rp2">We could represent that data as HTML:</p><codeblock outputclass="html" id="x2">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;td&gt;Michael&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Age&lt;/th&gt;
+        &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</codeblock><p id="rp3">or we could represent it as JSON:</p><codeblock outputclass="json" id="x3">{"name":"Michael","age":25}</codeblock><p id="rp4">or as XML:</p><codeblock outputclass="xml" id="x4">&lt;person&gt;
+    &lt;name&gt;Michael&lt;/name&gt;
+    &lt;age&gt;25&lt;/age&gt;
+&lt;/person&gt;</codeblock><p id="rp5">Often times, web applications will use a different URL to get each of these representations; perhaps /person/michael.html, /person/michael.json, etc. Yesod follows the RESTful principle of a single URL for each <term id="x5">resource</term>. So in Yesod, all of these would be accessed from /person/michael.</p><p id="rp6">Then the question becomes how do we determine <i id="x6">which</i> representation to serve. The answer is the HTTP Accept header: it gives a prioritized list of content types the client is expecting. Yesod will automatically determine which representation to serve based upon this header.</p><p id="rp7">Let's make that last sentence a bit more concrete with some code:</p><codeblock outputclass="haskell" id="x7">class HasReps a where
+    chooseRep :: a -&gt; [ContentType] -&gt; IO (ContentType, Content)</codeblock><p id="rp8">The chooseRep function takes two arguments: the value we are getting representations for, and a list of content types that the client will accept. We determine this by reading the "Accept" request header. chooseRep returns a tuple containing the content type of our response and the actual content.</p><p id="rp10">This typeclass is the core of Yesod's RESTful approach to representations. Every handler function must return an instance of HasReps. Yesod provides a number of instances of HasReps out of the box. When we use defaultLayout, for example, the return type is RepHtml, which looks like:</p><codeblock outputclass="haskell" id="x8">newtype RepHtml = RepHtml Content
+instance HasReps RepHtml where
+    chooseRep (RepHtml content) _ = return ("text/html", content)</codeblock><p id="rp11">What's interesting here is that we ignore entirely the list of expected content types. A number of the built in representations (RepHtml, RepPlain, RepJson, RepXml) in fact only support a single representation, and therefore what the client requests in the Accept header is irrelevant.</p></conbody></concept>

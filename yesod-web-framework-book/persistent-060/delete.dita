@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="delete"><title>Delete</title><conbody>
+  <p id="x1">As much as it pains us, sometimes we must part with our data. To do so, we have three
+   functions:</p>
+  <dl id="x2">
+   <dlentry id="x3">
+    <dt id="x4">delete</dt>
+    <dd id="x5">Delete based on an ID</dd>
+   </dlentry>
+   <dlentry id="x6">
+    <dt id="x7">deleteBy</dt>
+    <dd id="x8">Delete based on a unique constraint</dd>
+   </dlentry>
+   <dlentry id="x9">
+    <dt id="x10">deleteWhere</dt>
+    <dd id="x11">Delete based on a set of filters</dd>
+   </dlentry>
+  </dl>
+  <codeblock id="x12" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+import Control.Monad.IO.Class (liftIO)
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person sql=the-person-table
+    firstName String sql=first_name
+    lastName String sql=fldLastName
+    age Int Gt Desc "sql=The Age of the Person"
+    UniqueName firstName lastName
+|]
+
+resultsForPage pageNumber = do
+    let resultsPerPage = 10
+    selectList
+        [ PersonAge &gt;=. 18
+        ]
+        [ Desc PersonAge
+        , Asc PersonLastName
+        , Asc PersonFirstName
+        , LimitTo resultsPerPage
+        , OffsetBy $ (pageNumber - 1) * resultsPerPage
+        ]
+
+haveBirthday personId = update personId [PersonAge +=. 1]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigrationSilent migrateAll
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    replace personId $ Person "John" "Doe" 20
+    update personId [PersonAge =. 27]
+    haveBirthday personId
+    updateWhere [PersonFirstName ==. "Michael"] [PersonAge *=. 2] -- it's been a long day
+    resultsForPage 1 &gt;&gt;= liftIO . print
+-- START
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    delete personId
+    deleteBy $ UniqueName "Michael" "Snoyman"
+    deleteWhere [PersonFirstName ==. "Michael"]
+-- STOP</codeblock>
+  <p id="x13">We can even use deleteWhere to wipe out all the records in a table, we just need to give some
+   hints to GHC as to what table we're interested in:</p>
+  <codeblock id="x14" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+import Database.Persist
+import Database.Persist.Sqlite
+import Database.Persist.TH
+import Data.Time
+import Control.Monad.IO.Class (liftIO)
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Person sql=the-person-table
+    firstName String sql=first_name
+    lastName String sql=fldLastName
+    age Int Gt Desc "sql=The Age of the Person"
+    UniqueName firstName lastName
+|]
+
+resultsForPage pageNumber = do
+    let resultsPerPage = 10
+    selectList
+        [ PersonAge &gt;=. 18
+        ]
+        [ Desc PersonAge
+        , Asc PersonLastName
+        , Asc PersonFirstName
+        , LimitTo resultsPerPage
+        , OffsetBy $ (pageNumber - 1) * resultsPerPage
+        ]
+
+haveBirthday personId = update personId [PersonAge +=. 1]
+
+main = withSqliteConn ":memory:" $ runSqlConn $ do
+    runMigrationSilent migrateAll
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    replace personId $ Person "John" "Doe" 20
+    update personId [PersonAge =. 27]
+    haveBirthday personId
+    updateWhere [PersonFirstName ==. "Michael"] [PersonAge *=. 2] -- it's been a long day
+    resultsForPage 1 &gt;&gt;= liftIO . print
+    personId &lt;- insert $ Person "Michael" "Snoyman" 26
+    delete personId
+    deleteBy $ UniqueName "Michael" "Snoyman"
+    deleteWhere [PersonFirstName ==. "Michael"]
+-- START
+    deleteWhere ([] :: [Filter Person])
+-- STOP</codeblock>
+ </conbody></concept>

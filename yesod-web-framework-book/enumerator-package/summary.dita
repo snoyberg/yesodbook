@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="summary"><title>Summary</title><conbody><ul id="x1"><li id="x2">Enumeratees are the pipes connecting enumerators to iteratees.</li><li id="x3">The strange type signature of an Enumeratee hides a lot of possible power. Especially notice how similar their type signatures are to Enumerators.</li><li id="x4">You can merge an Enumeratee into an Iteratee with <codeph id="x5">joinI $ enumeratee $$ iteratee</codeph>.</li><li id="x6">Don't forget that you can use the Monad instance of Iteratee when creating your own enumeratees.</li><li id="x7">You can always compose multiple enumeratees together, such as in http-enumerator.</li></ul></conbody></concept>

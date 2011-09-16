@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="overview"><title>Overview</title><conbody>
+  <p id="x1">One of the powerful, and sometimes confusing, features in Haskell is monad transformers. They
+   allow you to take different pieces of functionality- such as mutable state, error handling, or
+   logging- and compose them together easily. Though I swore I'd never write a monad tutorial, I'm
+   going to employ a painful analogy here: monads are like onions. (Monads are not like cakes.) By
+   that, I mean <i id="x2">layers</i>.</p>
+  <p id="x3">We have the core monad- also known as the innermost or bottom monad. I'll likely use all forms
+   of terminology here. On top of this core, we add layers, each adding a new feature and spreading
+   outward/upward. As a motivating example, let's consider an Error monad stacked on top of the IO
+   monad:<codeblock id="x4" outputclass="haskell">newtype ErrorT e m a = ErrorT { runErrorT :: m (Either e a) }
+type MyStack = ErrorT MyError IO</codeblock>Now
+   pay close attention here: ErrorT is just a simple newtype around an Either wrapped in a monad.
+   Getting rid of the newtype, we
+   have:<codeblock id="x5" outputclass="haskell">type ErrorTUnwrapped e m a = m (Either e a)</codeblock></p>
+  <p id="x6">At some point, we'll need to actually perform some IO inside our MyStack. If we went with the
+   unwrapped approach, it would be trivial, since there would be no ErrorT constructor in the way.
+   However, we need that newtype wrapper for a whole bunch of type reasons I won't go into here
+   (this isn't a monad transformer tutorial after all). So the solution is the MonadTrans
+   typeclass:</p>
+  <codeblock id="x7" outputclass="haskell">class MonadTrans t where
+    lift :: Monad m =&gt; m a -&gt; t m a</codeblock>
+  <p id="x8">I'll admit, the first time I saw that type signature, my response was stunned confusion, and
+   incredulity that it actually meant anything. But looking at an instance helps a
+   bit:<codeblock id="x9" outputclass="haskell">instance (Error e) =&gt; MonadTrans (ErrorT e) where
+    lift m = ErrorT $ do
+        a &lt;- m
+        return (Right a)</codeblock>All
+   we're doing is wrapping the inside of the IO with a Right value, and then applying our newtype
+   wrapper. This allows us to take an action that lives in IO, and "lift" it to the outer/upper
+   monad.</p>
+  <p id="x10">But now to the point at hand. This works very well for simple functions. For example:</p>
+  <codeblock id="x11" outputclass="haskell">sayHi :: IO ()
+sayHi = putStrLn "Hello"
+
+sayHiError :: ErrorT MyError IO ()
+sayHiError = lift $ putStrLn "Hello"</codeblock>
+  <p id="x12">But let's take something slightly more complicated, like a callback:</p>
+  <codeblock id="x13" outputclass="haskell">withMyFile :: (Handle -&gt; IO a) -&gt; IO a
+withMyFile = withFile "test.txt" WriteMode
+
+sayHi :: Handle -&gt; IO ()
+sayHi handle = hPutStrLn handle "Hi there"
+
+useMyFile :: IO ()
+useMyFile = withMyFile sayHi</codeblock>
+  <p id="x14">So far so good, right? Now let's say that we need a version of sayHi that has access to the
+   Error monad:</p>
+  <codeblock id="x15" outputclass="haskell">sayHiError :: Handle -&gt; ErrorT MyError IO ()
+sayHiError handle = do
+    lift $ hPutStrLn handle "Hi there, error!"
+    throwError MyError</codeblock>
+  <p id="x16">We would like to write a function that combines withmyFile and sayHiError. Unfortunately, GHC
+   doesn't like this very
+   much:<codeblock id="x17" outputclass="haskell">useMyFileErrorBad :: ErrorT MyError IO ()
+useMyFileErrorBad = withMyFile sayHiError
+
+    Couldn't match expected type `ErrorT MyError IO ()'
+                with actual type `IO ()'</codeblock>Why
+   does this happen, and how can we work around it?</p>
+ </conbody></concept>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="whats-in-a-widget"><title>What's in a Widget?</title><conbody><p id="ww1">At a very superficial level, an HTML document is just a
+            bunch of nested tags. This is the approach most HTML generation
+            tools take: you simply define hierarchies of tags and are done with
+            it. But let's imagine that I want to write a component of a page
+            for displaying the navbar. I want this to be "plug and play": I
+            simply call the function at the right time, and the navbar is
+            inserted at the correct point in the hierarchy.</p><p id="ww2">This is where our superficial HTML generation breaks down.
+            Our navbar likely consists of some CSS and JavaScript in addition
+            to HTML. By the time we call the navbar function, we have already
+            rendered the &lt;head&gt; tag, so it is too late to add a new
+            &lt;style&gt; tag for our CSS declarations. Under normal
+            strategies, we would need to break up our navbar function into
+            three parts: HTML, CSS and JavaScript, and make sure that we always
+            call all three pieces.</p><p id="ww3">Widgets take a different approach. Instead of viewing an
+            HTML document as a monolithic tree of tags, widgets see a number of
+            distinct components in the page. In particular:</p><ul id="x1"><li id="x2">The title</li><li id="x3">External stylesheets</li><li id="x4">External Javascript</li><li id="x5">CSS declarations</li><li id="x6">Javascript code</li><li id="x7">Arbitrary &lt;head&gt; content</li><li id="x8">Arbitrary &lt;body&gt; content</li></ul><p id="ww4">Different components have different semantics. For example,
+            there can only be one title, but there can be multiple external
+            scripts and stylesheets. However, those external scripts and
+            stylesheets should only be included once. Arbitrary head and body
+            content, on the other hand, has no limitation (someone may want to
+            have five lorem ipsum blocks after all).</p><p id="ww5">The job of a widget is to hold onto these disparate
+            components and apply proper logic for combining different widgets
+            together. This consists of things like taking the first title set
+            and ignoring others, applying <codeph id="x9">nub</codeph> to the list of
+            external scripts and stylesheets, and simply concatenating head and
+            body content.</p><note id="x10" type="other" othertype="advanced"><p id="ww6">In general, you should avoid nub since it has very bad
+                performance. Usually when you are looking for uniqueness, you
+                do not care about order, and therefore <codeph id="x11">map head . group .  sort</codeph>
+                is more efficient than a call to nub. However,
+                in our case, order <i id="x12">is</i> important: we would not want to
+                include jQuery UI before we include jQuery. Therefore, we are
+                stuck with nub.</p></note></conbody></concept>

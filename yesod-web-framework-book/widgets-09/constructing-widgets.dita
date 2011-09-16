@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="constructing-widgets"><title>Constructing Widgets</title><conbody>
+  <p id="x1">In order to use widgets, you'll obviously need to be able to get your hands on them. The most
+   common way will be via the ToWidget typeclass, and its toWidget method. This allows you to
+   convert your Shakespearean templates directly to a Widget: Hamlet code will appear in the body,
+   Julius scripts inside a &lt;script&gt; tag in the head, and Cassius and Lucius in a &lt;style&gt;
+   tag.</p>
+  <note id="x2">You can actually override the default behavior and have the script and style code appear in
+   a separate file. The scaffolded site provides this for you automatically.</note>
+  <p id="x3">But what if you want to add some &lt;meta&gt; tags, which need to appear in the head? Or if you
+   want some Javascript to appear in the body instead of the head? For these purposes, Yesod
+   provides two additional type classes: ToWidgetHead and ToWidgetBody. These work exactly as they
+   seem they should.</p>
+  <note id="x4">There is no ToWidgetBody instance for Lucius and Cassius, since you can't put a style tag in
+   the body.</note>
+  <p id="x5">In addition, there are a number of other functions for creating specific kinds of Widgets:</p>
+  <dl id="x6">
+   <dlentry id="x7">
+    <dt id="x8">setTitle</dt>
+    <dd id="x9">Turns some HTML into the page title.</dd>
+   </dlentry>
+   <dlentry id="x10">
+    <dt id="x11">addCassiusMedia, addLuciusMedia</dt>
+    <dd id="x12">Works the same as toWidget, but takes an additional parameter to indicate what kind of media
+     this applies to. Useful for creating print stylesheets, for instance.</dd>
+   </dlentry>
+   <dlentry id="x13">
+    <dt id="x14">addStylesheet</dt>
+    <dd id="x15">Adds a reference, via a &lt;link&gt; tag, to an external stylesheet. Takes a type-safe
+     URL.</dd>
+   </dlentry>
+   <dlentry id="x16">
+    <dt id="x17">addStylesheetRemote</dt>
+    <dd id="x18">Same as addStylesheet, but takes a normal URL. Useful for referring to files hosted on a
+     CDN, like Google's jQuery UI CSS files.</dd>
+   </dlentry>
+   <dlentry id="x19">
+    <dt id="x20">addScript</dt>
+    <dd id="x21">Adds a reference, via a &lt;script&gt; tag, to an external script. Takes a type-safe URL.</dd>
+   </dlentry>
+   <dlentry id="x22">
+    <dt id="x23">addScriptRemote</dt>
+    <dd id="x24">Same as addScript, but takes a normal URL. Useful for referring to files hosted on a CDN,
+     like Google's jQuery.</dd>
+   </dlentry>
+  </dl>
+ </conbody></concept>

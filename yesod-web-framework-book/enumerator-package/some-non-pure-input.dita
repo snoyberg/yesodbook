@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="some-non-pure-input"><title>Some non-pure input</title><conbody><p id="np1">Enumerators are much more interesting when they aren't simply dealing with pure values. In the first part of this tutorial, we gave the example of the user entering numbers on the command line:</p><codeblock outputclass="haskell" id="x1">getNumber :: IO (Maybe Int)
+getNumber = do
+    x &lt;- getLine
+    if x == "q"
+        then return Nothing
+        else return $ Just $ read x
+
+sum2 :: IO Int
+sum2 = do
+    maybeNum &lt;- getNumber
+    case maybeNum of
+        Nothing -&gt; return 0
+        Just num -&gt; do
+            rest &lt;- sum2
+            return $ num + rest</codeblock><p id="np2">We referred to this as the pull-model: sum2 pulled each value from getNumber. Let's see if we can rewrite getNumber to be a pusher instead of a pullee.</p><codeblock outputclass="haskell" id="x2">getNumberEnum :: MonadIO m =&gt; Enumerator Int m b
+getNumberEnum (Continue k) = do
+    x &lt;- liftIO getLine
+    if x == "q"
+        then continue k
+        else k (Chunks [read x]) &gt;&gt;== getNumberEnum
+getNumberEnum step = returnI step</codeblock><p id="np3">First, notice that we check which constructor was passed, and only perform any actions if it was Continue. If it was Continue, we get the line of input from the user. If the line is "q" (our indication to stop feeding in values), we do nothing. You <i id="x3">might</i> have thought that we should pass an EOF. But if we did that, we'd be preventing other data from being sent to this iteratee. Instead, we simply return the original Step value.</p><p id="np4">If the line was not "q", we convert it to an Int via read, create a Stream value with the Chunks datatype, and pass it to k. (If we wanted to do things properly, we'd check if x is really an Int and use the Error constructor; I leave that as an exercise to the reader.) At this point, let's look at type signatures:</p><codeblock outputclass="haskell" id="x4">k (Chunks [read x]) :: Iteratee Int m b</codeblock><p id="np5">If we simply left off the rest of the line, our program would typecheck. However, it would only ever read one value from the command line; the <codeph id="x5">&gt;&gt;== getNumberEnum</codeph> causes our enumerator to loop.</p><p id="np6">One last thing to note about our function: notice the b in our type signature.</p><codeblock outputclass="haskell" id="x6">getNumberEnum :: MonadIO m =&gt; Enumerator Int m b</codeblock><p id="np7">This is saying that our Enumerator can feed <codeph id="x7">Int</codeph>s to any Iteratee accepting <codeph id="x8">Int</codeph>s, and it doesn't matter what the final output type will be. This is in general the way enumerators work. This allows us to create drastically different iteratees that work with the same enumerators:</p><codeblock outputclass="haskell" id="x9">intsToStrings :: (Show a, Monad m) =&gt; Iteratee a m String
+intsToStrings = (unlines . map show) `fmap` consume</codeblock><p id="np8">And then both of these lines work:</p><codeblock outputclass="haskell" id="x10">run_ (getNumberEnum $$ sum6) &gt;&gt;= print
+run_ (getNumberEnum $$ intsToStrings) &gt;&gt;= print</codeblock></conbody></concept>

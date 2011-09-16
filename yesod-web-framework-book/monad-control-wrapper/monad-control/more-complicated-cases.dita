@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="more-complicated-cases"><title>More Complicated Cases</title><conbody>
+  <p id="x1">In order to make our tricks work so far, we've needed to have functions that give us full
+   access to play around with their values. Sometimes, this isn't the case. Take, for instance:</p>
+  <codeblock id="x2" outputclass="haskell">addMVarFinalizer :: MVar a -&gt; IO () -&gt; IO ()</codeblock>
+  <p id="x3">In this case, we are required to have no value inside our finalizer function. Intuitively, the
+   first thing we should notice is that there will be no way to capture our monadic side effects. So
+   how do we get something like this to compile? Well, we need to explicitly tell it to drop all of
+   its state-holding
+   information:<codeblock id="x4" outputclass="haskell">addMVarFinalizerError :: MVar a -&gt; ErrorT MyError IO () -&gt; ErrorT MyError IO ()
+addMVarFinalizerError mvar f = controlIO $ \run -&gt;
+    return $ liftIO $ addMVarFinalizer mvar (run f &gt;&gt; return ())</codeblock></p>
+  <p id="x5">Another case from the same module
+   is:<codeblock id="x6" outputclass="haskell">modifyMVar :: MVar a -&gt; (a -&gt; IO (a, b)) -&gt; IO b</codeblock>Here,
+   we have a restriction on the return type in the second argument: it must be a tuple of the value
+   passed to that function and the final return value. Unfortunately, I can't see a way of writing a
+   little wrapper around modifyMVar to make it work for ErrorT. Instead, in this case, I copied the
+   definition of modifyMVar and modified it:</p>
+  <codeblock id="x7" outputclass="haskell">modifyMVar :: MVar a
+           -&gt; (a -&gt; ErrorT MyError IO (a, b))
+           -&gt; ErrorT MyError IO b
+modifyMVar m io =
+  Control.Exception.Control.mask $ \restore -&gt; do
+    a      &lt;- liftIO $ takeMVar m
+    (a',b) &lt;- restore (io a) `onExceptionError` liftIO (putMVar m a)
+    liftIO $ putMVar m a'
+    return b</codeblock>
+ </conbody></concept>
