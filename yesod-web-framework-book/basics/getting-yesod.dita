@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="getting-yesod"><title>Getting Yesod</title><conbody><p id="assume-installed">The rest of this book will assume you have Yesod installed. You'll need to:</p><ul id="x1"><li id="x2">Install the <xref id="x3" href="http://hackage.haskell.org/platform/" scope="external" format="html">Haskell Platform</xref></li><li id="x4">Run <codeph id="x5">cabal update</codeph></li><li id="x6">Run <codeph id="x7">cabal install alex happy</codeph></li><li id="x8">Run <codeph id="x9">cabal install yesod</codeph></li><li id="x10">In general, you should follow the instruction at <xref id="x11" href="http://www.yesodweb.com/page/five-minutes">Yesod in 5 minutes</xref>.</li></ul>
-<note id="x12">It is generally recommended to create new projects using the Yesod scaffolder tool by running <codeph id="x13">yesod init</codeph>. This book will mostly do things manually for instructive purposes, but for real world projects, even I use the scaffolder to get the basic setup correct.</note></conbody></concept>
+<concept id="getting-yesod"><title>Getting Yesod</title><conbody><p id="assume-installed">In order to use Yesod, you're going to need to install it on your system.
+            In addition, you're going to need a Haskell development environment. The recommended
+            approach is to install the <xref id="x3" href="http://hackage.haskell.org/platform/"
+                scope="external" format="html">Haskell Platform</xref>. This will include the
+            Glasgow Haskell Compiler (GHC), Cabal (the package installer, similar to Perl's CPAN or
+            Ruby's Gems) and some core libraries.</p>
+        <p>Besides the Haskell Platform, there are two other common approaches to getting started
+            with Haskell: downloading GHC directly, and (on Linux) installing from your
+            distribution's package manager. I'm going to advise against these:</p>
+        <ul id="ul_brk_rrt_qd">
+            <li>Yesod is actively tested on the most recent Haskell Platform. We try to make sure it
+                works with other versions of GHC as well, but you may run into issues.</li>
+            <li>The Haskell Platform includes some utilities (like alex and happy) that are not
+                automatically installed with a normal GHC install.</li>
+            <li>Most distributions have very out-of-date versions of GHC. At the time of writing,
+                for example, Ubuntu provides GHC 6.12, while the newest GHC is 7.2.</li>
+        </ul>
+        <p>One other note: on Linux systems, the Haskell Platform will rely on some system
+            libraries, and without them, you may get some funny error messages. Please make sure you
+            install all the <xref href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml"
+                format="html" scope="external">required C libraries</xref>. On Debian-based systems,
+            you would need to run:</p>
+        <codeblock outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
+        <p>Once you have the Haskell Platform installed, it's time to get familiar with Cabal. This
+            utility will automatically resolve dependencies for your packages, download them from
+            Hackage (the package database) and install them. Make sure you have the cabal executable
+            available in your PATH variable, and then you can install Yesod with just two
+            commands:</p>
+        <dl>
+            <dlentry>
+                <dt><codeph>cabal update</codeph></dt>
+                <dd>This will download a list of all the packages available on Hackage. You should
+                    run this every few days to stay up-to-date.</dd>
+            </dlentry>
+            <dlentry>
+                <dt><codeph>cabal install yesod</codeph></dt>
+                <dd>This will install Yesod and all its dependencies. Go get a cup of coffee.</dd>
+            </dlentry>
+        </dl></conbody></concept>

@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="handler-function"><title>Handler function</title><conbody><p id="handler1">Most of the code you write in Yesod lives in handler functions. This is where you process user input, perform database queries and create responses. In our simple example, we create a response using the defaultLayout function. By default, this is simply an HTML wrapper that creates a doctype, html, head and body tags. <xref id="x1" href="../../yesod-web-framework-book/yesod-typeclass/yesod-typeclass.dita">As we'll see later</xref>, this function can be overridden to do much more.</p><p id="handler2">That funny <codeph id="x2">[whamlet|Hello World!|]</codeph> is a <term id="x3">quasi-quotation</term>. It allows us to embed arbitrary text in our Haskell code, process it with a specific function and have that generate Haskell code, all at compile time. In our case, we feed the string "Hello World!" to the hamlet quasi-quoter.</p><note id="x4" type="other" othertype="advanced"><p id="handler2a">While quasi quotation is great for small code snippets, and wonderful for making single-file examples, it does not scale well to production levels, since it mixes logic and presentation in the same file. When we <xref id="x5" href="book/yw://topic/111">discuss templates</xref>, you will see how to put your templates in external files.</p></note><p id="handler3">Hamlet is the default HTML templating engine in Yesod. Together with its siblings Cassius and Julius, you can create HTML, CSS and Javascript in a fully type-safe and compile-time-checked manner. We'll see much more about this <xref id="x6" href="book/yw://topic/130">when we discuss widgets</xref>.</p></conbody></concept>
+<concept id="handler-function"><title>Handler function</title><conbody>
+        <p>So we have a route named HomeR, and it responds to GET requests. How do you define your
+            response? You write a <term>handler function</term>. Yesod follows a very simple naming
+            scheme for these functions: it's the lower case method name (e.g., GET becomes get)
+            followed by the route name. So here, the function name would be
+                <codeph>getHomeR</codeph>.</p><p id="handler1">Most of the code you write in Yesod lives in handler functions. This is where you
+            process user input, perform database queries and create responses. In our simple
+            example, we create a response using the <codeph>defaultLayout</codeph> function. This
+            function wraps up the content it's given in your site's template. By default, it
+            produces a simple HTML file including a doctype, html, head and body tags. <xref id="x1"
+                href="../../yesod-web-framework-book/yesod-typeclass/yesod-typeclass.dita">As we'll
+                see later</xref>, this function can be overridden to do much more.</p><p id="handler2">In our example, we pass <codeph id="x2">[whamlet|Hello World!|]</codeph> to
+                <codeph>defaultLayout</codeph>. <codeph>whamlet</codeph> is another quasi-quoter. In
+            this case, it converts Hamlet syntax into a Widget. Hamlet is the default HTML
+            templating engine in Yesod. Together with its siblings Cassius, Lucius and Julius, you
+            can create HTML, CSS and Javascript in a fully type-safe and compile-time-checked
+            manner. We'll see much more about this in <xref
+                href="../shakespearean-templates/shakespearean-templates.dita#shakespearean-templates"
+                format="dita">the Shakespeare chapter</xref>.</p>
+        <p>Widgets are another cornerstone of Yesod. They allow you to create modular components of
+            a site consisting of HTML, CSS and Javascript and reuse them throughout your site. We'll
+            get into more detail on them in <xref href="../widgets-09/widgets.dita#widgets"
+                format="dita">their own chapter</xref>.</p></conbody></concept>

@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="development-server"><title>Development server</title><conbody><p id="wai-handler-devel1">One of the advantages interpreted languages have over compiled languages is fast prototyping: you save changes to a file and hit refresh. If we want to make any changes to our Yesod apps above, we'll need to call runhaskell from scratch, which can be a bit tedious.</p><p id="wai-handler-devel2">Fortunately, there's a nice solution to this: <apiname id="x1">wai-handler-devel</apiname> embeds a Haskell interpreter and automatically reloads code changes for you. This can be a great way to develop your Yesod projects, and when you're ready to move to production, you can compile against a more efficient backend. The Yesod site template comes built in with a script to do this for you. This gives you the best of both worlds: rapid prototyping <b id="x2">and</b> fast production code.</p><p id="wai-handler-devel3">It's a little bit more involved to set up your code to be used by wai-handler-devel, so our examples will just use warpDebug. But as a simple example, try saving the following as HelloWorld.hs:</p><codeblock id="x3" outputclass="haskell">-- START
-{-# LANGUAGE TypeFamilies, QuasiQuotes, MultiParamTypeClasses, TemplateHaskell, OverloadedStrings #-}
-module HelloWorld where
-
-import Yesod
-
-data HelloWorld = HelloWorld
-
-mkYesod "HelloWorld" [parseRoutes|
-/ HomeR GET
-|]
-
-instance Yesod HelloWorld where
-    approot _ = ""
-
-getHomeR = defaultLayout [whamlet|Hello World!|]
-
-withHelloWorld f = toWaiApp HelloWorld &gt;&gt;= f
-</codeblock><p id="wai-handler-devel5">And then run your code with:</p><codeblock outputclass="shell" id="x4">wai-handler-devel 3000 HelloWorld withHelloWorld</codeblock><p id="wai-handler-devel6">This will run a development server on port 3000, using module HelloWorld and the function withHelloWorld. Try making changes to the HelloWorld.hs file and reloading: they should show up automatically. In order to shut down the server, type "q" and hit enter on the command line.</p></conbody></concept>
+<concept id="development-server"><title>Development server</title><conbody><p id="wai-handler-devel1">One of the advantages interpreted languages have over compiled languages is fast prototyping: you save changes to a file and hit refresh. If we want to make any changes to our Yesod apps above, we'll need to call runhaskell from scratch, which can be a bit tedious.</p><p id="wai-handler-devel2">Fortunately, there's a nice solution to this: <apiname id="x1">yesod
+                devel</apiname> automatically rebuilds and reruns your code changes for you. This
+            can be a great way to develop your Yesod projects, and when you're ready to move to
+            production, you still get to compile down to incredibly efficient code. The Yesod
+            scaffolding automatically sets things up for you. This gives you the best of both
+            worlds: rapid prototyping <b id="x2">and</b> fast production code.</p><p id="wai-handler-devel3">It's a little bit more involved to set up your code to be used by
+                <codeph>yesod devel</codeph>, so our examples will just use warpDebug. But when
+            you're ready to make your real-world applications, yesod devel will be waiting for
+            you.</p></conbody></concept>
