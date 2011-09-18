@@ -15,6 +15,7 @@
     </topichead>
     <topichead id="advanced" navtitle="Advanced">
         <mapref id="x-11" href="yesod-web-framework-book/restful-content.ditamap"/>
+        <mapref href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
         <mapref id="x-12" href="yesod-web-framework-book/authentication-and-authorization.ditamap"/>
         <mapref id="x-13" href="yesod-web-framework-book/scaffolding-and-the-site-template.ditamap"/>
         <mapref id="x-14" href="yesod-web-framework-book/advanced-forms.ditamap"/>
