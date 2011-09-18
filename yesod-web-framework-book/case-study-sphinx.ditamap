@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map>
-    <title>Case Study: Sphinx-based Search</title>
+<map id="x-1">
+    <title id="x-2">Case Study: Sphinx-based Search</title>
     <topicref href="case-study-sphinx/case-study-sphinx.dita" chunk="to-content" id="sphinx">
-        <topicref href="case-study-sphinx/sphinx-setup.dita"/>
-        <topicref href="case-study-sphinx/basic-yesod-setup.dita"/>
-        <topicref href="case-study-sphinx/searching.dita"/>
-        <topicref href="case-study-sphinx/xmlpipe.dita"/>
-        <topicref href="case-study-sphinx/full-code.dita"/>
+        <topicref id="x-3" href="case-study-sphinx/sphinx-setup.dita"/>
+        <topicref id="x-4" href="case-study-sphinx/basic-yesod-setup.dita"/>
+        <topicref id="x-5" href="case-study-sphinx/searching.dita"/>
+        <topicref id="x-6" href="case-study-sphinx/xmlpipe.dita"/>
+        <topicref id="x-7" href="case-study-sphinx/full-code.dita"/>
     </topicref>
 </map>

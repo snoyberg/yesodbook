@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Sphinx Setup</title>
- <conbody>
-  <p>Unlike many of our other examples, to start with here we'll need to actually configure and run
+ <title id="x-1">Sphinx Setup</title>
+ <conbody id="x-2">
+  <p id="x-3">Unlike many of our other examples, to start with here we'll need to actually configure and run
    our external Sphinx server. I'm not going to go into all the details of Sphinx, partly because
    it's not relevant to our point here, and mostly because I don't know them.</p>
-  <p>Sphinx provides three main command line utilities: <codeph>searchd</codeph> is the actual
+  <p id="x-4">Sphinx provides three main command line utilities: <codeph id="x-5">searchd</codeph> is the actual
    search daemon the receives requests from the client (in this case, our web app) and returns the
-   search results. <codeph>indexer</codeph> parses the set of documents and creates the search
-   index. <codeph>search</codeph> is a debugging utility that will run simple queries again Sphinx.
+   search results. <codeph id="x-6">indexer</codeph> parses the set of documents and creates the search
+   index. <codeph id="x-7">search</codeph> is a debugging utility that will run simple queries again Sphinx.
    It's good for debugging.</p>
-  <p>There are two important settings as well: the source and the index. The source tells Sphinx
+  <p id="x-8">There are two important settings as well: the source and the index. The source tells Sphinx
    where to read document information from. It has direct support for MySQL and PostgreSQL, as well
    as a more general XML format known as xmlpipe2. We're going to use the last one. This not only
    will give us more flexibility with choosing Persistent backends, but will also demonstrate some
    more powerful Yesod concepts.</p>
-  <p>The second setting is the index. Sphinx can handle multiple indices simultaneously, which would
+  <p id="x-9">The second setting is the index. Sphinx can handle multiple indices simultaneously, which would
    allow it to provide search for multiple services at once. Each index will have a source it pulls
    from.</p>
-  <p>In our case, we're going to provide a URL from our application (/search/xmlpipe) that provides
+  <p id="x-10">In our case, we're going to provide a URL from our application (/search/xmlpipe) that provides
    the XML file required by Sphinx, and then pipe that through to the indexer. So we'll add the
    following to our Sphinx config file:</p>
-  <codeblock outputclass="sphinx">source searcher_src
+  <codeblock id="x-11" outputclass="sphinx">source searcher_src
 {
 	type = xmlpipe2
 	xmlpipe_command = curl http://localhost:3000/search/xmlpipe
@@ -35,7 +35,7 @@ index searcher
 	docinfo = extern
 	charset_type = utf-8
 }</codeblock>
-  <p>In order to build your search index, you would run <codeph>indexer searcher</codeph>. Obviously
+  <p id="x-12">In order to build your search index, you would run <codeph id="x-13">indexer searcher</codeph>. Obviously
    this won't work until you have your web app running. For a production site, it would make sense
    to run this command via a crontab script so the index is regularly updated.</p>
  </conbody>
