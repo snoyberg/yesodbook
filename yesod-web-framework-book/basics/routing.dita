@@ -12,20 +12,28 @@
                 <term id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9">The R suffix
                 on resource names is simply convention, but it's a fairly universally followed
                 convention. It makes it just a bit easier to read and understand code.</note></p>
-        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system. Most of them,
-            however, are <i id="x-11">not</i> declarative. Let's take a quick example from
-                    Django:<lq id="x-12"><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
+        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system. Most
+            of them, however, are <i id="x-11">not</i> declarative. Let's take a quick example from
+                Django:<!--FIXME Django really is declarative, this isn't correct. I think I narrowed down four advantages for yesod:
+
+the advantages for yesod i see are: more efficient parsing, can catch mistakes like
+      overlapping routes, a bit terser, automatic data marshaling\u0000
+--><lq
+                id="x-12"
+                    ><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
     (r'^articles/2003/$', 'news.views.special_case_2003'),
     (r'^articles/(\d{4})/$', 'news.views.year_archive'),
     (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
     (r'^articles/(\d{4})/(\d{2})/(\d+)/$', 'news.views.article_detail'),
-)</codeblock><cite id="x-14">https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These
-            routes are specified via a regular expression. This is mostly declarative, but the fact
-            is that routes are really being resolved by running some extra code. This has some
-            practical ramifications. Firstly, there's no great ways to optimize the routing: the
-            only way to determine which route matches is to go through every single regular
-            expression linearly. Yesod's routes are broken down into individual pieces, and can thus
-            be optimized for routing.</p>
+)</codeblock><cite
+                    id="x-14"
+            >https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These routes are
+            specified via a regular expression. This is mostly declarative, but the fact is that
+            routes are really being resolved by running some extra code. This has some practical
+            ramifications. Firstly, there's no great ways to optimize the routing: the only way to
+            determine which route matches is to go through every single regular expression linearly.
+            Yesod's routes are broken down into individual pieces, and can thus be optimized for
+            routing.</p>
         <p id="x-15">But the more important issue is overlapping. Yesod will stop you from accidently writing
             two routes that would match the same URL. This fits in with Yesod's overall philosophy
             of catching as many errors at possible at compile time.</p>
