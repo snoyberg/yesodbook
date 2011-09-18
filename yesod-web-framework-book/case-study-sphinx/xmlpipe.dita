@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId" outputclass="xmlpipe">
+ <title>Streaming xmlpipe output</title>
+ <conbody>
+  <p>We've saved the best for last. For the majority of Yesod handlers, the recommended approach is
+   to load up the database results into memory and then produce the output document based on that.
+   It's simpler to work with, but more importantly it's more resilient to exceptions. If there's a
+   problem loading the data from the database, the user will get a proper 500 response code.</p>
+  <note>What do I mean by "proper 500 response code?" If you start streaming a response to a client,
+   and encounter an exception halfway through, there's no way to change the status code; the user
+   will see a 200 response that simply stops in the middle. Not only can this partial content be
+   confusing, but it's an invalid usage of the HTTP spec.</note>
+  <p>However, generating the xmlpipe output is a perfect example of the alternative. There are
+   potentially a huge number of documents (the yesodweb.com code handles tens of thousands of
+   these), and documents could easily be several hundred kilobytes. If we take a non-streaming
+   approach, this can lead to huge memory usage and slow response times.</p>
+  <p>So how exactly do we create a streaming response? As we cover in <xref
+    href="../web-application-interface/web-application-interface.dita#web-application-interface"
+    format="dita">the WAI chapter</xref>, we have a ResponseEnumerator constructor that uses a
+   stream of blaze-builder <codeph>Builder</codeph>s. From the Yesod side, we can avoid the normal
+   Yesod response procedure and directly send a WAI response using the
+    <codeph>sendWaiResponse</codeph> function. So there are at least two of the pieces of this
+   puzzle.</p>
+  <p>So we know we want to create a stream of Builders from some XML content. Fortunately, the
+    <apiname>xml-enumerator</apiname> package provides this interface directly. xml-enumerator
+   provides some high-level interfaces for dealing with documents as a whole, but in our case, we're
+   going to need to use the low-level Event interface to ensure minimal memory impact. So the
+   function we're interested in is:</p>
+  <codeblock outputclass="haskell">renderBuilder :: MonadIO m => RenderSettings -> Enumeratee Event Builder m b</codeblock>
+  <p>In plain English, that means renderBytes takes some settings (we'll just use the defaults), and
+   will then convert a stream of Events to a stream of Builders. This is looking pretty good, all we
+   need now is a stream of Events.</p>
+  <p>Speaking of which, what should our XML document actually look like? It's pretty simple, we have
+   a <codeph>sphinx:docset</codeph> root element, a <codeph>sphinx:schema</codeph> element
+   containing a single <codeph>sphinx:field</codeph> (which defines the content field), and then a
+    <codeph>sphinx:document</codeph> for each document in our database. That last element will have
+   an id attribute and a child <codeph>content</codeph> element.</p>
+  <fig>
+   <title>Sample xmlpipe document</title>
+   <codeblock outputclass="xml">&lt;sphinx:docset xmlns:sphinx="http://sphinxsearch.com/"&gt;
+    &lt;sphinx:schema&gt;
+        &lt;sphinx:field name="content"/&gt;
+    &lt;/sphinx:schema&gt;
+    &lt;sphinx:document id="1"&gt;
+        &lt;content&gt;bar&lt;/content&gt;
+    &lt;/sphinx:document&gt;
+    &lt;sphinx:document id="2"&gt;
+        &lt;content&gt;foo bar baz&lt;/content&gt;
+    &lt;/sphinx:document&gt;
+&lt;/sphinx:docset></codeblock>
+  </fig>
+  <p>Every document is going to start off with the same events (start the docset, start the schema,
+   etc) and end with the same event (end the docset). So let's start off by defining those:</p>
+  <codeblock outputclass="haskell">toName :: Text -> X.Name
+toName x = X.Name x (Just "http://sphinxsearch.com/") (Just "sphinx")
+
+docset, schema, field, document, content :: X.Name
+docset = toName "docset"
+schema = toName "schema"
+field = toName "field"
+document = toName "document"
+content = "content" -- no prefix
+
+startEvents, endEvents :: [X.Event]
+startEvents =
+    [ X.EventBeginDocument
+    , X.EventBeginElement docset []
+    , X.EventBeginElement schema []
+    , X.EventBeginElement field [("name", [X.ContentText "content"])]
+    , X.EventEndElement field
+    , X.EventEndElement schema
+    ]
+
+endEvents =
+    [ X.EventEndElement docset
+    ]</codeblock>
+  <p>So now we have the shell of our document, now we need to get the <codeph>Event</codeph>s for
+   each individual document. This is actual a fairly simple function:</p>
+  <codeblock outputclass="haskell">pairToEvents :: (DocId, Doc) -> [X.Event]
+pairToEvents (docid, doc) =
+    [ X.EventBeginElement document [("id", [X.ContentText $ toSinglePiece docid])]
+    , X.EventBeginElement content []
+    , X.EventContent $ X.ContentText $ unTextarea $ docContent doc
+    , X.EventEndElement content
+    , X.EventEndElement document
+    ]</codeblock>
+  <p>We start the document element with an id attribute, start the content, insert the content, and
+   then close both elements. We use toSinglePiece to convert a DocId into a Text value. Next, we
+   need to be able to convert a stream of these pairs into a stream of events. For this, we can use
+   the built-in concatMap function from Data.Enumerator.List: <codeph>EL.concatMap
+    pairToEvents</codeph>.</p>
+  <p>But what we <i>really</i> want is to stream those events directly from the database. For most
+   of this book, we've used the selectList function, but Persistent also provides the (more
+   powerful) selectEnum function. So we end up with the function:</p>
+  <codeblock outputclass="haskell">docEnum :: Enumerator X.Event (SqlPersist IO) a
+docEnum = selectEnum [] [] $= EL.concatMap pairToEvents</codeblock>
+  <p>The $= operator joins together an enumerator and an enumeratee into a new enumerator. Now that
+   we have our Event enumerator, all we need to do is surround it with the document start and end
+   events. With concatEnums, this is a piece of cake:</p>
+  <codeblock outputclass="haskell">fullDocEnum :: Enumerator X.Event (SqlPersist IO) a
+fullDocEnum = concatEnums
+    [ enumList 8 startEvents
+    , docEnum
+    , enumList 8 endEvents
+    ]</codeblock>
+  <p>We're almost there, now we just need to tie it together in getXmlpipeR. The last trick is
+   getting the monads to work correctly. Our fullDocEnum runs in the SqlPersist IO monad, since it
+   needs to read from the database. But WAI needs something running in the IO monad, so we'll need
+   to unwrap the SqlPersist. For that, we just need to use the runSqlPool function.</p>
+  <p>But it's just a little bit trickier than that. You see, our Enumerator is expecting to receive
+   an Iteratee that lives in the SqlPersist IO monad, but the iteratee that WAI provides our
+   application lives in the IO monad. So what we need to do is lift that inner monad. Fortunately,
+   enumerator provides a function to do this for us: liftTrans. So our whole getXmlpipeR function
+   is:</p>
+  <codeblock outputclass="haskell">getXmlpipeR :: Handler RepXml
+getXmlpipeR = do
+    Searcher pool &lt;- getYesod
+    sendWaiResponse $ ResponseEnumerator $ \sriter -> do
+        let iter = sriter status200 [("Content-Type", "text/xml")]
+        flip runSqlPool pool $ run_
+            $ fullDocEnum $$ renderBuilder def =$ liftTrans iter</codeblock>
+  <p>We get our connection pool from the foundation variable, then send a WAI response. The sriter
+   value provided by WAI is of the (simplified) type <codeph>Status -> Headers -> Iteratee</codeph>.
+   We apply this function to a 200 status and a content-type header to get our actual iteratee. We
+   then pipe together our enumerator (fullDocEnum)- which produces a stream of Events, an enumeratee
+   (renderBuilder def) which converts a stream of Events to a stream of Builders, and our iteratee
+   (liftTrans iter) which consumes that stream of Builders.</p>
+  <p>We're left with a value of type <codeph>Iteratee Builder (SqlPersist IO) a</codeph>. We use
+   run_ to turn this into a <codeph>SqlPersist IO a</codeph>, and <codeph>flip runSqlPool
+    pool</codeph> to turn this into an <codeph>IO a</codeph>. And at that point, we're done.</p>
+ </conbody>
+</concept>
