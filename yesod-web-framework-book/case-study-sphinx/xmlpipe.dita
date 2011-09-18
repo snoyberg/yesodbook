@@ -15,16 +15,17 @@
    potentially a huge number of documents (the yesodweb.com code handles tens of thousands of
    these), and documents could easily be several hundred kilobytes. If we take a non-streaming
    approach, this can lead to huge memory usage and slow response times.</p>
-  <p id="x-6">So how exactly do we create a streaming response? As we cover in <xref id="x-7" href="../web-application-interface/web-application-interface.dita#web-application-interface" format="dita">the WAI chapter</xref>, we have a ResponseEnumerator constructor that uses a
-   stream of blaze-builder <codeph id="x-8">Builder</codeph>s. From the Yesod side, we can avoid the normal
-   Yesod response procedure and directly send a WAI response using the
-    <codeph id="x-9">sendWaiResponse</codeph> function. So there are at least two of the pieces of this
-   puzzle.</p>
-  <p id="x-10">So we know we want to create a stream of Builders from some XML content. Fortunately, the
-    <apiname id="x-11">xml-enumerator</apiname> package provides this interface directly. xml-enumerator
-   provides some high-level interfaces for dealing with documents as a whole, but in our case, we're
-   going to need to use the low-level Event interface to ensure minimal memory impact. So the
-   function we're interested in is:</p>
+  <p id="x-6">So how exactly do we create a streaming response? As we cover in <xref id="x-7"
+    href="../web-application-interface/web-application-interface.dita#web-application-interface"
+    format="dita">the WAI chapter</xref>, we have a ResponseEnumerator constructor that uses a
+   stream of blaze-builder <codeph id="x-8">Builder</codeph>s. From the Yesod side, we can avoid the
+   normal Yesod response procedure and send a WAI response directly using the <codeph id="x-9"
+    >sendWaiResponse</codeph> function. So there are at least two of the pieces of this puzzle.</p>
+  <p id="x-10">Now we know we want to create a stream of Builders from some XML content.
+   Fortunately, the <apiname id="x-11">xml-enumerator</apiname> package provides this interface
+   directly. xml-enumerator provides some high-level interfaces for dealing with documents as a
+   whole, but in our case, we're going to need to use the low-level Event interface to ensure
+   minimal memory impact. So the function we're interested in is:</p>
   <codeblock id="x-12" outputclass="haskell">renderBuilder :: MonadIO m =&gt; RenderSettings -&gt; Enumeratee Event Builder m b</codeblock>
   <p id="x-13">In plain English, that means renderBytes takes some settings (we'll just use the defaults), and
    will then convert a stream of Events to a stream of Builders. This is looking pretty good, all we
@@ -73,8 +74,8 @@ startEvents =
 endEvents =
     [ X.EventEndElement docset
     ]</codeblock>
-  <p id="x-25">So now we have the shell of our document, now we need to get the <codeph id="x-26">Event</codeph>s for
-   each individual document. This is actual a fairly simple function:</p>
+  <p id="x-25">So now that we have the shell of our document, we need to get the <codeph id="x-26"
+    >Event</codeph>s for each individual document. This is actually a fairly simple function:</p>
   <codeblock id="x-27" outputclass="haskell">pairToEvents :: (DocId, Doc) -&gt; [X.Event]
 pairToEvents (docid, doc) =
     [ X.EventBeginElement document [("id", [X.ContentText $ toSinglePiece docid])]
