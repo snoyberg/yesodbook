@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="deploying-your-webapp">
+<map id="deploying-your-webapp-map">
     <title id="x-1">Deploying your Webapp</title>
-    <topicref id="x-2" chunk="to-content" href="../yesod-web-framework-book/deploying-your-webapp/deploying-your-webapp.dita">
+    <topicref id="deploying" chunk="to-content" href="../yesod-web-framework-book/deploying-your-webapp/deploying-your-webapp.dita">
         <topicref id="warp" href="../yesod-web-framework-book/deploying-your-webapp/compiling.dita"/>
         <topicref id="x-3" href="../yesod-web-framework-book/deploying-your-webapp/warp.dita">
             <topicref id="configuration" href="../yesod-web-framework-book/deploying-your-webapp/configuration.dita"/>

@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="yesod-web-framework-book">
     <title id="x-1">Yesod Web Framework Book</title>
-    <topichead id="basics" navtitle="Basics">
+    <topichead id="basics-part" navtitle="Basics">
         <mapref id="x-2" href="yesod-web-framework-book/introduction.ditamap"/>
         <mapref id="x-3" href="yesod-web-framework-book/basics.ditamap"/>
         <mapref id="x-4" href="yesod-web-framework-book/shakespearean-templates.ditamap"/>
@@ -15,7 +15,7 @@
     </topichead>
     <topichead id="advanced" navtitle="Advanced">
         <mapref id="x-11" href="yesod-web-framework-book/restful-content.ditamap"/>
-        <mapref href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
+        <mapref id="x-26" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
         <mapref id="x-12" href="yesod-web-framework-book/authentication-and-authorization.ditamap"/>
         <mapref id="x-13" href="yesod-web-framework-book/scaffolding-and-the-site-template.ditamap"/>
         <mapref id="x-14" href="yesod-web-framework-book/advanced-forms.ditamap"/>
