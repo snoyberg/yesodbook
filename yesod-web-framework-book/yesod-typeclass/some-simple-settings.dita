@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="some-simple-settings">
+ <title>Some Simple Settings</title>
+ <conbody>
+  <p>Not everything in the Yesod typeclass is complicated. Some methods are really very simple
+   functions. Let's just go through the list:</p>
+  <dl>
+   <dlentry>
+    <dt>encryptKey</dt>
+    <dd>Yesod uses client-side sessions, which are stored in encrypted, cryptographically-hashed
+     cookies. Well, as long as you provide an encryption key. If this function returns Nothing, then
+     sessions are disabled. This can be a useful optimization on sites that don't need session
+     facilities, as it avoids an encrypt/decrypt pair on each request.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>clientSessionDuration</dt>
+    <dd>How long a session should last for. By default, this is two hours.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>sessionIpAddress</dt>
+    <dd>By default, sessions are tied to an individual IP address. If your users are sitting behind
+     a proxy server, this can cause trouble when their IP suddenly changes. This setting lets you
+     disable this security feature.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>cookiePath</dt>
+    <dd>What paths within your current domain to set cookies for. The default is "/", and will
+     almost always be correct. One exception might be when you're serving from a subpath within a
+     domain (like our <xref href="rendering-and-parsing-urls.dita#rendering-and-parsing-urls/rpu4"
+      format="dita">wiki example above</xref>).</dd>
+   </dlentry>
+   <dlentry>
+    <dt>maximumContentLength</dt>
+    <dd>To prevent Denial of Server (DoS) attacks, Yesod will limit the size of request bodies. Some
+     of the time, you'll want to bump that limit for some routes (e.g., a file upload page). This is
+     where you'd do that.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>
