@@ -17,10 +17,11 @@
         </topicref>
         <topicref id="custom-error-pages"
             href="../yesod-web-framework-book/yesod-typeclass/custom-error-pages.dita"/>
+        <topicref id="external-css-js"
+            href="../yesod-web-framework-book/yesod-typeclass/external-css-js.dita"/>
         <topicref id="smarter-static-files"
             href="../yesod-web-framework-book/yesod-typeclass/smarter-static-files.dita"/>
-        <topicref id="auth"
-            href="../yesod-web-framework-book/yesod-typeclass/auth.dita"/>
+        <topicref id="auth" href="../yesod-web-framework-book/yesod-typeclass/auth.dita"/>
         <topicref id="some-simple-settings"
             href="../yesod-web-framework-book/yesod-typeclass/some-simple-settings.dita"/>
         <topicref id="summary" href="../yesod-web-framework-book/yesod-typeclass/summary.dita"/>

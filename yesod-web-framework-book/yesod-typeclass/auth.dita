@@ -4,5 +4,38 @@
  <title>Authentication/Authorization</title>
  <conbody>
   <p>FIXME: Cover isAuthorized, isWriteRequest, authRoute</p>
+  <p>For simple applications, checking permissions inside each handler function can be a simple,
+   convenient approach. However, it doesn't scale well. Eventually, you're going to want to have a
+   more declarative approach. Many systems our there define ACLs, special config files, and a lot of
+   other hocus-pocus. In Yesod, it's just plain old Haskell. There are three very simple methods
+   involved:</p>
+  <dl>
+   <dlentry>
+    <dt>isWriteRequest</dt>
+    <dd>Determine if the current request is a "read" or "write" operations. By default, Yesod
+     follows RESTful principles, and assumes GET, HEAD, OPTIONS, and TRACE requests are read-only,
+     while all others are can write.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>isAuthorized</dt>
+    <dd>Takes a route (i.e., type-safe URL) and a boolean indicating whether or not the request is a
+     write request. It returns an AuthResult, which can have one of three values:<ul
+      id="ul_tsw_jog_sd">
+      <li>Authorized</li>
+      <li>AuthenticationRequired</li>
+      <li>Unauthorized</li>
+     </ul>By default, this returns Authorized for all requests.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>authRoute</dt>
+    <dd>If isAuthorized returns AuthenticationRequired, then redirect to the given route. If no
+     route is provided (the default), return a 403 "Permission Denied" message.</dd>
+   </dlentry>
+  </dl>
+  <p>These methods tie in very well with the <apiname>yesod-auth</apiname> package, which is used by
+   the scaffolded site to provide a number of authentication options, such as OpenID, BrowserID,
+   email, username and Twitter. We'll cover more concrete exampels in the <xref
+    href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization"
+    format="dita">auth chapter</xref>.</p>
  </conbody>
 </concept>
