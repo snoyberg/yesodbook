@@ -31,15 +31,17 @@
         <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap"/>
         <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
         <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
-        <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"/>
+        <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"
+        />
     </topichead>
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
         <topicref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
         <topicref id="example-form" href="yesod-web-framework-book/example-form.dita"/>
-        <topicref id="example-widgets" href="yesod-web-framework-book/example-widgets.dita"/>
-        <topicref id="example-generalized-hamlet" href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
+        <topicref id="example-generalized-hamlet"
+            href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
         <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
-        <topicref id="example-internationalization" href="yesod-web-framework-book/example-internationalization.dita"/>
+        <topicref id="example-internationalization"
+            href="yesod-web-framework-book/example-internationalization.dita"/>
     </topichead>
 </map>
