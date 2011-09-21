@@ -11,7 +11,6 @@
 &gt; import qualified Data.ByteString.Lazy as L
 
 &gt; data PY = PY
-&gt; type Handler = GHandler PY PY
 
 &gt; mkYesod "PY" [parseRoutes|
 &gt; / Homepage GET POST
@@ -19,7 +18,7 @@
 
 &gt; instance Yesod PY where approot _ = ""
 
-&gt; template :: Maybe (Hamlet url) -&gt; Hamlet url
+&gt; template :: Maybe (HtmlUrl url) -&gt; HtmlUrl url
 &gt; template myaml = [hamlet|
 &gt; !!!
 &gt; 
@@ -48,7 +47,7 @@
 &gt;     so &lt;- liftIO $ decode $ B.concat $ L.toChunks $ fileContent fi
 &gt;     hamletToRepHtml $ template $ Just $ objToHamlet so
 
-&gt; objToHamlet :: StringObject -&gt; Hamlet url
+&gt; objToHamlet :: StringObject -&gt; HtmlUrl url
 &gt; objToHamlet (Scalar s) = [hamlet|#{s}|]
 &gt; objToHamlet (Sequence list) = [hamlet|
 &gt; &lt;ul

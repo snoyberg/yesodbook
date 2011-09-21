@@ -11,7 +11,6 @@
 &gt; import Data.Text (Text)
 
 &gt; data I18N = I18N
-&gt; type Handler = GHandler I18N I18N
 
 &gt; mkYesod "I18N" [parseRoutes|
 &gt; /            HomepageR GET

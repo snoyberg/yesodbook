@@ -6,7 +6,7 @@
 
 &gt; {-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
 &gt; import Yesod
-&gt; import Yesod.Helpers.Static
+&gt; import Yesod.Static
 &gt; import Data.Monoid (mempty)
 
 Like the blog example, we'll define some data first.
@@ -28,7 +28,6 @@ Like the blog example, we'll define some data first.
 &gt;   { ajaxPages :: [Page]
 &gt;   , ajaxStatic :: Static
 &gt;   }
-&gt; type Handler = GHandler Ajax Ajax
 
 Next we'll generate a function for each file in our static folder. This way, we get a compiler warning when trying to using a file which does not exist.
 
@@ -88,7 +87,7 @@ And now the cool part: a handler that returns either HTML or JSON data, dependin
 &gt;   case filter (\e -&gt; pageSlug e == slug) pages of
 &gt;       [] -&gt; notFound
 &gt;       page:_ -&gt; defaultLayoutJson (do
-&gt;           setTitle $ string $ pageName page
+&gt;           setTitle $ toHtml $ pageName page
 &gt;           addHamlet $ html page
 &gt;           ) (json page)
 &gt;  where
@@ -110,6 +109,6 @@ And now the cool part: a handler that returns either HTML or JSON data, dependin
 &gt; main :: IO ()
 &gt; main = do
 &gt;   pages &lt;- loadPages
-&gt;   let s = static "static/yesod/ajax"
+&gt;   s &lt;- static "static/yesod/ajax"
 &gt;   warpDebug 3000 $ Ajax pages s
 </codeblock></conbody></concept>
