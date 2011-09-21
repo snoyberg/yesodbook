@@ -37,7 +37,6 @@
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
         <topicref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
-        <topicref id="example-form" href="yesod-web-framework-book/example-form.dita"/>
         <topicref id="example-generalized-hamlet"
             href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
         <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
