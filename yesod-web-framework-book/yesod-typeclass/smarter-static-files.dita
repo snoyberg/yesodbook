@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="smarter-static-files">
- <title>Smarter Static Files</title>
- <conbody>
-  <p>Google recommends an important optimization: <xref
-    href="http://code.google.com/speed/page-speed/docs/request.html#ServeFromCookielessDomain"
-    format="html" scope="external">serve static files from a separate domain</xref>. The advantage
+ <title id="x-1">Smarter Static Files</title>
+ <conbody id="x-2">
+  <p id="x-3">Google recommends an important optimization: <xref id="x-4" href="http://code.google.com/speed/page-speed/docs/request.html#ServeFromCookielessDomain" format="html" scope="external">serve static files from a separate domain</xref>. The advantage
    to this approach is that cookies set on your main domain are not sent when retrieving static
    files, thus saving on a bit of bandwidth.</p>
-  <p>To facilitate this, we have the <codeph>urlRenderOverride</codeph> method. This method
+  <p id="x-5">To facilitate this, we have the <codeph id="x-6">urlRenderOverride</codeph> method. This method
    intercepts the normal URL rendering and sets a special value for some routes. For example, the
    scaffolding defines this method as:</p>
-  <codeblock outputclass="haskell">    urlRenderOverride y (StaticR s) =
+  <codeblock id="x-7" outputclass="haskell">    urlRenderOverride y (StaticR s) =
         Just $ uncurry (joinPath y (Settings.staticRoot $ settings y)) $ renderRoute s
     urlRenderOverride _ _ = Nothing</codeblock>
-  <p>This means that static routes are served from a special static root, which you can configure to
+  <p id="x-8">This means that static routes are served from a special static root, which you can configure to
    be a different domain. This is a great example of the power and flexibility of type-safe URLs:
    with a single line of code you're able to change the rendering of static routes throughout all of
    your handlers.</p>

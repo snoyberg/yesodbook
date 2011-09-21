@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>External CSS and Javascript</title>
- <conbody>
+ <title id="x-1">External CSS and Javascript</title>
+ <conbody id="x-2">
   <note id="in-scaffolding">The functionality described here is automatically included in the
    scaffolded site.</note>
-  <p>One of the most powerful, and most intimidating, methods in the Yesod typeclass is
-    <codeph>addStaticContent</codeph>. Remember that a Widget consists of multiple components,
+  <p id="x-3">One of the most powerful, and most intimidating, methods in the Yesod typeclass is
+    <codeph id="x-4">addStaticContent</codeph>. Remember that a Widget consists of multiple components,
    including CSS and Javascript. How exactly does that CSS/JS arrive in the user's browser? By
-   default, they are served in the &lt;head> of the page, inside &lt;style> and &lt;script> tags,
+   default, they are served in the &lt;head&gt; of the page, inside &lt;style&gt; and &lt;script&gt; tags,
    respectively.</p>
-  <p>That might be simple, but it's far from efficient. Every page load will now require loading up
+  <p id="x-5">That might be simple, but it's far from efficient. Every page load will now require loading up
    the CSS/JS from scratch, even if nothing changed! What we really want is to store this content in
    an external file and then refer to it from the HTML.</p>
-  <p>This is where addStaticContent comes in. It takes three arguments: the filename extension of
+  <p id="x-6">This is where addStaticContent comes in. It takes three arguments: the filename extension of
    the content ("css" or "js"), the mime-type of the content ("text/css" or "text/javascript") and
    the content itself. It will then return one of three possible results:</p>
-  <dl>
-   <dlentry>
-    <dt>Nothing</dt>
-    <dd>No static file saving occurred; embed this content directly in the HTML. This is the default
+  <dl id="x-7">
+   <dlentry id="x-8">
+    <dt id="x-9">Nothing</dt>
+    <dd id="x-10">No static file saving occurred; embed this content directly in the HTML. This is the default
      behavior.</dd>
    </dlentry>
-   <dlentry>
-    <dt>Just (Left Text)</dt>
-    <dd>This content was saved in an external file, and use the given textual link to refer to
+   <dlentry id="x-11">
+    <dt id="x-12">Just (Left Text)</dt>
+    <dd id="x-13">This content was saved in an external file, and use the given textual link to refer to
      it.</dd>
    </dlentry>
-   <dlentry>
-    <dt>Just (Right (Route a, Query))</dt>
-    <dd>Same, but now use a type-safe URL along with some query string parameters.</dd>
+   <dlentry id="x-14">
+    <dt id="x-15">Just (Right (Route a, Query))</dt>
+    <dd id="x-16">Same, but now use a type-safe URL along with some query string parameters.</dd>
    </dlentry>
   </dl>
-  <p>The Left result is useful if you want to store your static files on an external server, such as
+  <p id="x-17">The Left result is useful if you want to store your static files on an external server, such as
    a CDN or memory-backed server. The Right result is more commonly used, and ties in very well with
    the static subsite. This is the recommended approach for most applications, and is provided by
    the scaffolded site by default.</p>
-  <note>You might be wondering: if this is the recommended approach, why isn't it the default? The
+  <note id="x-18">You might be wondering: if this is the recommended approach, why isn't it the default? The
    problem is that it makes a number of assumptions that don't universally hold: your application
    has a static subsite, and the location of your static files.</note>
-  <p>The scaffolded addStaticContent does a number of intelligent things to help you out:</p>
+  <p id="x-19">The scaffolded addStaticContent does a number of intelligent things to help you out:</p>
   <ul id="ul_vlr_nmg_sd">
-   <li>It automatically minifies your Javascript using the <apiname>hjsmin</apiname> package.</li>
-   <li>It names the output files based on a hash of the file contents. This means you can set your
+   <li id="x-20">It automatically minifies your Javascript using the <apiname id="x-21">hjsmin</apiname> package.</li>
+   <li id="x-22">It names the output files based on a hash of the file contents. This means you can set your
     cache headers to far in the future without fears of stale content.</li>
-   <li>Also, since filenames are based on hashes, you can be guaranteed that a file doesn't need to
+   <li id="x-23">Also, since filenames are based on hashes, you can be guaranteed that a file doesn't need to
     be written if a file with the same name already exists. The scaffold code automatically checks
     for the existance of that file, and avoids the costly disk I/O of a write if it's not
     necessary.</li>
