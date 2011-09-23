@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="input">
+ <title>Input forms</title>
+ <conbody>
+  <p>Applicative and monadic forms handle both the generation of your HTML code and the parsing of
+   user input. Sometimes, you only want to do the latter, such as when there's an already-existing
+   form in HTML somewhere, or if you want to generate a form dynamically using Javascript. In such a
+   case, you'll want input forms.</p>
+  <p>These work mostly the same as applicative and monadic forms, with some differences:</p>
+  <ul id="ul_e3c4dff2-c3cd-4ba1-b146-3841e6018b14">
+   <li>You use runInputPost and runInputGet.</li>
+   <li>You use ireq and iopt. These functions now only take two arguments: the field type and the
+    name (i.e., HTML name attribute) of the field in question.</li>
+   <li>After running a form, it returns the value. It doesn't not return a widget or an encoding
+    type.</li>
+   <li>If there are any validation errors, the page returns an "invalid arguments" error page.</li>
+  </ul>
+  <p>It's very easy to use input forms to recreate the previous example. Note, however, that the
+   input version is less user friendly. If you make a mistake in an applicative or monadic form, you
+   will be brought back to the same page, with your previously entered values in the form, and an
+   error message explaning what you need to correct.</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
+             TemplateHaskell, MultiParamTypeClasses #-}
+import Yesod
+import Control.Applicative
+import Data.Text (Text)
+
+data Input = Input
+
+mkYesod "Input" [parseRoutes|
+/ RootR GET
+/input InputR GET
+|]
+
+instance Yesod Input where
+    approot _ = ""
+
+instance RenderMessage Input FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+data Person = Person { personName :: Text, personAge :: Int }
+    deriving Show
+
+getRootR :: Handler RepHtml
+getRootR = defaultLayout [whamlet|
+&lt;form action=@{InputR}>
+    &lt;p>
+        My name is #
+        &lt;input type=text name=name>
+        \ and I am #
+        &lt;input type=text name=age>
+        \ years old. #
+        &lt;input type=submit value="Introduce myself">
+|]
+
+getInputR :: Handler RepHtml
+getInputR = do
+    person &lt;- runInputGet $ Person
+                &lt;$> ireq textField "name"
+                &lt;*> ireq intField "age"
+    defaultLayout [whamlet|&lt;p>#{show person}|]
+
+main :: IO ()
+main = warpDebug 3000 Input</codeblock>
+ </conbody>
+</concept>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="monadic">
+ <title>Monadic Forms</title>
+ <conbody>
+  <p>Often times, a simple form layout is adequate, and applicative forms excel at this approach.
+   Sometimes, however, you'll want to have a more customized look to your form.</p>
+  <fig>
+   <title>A non-standard form layout</title>
+   <image id="image_d604c9d5-b1e2-447a-a3ee-efe4559f0d2f" href="monadic-form.png"/>
+  </fig>
+  <p>For these use cases, monadic forms fit the bill. They are a bit more verbose than their
+   applicative cousins, but this verbosity allows you to have complete control over what the form
+   will look like. In order to generate the form above, we could code something like this.</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
+             TemplateHaskell, MultiParamTypeClasses #-}
+import Yesod
+import Control.Applicative
+import Data.Text (Text)
+
+data Monadic = Monadic
+
+mkYesod "Monadic" [parseRoutes|
+/ RootR GET
+|]
+
+instance Yesod Monadic where
+    approot _ = ""
+
+instance RenderMessage Monadic FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+data Person = Person { personName :: Text, personAge :: Int }
+    deriving Show
+
+personForm :: Html -> Form Monadic Monadic (FormResult Person, Widget)
+personForm extra = do
+    (nameRes, nameView) &lt;- mreq textField "this is not used" Nothing
+    (ageRes, ageView) &lt;- mreq intField "neither is this" Nothing
+    let personRes = Person &lt;$> nameRes &lt;*> ageRes
+    let widget = do
+            toWidget [lucius|
+##{fvId ageView} {
+    width: 3em;
+}
+|]
+            [whamlet|
+#{extra}
+&lt;p>
+    Hello, my name is #
+    ^{fvInput nameView}
+    \ and I am #
+    ^{fvInput ageView}
+    \ years old. #
+    &lt;input type=submit value="Introduce myself">
+|]
+    return (personRes, widget)
+
+getRootR :: Handler RepHtml
+getRootR = do
+    ((res, widget), enctype) &lt;- runFormGet personForm
+    defaultLayout [whamlet|
+&lt;p>Result: #{show res}
+&lt;form enctype=#{enctype}>
+    ^{widget}
+|]
+
+main :: IO ()
+main = warpDebug 3000 Monadic</codeblock>
+  <p>Similar to the applicative <codeph>areq</codeph>, we use <codeph>mreq</codeph> for monadic
+   forms. (And yes, there's also mopt for optional fields.) But there's a big difference: mreq gives
+   us back a pair of values. Instead of hiding away the
+    <apiname>yesod-form:Yesod.Form.Types:FieldView</apiname> value and automatically inserting it
+   into a widget, we get the control to insert it as we see fit.</p>
+  <p>FieldView has a number of pieces of information. The most important is fvInput, which is the
+   actual form field. In this example, we also use fvId, which gives us back the HTML id attribute
+   of the input tag. In our example, we use that to specify the width of the field.</p>
+  <p>You might be wondering what the story is with the "this is not used" and "neither is this"
+   values. mreq takes a FieldSettings as its second argument, which allows you to specify an id or
+   name attribute, as well as give a label and tooltip. The label and tooltip are then passed into
+   the FieldView value. These records are used in applicative forms, but don't really serve much of
+   a purpose in monadic forms. By giving a dummy string value, you're essentially passing in a
+   default FieldSettings which says "automatically generate the id and name."</p>
+  <p>The other interesting bit is the <codeph>extra</codeph> value. GET forms include an extra field
+   to indicate that they have been submitted, and POST forms include a nonce to prevent CSRF
+   attacks. If you don't include this extra hidden field in your form, Yesod will not accept it.</p>
+  <p>Other than that, things are pretty straight-forward. We create are personRes value by combining
+   together the nameRes and ageRes values, and then return a tuple of the person and the widget. And
+   in the getRootR function, everything looks just like an applicative form. In fact, you could swap
+   out our monadic form with an applicative one and the code would still work.</p>
+  <note>Well, that's not <b>exactly</b> true. It would compile and build, but you wouldn't have a
+   submit button. Notice that here, the monadic form included the submit button, whereas in
+   applicative forms, it is not automatically included.</note>
+ </conbody>
+</concept>
