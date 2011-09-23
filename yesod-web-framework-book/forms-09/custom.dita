@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="custom">
- <title>Custom fields</title>
- <conbody>
-  <p>The fields that come built-in with Yesod will likely cover the vast majority of your form
+ <title id="x-1">Custom fields</title>
+ <conbody id="x-2">
+  <p id="x-3">The fields that come built-in with Yesod will likely cover the vast majority of your form
    needs. But occassionally, you'll need something more specialized. Fortunately, creating new forms
    in Yesod is very easy. The Field datatype has two records: fieldParse takes a list of values
    submitted by the user and returns one of three results:</p>
   <ul id="ul_d7bb7211-f4dc-4239-a2b0-ae26a58b6290">
-   <li>An error message saying validation failed.</li>
-   <li>The parsed value.</li>
-   <li>Nothing, indicating that no data was supplied.</li>
+   <li id="x-4">An error message saying validation failed.</li>
+   <li id="x-5">The parsed value.</li>
+   <li id="x-6">Nothing, indicating that no data was supplied.</li>
   </ul>
-  <p>That last case might sound surprising: shouldn't Yesod automatically know that no information
+  <p id="x-7">That last case might sound surprising: shouldn't Yesod automatically know that no information
    is supplied when the input list is empty? Well, no actually. Checkboxes, for instance, indicate
    an unchecked state by sending in an empty list.</p>
-  <p>Also, what's up with the list? Shouldn't it be a Maybe? Well, that's also not the case. With
+  <p id="x-8">Also, what's up with the list? Shouldn't it be a Maybe? Well, that's also not the case. With
    grouped checkboxes and multi-select lists, you'll have multiple widgets with the same name. We
    also use this trick in our example below.</p>
-  <p>The second record is fieldView, and it renders a widget to display to the user. This function
+  <p id="x-9">The second record is fieldView, and it renders a widget to display to the user. This function
    has four arguments: the ID attribute, the name attribute, the result and a boolean indicating if
    the field is required.</p>
-  <p>What did I mean by result? It's actually an Either, giving either the unparsed input (when
+  <p id="x-10">What did I mean by result? It's actually an Either, giving either the unparsed input (when
    parsing failed) or the successfully parsed value. intField is a great example of how this works.
-   If you type in <userinput>42</userinput>, the value of result will be <codeph>Right 42</codeph>.
-   But if you type in <userinput>turtle</userinput>, the result will be <codeph>Left
+   If you type in <userinput id="x-11">42</userinput>, the value of result will be <codeph id="x-12">Right 42</codeph>.
+   But if you type in <userinput id="x-13">turtle</userinput>, the result will be <codeph id="x-14">Left
     "turtle"</codeph>. This lets you put in a value attribute on your input tag that will give the
    user a consistent experience.</p>
-  <p>As a small example, we'll create a new field type that is a password confirm field. This field
+  <p id="x-15">As a small example, we'll create a new field type that is a password confirm field. This field
    has two text inputs- both with the same name attribute- and returns an error message the values
-   don't match. Note that, unlike most fields, it does <i>not</i> provide a value attribute on the
-   input tags, as you don't want to send back a user-entered password in your HTML <b>ever</b>.</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
+   don't match. Note that, unlike most fields, it does <i id="x-16">not</i> provide a value attribute on the
+   input tags, as you don't want to send back a user-entered password in your HTML <b id="x-17">ever</b>.</p>
+  <codeblock id="x-18" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
              TemplateHaskell, MultiParamTypeClasses #-}
 import Yesod
 import Control.Applicative
@@ -51,17 +51,17 @@ instance RenderMessage Password FormMessage where
 -- START
 passwordConfirmField :: Field sub master Text
 passwordConfirmField = Field
-    { fieldParse = \rawVals ->
+    { fieldParse = \rawVals -&gt;
         case rawVals of
             [a, b]
-                | a == b -> return $ Right $ Just a
-                | otherwise -> return $ Left "Passwords don't match"
-            [] -> return $ Right Nothing
-            _ -> return $ Left "You must enter two values"
-    , fieldView = \idAttr nameAttr eResult isReq -> [whamlet|
-&lt;input id=#{idAttr} name=#{nameAttr} type=password>
-&lt;div>Confirm:
-&lt;input id=#{idAttr}-confirm name=#{nameAttr} type=password>
+                | a == b -&gt; return $ Right $ Just a
+                | otherwise -&gt; return $ Left "Passwords don't match"
+            [] -&gt; return $ Right Nothing
+            _ -&gt; return $ Left "You must enter two values"
+    , fieldView = \idAttr nameAttr eResult isReq -&gt; [whamlet|
+&lt;input id=#{idAttr} name=#{nameAttr} type=password&gt;
+&lt;div&gt;Confirm:
+&lt;input id=#{idAttr}-confirm name=#{nameAttr} type=password&gt;
 |]
     }
 
@@ -70,10 +70,10 @@ getRootR = do
     ((res, widget), enctype) &lt;- runFormGet $ renderDivs
         $ areq passwordConfirmField "Password" Nothing
     defaultLayout [whamlet|
-&lt;p>Result: #{show res}
-&lt;form enctype=#{enctype}>
+&lt;p&gt;Result: #{show res}
+&lt;form enctype=#{enctype}&gt;
     ^{widget}
-    &lt;input type=submit value="Change password">
+    &lt;input type=submit value="Change password"&gt;
 |]
 -- STOP
 main :: IO ()
