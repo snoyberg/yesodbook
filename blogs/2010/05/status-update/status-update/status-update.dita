@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="status-update"><title>Status Update</title><body><foreign outputclass="html">&lt;p&gt;I announced on the web-devel list that Yesod 0.2 is basically feature complete, and almost ready for release. I decided to finally go and do some maintenance on some of the underlying libraries, so I wanted to give some updates. Some of this is stuff I've been itching to do for a while, so I'm pretty excited it will be included for Yesod 0.2.&lt;/p&gt;
+&lt;h3&gt;Enumerator-based compression&lt;/h3&gt;
+&lt;p&gt;The one big weak link in the enumerator chain for WAI has been the GZIP middleware; it was originally based on the standard zlib package on Hackage, which uses lazy I/O. In essence, we were losing a lot of the benefits of the WAI whenever we compressed output.&lt;/p&gt;
+&lt;p&gt;But not anymore! I've released &lt;a href="http://hackage.haskell.org/package/wai-extra"&gt;wai-extra&lt;/a&gt; 0.1.1, which includes an enumerator-based binding to the zlib library.&lt;/p&gt;
+&lt;p&gt;The new wai-extra 0.1 series is designed to minimize external dependencies. I dropped the clientsession and methodoverride middlewares (I don't think they'll be missed), and drop dependencies on a few other packages. I believe the only non-Haskell Platform packages are now sendfile and wai, and clearly the latter has to stay in.&lt;/p&gt;
+&lt;p&gt;As a future roadmap, I'm considering porting over the encoding functions in web-encodings and specializing them for datatypes in WAI. For example, decodeUrlPairs would only work on strict bytestrings, since that's how WAI provides the query string.&lt;/p&gt;
+&lt;h3&gt;wai-handler-fastcgi&lt;/h3&gt;
+&lt;p&gt;I originally wrote hack-handler-fastcgi as a port of the fastcgi package on Hackage, which in turn wraps the C library. I was very excited when Dan Knapp released &lt;a href="http://hackage.haskell.org/package/direct-fastcgi"&gt;direct-fastcgi&lt;/a&gt;, and recently I wrote &lt;a href="http://hackage.haskell.org/package/wai-handler-fastcgi"&gt;a wrapper around it&lt;/a&gt; that allows you to run your WAI applications with it. I'm using it in production with lighttpd for &lt;a href="http://www.search-once.com/"&gt;my most recent client site&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;One little annoyance: there's a debugging line that outputs "fromList []" for every request. I emailed Dan about this, and hopefully he'll remove it; in the meanwhile, for version 1.0.1.1, you can just remove line 1704 in Network/FastCGI.hs.&lt;/p&gt;
+&lt;h3&gt;yaml&lt;/h3&gt;
+&lt;p&gt;With some help from Anton Ageev, yaml, data-object-yaml and data-object-json all got a bit of an update, including some iteratee goodness. I won't repeat myself: &lt;a href="http://www.haskell.org/pipermail/haskell-cafe/2010-May/077691.html"&gt;you can read the release announcement&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;failure et al&lt;/h3&gt;
+&lt;p&gt;The &lt;a href="http://hackage.haskell.org/package/failure"&gt;failure&lt;/a&gt; package got bumped to 0.1.0. The only real change was renaming MonadFailure to Failure. This created a cascade of releases for control-monad-failure, attempt, safe-failure, control-monad-attempt, etc.&lt;/p&gt;
+&lt;p&gt;This package makes failure handling very nice, I encourage people to look into it.&lt;/p&gt;
+&lt;h3&gt;clientsession&lt;/h3&gt;
+&lt;p&gt;And now a bit of a wart. I really didn't like having the Crypto dependency, since it takes forever to build all the tests, especially on a low-memory server. I e-mailed them a patch to make the tests optional, but it hasn't been applied. On top of that, I have a feeling that the AES implementation in Crypto is very inefficient, since it deals directly with lists of Word8s.&lt;/p&gt;
+&lt;p&gt;I tried switching over to SimpleAES. In fact, I even released clientsession 0.3.0 based on SimpleAES. However, it seems there's some bug for 32-bit systems (my server again). I traced it down to something in assembly, at which point I gave up.&lt;/p&gt;
+&lt;p&gt;My next step was to try pulling the AES code into the clientsession repo to avoid the test building, but that still runs very slowly.&lt;/p&gt;
+&lt;p&gt;So I just wrote some code &lt;a href="http://github.com/snoyberg/clientsession/tree/xor"&gt;in a separate branch&lt;/a&gt; that uses incredibly fast XOR encryption. Combined with some compression to avoid frequency analysis, this may be enough, but I definitely want a more robust solution in place by release.&lt;/p&gt;
+&lt;h3&gt;bloggy&lt;/h3&gt;
+&lt;p&gt;And by popular demand, I've ported &lt;a href="http://github.com/snoyberg/bloggy"&gt;bloggy&lt;/a&gt; to Yesod 0.2. I personally don't think it's a great way to learn Yesod- I believe the tutorials give a better view without clouding the scene with data serialization issues- but for those who want it, it's available.&lt;/p&gt;
+&lt;h3&gt;What's next&lt;/h3&gt;
+&lt;p&gt;I won't even consider releasing Yesod until I can go a few days without making a breaking API change. I'm still finding minor things all over the place where a change is nice, and I'd rather have a solid release than an earlier one.&lt;/p&gt;
+&lt;p&gt;Also, my next project is massively database-driven, so I'm already thinking hard about the next Yesod release. Here's the thoughts I've been tossing around, very much unpolished:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Define entities but not entity relationships. Allow entities to hold references to other entities (ie, keys). And the layer will use no joining at all.&lt;/li&gt;
+&lt;li&gt;Create a Query datatype somehow, and values will be created using combinators like &lt;code&gt;filterBy someField myValue&lt;/code&gt; or &lt;code&gt;sortBy someField&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Have some typeclass for converting a Query into various monads.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As I said, very unpolished... and it's late... hopefully better stuff tomorrow.&lt;/p&gt;
+</foreign></body></topic>

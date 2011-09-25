@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conclusion"><title>Conclusion</title><conbody>
+  <ul id="ul_xxs_igj_jd">
+   <li id="x1">Java-the-language and Java-the-libraries make a number of simple tasks very complicated.</li>
+   <li id="x2">Therefore, we have a number of helper languages, like XSLT and Ant, to avoid the pain of a
+    pure Java solution.</li>
+   <li id="x3">However, these tools are all purposely missing some features we'll inevitably need.</li>
+   <li id="x4">The result will be either missing proper handling of some features, a polyglot that will miss
+    the point of using Java in the first place, or most likely both.</li>
+   <li id="x5">There are great use cases for non-general-purpose languages, but they should have tight
+    integration with a real language.</li>
+   <li id="x6">Haskell's flexible syntax and great typing make it very powerful here.</li>
+  </ul>
+ </conbody></concept>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="welcome-to-the-new-yesod-site"><title>Welcome to the new Yesod Site</title><conbody>  <p id="x1">I work for <xref id="x2" href="http://www.suite-sol.com" format="html" scope="external">Suite
+    Solutions</xref>, a company that provides professional services for implementing and maintaining
+   XML-based content lifecycles. Services include style sheet development for a multitude of output
+   formats in multiple languages, content conversion, training, consulting, information architecture
+   guidance, custom integration and support. We are working on ways to bridge the gap between
+   user-contributed web systems like wikis and the more traditional documentation systems in order
+   to provide an interactive, structured knowledgebase and allow technical authors to get feedback
+   directly from their reader community.</p>
+  <p id="x3">My company has graciously allowed me to use this system as the basis for a new Yesod
+   documentation site. I believe this new site will make it much easier for me to add content and
+   keep it up-to-date, and lower the barrier to entry for other contributors. This post will give an
+   introduction to the new system.</p>
+ </conbody></concept>

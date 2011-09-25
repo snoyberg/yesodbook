@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="yesod-09-release"><title>Yesod 0.9 Release</title><body><foreign outputclass="markdown">Yesod 0.9 is on hackage! This release represents a massive amount of improvements, in some cases resulting in significant API changes. We believe this release is good enough to be a 1.0 (a release to be proud of, with a stable API). But first we need you to use it for a while and give us all of your great feedback.
+
+We had a [changelog](http://www.yesodweb.com/page/changelog) page going for a while now to keep track of changes. But here we will explain all of the changes in their full glory.
+
+
+## Versioning
+
+Yesod is split into many separate packages, all eventually wrapped up by the "yesod" package itself. When we say version 0.9, we are referring to the version of the "yesod" package.
+
+This release releases version 0.9.1 (not 0.9.0) to hackage so that release candidate users will have an easy time upgrading.
+
+Most of the changes for this release are not part of the "yesod" package, but rather underlying packages like hamlet or yesod-forms. As such, many of these changes have been available on Hackage since before the actual 0.9 release. However, a standard usage of the "yesod" package would not notice them. For more information, please see [Using non-standard package versions](/wiki/non-standard-versions).
+
+
+## Shakespearean templates (Hamlet)
+
+Yesod started with hamlet, which gives one the ability to just insert variables into templates as they might be used to with a dynamic language. This was so powerful that Michael made hamlet-like template languages for css and javascript. "hamlet" is the name of the html template. We are now officially adopting the term "Shakespeare" for this style of templates.
+
+To facilitate this, the hamlet package underwent a re-organization and was broken up into separate packages: hamlet (just hamlet), shakespeare-js (julius), shakespeare-css (lucius, cassius), and xml-hamlet. And there is a shakespeare package that contains the base code for making shakespeare-style templating languages. This makes it really easy to create a new shakespeare style template for any of your templating needs.
+
+The major addition to this release is the shakespeare-text package. shakespeare-text is a good example of how easy it is to create a new pass-through Shakespeare template language. All it does is allow you to insert variable into normal Haskell text. This is great for creating e-mail templates, but we are also exposing 2 helpers you can choose to use in your normal haskell code. `st` for strict text, and `lt` for lazy text.
+
+
+~~~~~{.haskell}
+{-# LANGUAGE TemplateHaskell, QuasiQuotes #-}
+import Text.Shakespeare.Text (st)
+import Data.Text.IO (putStrLn)
+import Prelude hiding (putStrLn)
+
+main = do
+  let version = "0.9"
+  putStrLn [st|Yesod release #{version}|]
+~~~~~
+
+As with all Shakespeare templates, there is no dependency on haskell-src-extras. If you aren't using Yesod and don't mind that dependency, there are some similar packages to shakespeare-text: Interpolation, interpolatedstring-perl6, interpolatedstring-qq.
+
+The major difference users will notice in this release the removal of directly polymorphic Hamlet. You now choose the simplest hamlet version that suits your needs so you don't have to pay in efficiency for features you aren't using. However, the real motivation was to produce better error messages. We have upgrade notes in the previous [post](http://www.yesodweb.com/blog/2011/08/0.9-rc3-and-scaffold-upgrade) and the book documentation has been updated. 
+
+
+## Forms
+
+Just like templating, forms underwent a major cleanup. Polymorphic forms were removed, which should get rid of the most annoying error message Yesod users encountered. Some functions were also renamed- see the [initial release candidate anouncement](http://www.yesodweb.com/blog/2011/08/yesod-0-9-release-candidate) for upgrade instructions.
+
+Thanks to Luite Stegman's help, we also added a way to easily add custom verification to your forms with the following new functions: check, checkM, and checkBool. You can see the [original anouncement](http://www.yesodweb.com/blog/2011/08/yesod-form-overhaul) or the updated book documentation.
+
+
+## WAI
+
+wai-app-static works together with yesod-static to now automatically set proper caching headers. This will have a huge impact, because our recommended deployment approach is now to just run your binary. Apache/Nginx are no longer required for static file serving.
+wai-app-static also saw some other improvements to make desktop usage better- static files can be embedded directly in the executable rather than being on the  filesystem.
+
+The debug middleware now uses the new logger to print out a thread-safe log which now includes all POST parameters.
+
+
+## Yesod
+
+There is built-in support for BrowserID, a next generation, finally user-friendly authentication system.
+Yesod has added a logging interface, allowing you to switch to any logging system you want. But we included a very simple thread-safe logger, which we plan on switching out for a faster one in the near future. The logging interface give you the option to log the file and line number using template haskell. This same technique is available for use in my recently release [file-location](hackage.haskell.org/package/file-location) debugging utility package.
+
+There have been a lot of other improvements. One example is more secure client side cookies, using CBC mode instead of ECB. (Thanks to Loïc Maury.)
+
+### Scaffolding
+
+Scaffolding is what is generated by `yesod init`. This is where the most noticeable Yesod improvements show up.
+
+* The new logger setup to use the new WAI debug middleware.
+* in development mode emails are logged instead of sent. This is actually more convenient and gets rid of the sendmail dependency for development.
+* Signal handling on unix added to scaffolder (should probably be moved out of the handler).
+* Documentation and code for deploying to Heroku (deploy/Procfile)
+* upgrade to html5boilerplate version 2, which just means use normalize.css (instead of a css reset)
+* file name changes - see the [previous upgrade post](http://www.yesodweb.com/blog/2011/08/0.9-rc3-and-scaffold-upgrade)
+* configurable settings - you can place settings into yaml configuration files. By default, this is done for the host, port, connection pool size, and other database settings. And you can override settings with command line switches. The default allows you to override port argument. This added flexibility now makes [deploying to Heroku](http://www.yesodweb.com/blog/2011/07/haskell-on-heroku) much more straightforward.</foreign></body></topic>

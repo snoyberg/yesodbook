@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="yesod-040-released"><title>Yesod 0.4.0 Released</title><body><foreign outputclass="html">&lt;p&gt;I'm very pleased to announce the release of Yesod 0.4.0. This release includes new major versions for WAI, Hamlet, persistent and web-routes-quasi, pulling in a large number of new features. As an introduction to this release, &lt;a href="http://docs.yesodweb.com/yesod/screencast/blog-part1.html"&gt;I've begun a multi-part screencast of a blog tutorial&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The major feature in this release is widgets. This allows you to create modular pieces of HTML/CSS/JavaScript and plug them together with ease. As an example, the widgets tutorial demonstrates having a jQuery UI datepicker and Nic HTML editor without explicitly calling any Javascript.&lt;/p&gt;
+&lt;p&gt;Other major changes: include a large architectural overhaul of persistent, which does not affect user code very much, but gives much more flexibility in using the library; an updated parser for Hamlet allowing some nice features like quoted attributes; a more sane subsite syntax hopefully allowing interoperation with other frameworks; and much more.&lt;/p&gt;
+&lt;p&gt;I keep the changelogs separate by project, you can see each of them here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://docs.yesodweb.com/yesod/changelog.html"&gt;Yesod&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.yesodweb.com/hamlet/changelog.html"&gt;Hamlet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.yesodweb.com/persistent/changelog.html"&gt;Persistent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.yesodweb.com/web-routes-quasi/changelog.html"&gt;web-routes-quasi&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unlike other releases, I don't have any major features planned next, so I'm very interested in what the community has to say at this point. I'm hoping to get a few more WAI backends working soon (waiting on some feedback from Snap before releasing a Snap-powered handler), but otherwise I'm open to suggestions.&lt;/p&gt;
+</foreign></body></topic>

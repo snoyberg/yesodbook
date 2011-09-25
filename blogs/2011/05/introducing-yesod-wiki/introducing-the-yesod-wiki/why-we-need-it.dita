@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="why-we-need-it"><title>Why we need it</title><conbody>
+  <p id="x1">I end up writing a large amount of content on Yesod:</p>
+  <ul id="ul_f910c461-ab17-471b-979a-8962053f140d">
+   <li id="x2">The book</li>
+   <li id="x3">Blog posts</li>
+   <li id="x4">Answers to bug reports</li>
+   <li id="x5">Email responses on question</li>
+  </ul>
+  <p id="x6">This results in a lot of duplicated content, which has two problems: wasted effort, and
+   out-of-date content. For example, I wrote a three part tutorial on enumerators not too long ago.
+   I then decided that it should be in the Yesod book. I copied the content over, updated it a bit,
+   and thought I was done. But there were a number of flaws with this:</p>
+  <ul id="ul_f7092995-023e-4d87-b1c4-4df52c8faee3">
+   <li id="x7">Since the blog is written in Markdown, and the book in a special XML format, I had to spend a
+    significant amount of time converting.</li>
+   <li id="x8">The blog posts were still sitting on the web for some unwitting souls to find and get
+    confused by the outdated information.</li>
+  </ul>
+  <p id="x9">With this new documentation system, we instead author topics and combine them into maps. Then,
+   these maps get published: as blog posts, in the book, or on their own. If the topics get updated
+   in one place, the changes propogate everywhere.</p>
+ </conbody></concept>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="pedantic"><title>Pedantic</title><body><foreign outputclass="html">&lt;p&gt;I had a pedantic moment I wanted to share with you all while working on web-routes-quasi. It should also serve as a nice introduction to this (not yet released) package.&lt;/p&gt;
+&lt;p&gt;This package consists of essentially two components: a quasi-quoter which converts a simple syntax into a [Resource], and some template haskell code that generate a URL datatype, render, parse and dispatch functions based on this [Resource]. For now, we'll focus on just the parse function. It takes a [String] and returns either a URL (of the aforementioned datatype) or an error message; the error message is always "Invalid URL", so &lt;b&gt;nothing&lt;/b&gt; truly interesting there.&lt;/p&gt;
+&lt;p&gt;.... and yes, pun intended on nothing...&lt;/p&gt;
+&lt;p&gt;Anyway, the template haskell code to generate the parse function basically runs through the list of Resources, generates a clause for each one, and then tacks on a catchall clause at the end to return the error message.&lt;/p&gt;
+&lt;h3&gt;What went wrong&lt;/h3&gt;
+&lt;p&gt;Well, there's one little corner case that I hadn't thought of. Let's say that we are writing an application where &lt;i&gt;every&lt;/i&gt; route is valid. Then that catch-all clause will trigger an overlapping pattern warning. This seems rather benign for two reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What web application says that every possible input is a valid route?&lt;/li&gt;
+&lt;li&gt;You can always just disable the warning, or at least ignore it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;However, I came up against a case that defeated both reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;I'm writing a subsite for Yesod which handles static file requests. In such a situation, &lt;i&gt;every&lt;/i&gt; request is theoretically valid and must be checked against the filesystem.&lt;/li&gt;
+&lt;li&gt;I'm pedantic, and hate all warnings.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;The Goal&lt;/h3&gt;
+&lt;p&gt;So the goal is simple: determine when a list of resources covers every possible request, and if so, simply omit the catch-all clause.&lt;/p&gt;
+&lt;p&gt;This is where you get to see some web-routes-quasi internals. A Resource is defined as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data Resource = Resource String [Piece] Handler
+data Piece = StaticPiece String
+           | StringPiece String
+           | IntPiece String
+           | SlurpPiece String
+data Handler = ByMethod [(String, String)]
+             | Single String
+             | SubSite String String String&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The exact meanings of all of these constructors is well documented in the source code, so I will forgo it here. But basically, here's what's important for our purposes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A slurp piece (which must be the last piece for a resource) collects &lt;i&gt;all&lt;/i&gt; the remaining pieces in a request. A subsite does basically the same thing, passing all the remaining pieces to the subsite parser.&lt;/li&gt;
+&lt;li&gt;A string piece matches any single path segment.&lt;/li&gt;
+&lt;li&gt;Int piece matches only integral pieces; static piece matches a specific word. For purposes of determining completeness, any resource which includes a static or int piece must be thrown out. (Proof left as exercise to reader.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So how do we determine whether a resource list is complete?&lt;/p&gt;
+&lt;h3&gt;My Algorithm&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Throw out resources with an int or static piece.&lt;/li&gt;
+&lt;li&gt;Count up the number of string pieces in each resource.&lt;/li&gt;
+&lt;li&gt;If the last piece is a slurp, or the handler is a subsite, consider this resource a "slurp resource".&lt;/li&gt;
+&lt;li&gt;Find the minimum number of string pieces for a slurp resource. If there exist non-slurp resources with string piece counts number from 0 to the minimum count for slurp resources (exclusive), then the resources are complete. Otherwise, they are incomplete.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Homework&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Why does my algorithm work?&lt;/li&gt;
+&lt;li&gt;I implemented it in 22 lines of code. It could easily be shorter; have fun! It's the areResourcesComplete function in Web.Routes.Quasi. Just make sure the test suite passes. (Unless someone finds a bug or makes the program clearer, I won't be including patches; this code need not be performant since it's run compile-time.)&lt;/li&gt;
+&lt;li&gt;Is there a better algorithm?&lt;/li&gt;
+&lt;/ol&gt;
+</foreign></body></topic>

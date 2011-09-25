@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="with"><title>With</title><conbody>  <p id="x1">Rounding out our statements, we have with. It's basically just a convenience for declaring a
+   synonym for a long
+   expression.<codeblock outputclass="hamlet" id="x2">$with foo &lt;- some very (long ugly) expression that $ should only $ happen once
+    &lt;p&gt;But I'm going to use #{foo} multiple times. #{foo}</codeblock></p>
+ </conbody></concept>

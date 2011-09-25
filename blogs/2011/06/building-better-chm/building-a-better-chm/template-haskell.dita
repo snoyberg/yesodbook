@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="template-haskell"><title>Template Haskell</title><conbody>
+  <p id="x1">The next trick is embedding static files into an executable. For this, we can use Template
+   Haskell (or more specifically, the <apiname id="x2">file-embed</apiname> package). A Template Haskell
+   splice always lives in the Q monad, which can embed arbitrary IO actions via qRunIO. And using
+   the StringL constructor, we can embed arbitrary content. Therefore, with just a little work, we
+   can embed a whole file at compile time:</p>
+  <codeblock id="x3">embeddedFile :: String
+embeddedFile = $(fmap (LitE . StringL) $ readFile "myfile.txt")</codeblock>
+  <p id="x4">One downside of this approach (well, there's a few, but the one I want to mention now) is that
+   it isn't very good for binary data. Sure, we can use Data.ByteString.Char8.pack, but we'll see
+   soon why that's not exactly what we want. Also, GHC has trouble with dealing with string literals
+   that get too big. So instead of StringL, we'll use StringPrimL, which instead of returning a
+   String provides an Addr#. Combined with Data.ByteString.Unsafe.unsafePackAddressLen, we're in
+   good shape.</p>
+  <note id="x5">StringPrimL was introduced with template-haskell 2.5, meaning you must be using GHC 7 to use
+   it.</note>
+  <p id="x6">Well, good shape except for the fact that it doesn't work for non-ASCII data. It turns out that
+   GHC encodes the contents of both StringL and StringPrimL, and automatically decodes the results
+   of StringL. We would need to manually decode this data ourselves. You can see this with a little
+   sample program:</p>
+  <codeblock id="x7">{-# LANGUAGE TemplateHaskell #-}
+import Data.ByteString.Unsafe (unsafePackAddressLen)
+import Language.Haskell.TH.Syntax
+import qualified Data.ByteString as S
+
+main = do
+    fromAddr &lt;- unsafePackAddressLen 7 $(return $ LitE $ StringPrimL "123\0\&amp;456")
+    print fromAddr
+    let fromStr = S.pack $ map (toEnum . fromEnum) $(return $ LitE $ StringL "123\0\&amp;456")
+    print fromStr</codeblock>
+  <p id="x8">But considering the next stunt we're about to pull, that's not really an issue.</p>
+ </conbody></concept>

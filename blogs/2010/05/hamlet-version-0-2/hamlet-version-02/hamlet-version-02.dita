@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="hamlet-version-02"><title>Hamlet Version 0.2</title><body><foreign outputclass="html">&lt;p&gt;This version isn't quite released yet, and I haven't had a chance to update the documentation, but I wanted to get the list of changes out there while it's still fresh.&lt;/p&gt;
+&lt;p&gt;The API has not changed at all, but the syntax of Hamlet templates has changed significantly. This is based on some &lt;a href="http://www.snoyman.com/blog/entry/migrating-to-yesod-0-2/"&gt;real-world experience&lt;/a&gt;. Just to give a little frame of reference, I tested migrating the codebase for &lt;a href="http://www.search-once.com/"&gt;Search-Once.com&lt;/a&gt; to the new Hamlet, and the result was a net 322 reduction in lines of code.&lt;/p&gt;
+&lt;h3&gt;Reversal of identifiers&lt;/h3&gt;
+&lt;p&gt;The first major change is a reversal of the order of identifiers in references. In other words, you previously would write &lt;code&gt;person.name&lt;/code&gt;, which got translated to the Haskell code &lt;code&gt;name person&lt;/code&gt;. I originally chose that ordering to fit in with the object-oriented nature of many templating systems.&lt;/p&gt;
+&lt;p&gt;After much use, I've decided it just feels wrong to have identifiers in the reverse order to how Haskell naturally treats them. This is especially true when &lt;i&gt;not&lt;/i&gt; dealing with objects; if you are just applying functions, everything is backwards! So now, to apply the function &lt;code&gt;name&lt;/code&gt; to the value &lt;code&gt;person&lt;/code&gt;, you simply write &lt;code&gt;name.person&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;No argument&lt;/h3&gt;
+&lt;p&gt;Previously, a Hamlet template would generate a function which would take some value, and it would apply all the references inside the template to that value. For example:
+&lt;code&gt;[$hamlet|$name$|]&lt;/code&gt;
+would roughly generate the following:
+&lt;code&gt;\arg -&gt; hamletOutput (name arg)&lt;/code&gt;
+&lt;p&gt;However, there are &lt;i&gt;many&lt;/i&gt; templates that don't need that argument. Also, there are many times when you want to call a function without passing it any arguments. So now, arguments are gone! To get the same effect as above, you would write the following:&lt;/p&gt;
+&lt;code&gt;\person -&gt; [$hamlet|$name.person$|]&lt;/code&gt;
+
+&lt;h3&gt;Other changes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A number of minor bug fixes. If you care to see what those are, look at the Git log.&lt;/li&gt;
+&lt;li&gt;Added &lt;a href="http://docs.yesodweb.com/hamlet/maybe.html"&gt;$maybe&lt;/a&gt;. Very useful for error messages.&lt;/li&gt;
+&lt;li&gt;You can use constructors directly in your references. Very useful when constructing URLs.&lt;/li&gt;
+&lt;li&gt;You can now include query-string parameters along with your URLs. The syntax is &lt;code&gt;@?variableName@&lt;/code&gt;, where &lt;code&gt;variableName :: (url, [(String, String)])&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Beginning-of-line escaping. If you begin a line with a backslash, the backslash is dropped and the rest of the line is treated as content. This makes it possible to start a line with a pound or period without it being interpretted as tag information. As a special case, a line containing &lt;i&gt;only&lt;/i&gt; a backslash is converted to a newline.&lt;/li&gt;
+&lt;/ul&gt;
+</foreign></body></topic>

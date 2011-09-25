@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="whats-in-a-hamlet"><title>What's in a Hamlet?</title><body><foreign outputclass="html">&lt;p&gt;&lt;b&gt;Quick message from our sponsors:&lt;/b&gt; I just wanted to inform everyone that I'm nearing a new release of Yesod, version 0.5. This release introduces &lt;i&gt;very few&lt;/i&gt; changes versus 0.4, notably some enhancements to forms. The main reason for this release is to upgrade to the (not yet released) persistent 0.2, which adds some &lt;i&gt;major&lt;/i&gt; features, most notably database migrations. I encourage everyone to check out the code on github.&lt;/p&gt;
+&lt;h3&gt;What's in a Hamlet?&lt;/h3&gt;
+&lt;p&gt;Hamlet- for those not familiar- is an HTML templating system for Haskell with a Haml-inspired syntax. It is quasi-quoted, meaning it is fully parsed and converted to Haskell code and checked at compile time with the rest of your code. (I'm currently toying with the idea of adding support for runtime-parsed templates, but that is quite orthogonal to this discussion.)&lt;/p&gt;
+&lt;p&gt;Hamlet is built on top of BlazeHtml, and can be called in Haskell code as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;myTemplate = [$hamlet|
+%h1 Hello World!
+%p This is some static stuff.
+%ul
+    $forall people person
+        %li $person$
+|]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, given everything I've just said, you might guess that the type signature for myTemplate is &lt;code&gt;myTemplate :: Html ()&lt;/code&gt;; however, you'd be wrong. The actual signature is in fact &lt;code&gt;myTemplate :: (a -&gt; String) -&gt; Html ()&lt;/code&gt;. There's a function (hamlet&lt;b&gt;'&lt;/b&gt;) in the Hamlet repo which will most likely be included in the next release which would create the former type signature, but for now I want to focus on the latter signature.&lt;/p&gt;
+&lt;h3&gt;Coding PHP in Haskell&lt;/h3&gt;
+&lt;p&gt;I'm not trying to pick on PHP here (well, maybe a little...). Let's say that I want to create a link in a PHP web app. I'm sure you're used to seeing code like &lt;code&gt;&amp;lt;a href="person.php?person_id=&amp;lt? echo $person_id;?&amp;gt;"&amp;gt;Check out this guy&amp;lt;/a&amp;gt;&lt;/code&gt;. I'm sure many web developers can remember getting 404 errors because they forgot to update all their URLs when they renamed person.php to people.php.&lt;/p&gt;
+&lt;p&gt;I was serious: I don't want to pick on PHP here. This was a problem back in the days of Perl CGI scripts, or if you were aggressive enough, C CGI scripts as well. For that matter, it's a bane when writing static HTML as well.&lt;/p&gt;
+&lt;h3&gt;A partial solution&lt;/h3&gt;
+&lt;p&gt;Many (most?) web frameworks try to deal with this problem. My largest pre-Haskell web experience was with Django, so I'll speak to their approach. Caveat emptor: I stopped using Django before they hit 1.0, so my information and terminology is probably dated. Over there, when you declare a route, you can also give a name to that route. You declare routes in Django via regular expressions; you then have utility functions that take a named route and pieces to "fill the gap" in the regular expressions, and thus URLs are born.&lt;/p&gt;
+&lt;p&gt;With this approach, it doesn't matter if you change "/person/(\d+)/" to "/people/(\d+)/"; as long as the &lt;i&gt;name&lt;/i&gt; stays the same, your code will still point to the right URL. Thus a whole class of annoying 404 bugs are eliminated, and the gods were pleased.&lt;/p&gt;
+&lt;h3&gt;But it's still dynamic&lt;/h3&gt;
+&lt;p&gt;I'll assume I'm preaching to the choir here: dynamic languages don't give you a lot of safety assurances. The "compiler" will happily accept &lt;code&gt;Print&lt;/code&gt; instead of &lt;code&gt;print&lt;/code&gt; and then complain at runtime. Many people find this to be an acceptable situation; I assume if you're already using Haskell, you prefer to let the compiler do a lot of the heavy lifting for you.&lt;/p&gt;
+&lt;p&gt;So I ask you fellow Haskell web developers: why do you demand such safety in function calls, but not in URL construction? The problem with both the URL-splicing approach &lt;b&gt;and&lt;/b&gt; the Django (et al) approach is a &lt;i&gt;lack of compile-time safety&lt;/i&gt;!&lt;/p&gt;
+&lt;p&gt;I'll admit that original versions of Yesod had the same flaw; fortunately, I was pointed in the &lt;a href="http://hackage.haskell.org/package/web-routes"&gt;right direction&lt;/a&gt; and now type-safe URLs are a cornerstone of Yesod. The concept is unbelievably simple, and very obvious once stated: we should have a datatype represent URLs. Every URL our application accepts should correlate to some value for that datatype.&lt;/p&gt;
+&lt;p&gt;Here's a very basic example: we want to have a blog, which has two types of pages: the homepage, and a page for each entry. URLs look like this:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;http://www.myblog.com/&lt;/dt&gt;&lt;dd&gt;Homepage&lt;/dd&gt;
+&lt;dt&gt;http://www.myblog.com/2010-01-01/happy-new-year/&lt;/dt&gt;&lt;dd&gt;Blog post on January 1, 2010.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;In other words, the homepage requires no extra parameters, and an entry page needs to know the date and the &lt;a href="http://codex.wordpress.org/Glossary#Slug"&gt;slug&lt;/a&gt; of the entry. This smells a &lt;b&gt;lot&lt;/b&gt; like an algebraic data type; let's represent URLs as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data BlogRoute = Homepage | Entry Day String&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Along with this datatype, we need some way to &lt;b&gt;parse&lt;/b&gt; an incoming URL to a datatype and some way to &lt;b&gt;render&lt;/b&gt; a datatype back to a URL. In general, we would want some functions that basically follow these rules:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;parse :: String -&amp;gt; Maybe BlogRoute
+render :: BlogRoute -&amp;gt; String
+-- parse . render = Just&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To avoid the boilerplate of creating the datatypes and proper parse/render functions, Yesod uses &lt;a href="http://docs.yesodweb.com/web-routes-quasi/"&gt;web-routes-quasi&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Back to Hamlet&lt;/h3&gt;
+&lt;p&gt;OK, so the majority of this post was really just speaking the praises of type-safe URLs, my appologies ;). Let's get back to the topic at hand: why does a hamlet have such a strange type signature? As a reminder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[$hamlet|%h1 My Blog|] :: (a -&amp;gt; String) -&amp;gt; Html ()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Well, using our blog example, let's try to make that type signature a little bit clearer now:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[$hamlet|%a!href=@Homepage@ Go to blog homepage|] :: (BlogRoute -&amp;gt; String) -&amp;gt; Html ()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;at-sign interpolation is used to include a &lt;b&gt;type-safe URL&lt;/b&gt;; in this case, a value of type &lt;code&gt;BlogRoute&lt;/code&gt;. Suddenly, that mysterious &lt;code&gt;a&lt;/code&gt; in the type signature turned into &lt;code&gt;BlogRotue&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Does anyone notice that we've seen the &lt;code&gt;BlogRoute -&amp;gt; String&lt;/code&gt; type signature before? It's in fact the type of &lt;code&gt;render&lt;/code&gt;. This is no coincidence: &lt;b&gt;a hamlet takes a URL rendering function&lt;/b&gt;. This is a huge boon for creating safe applications: during the entire construction of your template, you can deal with the URL datatypes directly. For the most part, every value for a &lt;code&gt;href&lt;/code&gt; or &lt;code&gt;src&lt;/code&gt; attribute will be surrounded by at-signs. Finally, as you're ready to render your Hamlet template, you pass it your URL rendering function.&lt;/p&gt;
+&lt;h3&gt;Note for Yesod users&lt;/h3&gt;
+&lt;p&gt;For those of you using Hamlet in the context of Yesod, you are mostly sheltered from this whole discussion. Yesod provides the hamletToRepHtml and applyLayout functions which automatically apply the Hamlet template to the appropriate URL rendering function. When you want to embed one Hamlet template within another, you use carrot-interpolation (^otherTemplate^) and needn't be concerned about &lt;i&gt;how&lt;/i&gt; it works. However, I think it is very important to have this knowledge in the back of your mind.&lt;/p&gt;
+&lt;h3&gt;A plea to fellow Haskell web developers&lt;/h3&gt;
+&lt;p&gt;I strongly believe that type-safe URLs are one of the most powerful features we Haskell web developers have at our disposal. I'd go so far as to say it should be one of our main advertisements of the power of Haskell.&lt;/p&gt;
+&lt;p&gt;Unfortunately, I think that the concept has had a lukewarm reception. Many people seem not to think the effort pays off. I think this is short-sighted; you've already admitted by using Haskell that you think spending a little extra time declaring types correctly is worth the payoff in the end from a more easily maintained codebase. Type-safe URLs are simply an extension of that decision.&lt;/p&gt;
+&lt;p&gt;I'll speak a bit from personal experience here: I have a project that's over 10,000 LOC and over 150 separate routes. (I would give more information, but I'm not allowed currently to discuss the project publicly.) At some point, the spec changed, and I suddenly needed to add an extra piece of information to the URL of almost every route. I was able to make the transition in about an hour: I simply changed the routes declaration, hit compile, and the compiler caught &lt;b&gt;every single place that needed to be adjusted&lt;/b&gt;.&lt;/p&gt;
+&lt;p&gt;Perhaps you think that's an anomalous case. Then again, perhaps you've worked with clients and can empathize.&lt;/p&gt;
+</foreign></body></topic>

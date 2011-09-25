@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="the-solution"><title>The Solution</title><conbody>
+  <p id="x1">The solution we came up with is providing a single executable that embeds a server (Warp) and
+   the static files, and launches a browser to view them. This is a natural extension of Yesod in
+   general, where Hamlet and family are compiled directly into our executables. This approach works
+   fairly well, but required some extra work.</p>
+ </conbody></concept>

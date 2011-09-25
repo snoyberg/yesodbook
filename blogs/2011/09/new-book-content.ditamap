@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/map.dtd">
+<map id="x-1">
+    <title id="x-2">SQL joins, monadic forms, and custom fields</title>
+    <topicref id="x-6" href="../../../book/yesod-web-framework-book/persistent-060/joins.dita"/>
+    <topicref id="x-3" href="../../../book/yesod-web-framework-book/forms-09/monadic.dita"/>
+    <topicref id="x-4" href="../../../book/yesod-web-framework-book/forms-09/input.dita"/>
+    <topicref id="x-5" href="../../../book/yesod-web-framework-book/forms-09/custom.dita"/>
+</map>

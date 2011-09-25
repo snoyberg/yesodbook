@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id="haskell-on-heroku"><title>Haskell on Heroku</title><topicref id="deploying-a-yesod-web-app-to-the-heroku-cloud" href="haskell-on-heroku/deploying-a-yesod-web-app-to-the-heroku-cloud.dita"/></map>

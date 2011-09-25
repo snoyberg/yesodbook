@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="persistence-thoughts"><title>Persistence Thoughts</title><body><foreign outputclass="html">&lt;p&gt;Necessity is the mother of invention. I've been playing around with ideas for a persistence layer for a while now, but it wasn't until I got a hard deadline for a database-driven website that things really clicked. I want to share these thoughts here, both to get them down in writing, and to hopefully provoke some discussion.&lt;/p&gt;
+&lt;p&gt;There's some version of the code I discuss here &lt;a href="http://github.com/snoyberg/persistent/blob/master/idea1.hs"&gt;available on github&lt;/a&gt;. It doesn't match the code here precisely, and is not what the final version will look like. But it does show how we can support multiple backends!&lt;/p&gt;
+&lt;h3&gt;Pieces of the puzzle&lt;/h3&gt;
+&lt;p&gt;There are going to be three separate components of persistent:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A high-level interface for declaring entities. There will be a set of datatypes, and perhaps either a DSL, Quasi-Quoted syntax or external files for a nicer user interface.&lt;/li&gt;
+&lt;li&gt;A set of type-classes for doing the actual operations on tables. The majority of this post will discuss this.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Each backend will have its own Template Haskell code&lt;/b&gt; for generating instances of the type classes based on the higher-level interface. The SQL generators will probably share a lot of code, but that's mostly irrelevant to the outside user.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Type families&lt;/h3&gt;
+&lt;p&gt;My proposal makes heavy use of &lt;a href="http://www.haskell.org/haskellwiki/GHC/Type_families"&gt;type families&lt;/a&gt;. If you want a quick introduction to type families, they're basically a method to associate two different datatypes together.&lt;/p&gt;
+&lt;p&gt;Let's give a pertinent example. Every record in a table will have a unique key associated with it. If we're talking about a SQL backend, this will most likely be an auto_increment (MySQL) or serial (PostgreSQL) integer, but Amazon SimpleDB prefers to use UUIDs. So I want to associate a key value based on the datatype of the value and the backend. In type families, this might look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data family Key value backend&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, in general we'll be defining these inside typeclasses, so it will look more like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class HasTable value backend where
+    data Key value backend&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then you would declare an instance like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;instance HasTable MyValue MyBackend where
+    data Key MyValue MyBackend = MyKey Integer&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;No relation&lt;/h3&gt;
+&lt;p&gt;I've mentioned a number of times in previous posts the idea of no relations. Let me clarify here: &lt;b&gt;persistent will not automatically load related data&lt;/b&gt; from other tables. There are three good reasons for this approach:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Not all backends natively support relations. Think of a set of CSV files, or Google BigTable for that matter.&lt;/li&gt;
+&lt;li&gt;Relations will greatly complicate things, and I really want something simple.&lt;/li&gt;
+&lt;li&gt;Arguably, there's a performance edge. But I really don't want to discuss performance right now.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Multiple type classes&lt;/h3&gt;
+&lt;p&gt;So without relations, every record is really just a single row in a single table. We need to be able to do two things:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Convert our value to a record.&lt;/li&gt;&lt;li&gt;Convert a record to our value.&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;That's all well and good, but what's a record? If we're talking about CSV files, it's &lt;code&gt;[String]&lt;/code&gt;. But in a database (using HDBC) it's &lt;code&gt;[SqlValue]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So we'll need to have different typeclasses for different backends. However, since we have multiple Template Haskell generators, all is fine: the CSV TH code knows to use the &lt;code&gt;IsStringList&lt;/code&gt; class, while the PostgreSQL TH uses &lt;code&gt;IsSqlValueList&lt;/code&gt;... or whatever it's called.&lt;/p&gt;
+&lt;p&gt;However, some database operations require more than just this. What if you want to update a record? What if you want to search? Or sort?&lt;/p&gt;
+&lt;p&gt;I propose a set of classes akin to the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class HasField a where
+    data Field a
+    applyField :: Field a -&gt; a -&gt; a
+
+class HasFilter a where
+    data Filter a
+    applyFilter :: Filter a -&gt; a -&gt; Bool
+
+class HasOrder a where
+    data Order a
+    applyOrder :: Order a -&gt; a -&gt; a -&gt; Ordering&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let's see a sample set of instances.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data Person = Person String Int
+instance HasField Person where
+    data Field Person = PersonName String | PersonAge Int -- type safe!
+    applyField (PersonName name) (Person _ age) = Person name age
+    applyField (PersonAge age) (Person name _)  = Person name age
+
+instance HasFilter Person where
+    data Filter Person = PersonNameEq String -- name equality
+                       | PersonAgeLt Int     -- age is less than parameter
+    -- we could add as many filters here as we like
+    applyFilter (PersonNameEq x) (Person y _) = x == y
+    applyFilter (PersonAgeLt x) (Person _ y) = y &lt; x
+
+instance HasOrder a where
+    data Order Person = NameAsc -- name, ascending
+                      | AgeDesc -- age, descending
+    applyOrder NameAsc (Person x _) (Person y _) = compare x y
+    applyOrder AgeDesc (Person _ x) (Person _ y) = compare y x -- reverse&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice how the names of the constructors in there don't clash. Once you have these data families, you get to do stuff like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class HasField v =&gt; Updateable v backend where
+    update :: Key v backend -&gt; [Field v] -&gt; IO ()
+class HasFilter v =&gt; Searchable v backend where
+    select :: [Filter v] -&gt; IO [(Key v backend, v)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In case it's not apparent, let me point out the huge win here: &lt;b&gt;everything is completely type checked&lt;/b&gt;. We're not passing around &lt;code&gt;SqlValue&lt;/code&gt;s or something like that. Every single field requires a matching datatype, or it simply won't compile.&lt;/p&gt;
+&lt;p&gt;Of course, this won't be enough information for SQL. It would want something additional such as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class HasFilter v =&amp;gt; SqlFilter v where
+    toWhereClause :: Filter v -&gt; String
+    toWhereData :: Filter v -&gt; SqlValue
+instance SqlFilter Person where
+    toWhereClause (PersonNameEq _) = "name=?"
+    toWhereClause (PersonAgeLt _) = "age&amp;lt;?"
+    toWhereData (PersonNameEq x) = SqlString x
+    toWhereData (PersonAgeLt x) = SqlInteger x&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The beauty is that Template Haskell will address all these problems for us. You'll be left with being able to just use the select function, without writing any boilerplate.&lt;/p&gt;
+&lt;h3&gt;Coming up&lt;/h3&gt;
+&lt;p&gt;I'm actually actively using code very similar to this in developing a production website. There's a hard deadline for it of less than a week away. You might be wondering why I'm blogging when there's a deadline... good question.&lt;/p&gt;
+&lt;p&gt;Anyway, the actual type classes are slightly more complex than what I've laid out here, but I think this gives a good overview of the approach. I haven't started working on the high-level code or the Template Haskell yet. One idea I have in mind is putting enough information in the high-level design to be able to automatically generate web forms from them. In fact, I envision a Yesod subsite capable of letting you fully interact with a table in a database.&lt;/p&gt;
+&lt;h3&gt;Questions for the audience&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MySQL support in HDBC does not seem too strong. HDBC also has some annoying tendencies: it doesn't let you manually finalize statements, for example. Is it worth coding the SQL backends straight against the C libraries?&lt;/li&gt;
+&lt;li&gt;SimpleDB sounds like a good candidate for a non-SQL backend. CSV files good be a fun one as well. Any other thoughts?&lt;/li&gt;
+&lt;li&gt;Where's Waldo?&lt;/li&gt;
+&lt;li&gt;What would you like the high-level interface to look like?&lt;/li&gt;
+&lt;li&gt;There will almost certainly be an enumerator/iteratee interface for this library. What style of enumerators are people interested in? I know the iteratee package is all the rage, but the new 0.4 version will be completely changing the internals.&lt;/li&gt;
+&lt;/ul&gt;
+</foreign></body></topic>

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="tweedle-beetle-battle"><title>Tweedle Beetle Battle</title><body><foreign outputclass="html">&lt;p&gt;Now that &lt;a href="http://hackage.haskell.org/package/wai"&gt;WAI has been released&lt;/a&gt;, my next target is to release &lt;a href="http://github.com/snoyberg/yesod"&gt;Yesod&lt;/a&gt;, my web application framework. It's already the basis for about five sites, most of them with source code available. Nonetheless, I've been wanting to write a comprehensive tutorial of writing a real web application with it before releasing.&lt;/p&gt;
+&lt;p&gt;Fortunately, I just had to write the perfect sample application: a bug tracker. It's very simplistic, but does what I need while showing some of the nice features of Yesod. It also shows the very ugly side of Yesod: there is no built in model yet. That's something I hope to tackle in future versions.&lt;/p&gt;
+&lt;p&gt;In any event, here's the code straight from the repo. You can also &lt;a href="http://github.com/snoyberg/yesod/blob/master/examples/tweedle.lhs"&gt;see it on Github&lt;/a&gt;, though this version is prettier. It's just one long literate Haskell file along with three string template files.&lt;/p&gt;
+&lt;p&gt;I know this is a long tutorial, but don't let the size scare you off; you can skip all of the serialization code below without missing the gist of things. And yes: this is actually code I'm using in production.&lt;/p&gt;
+&lt;hr&gt;
+&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;{-# LANGUAGE QuasiQuotes #-}
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;While coming up on the first release of Yesod, I realized I needed a nice, comprehensive tutorial. I didn't want to do the typical blog example, since it's so trite. I considered doing a Reddit or Twitter clone (the former became a bit of a meme a few weeks ago), but then I needed to set up a bug tracker for some commercial projects I was working on, and I decided that it would be a great example program.&lt;/p
+&gt;&lt;p
+&gt;Before getting started, a quick word of warning: Yesod at this point really provides nothing in terms of data storage (aka, the model). There is wonderful integration with the data-object package, and the data-object-yaml package provides good serialization, but this is all very inefficient in practice. For simplicity, I've gone ahead and used this as the storage model; this should not be done for production code.&lt;/p
+&gt;&lt;p
+&gt;There's a lot of boilerplate code at the beginning that just has to do with object storage; if you'd like to skip it, just start reading from the main function.&lt;/p
+&gt;&lt;p
+&gt;Anyway, here's the import list.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;import Yesod
+import Yesod.Helpers.Auth
+import Data.Object.Yaml
+import Data.Object.String
+import Control.Concurrent
+import qualified Safe.Failure as SF
+import Data.Time
+import Data.Attempt (Attempt, fromAttempt)
+import Control.Arrow (second)
+import qualified Network.Wai.Handler.SimpleServer
+import Data.Monoid
+import Data.Text (pack)
+import Control.Applicative ((&amp;lt;$&amp;gt;), (&amp;lt;*&amp;gt;))
+import Data.Maybe (fromMaybe)
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;One of the goals of Yesod is to make it work with the compiler to help you program. Instead of configuration files, it uses typeclasses to both change default behavior and enable extra features. An example of the former is error pages, while an example of the latter is authentication.&lt;/p
+&gt;&lt;p
+&gt;To start with, we need a datatype to represent our program. We'll call this bug tracker &amp;quot;Tweedle&amp;quot;, after Dr. Seuss's &amp;quot;Tweedle Beetle Battle&amp;quot; in &amp;quot;Fox in Socks&amp;quot; (my son absolutely loves this book). We'll be putting the complete state of the bug database in an MVar within this variable; in a production setting, you might instead put a database handle.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;data Tweedle = Tweedle Settings (MVar Category) TemplateGroup
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;(For now, just ignore the TemplateGroup, its purpose becomes apparent later.)&lt;/p
+&gt;&lt;p
+&gt;This issue database is fully hierarchical: each category can contain subcategories and issues. This might be too much nesting for many uses, but it's what my project demanded.&lt;/p
+&gt;&lt;p
+&gt;Also, if I cared about efficiency here, a trie or map would probably be a better data structure. As stated above, it doesn't matter.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;data Category = Category
+  { subCats :: [Category]
+  , subIssues :: [Issue]
+  , categoryId :: Integer
+  , catName :: String
+  }
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;data Issue = Issue
+  { issueName :: String
+  , issueMessages :: [Message]
+  , issueId :: Integer
+  }
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Further simplifications: authors will just be represented by their OpenID URL.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;data Message = Message
+  { messageAuthor :: OpenId
+  , messageStatus :: Maybe String
+  , messagePriority :: Maybe String
+  , messageText :: String
+  , messageCreation :: UTCTime
+  }
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;type OpenId = String
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;We need to be able to serialize this data to and from YAML files. You can consider all of the following code boilerplate.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;messageToSO :: Message -&amp;gt; StringObject
+messageToSO m = Mapping $ map (second Scalar)
+    [ (&amp;quot;author&amp;quot;, messageAuthor m)
+    , (&amp;quot;status&amp;quot;, show $ messageStatus m)
+    , (&amp;quot;priority&amp;quot;, show $ messagePriority m)
+    , (&amp;quot;text&amp;quot;, messageText m)
+    , (&amp;quot;creation&amp;quot;, show $ messageCreation m)
+    ]
+messageFromSO :: StringObject -&amp;gt; Attempt Message
+messageFromSO so = do
+    m &amp;lt;- fromMapping so
+    a &amp;lt;- lookupScalar &amp;quot;author&amp;quot; m
+    s &amp;lt;- lookupScalar &amp;quot;status&amp;quot; m &amp;gt;&amp;gt;= SF.read
+    p &amp;lt;- lookupScalar &amp;quot;priority&amp;quot; m &amp;gt;&amp;gt;= SF.read
+    t &amp;lt;- lookupScalar &amp;quot;text&amp;quot; m
+    c &amp;lt;- lookupScalar &amp;quot;creation&amp;quot; m &amp;gt;&amp;gt;= SF.read
+    return $ Message a s p t c
+issueToSO :: Issue -&amp;gt; StringObject
+issueToSO i = Mapping
+  [ (&amp;quot;name&amp;quot;, Scalar $ issueName i)
+  , (&amp;quot;messages&amp;quot;, Sequence $ map messageToSO $ issueMessages i)
+  , (&amp;quot;id&amp;quot;, Scalar $ show $ issueId i)
+  ]
+issueFromSO :: StringObject -&amp;gt; Attempt Issue
+issueFromSO so = do
+  m &amp;lt;- fromMapping so
+  n &amp;lt;- lookupScalar &amp;quot;name&amp;quot; m
+  i &amp;lt;- lookupScalar &amp;quot;id&amp;quot; m &amp;gt;&amp;gt;= SF.read
+  ms &amp;lt;- lookupSequence &amp;quot;messages&amp;quot; m &amp;gt;&amp;gt;= mapM messageFromSO
+  return $ Issue n ms i
+categoryToSO :: Category -&amp;gt; StringObject
+categoryToSO c = Mapping
+  [ (&amp;quot;cats&amp;quot;, Sequence $ map categoryToSO $ subCats c)
+  , (&amp;quot;issues&amp;quot;, Sequence $ map issueToSO $ subIssues c)
+  , (&amp;quot;id&amp;quot;, Scalar $ show $ categoryId c)
+  , (&amp;quot;name&amp;quot;, Scalar $ catName c)
+  ]
+categoryFromSO :: StringObject -&amp;gt; Attempt Category
+categoryFromSO so = do
+  m &amp;lt;- fromMapping so
+  cats &amp;lt;- lookupSequence &amp;quot;cats&amp;quot; m &amp;gt;&amp;gt;= mapM categoryFromSO
+  issues &amp;lt;- lookupSequence &amp;quot;issues&amp;quot; m &amp;gt;&amp;gt;= mapM issueFromSO
+  i &amp;lt;- lookupScalar &amp;quot;id&amp;quot; m &amp;gt;&amp;gt;= SF.read
+  n &amp;lt;- lookupScalar &amp;quot;name&amp;quot; m
+  return $ Category cats issues i n
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Well, that was a mouthful. You can safely ignore all of that: it has nothing to do with actual web programming.&lt;/p
+&gt;&lt;p
+&gt;Next is the Settings datatype. Normally I create a settings file so I can easily make changes between development and production systems without recompiling, but once again we are aiming for simplicity here.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;data Settings = Settings
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Many web frameworks make the simplifying assumptions that &amp;quot;/&amp;quot; will be the path to the root of your application. In real life, this doesn't always happen. In Yesod, you must specify explicitly your application root and then create an instance of YesodApproot (see below). Again, the compiler will let you know this: once you use a feature that depends on knowing the approot, you'll get a compiler error if you haven't created the instance.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  { sApproot :: String
+  , issueFile :: FilePath
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Yesod comes built in with support for HStringTemplate. You'll see later how this ties in with data-object (and in particular HtmlObject) to help avoid XSS attacks.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  , templatesDir :: FilePath
+  }
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And now we'll hardcode the settings instead of loading from a file. I'll do it in the IO monad anyway, since that would be the normal function signature.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;loadSettings :: IO Settings
+loadSettings = return $ Settings &amp;quot;http://localhost:3000/&amp;quot; &amp;quot;issues.yaml&amp;quot; &amp;quot;examples/tweedle-templates&amp;quot;
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And now we need a function to load up our Tweedle data type.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;loadTweedle :: IO Tweedle
+loadTweedle = do
+  settings &amp;lt;- loadSettings
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Note that this will die unless an issues file is present. We could instead check for the file and create it if missing, but instead, just put the following into issues.yaml:&lt;/p
+&gt;&lt;p
+&gt;{cats: [], issues: [], id: 0, name: &amp;quot;Top Category&amp;quot;}&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  issuesSO &amp;lt;- decodeFile $ issueFile settings
+  issues &amp;lt;- fromAttempt $ categoryFromSO issuesSO
+  missues &amp;lt;- newMVar issues
+  tg &amp;lt;- loadTemplateGroup $ templatesDir settings
+  return $ Tweedle settings missues tg
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And now we're going to write our main function. Yesod is built on top of the Web Application Interface (wai package), so a Yesod application runs on a variety of backends. For our purposes, we're going to use the SimpleServer.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;main :: IO ()
+main = do
+  putStrLn &amp;quot;Running at http://localhost:3000/&amp;quot;
+  tweedle &amp;lt;- loadTweedle
+  app &amp;lt;- toWaiApp tweedle
+  Network.Wai.Handler.SimpleServer.run 3000 app
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Well, that was a &lt;em
+  &gt;lot&lt;/em
+  &gt; of boilerplate code that had nothing to do with web programming. Now the real stuff begins. I would recommend trying to run the code up to now an see what happens. The compiler will complain that there is no instance of Yesod for Tweedle. This is what I meant by letting the compiler help us out. So now we've got to create the Yesod instance.&lt;/p
+&gt;&lt;p
+&gt;The Yesod typeclass includes many functions, most of which have default implementations. I'm not going to go through all of them here, please see the documentation.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;instance Yesod Tweedle where
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;The most important function is resources: this is where all of the URL mapping will occur. Yesod adheres to Restful principles very strongly. A &amp;quot;resource&amp;quot; is essentially a URL. Each resource should be unique; for example, do not create /user/5/ as well as /user/by-number/5/. In addition to resources, we also determine which function should handle your request based on the request method. In other words, a POST and a GET are completely different.&lt;/p
+&gt;&lt;p
+&gt;One of the middlewares that Yesod installs is called MethodOverride; please see the documentation there for more details, but essentially it allows us to work past a limitation in the form tag of HTML to use PUT and DELETE methods as well.&lt;/p
+&gt;&lt;p
+&gt;Instead of using regular expressions to handle the URL mapping, Yesod uses resource patterns. A resource is a set of tokens separated by slashes. Each of those tokens can be one of:&lt;/p
+&gt;&lt;ul
+&gt;&lt;li
+  &gt;A static string.&lt;/li
+  &gt;&lt;li
+  &gt;An integer variable (begins with #), which will match any integer.&lt;/li
+  &gt;&lt;li
+  &gt;A string varaible (begins with $), which will match any single value.&lt;/li
+  &gt;&lt;li
+  &gt;A &amp;quot;slurp&amp;quot; variable, which will match all of the remaining tokens. It must be the last token.&lt;/li
+  &gt;&lt;/ul
+&gt;&lt;p
+&gt;Yesod uses quasi quotation to make specifying the resource pattern simple and safe: your entire set of patterns is checked at compile time to see if you have overlapping rules.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  resources = [$mkResources|
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now we need to figure out all of the resources available in our application. We'll need a homepage:&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  /:
+      GET: homepageH
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;We will also need to allow authentication. We use the slurp pattern here and accept all request methods. The authHandler method (in the Yesod.Helpers.Auth module) will handle everything itself.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  /auth/*: authHandler
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;We're going to refer to categories and issues by their unique numerical id. We're also going to make this system append only: there is no way to change the history.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  /category/#id: # notice that &amp;quot;id&amp;quot; is ignored by Yesod
+      GET: categoryDetailsH
+      PUT: createCategoryH
+  /category/#id/issues:
+      PUT: createIssueH
+  /issue/#id:
+      GET: issueDetailsH
+      PUT: addMessageH
+  |]
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;So if you make a PUT request to &amp;quot;/category/5&amp;quot;, you will be creating a subcategory of category 5. &amp;quot;GET /issue/27/&amp;quot; will display details on issue 27. This is all we need.&lt;/p
+&gt;&lt;p
+&gt;If you try to compile the code until this point, the compiler will tell you that you have to define all of the above-mentioned functions. We'll do that in a second; for now, if you'd like to see the rest of the error messages, uncomment this next block of code.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;{-
+homepageH = return ()
+categoryDetailsH _ = return ()
+createCategoryH _ = return ()
+createIssueH _ = return ()
+issueDetailsH _ = return ()
+addMessageH _ = return ()
+-}
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now the compiler is telling us that there's no instance of YesodAuth for Tweedle. YesodAuth- as you might imagine- keeps settings on authentication. We're going to go ahead a create an instance now. The default settings work if you set up authHandler for &amp;quot;/auth/*&amp;quot; (which we did) and are using openid (which we are). So all we need to do is:&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;instance YesodAuth Tweedle
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Running that tells us that we're missing a YesodApproot instance as well. That's easy enough to fix:&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;instance YesodApproot Tweedle where
+  approot (Tweedle settings _ _) = sApproot settings
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Congratulations, you have a working web application! Gratned, it doesn't actually do much yet, but you &lt;em
+  &gt;can&lt;/em
+  &gt; use it to log in via openid. Just go to http://localhost:3000/auth/openid/.&lt;/p
+&gt;&lt;p
+&gt;Now it's time to implement the real code here. We'll start with the homepage. For this program, I just want the homepage to redirect to the main category (which will be category 0). So let's create that redirect:&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;homepageH :: Handler Tweedle ()
+homepageH = do
+  ar &amp;lt;- getApproot
+  redirect RedirectPermanent $ ar ++ &amp;quot;category/0/&amp;quot;
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Simple enough. Notice that we used the getApproot function; if we wanted, we could have just assumed the approot was &amp;quot;/&amp;quot;, but this is more robust.&lt;/p
+&gt;&lt;p
+&gt;Now the category details function. We're just going to have two lists: subcategories and direct subissues. Each one will have a name and numerical ID.&lt;/p
+&gt;&lt;p
+&gt;But here's a very nice feature of Yesod: We're going to have multiple representations of this data. The main one people will use is the HTML representation. However, we're also going to provide a JSON representation. This will make it very simple to write clients or to AJAXify this application in the future.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;categoryDetailsH :: Integer -&amp;gt; Handler Tweedle RepHtmlJson
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;That function signature tells us a lot: the parameter is the category ID, and we'll be returning something that has both an HTML and JSON representation.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;categoryDetailsH catId = do
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;getYesod returns our Tweedle data type. Remember, we wrapped it in an MVar; since this is a read-only operation, will unwrap the MVar immediately.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  Tweedle _ mvarTopCat _ &amp;lt;- getYesod
+  topcat &amp;lt;- liftIO $ readMVar mvarTopCat
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Next we need to find the requested category. You'll see the (boilerplate) function below. If the category doesn't exist, we want to return a 404 response page. So:&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  (parents, cat) &amp;lt;- maybe notFound return $ findCat catId [] topcat
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now we want to convert the category into an HtmlObject. By doing so, we will get automatic HTML entity encoding; in other words, no XSS attacks.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  let catHelper (Category _ _ cid name) = Mapping
+          [ (&amp;quot;name&amp;quot;, Scalar $ Text $ pack name)
+          , (&amp;quot;id&amp;quot;, Scalar $ Text $ pack $ show cid)
+          ]
+  let statusHelper = fromMaybe &amp;quot;No status set&amp;quot;
+                   . getLast . mconcat . map (Last . messageStatus)
+  let priorityHelper = fromMaybe &amp;quot;No priority set&amp;quot;
+                     . getLast . mconcat . map (Last . messagePriority)
+  let issueHelper (Issue name messages iid) = Mapping
+          [ (&amp;quot;name&amp;quot;, Scalar $ Text $ pack name)
+          , (&amp;quot;id&amp;quot;, Scalar $ Text $ pack $ show iid)
+          , (&amp;quot;status&amp;quot;, Scalar $ Text $ pack $ statusHelper messages)
+          , (&amp;quot;priority&amp;quot;, Scalar $ Text $ pack $ priorityHelper messages)
+          ]
+  let ho = Mapping
+          [ (&amp;quot;cats&amp;quot;, Sequence $ map catHelper $ subCats cat)
+          , (&amp;quot;issues&amp;quot;, Sequence $ map issueHelper $ subIssues cat)
+          ]
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And now we'll use a String Template to display the whole thing.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  templateHtmlJson &amp;quot;category-details&amp;quot; ho $ \_ -&amp;gt; return
+      . setHtmlAttrib &amp;quot;cat&amp;quot; ho
+      . setHtmlAttrib &amp;quot;name&amp;quot; (catName cat)
+      . setHtmlAttrib &amp;quot;parents&amp;quot; (Sequence $ map catHelper parents)
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;findCat :: Integer -&amp;gt; [Category] -&amp;gt; Category -&amp;gt; Maybe ([Category], Category)
+findCat i parents c@(Category cats _ i' _)
+    | i == i' = Just (parents, c)
+    | otherwise = getFirst $ mconcat $ map (First . findCat i (parents ++ [c])) cats
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now we get a new missing instance: YesodTemplate. As you can imagine, this is because of calling the templateHtmlJson function. This is easily enough solved (and explains why we needed TemplateGroup as part of Tweedle).&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;instance YesodTemplate Tweedle where
+  getTemplateGroup (Tweedle _ _ tg) = tg
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now we actually get some output! I'm not going to cover the syntax of string templates here, but you should read the files in the examples/tweedle-templates directory.&lt;/p
+&gt;&lt;p
+&gt;Next, we need to implement createCategoryH. There are two parts to this process: parsing the form submission, and then modifying the database. Pay attention to the former, but you can ignore the latter if you wish. Also, this code does not do much for error checking, as that would needlessly complicate matters.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;createCategoryH :: Integer -&amp;gt; Handler Tweedle ()
+createCategoryH parentid = do
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Yesod uses a formlets-style interface for parsing submissions. This following line says we want a parameter named catname, which precisely one value (required) and that value must have a non-zero length (notEmpty).&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  catname &amp;lt;- runFormPost $ notEmpty $ required $ input &amp;quot;catname&amp;quot;
+  newid &amp;lt;- modifyDB $ createCategory parentid catname
+  ar &amp;lt;- getApproot
+  redirect RedirectPermanent $ ar ++ &amp;quot;category/&amp;quot; ++ show newid ++ &amp;quot;/&amp;quot;
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And here's the database modification code we need. Once again, this is not web-specific.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;modifyDB :: (Category -&amp;gt; (Category, x)) -&amp;gt; Handler Tweedle x
+modifyDB f = do
+  Tweedle settings mcat _ &amp;lt;- getYesod
+  liftIO $ modifyMVar mcat $ \cat -&amp;gt; do
+      let (cat', x) = f cat
+      encodeFile (issueFile settings) $ categoryToSO cat'
+      return (cat', x)
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;createCategory :: Integer -&amp;gt; String -&amp;gt; Category -&amp;gt; (Category, Integer)
+createCategory parentid catname topcat =
+  let newid = highCatId topcat + 1
+      topcat' = addChild parentid (Category [] [] newid catname) topcat
+   in (topcat', newid)
+    where
+      highCatId (Category cats _ i _) = maximum $ i : map highCatId cats
+      addChild i' newcat (Category cats issues i name)
+          | i' /= i = Category (map (addChild i' newcat) cats) issues i name
+          | otherwise = Category (cats ++ [newcat]) issues i name
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Next is creating an issue. This is almost identical to creating a category.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;createIssueH :: Integer -&amp;gt; Handler Tweedle ()
+createIssueH catid = do
+  issuename &amp;lt;- runFormPost $ notEmpty $ required $ input &amp;quot;issuename&amp;quot;
+  newid &amp;lt;- modifyDB $ createIssue catid issuename
+  ar &amp;lt;- getApproot
+  redirect RedirectPermanent $ ar ++ &amp;quot;issue/&amp;quot; ++ show newid ++ &amp;quot;/&amp;quot;
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;createIssue :: Integer -&amp;gt; String -&amp;gt; Category -&amp;gt; (Category, Integer)
+createIssue catid issuename topcat =
+  let newid = highIssueId topcat + 1
+      topcat' = addIssue catid (Issue issuename [] newid) topcat
+   in (topcat', newid)
+    where
+      highIssueId (Category cats issues _ _) =
+          maximum $ 0 : (map issueId issues) ++ map highIssueId cats
+      addIssue i' newissue (Category cats issues i name)
+          | i' /= i = Category (map (addIssue i' newissue) cats) issues i name
+          | otherwise = Category cats (issues ++ [newissue]) i name
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Two functions to go. Now we want to show details of issues. This isn't too different from categoryDetailsH above, except for one feature: we need to know if a user is logged in. If they are logged in, we'll show an &amp;quot;add message&amp;quot; box; otherwise, we'll show a login box. Once again, we're getting the JSON representation easily.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;issueDetailsH :: Integer -&amp;gt; Handler Tweedle RepHtmlJson
+issueDetailsH iid = do
+  Tweedle _ mvarTopCat _ &amp;lt;- getYesod
+  topcat &amp;lt;- liftIO $ readMVar mvarTopCat
+  (cat, issue) &amp;lt;- maybe notFound return $ findIssue iid topcat
+  let messageHelper m = Mapping $ map (second $ Scalar . Text . pack)
+        $ (maybe id (\x -&amp;gt; (:) (&amp;quot;status&amp;quot;, x)) $ messageStatus m)
+        $ (maybe id (\x -&amp;gt; (:) (&amp;quot;priority&amp;quot;, x)) $ messagePriority m)
+        [ (&amp;quot;author&amp;quot;, messageAuthor m)
+        , (&amp;quot;text&amp;quot;, messageText m)
+        , (&amp;quot;creation&amp;quot;, show $ messageCreation m)
+        ]
+  let ho = Mapping
+          [ (&amp;quot;name&amp;quot;, Scalar $ Text $ pack $ issueName issue)
+          , (&amp;quot;messages&amp;quot;, Sequence $ map messageHelper $ issueMessages issue)
+          ]
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Now we determine is the user is logged in via the maybeIdentifier function. Later on, we'll see how we can force a user to be logged in using authIdentifier.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  ident &amp;lt;- maybeIdentifier
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;  templateHtmlJson &amp;quot;issue-details&amp;quot; ho $ \_ -&amp;gt; return
+      . setHtmlAttrib &amp;quot;issue&amp;quot; ho
+      . maybe id (setHtmlAttrib &amp;quot;ident&amp;quot;) ident
+      . setHtmlAttrib &amp;quot;cat&amp;quot; (Mapping
+          [ (&amp;quot;name&amp;quot;, Scalar $ Text $ pack $ catName cat)
+          , (&amp;quot;id&amp;quot;, Scalar $ Text $ pack $ show $ categoryId cat)
+          ])
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;And now the supporting model code. This function returns the requested Issue along with the containing category.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;findIssue :: Integer -&amp;gt; Category -&amp;gt; Maybe (Category, Issue)
+findIssue iid c@(Category cats issues _ _) =
+  case filter (\issue -&amp;gt; issueId issue == iid) issues of
+      [] -&amp;gt; getFirst $ mconcat $ map (First . findIssue iid) cats
+      (issue:_) -&amp;gt; Just (c, issue)
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;p
+&gt;Cool, just one function left! This should probably all make sense by now. Notice, however, the use of authIdentifier: if the user is not logged in, they will be redirected to the login page automatically.&lt;/p
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;addMessageH :: Integer -&amp;gt; Handler Tweedle ()
+addMessageH issueid = do
+  ident &amp;lt;- authIdentifier
+  (status, priority, text) &amp;lt;- runFormPost $
+          (,,)
+      &amp;lt;$&amp;gt; optional (input &amp;quot;status&amp;quot;)
+      &amp;lt;*&amp;gt; optional (input &amp;quot;priority&amp;quot;)
+      &amp;lt;*&amp;gt; required (input &amp;quot;text&amp;quot;)
+  now &amp;lt;- liftIO getCurrentTime
+  let message = Message ident status priority text now
+  modifyDB $ addMessage issueid message
+  ar &amp;lt;- getApproot
+  redirect RedirectPermanent $ ar ++ &amp;quot;issue/&amp;quot; ++ show issueid ++ &amp;quot;/&amp;quot;
+&lt;/code
+  &gt;&lt;/pre
+&gt;&lt;pre class="sourceCode haskell"
+&gt;&lt;code
+  &gt;addMessage :: Integer -&amp;gt; Message -&amp;gt; Category -&amp;gt; (Category, ())
+addMessage issueid message (Category cats issues catid catname) =
+  (Category (map (fst . addMessage issueid message) cats) (map go issues) catid catname, ())
+    where
+      go (Issue name messages iid)
+          | iid == issueid = Issue name (messages ++ [message]) iid
+          | otherwise = Issue name messages iid
+&lt;/code
+  &gt;&lt;/pre
+&gt;
+</foreign></body></topic>

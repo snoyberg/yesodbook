@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="yesod-020-released"><title>Yesod 0.2.0 Released</title><body><foreign outputclass="html">&lt;p&gt;I'm very happy to announce the release of &lt;a href="http://hackage.haskell.org/package/yesod-0.2.0"&gt;Yesod 0.2.0&lt;/a&gt;. For those who don't know, Yesod is a web framework for Haskell that promotes static type-safety, RESTful design, conciseness and efficiency.&lt;/p&gt;
+&lt;p&gt;You can find tutorials and other documentation on the &lt;a href="http://docs.yesodweb.com/yesod/"&gt;Yesod documentation site&lt;/a&gt;. This site is also the home to documentation on some Yesod subprojects.&lt;/p&gt;
+&lt;p&gt;This release introduces some major changes from the previous 0.0 series. The largest of these include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Type-safe URLs via the &lt;a href="http://docs.yesodweb.com/web-routes-quasi/"&gt;web-routes-quasi&lt;/a&gt; package. You no longer splice together strings to create URLs; each application has a datatype which only allows encoding of valid URLs.&lt;/li&gt;
+&lt;li&gt;Compile-time checked templates via the &lt;a href="http://docs.yesodweb.com/hamlet/"&gt;hamlet&lt;/a&gt; package. Hamlet has a Haml-like syntax and can be embedded directly in Haskell source code via quasi-quoting. Yesod ties Hamlet and web-routes-quasi together to ensure type-safe URLs in your templates as well. Hamlet has many nice features for creating HTML output, I will not enumerate them here.&lt;/li&gt;
+&lt;li&gt;Subsites are a new feature which allows you to create web components that can be plugged into multiple sites. Yesod includes two subsites: authentication and static files.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Yesod is still based on the Web Application Interface (wai), allowing it to be served from multiple backends. I will be releasing benchmarks in a few days as I wait for some feedback on one more backend which will hopefully be released soon.&lt;/p&gt;
+&lt;p&gt;Various other sources of Yesod information:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I gave a talk to the Southern California Functional Programmers group. There are &lt;a href="http://docs.google.com/present/edit?id=0AT9dwvcPwQ9lZGN3N3MzNHRfMzM0ZGZxYmZyY3Q&amp;hl=en"&gt;slides&lt;/a&gt; and &lt;a href="http://docs.google.com/leaf?id=0Bx3_LY5jgxVbNjViY2VkNWEtYmQyMC00MmMzLTgyZGEtNmQ2ZWY1NmE2NGVj&amp;hl=en"&gt;audio&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;I run my blog with a little bit of Yesod code I endearingly call &lt;a href="http://github.com/snoyberg/bloggy"&gt;bloggy&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;If you have questions, please consider joining the &lt;a href="http://www.haskell.org/mailman/listinfo/web-devel"&gt;Haskell web devel mailing list&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I'm using this code in production, so it is fairly well tested. However, if you find a bug, or even &lt;i&gt;think&lt;/i&gt; you've found a bug, please let me know. And stay tuned to this blog to hear plans for the next Yesod release.&lt;/p&gt;
+</foreign></body></topic>

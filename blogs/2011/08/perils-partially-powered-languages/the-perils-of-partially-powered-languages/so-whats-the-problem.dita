@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="so-whats-the-problem"><title>So what's the problem?</title><conbody>
+  <p id="x1">Just to review, let's see how our little ePub generator works:</p>
+  <ol id="ol_pvt_exi_jd">
+   <li id="x2">We use Ant to orchestrate everything. It's what the user calls (perhaps ironically via a Bash
+    script), it accepts parameters, and calls out to everything else.</li>
+   <li id="x3">There's one piece of Java code to generate an XML file containing the list of files.</li>
+   <li id="x4">XSLT takes the input XML files and produces the XHTML and XML files required by the
+    ePub.</li>
+   <li id="x5">Ant does some file copying as necessary, then ZIPs everything up into an ePub.</li>
+  </ol>
+  <p id="x6">Doesn't seem too bad, right? Well, remember that issue with relative paths I mentioned? It's
+   something I've solved before on different projects. It's nothing too complicated, you just need
+   to (1) parse file paths properly and (2) make sure you have a consistent mapping from source
+   files to output files. This was really easy to solve in Haskell, and even in Java: you just use a
+   datastructure like a map or hashtable and some basic string parsing.</p>
+  <p id="x7">And here's the problem: both of those are difficult to impossible in XSLT. XSLT isn't designed
+   for maps. It certainly doesn't have the ability to get the canonical filename for a relative path
+   and use it as a key in a dictionary. While that's just 1 or 2 lines in Java, Haskell, and
+   probably a dozen other languages, it's not the case in XSLT. (By the way, this is an existing,
+   long-standing bug in the DITA-OT already. The solution there is "don't set up your source XML
+   that way.")</p>
+  <p id="x8">There's also the fact that this whole call-out-to-Java approach for the file listing is
+   ridiculous. It's inefficient for certain, but more importantly, it's counter-intuitive. And it's
+   something that can be easily broken in maintenance.</p>
+  <p id="x9">But then there's the really big issue: the whole reason to use Java was so that all of their
+   Java programmers would understand the code. <b id="x10">And we haven't achieved that goal at all.</b> The
+   Java code was the most innocuous part of the project. Now in order to understand what's going on,
+   they need to know Java, Ant and XSLT.</p>
+  <note id="x11">Nonetheless, for some reason that baffles me, using XProc, XSLT and Ant is still considered
+   "Java" by our clients. I truly can't explain this mindset, I'm sorry I have no insight to
+   share.</note>
+  <p id="x12">There's one more issue that I've seen, that hasn't affected us here yet, but does affect other
+   big system designed in this way: modularity. Ant and XSLT are not designed for modularity. They
+   aren't general purpose languages, and they were designed with specific goals. You can see this
+   limitation greatly in the DITA-OT: in needed to create an entire plugin system which generates
+   Ant files from templates just to accomplish something simple like passing parameters. (It's a bit
+   more complicated than that, I don't want to go into the gory details here.) And the worst part is
+   that it doesn't even solve the problem well: you can't have two sets of modifications to HTML
+   output in the DITA-OT without essentially duplicating all of the template files.</p>
+ </conbody></concept>

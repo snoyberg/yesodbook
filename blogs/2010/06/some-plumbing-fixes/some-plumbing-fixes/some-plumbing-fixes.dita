@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="some-plumbing-fixes"><title>Some Plumbing Fixes</title><body><foreign outputclass="html">&lt;p&gt;As I've said, the main feature goal for the 0.4.0 release of Yesod is widgets. However, before I get started on that feature, there's a number of issues that I wanted to address. These are improvements that introduce breaking changes in the API, and so must wait for a major release.&lt;/p&gt;
+&lt;h3&gt;persistent: split up PersistEntity&lt;/h3&gt;
+&lt;p&gt;Version 0.0.0 of persistent had a typeclass called &lt;code&gt;PersistEntity&lt;/code&gt;. Without getting into details, this typeclass essentially defined exactly how a datatype could be persisted to a particular database. Some advantages to this approach are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You could have any datatype for the key that the backend required.&lt;/li&gt;
+&lt;li&gt;In theory, &lt;b&gt;any&lt;/b&gt; backend could be written; it just required some template haskell code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However, there are some major disadvantages to this approach:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It requires a large amount of template haskell code.&lt;/li&gt;
+&lt;li&gt;A datatype could only have a single PersistEntity instance, meaning it could only be persisted to a single backend.&lt;/li&gt;
+&lt;li&gt;Type signatures could become appallingly difficult.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So instead, persistent 0.1.0 will split up the work into two type classes: PersistEntity and PersistBackend. The former gives information on a datatype, such as what columns exist, how it can be sorted, unique keys, etc. It contains nothing backend specific. The latter typeclass is for each backend- like Sqlite and Postgresql. It is implemented without any TH code.&lt;/p&gt;
+&lt;p&gt;One downside is that a new backend must deal with the information provided by the PersistEntity typeclass. If it needs extra information that's not there, it won't work. I'm not so worried about this one, since I'm currently the only backend writer, and if someone else wants to write a backend that requires more information than is currently available in PersistEntity, I can just add it later.&lt;/p&gt;
+&lt;p&gt;The other downside is that database keys are all required to be Int64s. In practice, I don't think this is a problem at all: the only backend I know of that would really prefer a different key is Amazon SimpleDB, and even there I'm sure an Int64 would work.&lt;/p&gt;
+&lt;h3&gt;web-routes-quasi: major overhaul&lt;/h3&gt;
+&lt;p&gt;When Jeremy Shaw put together web-routes, I thought that web-routes-quasi would interact with it very well. Unfortunately, as the complexity of the package began to grow, I realized that it was really just becoming tailor-made for Yesod. This was a sub-optimal situation. And each new release of web-routes-quasi just added more Yesod-specific features.&lt;/p&gt;
+&lt;p&gt;This release (0.5.0) will be different. It no longer defines a QuasiSite datatype; we reuse the Site datatype from web-routes. It also cleanly exposes different TH functions for the four relevant declarations it provides for: creating the type-safe URL datatype, the parse function, the render function and the dispatch function.&lt;/p&gt;
+&lt;p&gt;The main reason I decided to start on this rewrite is to allow the dispatch function to return values still inside the Handler monad. Previously, web-routes-quasi would unwrap that monad itself, using a provided explode function. The plus was this provided a nice way to deal with the difference in type signature to subsite handlers (&lt;code&gt;GHandler sub master&lt;/code&gt;) and master site handlers (&lt;code&gt;GHandler master master&lt;/code&gt;); unfortunately, it made it difficult to provide features like authorization.&lt;/p&gt;
+&lt;p&gt;So now web-routes-quasi simply promotes the subsite handler functions into master site handler function. It needs three pieces of information to do this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The master site argument to subsite argument conversion function.&lt;/li&gt;
+&lt;li&gt;The subsite route to master site route constructor.&lt;/li&gt;
+&lt;li&gt;The subsite route that was created.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first of these is provided by the user when declaring routes; the last two are handled automatically by web-routes-quasi.&lt;/p&gt;
+&lt;h3&gt;yesod: No more ContT&lt;/h3&gt;
+&lt;p&gt;It seems now that &lt;a href="http://www.snoyman.com/blog/entry/handler-monad/"&gt;migrating over to ContT for the Handler monad&lt;/a&gt; was a mistake. In particular, it has a broken MonadCatchIO instance, which leads to a number of annoying bugs (seg faults in sqlite because it double-frees memory). Of course, I still hate the ErrorT transformer, both for the super-class requirement and the orphan Monad instance.&lt;/p&gt;
+&lt;p&gt;So I've created a new package: &lt;a href="http://github.com/snoyberg/neither"&gt;neither&lt;/a&gt;. I originally thought of the name as a joke; in fact, my wife (a Greek/Latin major) helped me come up with a great datatype:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data Neither a b = Sinister a | Dexter b&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, it now provides three useful datatypes: AEither for an applicative-style either type, which combines &lt;code&gt;Left&lt;/code&gt;s via &lt;code&gt;mappend&lt;/code&gt;; MEither for a monad instance; and MEitherT for a monad transformer. And you can use them all without any orphan instances. It also provides both mtl and transformers instances of MonadIO, MonadTrans and MonadCatchIO.&lt;/p&gt;
+&lt;p&gt;Also, as a result of really hideous error messages, I've switched GHandler to be a newtype instead of a type.&lt;/p&gt;
+&lt;h3&gt;yesod TODO: merge Yesod.Form and Yesod.Formable&lt;/h3&gt;
+&lt;p&gt;These two modules currently provide related functionality: the former is for getting GET and POST parameters without generating HTML forms. The latter is for generating HTML forms and automated parsing of POST parameters. It shouldn't be too difficult to combine the two together.&lt;/p&gt;
+&lt;h3&gt;Other changes&lt;/h3&gt;
+&lt;p&gt;I've added Facebook support to the authenticate repo, and passed that support up to the Yesod.Helpers.Auth module. It keeps track of the access token for you, so you can easily make requests against the Facebook graph API.&lt;/p&gt;
+</foreign></body></topic>

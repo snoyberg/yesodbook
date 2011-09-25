@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="lucius-syntax"><title>Lucius Syntax</title><conbody>
+  <p id="x1">While Cassius uses a modified, whitespace-sensitive syntax for CSS, Lucius is true to the
+   original. You can take almost any CSS file out there and it will be a valid Lucius file. There
+   are, however, two additions to Lucius:<ul id="ul_a847e33f-f3af-4fe1-9a3b-d7b2353921f7">
+    <li id="x2">Like Cassius, we allow both variable and URL interpolation.</li>
+    <li id="x3">CSS blocks are allowed to nest.</li>
+   </ul></p>
+  <p id="x4">That second point requires a bit of explanation. Let's say you want to have some special
+   styling for some tags within your <codeph id="x5">article</codeph>. In plain ol' CSS, you'd have to
+   write:<codeblock outputclass="css" id="x6">article code { background-color: grey; }
+article p { text-indent: 2em; }
+article a { text-decoration: none; }</codeblock>In
+   this case, there aren't that many clauses, but having to type out article each time is still a
+   bit of a nuisance. Imagine if you had a dozen or so of these. Not the worst thing in the world,
+   but a bit of an annoyance. Lucius helps you out
+   here:<codeblock outputclass="lucius" id="x7">article {
+    code { background-color: grey; }
+    p { text-indent: 2em; }
+    a { text-decoration: none; }
+}</codeblock></p>
+  <p id="x8">Other than that, Lucius is identical to CSS.</p>
+ </conbody></concept>

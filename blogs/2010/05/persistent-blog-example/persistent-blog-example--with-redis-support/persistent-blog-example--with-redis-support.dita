@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="persistent-blog-example--with-redis-support"><title>Persistent Blog Example- with Redis support!</title><body><foreign outputclass="html">&lt;p&gt;One of the typical examples applications given by web frameworks is the blog: it shows basic CRUD operations, templating a dispatch- in other words, Model, View and Controller. The &lt;a href="http://docs.yesodweb.com/yesod/tutorial/blog.html"&gt;current Yesod blog tutorial&lt;/a&gt; includes no persistence support, so one of the goals of persistent is to make it possible to have a very light-weight blog tutorial.&lt;/p&gt;
+&lt;p&gt;Well, it's not light-weight yet, but I've included the blog tutorial in &lt;a href="http://github.com/snoyberg/persistent"&gt;the persistent repo&lt;/a&gt;. And here's the really cool part: there's a &lt;a href="http://github.com/snoyberg/persistent/blob/master/blog.hs"&gt;sqlite version&lt;/a&gt; and &lt;a href="http://github.com/snoyberg/persistent/blob/master/blog-redis.hs"&gt;a Redis version&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Redis support is far from complete (and I mean &lt;b&gt;far&lt;/b&gt;), but I think this is a very nice proof-of-concept. And to my knowledge, this might make Yesod the first web framework to have support for the new generation of NoSQL, key-value datastores.&lt;/p&gt;
+&lt;h3&gt;New high-level syntax&lt;/h3&gt;
+&lt;p&gt;I've also scrapped the ugly YAML-based syntax that I'd cobbled together for something which, in my opinion, in much nicer. I'd appreciate feedback on it. The basic idea is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Any non-indented line should contain the name of the table. Table name must be capitalized.&lt;/li&gt;
+&lt;li&gt;All indented lines (ie, anything beginning with a space) are &lt;i&gt;attribute lines&lt;/i&gt;, and are applied to the most recent table name.&lt;/li&gt;
+&lt;li&gt;An attribute line beginning with a lowercase defines a column. The first word is the column name, the second is the datatype of the column, and the remaining words are attributes of the column. For example, &lt;b&gt;null&lt;/b&gt; means the field is nullable, &lt;b&gt;Eq&lt;/b&gt; means the field can be filtered by equality, etc.&lt;/li&gt;
+&lt;li&gt;An attribute line beginning with an uppercase defines a unique key. The first word is the constructor name, and the following words are the column names in the unique key.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here's the definition taken straight from the blog example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Entry
+    slug String
+    date Day Desc
+    title String
+    content HtmlContent
+    UniqueSlug slug&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, we can sort in descending order by date, and the slug must be unique.&lt;/p&gt;
+</foreign></body></topic>

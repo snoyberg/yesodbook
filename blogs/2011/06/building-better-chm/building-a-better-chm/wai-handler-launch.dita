@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="wai-handler-launch"><title>wai-handler-launch</title><conbody>
+  <p id="x1">My original idea was to embed Webkit directly in the executable as well. This is really a very
+   cool solution: you never have to worry about Internet Explorer again. However, distributing
+   Webkit (or QtWebkit) was simply too heavy a dependency, and made compiling a nightmare. Paulo
+   Tanimoto and I also took a crack at using MSHTML on Windows, but our win32-fu wasn't up to the
+   task.</p>
+  <p id="x2">So instead, we have <apiname id="x3">wai-handler-launch</apiname>. This package lets you run any WAI
+   application using Warp, and will automatically launch the default web browser. On Windows, it
+   uses the <codeph id="x4">ShellExecute</codeph> API call, on Mac it calls out to the <codeph id="x5">open</codeph>
+   program and on Linux it uses <codeph id="x6">xdg-open</codeph>. (Note that this may cause trouble for
+   some desktop environments.)</p>
+  <p id="x7">The other interesting thing in this package is automatic shutdown. wai-handler-launch
+   automatically inserts a piece of Javascript into every HTML page that pings the server every
+   minute. If it doesn't get pinged for two minutes, it shuts down.</p>
+ </conbody></concept>

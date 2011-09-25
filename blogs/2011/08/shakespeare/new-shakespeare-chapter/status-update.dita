@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="status-update"><title>Status Update</title><body><foreign outputclass="markdown">We're coming along very nicely on the Yesod 0.9 release. The goal is to have the release candidate out on Monday. However, at this point, the code in the repo is in active use in a number of different sites, and we aren't running into any issues any more. So all signs indicate that this will be the most solid release of Yesod to date.
+
+One thing that's still necessary is updating the book for the changes in the packages. There are four chapters that need to be reworked: templates, widgets, forms and persistent. I present to you the first of these revised chapters; as usual, feedback appreciated.</foreign></body></topic>

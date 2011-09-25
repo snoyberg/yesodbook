@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="why-did-you-let-this-happen"><title>Why did you let this happen?</title><conbody>
+  <p id="x1">It seems like the fault in all this rests squarely on my shoulders: I knew that Ant and XSLT
+   had shortcomings for this project, and I used them anyway. I should have just manned up and used
+   Java for the whole thing. Everything would have been in a single language that the client can
+   understand, and adding future features like better file reference support would have been an
+   evolutionary change.</p>
+  <p id="x2">The problem is that there's a budget to consider. I've tried once before to replace our normal
+   XSLT usage with pure Java, and the result was horrible: it took me significantly longer to write
+   than just doing the same thing in XSLT. And there are two reasons for this: Java-the-language,
+   and Java-the-libraries. I don't want to speak about this in the abstract, so let's have a
+   real-world comparison to a Haskell library: <apiname id="x3">xml-enumerator</apiname>. I'm sure many
+   other languages could make a similar comparison with their tools, but this is the one I'm most
+   familiar with.</p>
+  <p id="x4">Let's start with a simple question: what's an XML document? In xml-enumerator, that's very
+   simple: a <xref id="x5" href="http://hackage.haskell.org/packages/archive/xml-enumerator/0.3.4/doc/html/Text-XML-Enumerator-Resolved.html#/t:Document" format="html" scope="external">datatype called Document</xref> that contains some stuff
+   (processing instructions and comments) before and after the root element, a doctype statement,
+   and the root element itself. What's an <xref id="x6" href="http://hackage.haskell.org/packages/archive/xml-enumerator/0.3.4/doc/html/Text-XML-Enumerator-Resolved.html#/t:Element" format="html" scope="external">element</xref>? Why it's the tag name, a list of attributes and a
+   list of children nodes. And a <xref id="x7" href="http://hackage.haskell.org/packages/archive/xml-enumerator/0.3.4/doc/html/Text-XML-Enumerator-Resolved.html#/t:Node" format="html" scope="external">node</xref> is either an element, some text, a processing
+   instruction, or a comment. It's all right there in the data type definitions, which I think are
+   even understable by someone without any Haskell experience.</p>
+  <p id="x8">Contrast this with the DOM model from Java. We have a <xref id="x9" href="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" format="html" scope="external">Node</xref> interface, which has child interfaces for elements, processing
+   instructions, text and comments. So far, pretty similar to Haskell. Oh, and it has subinterfaces
+   for documents, attributes, and notations. (Note: notations don't actually exist in the XML.) Now,
+   this Node interface declares a whole bunch of functions, such as <xref id="x10" href="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html#getNodeName()" format="html" scope="external">getNodeName</xref>. So you can guess what that does for an
+   element, but what does it do for a comment? Well, it seems that it returns the contents of the
+   comment... right.</p>
+  <p id="x11">Here's some more fun: try understanding how that API deals with XML namespaces. In
+   xml-enumerator, we have a special datatype called Name, that contains the local name, namespace
+   and prefix for an identifier. This models the XML specification for namespaces precisely. And for
+   convenience, you can even just write them as normal strings in your Haskell source code, so most
+   of the time you don't even need to think about namespaces. In Java? There are two versions for
+   most functions, one that deals with namespaces, and one that doesn't.</p>
+  <p id="x12">Let's compare traversing the DOM. In Haskell, I can easily add an attribute to every element in
+   a tree like
+   so:<codeblock id="x13">addAttr :: Name -&gt; Text -&gt; Node -&gt; Node
+addAttr name value (NodeElement (Element tag attrs children)) =
+    NodeElement (Element tag ((name, value) : attrs) (map (addAttr name value) children))
+addAttr _ _ node = node</codeblock>Here,
+   we get to leverage pattern matching extensively, as well as use persistent data structures
+   easily. The equivalent in Java
+   is:<codeblock id="x14">public static void addAttr(String name, String value, Node node) {
+    if (node.getNodeType() != Node.ELEMENT_NODE) return;
+    Element element = (Element) node;
+    element.setAttribute(name, value);
+
+    NodeList nl = element.getChildNodes();
+    for (int i = 0; i &lt; nl.getLength(); ++i) {
+        addAttr(name, value, nl.item(i));
+    }
+}</codeblock>Note
+   that we have to use a type cast, which if not checked correctly could result in a runtime
+   exception. We're also modifying the original value instead of generating a new one, and we have
+   no support for namespaces.</p>
+  <p id="x15">The magic features that's missing here is sum types. There is no good replacement in Java, and
+   it precisely the right tool to model nodes in XML. Added to that the requirement to use mutable
+   data structures here and it's painful. And don't even get me started on the difference between a
+   null string and an empty string in the API.</p>
+  <p id="x16">I've only scratched the surface here, but I'm sure you can extrapolate from here how painful
+   writing this kind of code is in Java. And I was surprised to find this out: Java is after all
+   known for its <xref id="x17" href="http://www.reddit.com/r/programming/comments/eaqgk" format="html" scope="external">prowess as manipulating XML</xref>.</p>
+  <p id="x18">Which now explains the situation fully: Java is a painful language for the majority of the code
+   we need to write. So instead, we use a bunch of languages designed for those specific tasks to
+   avoid writing that Java code. As a result, we have messy codebases using lots of sub-powered
+   languages that results in spaghetti code that no one can read.</p>
+ </conbody></concept>

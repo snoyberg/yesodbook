@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="how-you-can-help"><title>How you can help</title><conbody>
+  <p id="x1">If you've made it this far, odds are you care about Yesod. So if you'd like to help, here are
+   some ideas:<ul id="ul_zhj_sqt_bd">
+    <li id="x2">We love the positive feedback, but the constructive criticism is what helps us grow. Keep it
+     coming!</li>
+    <li id="x3">Participate in the discussion on our <xref id="x4" href="http://groups.google.com/group/yesodweb" format="html" scope="external">new mailing list</xref>.</li>
+    <li id="x5">Download the code now and test it with your current codebase.</li>
+    <li id="x6">Keep up the comments on the book.</li>
+   </ul></p>
+ </conbody></concept>

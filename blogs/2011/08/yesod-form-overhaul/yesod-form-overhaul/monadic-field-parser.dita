@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="monadic-field-parser"><title>Monadic field parser</title><conbody>
+  <p id="x1">Now with that maintenance overhead out of the way, we can start to focus on Luite's issues
+   directly. Let's start by looking at the definition of the fieldParse record in a Field from a few
+   days ago:<codeblock id="x2">[Text] -&gt; Either msg (Maybe a)</codeblock>Fairly simple: take a list of
+   parameters (remember, multiple values can be submitted for each field, like with multi-select
+   fields) and either return an error message, Nothing if the input is missing, or the parsed value
+   on success. (Missing input may or may not be an error, depending on if the field is required or
+   optional.)</p>
+  <p id="x3">Now what we want is an easy way to add extra restriction onto that "a". Let's take our number
+   example from before. An intField from yesod-form would have a fieldParse looking like
+    <codeph id="x4">[Text] -&gt; Either FormMessage (Maybe Int)</codeph>. We now want to tack on some code that
+   can logically be expressed
+   as:<codeblock id="x5">data MyAppMessage = BelowOne | AboveTen
+withinRange :: Int -&gt; Either MyAppMessage Int
+withRange i
+    | i &lt; 1 = Left BelowOne
+    | i &gt; 10 = Left AboveTen
+    | otherwise = Right i</codeblock>All
+   we need is a way to attach our withinRange to our fieldParse.</p>
+  <p id="x6">The first thing to point out is that our SomeMessage trick from earlier is absolutely necessary
+   at this point. Without it, we would be forced to either include every possible error message in
+   FormMessage, or redefine our built-in fields to use our custom error message type. Instead, we
+   can now wrap up the error messages in a SomeMessage constructor and easily compose these two
+   functions.</p>
+  <p id="x7">But let's take the slightly more complicated case: a non-pure validator. There is no provision
+   in fieldParse for monadic side effects. The solution for this is actually very simple: wrap the
+   return in a
+   monad:<codeblock id="x8">data Field sub master a = Field
+    { fieldParse :: [Text] -&gt; GGHandler sub master IO (Either (SomeMessage master) (Maybe a))
+    , fieldView :: ...
+    }</codeblock></p>
+  <p id="x9">For our built-in fields the only change necessary is an added return.</p>
+ </conbody></concept>

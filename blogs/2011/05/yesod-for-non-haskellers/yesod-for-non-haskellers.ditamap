@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id="yesod-for-non-haskellers"><title>Yesod for non-Haskellers</title><topicref id="introduction" href="yesod-for-non-haskellers/introduction.dita"/><topicref id="getting-started" href="yesod-for-non-haskellers/getting-started.dita"/><topicref id="entitiesmodels" href="yesod-for-non-haskellers/entitiesmodels.dita"/></map>

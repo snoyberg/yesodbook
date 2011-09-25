@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="so-we-should-only-use-full-fledged-languages"><title>So... we should only use full-fledged languages?</title><conbody>
+  <p id="x1">You might think that I'm advocating never using a non-general-purpose programming language.
+   That's not the case. If you look at Yesod, we have a number of those floating around, in
+   particular Hamlet, an HTML templating language. Let's compare Hamlet to XSLT in the context of
+   this conversation:</p>
+  <ul id="ul_jhv_jej_jd">
+   <li id="x2">Hamlet is nothing more than simple, syntactic sugar. You can easily trace everything it does
+    into the corresponding Haskell code. XSLT, on the other hand, is a very powerful language, for
+    which it is very difficult to reproduce features in Java.</li>
+   <li id="x3">Hamlet only has meaning within the context of a Haskell program. It reads variables from the
+    surrounding code and returns a value, which must be used by Haskell. XSLT can exist entirely
+    outside of a Java program.</li>
+   <li id="x4">Hamlet has absolutely no side effects. XSLT can be used to generate as many output files as
+    it wants.</li>
+  </ul>
+  <p id="x5">You might be surprised at what I'm saying: Hamlet's advantage is that it's <b id="x6">less</b> powerful
+   than XSLT! That's precisely the point. Having add-on languages like Hamlet are great for
+   simplifying code, removing line noise, and making it easier to maintain the codebase. XSLT, on
+   the other hand, is used as an alternative to Java.</p>
+  <p id="x7">Going back to my file reference example: with a language like Hamlet, there's no problem. We
+   can call back to Haskell to handle the heavy lifting that Hamlet doesn't support. It's so tightly
+   bound with the surrounding program that there is virtually no overhead to this. Also, there would
+   be no problem using the strong data types we know and love within Hamlet; in XSLT, we're forced
+   to switch back to weak datatypes. (Example: my Java code uses the File type for getting the file
+   listing; XSLT just sees strings.)</p>
+  <p id="x8">If I was to write an ePub generator in Haskell (which I'll likely be doing in the
+   not-too-distant future), I would use the <apiname id="x9">xml-hamlet</apiname> package. That would allow
+   me to easily and concisely produce XML values. In other words, I could
+   replace:<codeblock id="x10">[ NodeElement $ Element "foo" [("bar", "baz")]
+    [ NodeContent "some content"
+    , NodeElement $ Element "bin" [] []
+    ]
+]</codeblock>with<codeblock id="x11">[xml|
+&lt;foo bar=baz&gt;
+    some content
+    &lt;bin&gt;
+|]</codeblock>Of
+   course, both of those are infinitely more pleasant than the Java
+   equivalent:<codeblock id="x12">DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+DocumentBuilder db = dbf.newDocumentBuilder();
+Document doc = db.newDocument();
+Element foo = doc.createElement("foo");
+doc.appendChild(foo);
+foo.setAttribute("bar", "baz");
+foo.appendChild(doc.createTextNode("some content"));
+foo.appendChild(doc.createElement("bin"));</codeblock>And
+   just wait till you have to write this to a file. In Haskell, it's the <codeph id="x13">writeFile</codeph>
+   function. In Java, I pity you.</p>
+ </conbody></concept>

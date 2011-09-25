@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="bye-old-comments"><title>Bye Old Comments</title><conbody>  <p id="x1">The new site also brings with it changes to the comment system. You now need to be logged in to
+   comment. This may sound like a disadvantage, but at least in my experience it's irritating to
+   have to enter your name every time you make a comment.</p>
+  <p id="x2">But the bigger change under the hood is that comments are topics themselves. (Yes, that means
+   you could in theory comment on a comment.) This fits in very nicely with the philosophy we've
+   been developing here: you could write a comment on the book, and others will be able to find it
+   in a normal search. Or relevant comments could be strung together into a map and published as a
+   blog post.</p>
+  <p id="x3">One downside is that I'm not going to be migrating the existing comments from the book. Just to
+   make it clear, the comments on the book have been possibly the most important feedback in
+   refining its content, and I am very grateful to everyone who has contributed. Please keep it
+   up!</p>
+ </conbody></concept>

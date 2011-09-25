@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="somemessage"><title>SomeMessage</title><conbody>
+  <p id="x1">A quick review of i18n in Yesod: we have a typeclass called <codeph id="x2">RenderMessage</codeph>
+   defined
+   as<codeblock id="x3">class RenderMessage master message where
+    renderMessage :: master
+                  -&gt; [Text] -- ^ languages
+                  -&gt; message
+                  -&gt; Text</codeblock>This
+   lets each application (distinguished by the master datatype) have its own sets of translations.
+   Within yesod-form, we would end up with a msg type variable in a few places, such as for error
+   messages from a field parser. And yesod-form defines a datatype <codeph id="x4">FormMessage</codeph>
+   which it uses for all its messages.</p>
+  <p id="x5">But let's say we want to have an integer field for numbers between 1 and 10. There are two
+   things that can go wrong:<ul id="ul_tji_wmo_ed">
+    <li id="x6">the user could submit a non-integer. For this we want to use the built-in error message from
+     yesod-form of type FormMessage</li>
+    <li id="x7">the user could enter an integer outside the range. Here we would want to use the application
+     specific message type.</li>
+   </ul></p>
+  <p id="x8">The question is how do we combine two different datatypes together. The answer:
+   existentials.<codeblock id="x9">data SomeMessage master = forall msg. RenderMessage master msg =&gt; SomeMessage msg</codeblock>We
+   now have a datatype that represents any message that can be translated for our application. By
+   using this datatype in place of a msg type variable, we get to both achieve our primary goal and
+   make our type signatures a bit shorter.</p>
+ </conbody></concept>

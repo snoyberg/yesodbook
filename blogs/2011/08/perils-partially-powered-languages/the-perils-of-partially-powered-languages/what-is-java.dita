@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="what-is-java"><title>What is Java?</title><conbody>
+  <p id="x1">Before getting into the meat of this, we need to analyze the client requirement a bit more:
+   what is Java, and why do they want me to use it? There are really two distinct things that get
+   the name Java: the programmer language, and the virtual machine. The requirement to use Java then
+   stems from two completely different goals:</p>
+  <ul id="ul_rer_jmi_jd">
+   <li id="x2">Requiring Java-the-language has to do with the idea that "we know Java, we'll understand Java
+    code."</li>
+   <li id="x3">Requiring the JVM is usually about ease of deployment, increased security, etc.</li>
+  </ul>
+  <p id="x4">In this case, it was made clear that the goals were the first one: they wanted any one of their
+   ten Java programmers to be able to understand the code I was writing. So in a situation like
+   this, you would assume that every line of code needs to be written in Java itself, for maximum
+   comprehension. (They actually mentioned a possible interest in using Clojure, but that would have
+   been a stretch for them.)</p>
+  <p id="x5">However, as you'll see in a bit, most of the code I wrote was <i id="x6">not</i> Java, and they were
+   perfectly happy with this.</p>
+ </conbody></concept>

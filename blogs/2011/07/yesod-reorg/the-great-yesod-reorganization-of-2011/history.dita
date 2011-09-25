@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="history"><title>History</title><conbody>
+  <p id="x1">In the beginning, Yesod was a single repository written by a single developer (me). It included
+   all the bells and whistles internally, from authentication to forms and static file serving. And
+   all was well and simple.</p>
+  <p id="x2">Except this didn't scale very well. Making breaking changes in a single component meant bumping
+   version numbers everywhere. Someone wanting to implement a small site with few features still
+   needed to pull in on the dependencies of the greater Yesod. And as features continued to be
+   added, this overhead continued to grow.</p>
+  <p id="x3">The solution was to split Yesod up into many smaller packages: yesod-core, yesod-auth,
+   yesod-static, etc. And this was a very good solution (sans some Cabal annoyances).</p>
+ </conbody></concept>

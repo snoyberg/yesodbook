@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="yo-dawg-i-heard-you-like-template-haskell"><title>Yo dawg, I heard you like Template Haskell</title><body><foreign outputclass="html">&lt;p&gt;Yo dawg, I heard you like Template Haskell, so I put some TH in your TH so you can meta program while you meta program.&lt;/p&gt;
+&lt;script src="http://gist.github.com/568215.js"&gt; &lt;/script&gt;
+&lt;p&gt;This is just a little bit of fun I've been meaning to write and post for a while now. Enjoy.&lt;/p&gt;
+&lt;p&gt;In totally unrelated news, I just set up the Gold linker on my systems and my Haskell builds are &lt;i&gt;much&lt;/i&gt; faster. Especially nice when compiling on my VPS.&lt;/p&gt;
+</foreign></body></topic>

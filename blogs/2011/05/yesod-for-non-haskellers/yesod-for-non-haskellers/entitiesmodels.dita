@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="entitiesmodels"><title>Entities/Models</title><conbody>
+  <p id="x1">We store everything in the database via models. There is one datatype per table. There is one
+   block in the models file per entity. The models definition file is "config/models". By default,
+   we have "User" and "Email", which are used for authentication. This file is whitespace sensitive.
+   A new block is not indented at all.</p>
+  <p id="x2">An entity is a datatype, so it needs a capital letter. It makes more sense to use singular
+   nouns. Fields are all lowercase. First give a field name, and then a datatype. Some basic
+   datatypes are "Text" and "Int". If you want something to be optional, you put a "Maybe" after the
+   datatype.</p>
+  <p id="x3">We work off of SQL's relational approach to datatypes. Instead of having a "recipe" with a list
+   of "ingredients", we will have a recipe, and each ingredient will know which recipe it belongs
+   to. (The reason for this is outside our scope right now.) This kind of a relationship is called a
+   one-to-many: each recipe can have many ingredients, and each ingredient belongs to a single
+   recipe. In code:</p>
+  <codeblock id="x4">Recipe
+    title Text
+    desc Text Maybe
+Ingredient
+    recipe RecipeId
+    name Text
+    quantity Double
+    unit Text</codeblock>
+  <p id="x5">You can think of RecipeId as a pointer to an actual recipe, instead of actually holding the
+   recipe itself.</p>
+  <p id="x6">We can always come back and make modifications later. Persistent migrations will automatically
+   update the table definitions when possible. If it's not possible to automatically update, it will
+   give you an explanation why.</p>
+  <note id="x7">Ideally we don't want users typing in arbitrary units, we want to give them a specific list
+   of options. To achieve something like that in Haskell, we would use a datatype with multiple
+   constructors, such
+   as:<codeblock id="x8">data Unit = Ounces | Pounds | Kilos | Grams | FluidOunces | Liters</codeblock>In
+   C/C++/Java, this is known as an enumeration. But in Haskell, we get a whole bunch of cool type
+   safety stuff. We'll see later how to easily switch our models definition to use such a
+   datatype.</note>
+ </conbody></concept>

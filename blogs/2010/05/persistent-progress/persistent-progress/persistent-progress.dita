@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="persistent-progress"><title>Persistent Progress</title><body><foreign outputclass="html">&lt;p&gt;I just switched over a 2900-loc Yesod web application to use &lt;a href="http://github.com/snoyberg/persistent/"&gt;persistent&lt;/a&gt;, so I think now's a good time to give a bit of an update on the way things are going. For those interested, &lt;a href="http://docs.yesodweb.com/haddock/persistent/"&gt;here's the most recent Haddocks&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Status&lt;/h3&gt;
+&lt;p&gt;Amazingly, persistent is fully usable right now for certain functionalities. There's a high-level interface for defining tables, Template Haskell code to generate SQLite code, and the Persist typeclass. You can try it now if you like, though be warned that it will be changing.&lt;/p&gt;
+&lt;h3&gt;Nothing is NULL&lt;/h3&gt;
+&lt;p&gt;Pop quiz: does the following code return all the rows in a table?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT * FROM MyTable WHERE my_column=5
+UNION ALL
+SELECT * FROM MyTable WHERE my_column&lt;&gt;5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It seems like the answer should be yes, but in fact, it's no. That's because both &lt;code&gt;NULL=5&lt;/code&gt; and &lt;code&gt;NULL&lt;&gt;5&lt;/code&gt; evaluate to FALSE. Technically, they evaluate to NULL, which gets interpretted in a boolean context as FALSE, but it's irrelevant to our point.&lt;/p&gt;
+&lt;p&gt;This makes it difficult to model a &lt;code&gt;Maybe&lt;/code&gt; value as a nullable field. The solution isn't too difficult; if you want to filter for all rows where column my_column is equal to some Nothing value, you specify &lt;code&gt;IS NULL&lt;/code&gt; instead of &lt;code&gt;=?&lt;/code&gt; and binding the Nothing.&lt;/p&gt;
+&lt;p&gt;However, when dealing with unique keys and the &lt;a href="http://docs.yesodweb.com/haddock/persistent/Database-Persist.html#v%3AgetBy"&gt;getBy&lt;/a&gt; function, it gets a bit more complicated. So for now, I have a simple compromise: &lt;b&gt;nullable columns cannot be included in unique keys&lt;/b&gt;.&lt;/p&gt;
+&lt;h3&gt;Less type classes&lt;/h3&gt;
+&lt;p&gt;I've decided to backtrack a bit on my multi-type-class idea in the previous post. Instead, I'm having the TH code generate a single type class instance for each table.&lt;/p&gt;
+&lt;p&gt;I've also decided to simplify the data families a bit. Here's the motiviation: I want to be able to have a &lt;code&gt;PersonId&lt;/code&gt; datatype to go along with the &lt;code&gt;Person&lt;/code&gt; table. The previous definition of &lt;code&gt;Key&lt;/code&gt; was &lt;code&gt;data family Key value m&lt;/code&gt;, where m is the monad for the backend we're dealing with (such as Sqlite).&lt;/p&gt;
+&lt;p&gt;Unfortunately, that means the definition of PersonId because &lt;code&gt;type PersonId m = Key Person m&lt;/code&gt;, which is really irritating. So instead, Key is now simply &lt;code&gt;data family Key value&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The upshot of this is that there can only be one instance for each value in scope at a time. However, this really makes perfect sense: the TH code generates the datatypes! So in order to switch backends, you'll need to change your TH deriving line.&lt;/p&gt;
+&lt;h3&gt;YAML entity declarations&lt;/h3&gt;
+&lt;p&gt;I'll be honest: I really don't like this solution, and find it ugly. However, it was the fastest thing to implement, and I needed something to work with immediately for my current project. Hopefully I can put some real thought into a better syntax later. In fact, I think an EDSL would be better here than quasi-quoted syntax.&lt;/p&gt;
+&lt;p&gt;Here's an example that would declare two datatypes and create appropriate instances for the Sqlite3 backend.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;persistSqlite3 [$persist|
+Author:
+    columns:
+        - name: name
+          type: String
+          order: [Asc] # can be sorted in ascending order
+        - name: tagline
+          type: String
+          nullable: True
+    uniques:
+        UniqueAuthorName: [name]
+Entry:
+    columns:
+        - name: author
+          type: AuthorId # this is declared automatically
+          filter: [Eq]   # you can select all entries by an author
+        - name: date
+          type: Day
+          order: [Asc, Desc]
+        - name: slug
+          type: String
+        - name: title
+          type: String
+        - name: content
+          type: HtmlContent
+    uniques:
+        UniqueDateSlug: [date, slug]
+|]&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Using HDBC... for now&lt;/h3&gt;
+&lt;p&gt;To get started quickly, I'm using HDBC. The obvious advantages are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Automatic support for all HDBC backends.&lt;/li&gt;
+&lt;li&gt;No need to write against the FFI.&lt;/li&gt;
+&lt;li&gt;Well tested library.&lt;/li&gt;
+&lt;li&gt;SqlValue and Convertible are defined for us.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The downsides are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Even with automatic support for the backends, we still need to be careful of writing compliant SQL. For example, &lt;code&gt;INTEGER PRIMARY KEY&lt;/code&gt; versus &lt;code&gt;INTEGER AUTO_INCREMENT&lt;/code&gt; versus &lt;code&gt;SERIAL&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;MySQL support is pretty spotty on HDBC if I'm not mistaken.&lt;/li&gt;
+&lt;li&gt;It still doesn't help us with the non-SQL backends at all.&lt;/li&gt;
+&lt;li&gt;We're probably incurring some some performance overhead.&lt;/li&gt;
+&lt;li&gt;HDBC isn't very good at deterministic operation. It's difficult to tell when a statement will be finalized, and if you use the lazy I/O, there's &lt;b&gt;lots&lt;/b&gt; of opportunities for bugs.&lt;/li&gt;
+&lt;li&gt;It's not quite as bug-free as I'd like. Details available upon request.&lt;/li&gt;
+&lt;li&gt;Ideally I'd like a PersistValue instead of SqlValue datatype that takes into account non-SQL backends.&lt;/li&gt;
+&lt;li&gt;I don't like the design of Convertible: there's no distinction made between conversions which are guaranteed to succeed and those which might fail. This encourages errors ocurring in pure code. I &lt;a href="http://hackage.haskell.org/package/convertible-text"&gt;proposed a different interface&lt;/a&gt; to John, and he seemed interested at the time, but nothing has come of it since.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I have a lot of experience with the Sqlite C API, and it's very easy to program against. I'm not so certain of MySQL and PostgreSQL, but frankly the hardest work in this project is the TH code, &lt;i&gt;not&lt;/i&gt; the database code itself.&lt;/p&gt;
+&lt;p&gt;Of course, if we stick with HDBC it will be easier for people to drop down to straight SQL queries when persistent is too constraining.&lt;/p&gt;
+&lt;h3&gt;Next steps&lt;/h3&gt;
+&lt;p&gt;It would be really nice to be able to automatically generate web forms from this tables, especially on my current project. This isn't very difficult in theory, I just have to figure it out.&lt;/p&gt;
+&lt;p&gt;I'm not sure if for this first release I should focus more on a number of backends, or on perfecting a single one. If I do multiple backends, it might point out places where the API favors a certain backend too much, but I'd really like to get something working out there quickly so that Yesod can have a persistence layer already.&lt;/p&gt;
+&lt;p&gt;And I still have to choose an enumerator interface for the select, filter and order functions. For those afraid of enumerators, I intend to offer a strict list variant as well. I'm tempted to join everyone else with the iteratee package... I'd appreciate community feedback on this one.&lt;/p&gt;
+&lt;p&gt;If you want to get a better feel for this library, start by looking at &lt;a href="http://docs.yesodweb.com/haddock/persistent/Database-Persist.html#t%3APersist"&gt;the Persist typeclass&lt;/a&gt;. You can also look at &lt;a href="http://github.com/snoyberg/persistent/blob/master/test3.hs"&gt;a simple test program&lt;/a&gt;. Hopefully I'll put up a simple Yesod app that uses this soon.&lt;/p&gt;
+</foreign></body></topic>

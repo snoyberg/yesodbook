@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="introduction"><title>Introduction</title><conbody>  <p id="x1">My wife (Miriam Snoyman) has been wanting to make a recipe site for a while now. Instead of me
+   just writing it for her, she decided she would take this chance to learn a bit more about web
+   programming. She has done some programming in the past, and has knowledge of HTML/CSS (no
+   Javascript). She's also never done any Haskell.</p>
+  <p id="x2">So being the brave sport she is, she agreed to let me blog about this little adventure. I'm
+   hoping that this helps out some newcomers to Yesod and/or Haskell get their feet wet.</p>
+  <p id="x3">Given that our schedule is quite erratic and dependent on both kids agreeing to be asleep, I
+   don't know how often we will be doing these sessions, or how long they'll last each time.</p>
+ </conbody></concept>

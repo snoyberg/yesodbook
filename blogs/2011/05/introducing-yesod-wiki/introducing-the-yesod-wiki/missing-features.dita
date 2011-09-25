@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="missing-features"><title>Missing Features</title><conbody>  <p id="x1">This is a first release, so you should expect bugs. Also, the UI is very unrefined, especially
+   on the settings page. But in addition, there are a number of features we have in mind:</p>
+  <ul id="ul_0dc92482-314d-4a1c-a0d5-bd2946adc54d">
+   <li id="x2">A built-in issue tracker. There are a few advantages to keeping issues on this site instead
+    of Github:<ul id="ul_461cb31e-7ad1-48c2-a3a8-b200fd75b33c">
+     <li id="x3">No more confusiong about which project to assign the issue to.</li>
+     <li id="x4">Searching on the site for information will automatically find open issues.</li>
+     <li id="x5">If someone writes a detailed bug report and/or response, it will be easy to incorporate
+      that content in other sections of the site (e.g., FAQ, the book).</li>
+    </ul></li>
+   <li id="x6">More social features, such as upvoting topics, forking topics, etc.</li>
+   <li id="x7">Discussion pages. In fact, the comment system is basically a discussion system already, it
+    just needs a little UI tweaking to make that apparent.</li>
+  </ul>
+  <p id="x8">If you notice any issues, please <xref id="x9" href="mailto:michael@snoyman.com" format="html" scope="external">let me know</xref>. I'm very excited about this new site. I believe it will
+   make it much easier to get quality documentation out.</p>
+ </conbody></concept>

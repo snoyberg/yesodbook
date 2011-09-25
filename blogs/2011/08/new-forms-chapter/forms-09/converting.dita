@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="converting"><title>Converting</title><conbody>
+  <p id="x1">"But wait a minute," you say. "You said the synopsis uses applicative forms, but I'm sure the
+   type signature said Form. Shouldn't it be Monadic?" That's true, the final form we produced was
+   monadic. But what really happened is that we converted an applicative form to a monadic one.</p>
+  <p id="x2">Again, our goal is to reuse code as much as possible, and minimize the number of functions in
+   the API. And Monadic forms are more powerful than Applicative, if more clumsy, so anything that
+   can be expressed in an Applicative form could also be expressed in a Monadic form. There are two
+   core functions that help out with this: aformToForm converts any applicative form to a monadic
+   one, and formToAForm converts certain kinds of monadic forms to applicative forms.</p>
+  <p id="x3">"But wait <b id="x4">another</b> minute," you insist. "I didn't see any aformToForm!" Also true. The
+   renderDivs function takes care of that for us.</p>
+ </conbody></concept>

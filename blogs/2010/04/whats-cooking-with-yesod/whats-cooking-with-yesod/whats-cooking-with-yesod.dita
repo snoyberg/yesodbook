@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="whats-cooking-with-yesod"><title>What's Cooking with Yesod</title><body><foreign outputclass="html">&lt;p&gt;I know I've been quiet on this blog for a few weeks now (though quite vocal on the web-devel mailing list...), so I just wanted to give a bit of an update on Yesod.&lt;/p&gt;
+&lt;p&gt;After the initial release, there has been a lot of collaboration in the community towards getting more solid tools available for Haskell web development. Most notably, Jeremy Shaw is working on &lt;a href="http://src.seereason.com/web-routes/"&gt;the web-routes package&lt;/a&gt;; I'm not going to go into depth on it now, but it basically provides for type-safe URLs and pluggable web applications.&lt;/p&gt;
+&lt;p&gt;Yesod included in the initial release a quasi-quoted syntax for declaring routing in an application; a number of people have taken note of this. I have actually split this feature off into &lt;a href="http://github.com/snoyberg/web-routes-quasi"&gt;its own package&lt;/a&gt; and made it compatible with Jeremy's web-routes. Once again, I won't go into the details now, but it's a nicer syntax with more power than what's in Yesod now.&lt;/p&gt;
+&lt;p&gt;I'm also working on two other fronts outside of Yesod. The first is &lt;a href="http://github.com/snoyberg/hamlet"&gt;hamlet&lt;/a&gt;, which is a quasi-quoted templating system based (loosely) on &lt;a href="http://haml-lang.com/"&gt;haml&lt;/a&gt;. Even if you don't like the syntax of the templates, the monadic interface might allow for some very interesting features in its own right, and will most likely replace HStringTemplate as the preferred templating system in the next Yesod. I'd like community feedback on whether to maintain support for HStringTemplate.&lt;/p&gt;
+&lt;p&gt;The second front is &lt;a href="http://github.com/snoyberg/persistent"&gt;persistent&lt;/a&gt;, a simplistic, non-relational data storage abstraction layer meant to be the basis of a model layer in Yesod. Unfortunately, this has received the least of my attention, and I'm not sure if it will be mature enough for the next release. This is another area where I'd appreciate community feedback.&lt;/p&gt;
+&lt;p&gt;I've just created &lt;a href="http://github.com/snoyberg/yesod/tree/ver0.2"&gt;a new branch on github&lt;/a&gt; for the next version of Yesod; I encourage everyone to check it out and let me know what they think! After this release, I will begin a very serious documentation effort. Due to the major changes coming up, documenting now would be a waste of time, but I hope the next release brings us much closer to a more stable API.&lt;/p&gt;
+&lt;p&gt;Finally, there's also &lt;a href="http://github.com/snoyberg/wai"&gt;progress on the next WAI release&lt;/a&gt;. This is more of an evolutionary than revolutionary change. So far, the only breaking change is that request and response headers are case-insensitive in the Eq instance. I've also added a buffer function to (hopefully) make enumerators more performant. I believe this will play very nicely with Hamlet to produce incredibly fast output.&lt;/p&gt;
+&lt;p&gt;So I believe the roadmap for the next few weeks will be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Release some underlying libraries to work with transformers 0.2.0&lt;/li&gt;
+&lt;li&gt;Release hamlet&lt;/li&gt;
+&lt;li&gt;Release web-routes and web-routes-quasi&lt;/li&gt;
+&lt;li&gt;Release WAI&lt;/li&gt;
+&lt;li&gt;Release Yesod&lt;/li&gt;
+&lt;li&gt;Document like hell, replacing the current &lt;a href="http://www.yesodweb.com/"&gt;yesodweb.com site&lt;/a&gt;. I'll be placing documentation for &lt;i&gt;all&lt;/i&gt; yesod-related packages on that site.&lt;/li&gt;
+&lt;/ul&gt;
+</foreign></body></topic>

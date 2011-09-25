@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="persistence"><title>Persistence</title><body><foreign outputclass="html">&lt;p&gt;Now that the first version of &lt;a href="http://www.haskell.org/pipermail/haskell-cafe/2010-March/074271.html"&gt;Yesod Web Framework&lt;/a&gt; has been released, I can start to think about the missing piece of the puzzle: the model. Currently, each of my sites built on Yesod uses a hand-rolled model layer. In &lt;a href="http://www.search-once.com/"&gt;SearchOnce&lt;/a&gt;, this was particularly ugly: a 900 line file with a bunch of SQL code.&lt;/p&gt;
+&lt;p&gt;So I've been playing around with some ideas, and I just want to get them out for later reference. There's no code to back this one up yet, so don't expect anything concrete for a while!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Using YAML and quasi-quotation worked very nicely for URL dispatch in Yesod; I think that will be a good fit for defining models.&lt;/li&gt;
+&lt;li&gt;Overall, Django model system is pretty good, probably follow that structure mostly.&lt;/li&gt;
+&lt;li&gt;There's no reason to tie it down to SQL; I can imagine a YAML-file backend, or Amazon SimpleDB. At the same time, SQL should be a first-class citizen.&lt;/li&gt;
+&lt;li&gt;Not sure if it should have schema-generation, you tell it the names of your tables, or an option for either one.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.reddit.com/r/haskell/comments/b9fo2/anyone_else_ever_wanted_an_io_thunk/"&gt;IO thunks&lt;/a&gt; would probably be a good idea for possibly expensive records (eg, in a one-to-many relationship).&lt;/li&gt;
+&lt;li&gt;Speaking of relationships, is one-to-many and many-to-many sufficient? And how do you model many-to-many in Haskell?&lt;/li&gt;
+&lt;li&gt;Probably want to use data-accessor or something similar.&lt;/li&gt;
+&lt;li&gt;Maybe consider an IOList (or Stream) data structure: data IOList a = IONil | IOCons a (IO IOList).&lt;/li&gt;
+&lt;li&gt;Have to figure out a way to interoperate with HStringTemplate, which might ultimately involve unsafePerformIO due to the purity of that library.&lt;/li&gt;
+&lt;li&gt;Does data-object need to include a MonadObject data structure to help this out?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sorry for just spouting nonsense for now... if anyone has any ideas or recommendations of already-existent libraries, please let me know.&lt;/p&gt;
+</foreign></body></topic>

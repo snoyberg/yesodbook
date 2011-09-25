@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="with-monadio"><title>With MonadIO</title><body><foreign outputclass="html">&lt;p&gt;I've been bitten by this one before: I'd like to use a monad transformer, and I'd like to use a "with" function. In this case, we'll give the example of &lt;a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Foreign-C-String.html#v%3AwithCString"&gt;withCString&lt;/a&gt; for creating C-style strings from [Char]s. The function signature is:&lt;/p&gt;
+&lt;pre&gt;withCString :: String -&gt; (CString -&gt; IO a) -&gt; IO a&lt;/pre&gt;
+&lt;p&gt;However, I don't have an IO monad. In this case, let's say I have a "ReaderT Parser IO". No problem, we'll just apply a liftIO... somewhere... and...&lt;/p&gt;
+&lt;p&gt;This is a little tricky in fact. What we &lt;b&gt;want&lt;/b&gt; here is a function of type signature:&lt;/p&gt;
+&lt;pre&gt;MonadIO m =&gt; String -&gt; (CString -&gt; m a) -&gt; m a&lt;/pre&gt;
+&lt;p&gt;Unfortunately, there's no way to create it automatically. Now, for the withCString function, we could go ahead and implement things ourselves. But what about &lt;a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Foreign-Marshal-Alloc.html#v%3AallocaBytes"&gt;allocaBytes&lt;/a&gt;, which does some fancy magic under the hood?&lt;/p&gt;
+&lt;h2&gt;Dealing with ReaderT&lt;/h2&gt;
+&lt;p&gt;Before dealing with a generic solution, let's first play around with ReaderT and see what we come up with. Let's assume that we'll curry away the first argument to withCString, so we're left with a function with the type signature:&lt;/p&gt;
+&lt;pre&gt;(CString -&gt; IO a) -&gt; IO a&lt;/pre&gt;
+&lt;p&gt;We need to produce a function with the type signature:&lt;/p&gt;
+&lt;pre&gt;(CString -&gt; ReaderT Parser IO a) -&gt; ReaderT Parser IO a&lt;/pre&gt;
+&lt;p&gt;Turns out this function isn't too bad. We'll call it withReader (I wouldn't mind name suggestions):&lt;/p&gt;
+&lt;pre&gt;withReader :: ((CString -&gt; IO a) -&gt; IO a) -&gt; (CString -&gt; ReaderT Parser IO a) -&gt; ReaderT Parser IO a
+withReader orig f = ReaderT $ \parser -&gt; do
+    let f' a = (runReaderT $ f a) parser
+    orig f'&lt;/pre&gt;
+&lt;p&gt;You can call this function like such:&lt;/p&gt;
+&lt;pre&gt;someOtherFunction :: CString -&gt; ReaderT Parser IO SomeOutput
+...
+withReader (withCString "foobar") someOtherFunction :: ReaderT Parser IO SomeOutput&lt;/pre&gt;
+&lt;h2&gt;More general&lt;/h2&gt;
+&lt;p&gt;Well, that solved the problem. That is, until we want to be able to stack our monads. For example, let's say (for simplicity) that I wanted to have the following monad:&lt;/p&gt;
+&lt;pre&gt;ReaderT Parser (ReaderT Emitter IO)&lt;/pre&gt;
+&lt;p&gt;(In case you're wondering, this is code used for interleaving parsing and emitting of a YAML document. See &lt;a href="http://www.snoyman.com/blog/entry/efficient-yaml-parsing/"&gt;my previous blog post&lt;/a&gt; for more context.)&lt;/p&gt;
+&lt;p&gt;In any event, we &lt;i&gt;could&lt;/i&gt; write a withReaderReader function, but instead I smell a great opportunity for a typeclass:&lt;/p&gt;
+&lt;pre&gt;class With m where
+    with :: ((a -&gt; IO b) -&gt; IO b) -&gt; (a -&gt; m b) -&gt; m b&lt;/pre&gt;
+&lt;p&gt;I currently only have two instances of this class, but I'm sure other monads could be easily added:&lt;/p&gt;
+&lt;pre&gt;instance With IO where -- obvious instance
+    with = id
+instance With m =&gt; With (ReaderT r m) where
+    with orig f = ReaderT $ \r -&gt; do
+        let f' a = (runReaderT $ f a) r
+        with orig f'&lt;/pre&gt;
+&lt;h2&gt;Improvements&lt;/h2&gt;
+&lt;p&gt;The number one improvement I need is a better name for this beast. After that, I'd like to add some more methods to handle even more useful functions, such as finally. I know I've been caught in the past wanting to ensure resource release when dealing with a monad stack.&lt;/p&gt;
+&lt;p&gt;This code (with slightly different names) is part of &lt;a href="http://github.com/snoyberg/yaml/blob/master/Text/Libyaml.hs"&gt;my yaml github repo&lt;/a&gt;. If there's demand, I'll split it into its own package.&lt;/p&gt;
+</foreign></body></topic>
