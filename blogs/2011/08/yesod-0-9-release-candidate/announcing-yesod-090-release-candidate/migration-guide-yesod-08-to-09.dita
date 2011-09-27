@@ -93,7 +93,7 @@
    <li id="x59">And a great sigh of relief was heard: polymorphic hamlet is gone. For the most part, this
     just means you'll need to preface a few hamlet calls with toWidget. Unfortunately, the error
     messages are confusing; just email the list if you get stuff on somthing.</li>
-<li id="x90">There have been some renames in the templates. It's best to just <xref id="x91" href="http://www.yesodweb.com/show/map/118">read the chapter</xref> for details.</li>
+<li id="x90">There have been some renames in the templates. It's best to just <xref id="x91" href="http://www.yesodweb.com/book/templates">read the chapter</xref> for details.</li>
    <li id="x60">We added i18n support for form messages. You'll need to add this to your application file
     (e.g.,
     Haskellers.hs)<codeblock id="x61">instance RenderMessage Haskellers FormMessage where
