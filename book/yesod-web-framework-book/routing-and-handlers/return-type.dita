@@ -10,16 +10,25 @@ mkYesod "Simple" [parseRoutes|
 / HomeR GET
 |]
 
-getHomeR :: GHandler subsite Simple RepHtml
+getHomeR :: Handler RepHtml
 getHomeR = defaultLayout [whamlet|&lt;h1&gt;This is simple
 |]
 -- STOP
 instance Yesod Simple where approot _ = ""
 main = warpDebug 3000 Simple
-</codeblock><p id="dispatch3">Look at the type signature of getHomeR. Unfortunately, there is a lot of complexity here to dig through. We will cover the GHandler monad in <xref id="x2" href="../../yesod-web-framework-book/routing-and-handlers/the-ghandler-monad.dita">more detail later</xref>. Next come <codeph id="x3">subsite</codeph> and <codeph id="x4">Simple</codeph>. This is where we need to start heading down the rabbit hole...</p><p id="dispatch4">The same way your application has a <term id="x5">foundation</term> datatype and associated <term id="x6">type-safe URL</term> datatype, so does every subsite. As an example, the Static subsite's foundation datatype has information on how to look up a requested file. The Authentication subsite has a URL datatype that provides login, logout and various other actions.</p><p id="dispatch5">The GHandler monad needs information on both the current subsite and current master site. Most of the time, <i id="x7">these are the same</i>! When you are writing your typical handler functions, you only have a single foundation going on. So in the code snippet above, the type signature for getHomeR could also have been <codeph id="x8">GHandler Simple Simple RepHtml</codeph> without any problems.</p><p id="dispatch6">For now, just accept it as a strange quirk that you need to deal with this extra
-            type parameter. In fact, it is recommended to use a type synonym like <codeph id="x9">type
-                Handler = GHandler MyApp MyApp</codeph> at the beginning of your code (the <xref id="x10" href="../../yesod-web-framework-book/scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita">scaffolded site</xref> does this for you). And when we get to
-            the <xref id="x11" href="../../yesod-web-framework-book/creating-a-subsite/creating-a-subsite.dita">subsite chapter</xref> we will explore why this
-            awkwardness is a necessity, and the huge benefits we reap as a result.</p>
-        <note id="x12">Actually, the above can all be expressed much more easily in Yesod 0.9. This section
-            needs to be updated.</note></conbody></concept>
+</codeblock><p id="dispatch3">Look at the type signature of getHomeR. The first component is
+                <codeph>Handler</codeph>. Handler is a special monad that all handler functions live
+            in. It provides access to request information, let's you send redirects, and lots of
+            other stuff we'll <xref href="the-ghandler-monad.dita#the-ghandler-monad" format="dita"
+                >get to soon</xref>.</p>
+        <p>Next we have <codeph>RepHtml</codeph>. When we <xref
+                href="../../yesod-web-framework-book/restful-content/representations.dita">discuss
+                representations</xref> we will explore the <i>why</i> of things more; for now, we
+            are just interested in the <i>how</i>.</p>
+        <p>As you might guess, RepHtml is a datatype for HTML responses. But as you also may guess,
+            web sites need to return responses besides HTML. CSS, Javascript, images, XML are all
+            necessities of a website. Therefore, the return value of a handler function can be any
+            instance of <codeph>HasReps</codeph>.</p>
+        <p>HasReps is a powerful concept that allows Yesod to automatically choose the correct
+            representation of your data based on the client request. For now, we will focus just on
+            simple instances such as RepHtml, which only provide one representation.</p></conbody></concept>
