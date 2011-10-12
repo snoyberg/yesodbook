@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="controlling-sessions"><title id="x-1">Controlling sessions</title><conbody id="x-2"><p id="c1">There are three functions in the Yesod typeclass that control how sessions work.
-                <apiname>yesod-core:Yesod.Core:encryptKey</apiname> returns the encryption key used.
+                <apiname id="x-3">yesod-core:Yesod.Core:encryptKey</apiname> returns the encryption key used.
             By default, it will take this from a local file, so that sessions can persist between
             database shutdowns. This file will be automatically created and filled with random data
-            if it does not exist. And if you override this function to return <codeph id="x2"
-                >Nothing</codeph>, sessions will be disabled.</p><note id="x3" type="other" othertype="advanced"><p id="c2">Why disable sessions? They <b id="x4">do</b> introduce a
+            if it does not exist. And if you override this function to return <codeph id="x2">Nothing</codeph>, sessions will be disabled.</p><note id="x3" type="other" othertype="advanced"><p id="c2">Why disable sessions? They <b id="x4">do</b> introduce a
                 performance overhead. Under normal circumstances, this overhead
                 is minimal, especially compared to database access. However,
                 when dealing with very basic tasks, the overhead can become
                 noticeable. But be careful about disabling sessions: this will
                 also disable such features as 
-                    CSRF (Cross-Site Request Forgery) protection.</p></note><p id="c3">The next function is <apiname>yesod-core:Yesod.Core:clientSessionDuration</apiname>. This
+                    CSRF (Cross-Site Request Forgery) protection.</p></note><p id="c3">The next function is <apiname id="x-4">yesod-core:Yesod.Core:clientSessionDuration</apiname>. This
             function simply gives the number of minutes that a session should be active. The default
             is 120 (2 hours).</p><p id="c4">This value ends up affecting the session cookie in two ways:
             firstly, it determines the expiration date for the cookie itself.
@@ -23,7 +22,7 @@
                 way, even if you do not change the session values themselves, a
                 session will not time out if the user continues to browse your
                 site.</p></note><p id="c6">And this leads very nicely to the last function:
-                <apiname>yesod-core:Yesod.Core:sessionIpAddress</apiname>. By default, Yesod also
+                <apiname id="x-5">yesod-core:Yesod.Core:sessionIpAddress</apiname>. By default, Yesod also
             encodes the client's IP address inside the cookie to prevent session hijacking. In
             general, this is a good thing. However, some ISPs are known for putting their users
             behind proxies that rewrite their IP addresses, sometimes changing the source IP in the

@@ -5,7 +5,7 @@
             picture, it is easier to scale applications, caching can happen automatically, and many
             other nice side effects occur. You can draw many parallels with the non-mutable nature
             of Haskell in general.</p>
-        <p>As much as possible, RESTful applications should avoid storing state about an interaction
+        <p id="x-3">As much as possible, RESTful applications should avoid storing state about an interaction
             with a client. However, it is sometimes unavoidable. Features like shopping carts are
             the classic example, but other more mundane interactions like proper login handling can
             be greatly enhanced by proper usage of sessions.</p><p id="i2">This chapter will describe how Yesod stores session data,

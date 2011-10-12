@@ -18,19 +18,19 @@ getRoot :: Handler RepHtml
 getRoot = do
     sess &lt;- getSession
     hamletToRepHtml [hamlet|
-&lt;form method=post>
-    &lt;input type=text name=key>
-    &lt;input type=text name=val>
-    &lt;input type=submit>
-&lt;h1>#{show sess}
+&lt;form method=post&gt;
+    &lt;input type=text name=key&gt;
+    &lt;input type=text name=val&gt;
+    &lt;input type=submit&gt;
+&lt;h1&gt;#{show sess}
 |]
 
 postRoot :: Handler ()
 postRoot = do
-    (key, mval) &lt;- runInputPost $ (,) &lt;$> ireq textField "key" &lt;*> iopt textField "val"
+    (key, mval) &lt;- runInputPost $ (,) &lt;$&gt; ireq textField "key" &lt;*&gt; iopt textField "val"
     case mval of
-        Nothing -> deleteSession key
-        Just val -> setSession key val
+        Nothing -&gt; deleteSession key
+        Just val -&gt; setSession key val
     liftIO $ print (key, mval)
     redirect RedirectTemporary Root
 

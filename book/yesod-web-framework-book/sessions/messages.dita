@@ -12,7 +12,7 @@
             <codeph id="x4">defaultLayout</codeph> so that any available message is shown
             to a user immediately, without having to remember to add getMessage
             calls to every handler.</p>
-        <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+        <codeblock id="x-3" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
              QuasiQuotes, MultiParamTypeClasses #-}
 import Yesod
 
@@ -30,13 +30,13 @@ instance Yesod Messages where
         mmsg &lt;- getMessage
         hamletToRepHtml [hamlet|
 !!!
-&lt;html>
-    &lt;head>
-        &lt;title>#{pageTitle pc}
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;#{pageTitle pc}
         ^{pageHead pc}
-    &lt;body>
+    &lt;body&gt;
         $maybe msg &lt;- mmsg
-            &lt;p>Your message was: #{msg}
+            &lt;p&gt;Your message was: #{msg}
         ^{pageBody pc}
 |]
 
@@ -45,10 +45,10 @@ instance RenderMessage Messages FormMessage where
 
 getRootR :: Handler RepHtml
 getRootR = defaultLayout [whamlet|
-&lt;form method=post action=@{SetMessageR}>
+&lt;form method=post action=@{SetMessageR}&gt;
     My message is: #
-    &lt;input type=text name=message>
-    &lt;input type=submit>
+    &lt;input type=text name=message&gt;
+    &lt;input type=submit&gt;
 |]
 
 postSetMessageR :: Handler ()
@@ -59,19 +59,19 @@ postSetMessageR = do
 
 main :: IO ()
 main = warpDebug 3000 Messages</codeblock>
-        <fig>
-            <title>Initial page load, no message</title>
+        <fig id="x-4">
+            <title id="x-5">Initial page load, no message</title>
             <image href="messages-1.png" id="image_oka_gxb_yd"/>
         </fig>
-        <fig>
-            <title>New message entered in text box</title>
+        <fig id="x-6">
+            <title id="x-7">New message entered in text box</title>
             <image href="messages-2.png" id="image_bqu_hxb_yd"/>
         </fig>
-        <fig>
-            <title>After form submit, message appears at top of page</title>
+        <fig id="x-8">
+            <title id="x-9">After form submit, message appears at top of page</title>
             <image href="messages-3.png" id="image_qhn_jxb_yd"/>
         </fig>
-        <fig>
-            <title>After refresh, the message is cleared</title>
+        <fig id="x-10">
+            <title id="x-11">After refresh, the message is cleared</title>
             <image href="messages-4.png" id="image_sjp_kxb_yd"/>
         </fig></conbody></concept>

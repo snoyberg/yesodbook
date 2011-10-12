@@ -17,18 +17,16 @@ getHomeR = defaultLayout [whamlet|&lt;h1&gt;This is simple
 instance Yesod Simple where approot _ = ""
 main = warpDebug 3000 Simple
 </codeblock><p id="dispatch3">Look at the type signature of getHomeR. The first component is
-                <codeph>Handler</codeph>. Handler is a special monad that all handler functions live
+                <codeph id="x-3">Handler</codeph>. Handler is a special monad that all handler functions live
             in. It provides access to request information, let's you send redirects, and lots of
-            other stuff we'll <xref href="the-ghandler-monad.dita#the-ghandler-monad" format="dita"
-                >get to soon</xref>.</p>
-        <p>Next we have <codeph>RepHtml</codeph>. When we <xref
-                href="../../yesod-web-framework-book/restful-content/representations.dita">discuss
-                representations</xref> we will explore the <i>why</i> of things more; for now, we
-            are just interested in the <i>how</i>.</p>
-        <p>As you might guess, RepHtml is a datatype for HTML responses. But as you also may guess,
+            other stuff we'll <xref id="x-4" href="the-ghandler-monad.dita#the-ghandler-monad" format="dita">get to soon</xref>.</p>
+        <p id="x-5">Next we have <codeph id="x-6">RepHtml</codeph>. When we <xref id="x-7" href="../../yesod-web-framework-book/restful-content/representations.dita">discuss
+                representations</xref> we will explore the <i id="x-8">why</i> of things more; for now, we
+            are just interested in the <i id="x-9">how</i>.</p>
+        <p id="x-10">As you might guess, RepHtml is a datatype for HTML responses. But as you also may guess,
             web sites need to return responses besides HTML. CSS, Javascript, images, XML are all
             necessities of a website. Therefore, the return value of a handler function can be any
-            instance of <codeph>HasReps</codeph>.</p>
-        <p>HasReps is a powerful concept that allows Yesod to automatically choose the correct
+            instance of <codeph id="x-11">HasReps</codeph>.</p>
+        <p id="x-12">HasReps is a powerful concept that allows Yesod to automatically choose the correct
             representation of your data based on the client request. For now, we will focus just on
             simple instances such as RepHtml, which only provide one representation.</p></conbody></concept>
