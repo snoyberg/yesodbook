@@ -11,4 +11,67 @@
             displayed twice.</p><p id="m3">It is recommended to have a call to getMessage in
             <codeph id="x4">defaultLayout</codeph> so that any available message is shown
             to a user immediately, without having to remember to add getMessage
-            calls to every handler.</p></conbody></concept>
+            calls to every handler.</p>
+        <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+             QuasiQuotes, MultiParamTypeClasses #-}
+import Yesod
+
+data Messages = Messages
+
+mkYesod "Messages" [parseRoutes|
+/ RootR GET
+/set-message SetMessageR POST
+|]
+
+instance Yesod Messages where
+    approot _ = ""
+    defaultLayout widget = do
+        pc &lt;- widgetToPageContent widget
+        mmsg &lt;- getMessage
+        hamletToRepHtml [hamlet|
+!!!
+&lt;html>
+    &lt;head>
+        &lt;title>#{pageTitle pc}
+        ^{pageHead pc}
+    &lt;body>
+        $maybe msg &lt;- mmsg
+            &lt;p>Your message was: #{msg}
+        ^{pageBody pc}
+|]
+
+instance RenderMessage Messages FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+getRootR :: Handler RepHtml
+getRootR = defaultLayout [whamlet|
+&lt;form method=post action=@{SetMessageR}>
+    My message is: #
+    &lt;input type=text name=message>
+    &lt;input type=submit>
+|]
+
+postSetMessageR :: Handler ()
+postSetMessageR = do
+    msg &lt;- runInputPost $ ireq textField "message"
+    setMessage $ toHtml msg
+    redirect RedirectTemporary RootR
+
+main :: IO ()
+main = warpDebug 3000 Messages</codeblock>
+        <fig>
+            <title>Initial page load, no message</title>
+            <image href="messages-1.png" id="image_oka_gxb_yd"/>
+        </fig>
+        <fig>
+            <title>New message entered in text box</title>
+            <image href="messages-2.png" id="image_bqu_hxb_yd"/>
+        </fig>
+        <fig>
+            <title>After form submit, message appears at top of page</title>
+            <image href="messages-3.png" id="image_qhn_jxb_yd"/>
+        </fig>
+        <fig>
+            <title>After refresh, the message is cleared</title>
+            <image href="messages-4.png" id="image_sjp_kxb_yd"/>
+        </fig></conbody></concept>

@@ -4,32 +4,33 @@
             stores. The base session API boils down to just three functions:
             <codeph id="x1">lookupSession</codeph> gets a value for a key (if available),
             <codeph id="x2">setSession</codeph> sets a value for a key, and
-            <codeph id="x3">deleteSession</codeph> clears a value for a key.</p><codeblock id="x4" outputclass="haskell">-- START
-{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
+            <codeph id="x3">deleteSession</codeph> clears a value for a key.</p><codeblock id="x4" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
 import Yesod
 import Control.Applicative ((&lt;$&gt;), (&lt;*&gt;))
 
 data Session = Session
+
 mkYesod "Session" [parseRoutes|
 / Root GET POST
 |]
+
 getRoot :: Handler RepHtml
 getRoot = do
     sess &lt;- getSession
     hamletToRepHtml [hamlet|
-&lt;form method=post
-    &lt;input type=text name=key
-    &lt;input type=text name=val
-    &lt;input type=submit
-&lt;h1&gt;#{show sess}
+&lt;form method=post>
+    &lt;input type=text name=key>
+    &lt;input type=text name=val>
+    &lt;input type=submit>
+&lt;h1>#{show sess}
 |]
 
 postRoot :: Handler ()
 postRoot = do
-    (key, mval) &lt;- runInputPost $ (,) &lt;$&gt; ireq textField "key" &lt;*&gt; iopt textField "val"
+    (key, mval) &lt;- runInputPost $ (,) &lt;$> ireq textField "key" &lt;*> iopt textField "val"
     case mval of
-        Nothing -&gt; deleteSession key
-        Just val -&gt; setSession key val
+        Nothing -> deleteSession key
+        Just val -> setSession key val
     liftIO $ print (key, mval)
     redirect RedirectTemporary Root
 
@@ -39,5 +40,6 @@ instance Yesod Session where
 
 instance RenderMessage Session FormMessage where
     renderMessage _ _ = defaultFormMessage
-main = warpDebug 3000 Session
-</codeblock></conbody></concept>
+
+main :: IO ()
+main = warpDebug 3000 Session</codeblock></conbody></concept>

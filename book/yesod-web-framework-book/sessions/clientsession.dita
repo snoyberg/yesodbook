@@ -7,9 +7,13 @@
             ensures that the session cannot be hijacked.</p><p id="cs2">It might sound like a bad idea from an efficiency
             standpoint to store data in a cookie: after all, this means that
             the data must be sent on every request. However, in practice,
-            clientsession can be a great boon for performance.</p><ul id="x2"><li id="x3">No server side database lookup is required to service a request.</li><li id="x4">We can easily scale horizontally: each request contains all the information we need to send a response.</li><li id="x5">Production sites should serve their static content from a separate domain name to avoid the overhead of transmitting the session cookie for each request.</li></ul><p id="cs3">Obviously, storing megabytes of information in the session
+            clientsession can be a great boon for performance.</p><ul id="x2"><li id="x3">No server side database lookup is required to service a request.</li><li id="x4">We can easily scale horizontally: each request contains all the information we need to send a response.</li><li id="x5">To avoid undue bandwidth overhead, production sites can serve their static content from
+                a separate domain name to avoid the overhead of transmitting the session cookie for
+                each request.</li></ul><p id="cs3">Obviously, storing megabytes of information in the session
             will be a bad idea. But for that matter, most session
             implementations recommend against such practices. If you really
             need massive storage for a user, it is best to simply store a
             lookup key in the session, and put the actual data in a
-            database.</p></conbody></concept>
+            database.</p>
+        <p>All of the interaction with clientsession is handled by Yesod internally, but there are a
+            few spots where you can tweak the behavior just a bit.</p></conbody></concept>
