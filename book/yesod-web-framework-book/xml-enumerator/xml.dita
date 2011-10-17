@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>xml-enumerator</title>
- <conbody>
-  <p>Many developers cringe at the thought of dealing with XML files. XML has the reputation of
+ <title id="x-1">xml-enumerator</title>
+ <conbody id="x-2">
+  <p id="x-3">Many developers cringe at the thought of dealing with XML files. XML has the reputation of
    having a complicated data model, with obfuscated libraries and huge layers of complexity sitting
    between you and your goal. I'd like to posit that a lot of that pain is actually a language and
    library issue, not inherent to XML.</p>
-  <p>Once again, Haskell's type system allows us to easily break down the problem to its most basic
-   form. The <apiname>xml-types</apiname> package neatly deconstructs the XML data model (both a
+  <p id="x-4">Once again, Haskell's type system allows us to easily break down the problem to its most basic
+   form. The <apiname id="x-5">xml-types</apiname> package neatly deconstructs the XML data model (both a
    streaming and DOM-based approach) into some simple ADTs. Haskell's standard immutable data
    structures make it easier to apply transforms to documents, and a simple set of functions makes
    parsing and rendering a breeze.</p>
-  <p>We're going to be covering the <apiname>xml-enumerator</apiname> package. Under the surface,
+  <p id="x-6">We're going to be covering the <apiname id="x-7">xml-enumerator</apiname> package. Under the surface,
    this package uses a lot of the approaches Yesod in general does for high performance:
-    <apiname>blaze-builder</apiname>, <apiname>text</apiname>, <apiname>enumerator</apiname> and
-    <apiname>attoparsec-text</apiname>. But from a user perspective, it provides everything from the
+    <apiname id="x-8">blaze-builder</apiname>, <apiname id="x-9">text</apiname>, <apiname id="x-10">enumerator</apiname> and
+    <apiname id="x-11">attoparsec-text</apiname>. But from a user perspective, it provides everything from the
    simplest APIs (readFile/writeFile) through full control of XML event streams.</p>
-  <p>In addition to xml-enumerator, there are a few related packages that come into play, like
-    <apiname>xml-hamlet</apiname> and <apiname>xml2html</apiname>. We'll cover both how to use all
+  <p id="x-12">In addition to xml-enumerator, there are a few related packages that come into play, like
+    <apiname id="x-13">xml-hamlet</apiname> and <apiname id="x-14">xml2html</apiname>. We'll cover both how to use all
    these packages, and when they should be used.</p>
  </conbody>
 </concept>

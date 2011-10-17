@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Synopsis</title>
- <conbody>
-  <fig>
-   <title>Input XML file</title>
-   <codeblock outputclass="xml">&lt;document title="My Title">
-    &lt;para>This is a paragraph. It has &lt;em>emphasized&lt;/em> and &lt;strong>strong&lt;/strong> words.&lt;/para>
-    &lt;image href="myimage.png"/>
-&lt;/document></codeblock>
+ <title id="x-1">Synopsis</title>
+ <conbody id="x-2">
+  <fig id="x-3">
+   <title id="x-4">Input XML file</title>
+   <codeblock id="x-5" outputclass="xml">&lt;document title="My Title"&gt;
+    &lt;para&gt;This is a paragraph. It has &lt;em&gt;emphasized&lt;/em&gt; and &lt;strong&gt;strong&lt;/strong&gt; words.&lt;/para&gt;
+    &lt;image href="myimage.png"/&gt;
+&lt;/document&gt;</codeblock>
   </fig>
-  <fig>
-   <title>Haskell code</title>
-   <codeblock outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
+  <fig id="x-6">
+   <title id="x-7">Haskell code</title>
+   <codeblock id="x-8" outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE OverloadedStrings #-}
 import Prelude hiding (writeFile)
 import Text.XML
@@ -32,28 +32,28 @@ main = do
         { rsPretty = True
         } "output.html" $ Document prologue root' epilogue
 
--- We'll turn out &lt;document> into an XHTML document
-transform :: Element -> Element
+-- We'll turn out &lt;document&gt; into an XHTML document
+transform :: Element -&gt; Element
 transform (Element _name attrs children) = Element "html" [] [xml|
-&lt;head>
-    &lt;title>
+&lt;head&gt;
+    &lt;title&gt;
         $maybe title &lt;- lookup "title" attrs
             \#{title}
         $nothing
             Untitled Document
-    &lt;body>
+    &lt;body&gt;
         $forall child &lt;- children
             ^{goNode child}
 |]
 
-goNode :: Node -> [Node]
+goNode :: Node -&gt; [Node]
 goNode (NodeElement e) = [NodeElement $ goElem e]
 goNode (NodeContent t) = [NodeContent t]
 goNode (NodeComment _) = [] -- hide comments
 goNode (NodeInstruction _) = [] -- and hide processing instructions too
 
 -- convert each source element to its XHTML equivalent
-goElem :: Element -> Element
+goElem :: Element -&gt; Element
 goElem (Element "para" attrs children) =
     Element "p" attrs $ concatMap goNode children
 goElem (Element "em" attrs children) =
@@ -69,30 +69,30 @@ goElem (Element name attrs children) =
     -- don't know what to do, just pass it through...
     Element name attrs $ concatMap goNode children</codeblock>
   </fig>
-  <fig>
-   <title>Output XHTML</title>
-   <codeblock outputclass="html">&lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;html>
-    &lt;head>
-        &lt;title>
+  <fig id="x-9">
+   <title id="x-10">Output XHTML</title>
+   <codeblock id="x-11" outputclass="html">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;
             My Title
-        &lt;/title>
-        &lt;body>
-            &lt;p>
+        &lt;/title&gt;
+        &lt;body&gt;
+            &lt;p&gt;
                 This is a paragraph. It has 
-                &lt;i>
+                &lt;i&gt;
                     emphasized
-                &lt;/i>
+                &lt;/i&gt;
                 and 
-                &lt;b>
+                &lt;b&gt;
                     strong
-                &lt;/b>
+                &lt;/b&gt;
                 words.
-            &lt;/p>
-            &lt;img src="myimage.png"/>
-        &lt;/body>
-    &lt;/head>
-&lt;/html></codeblock>
+            &lt;/p&gt;
+            &lt;img src="myimage.png"/&gt;
+        &lt;/body&gt;
+    &lt;/head&gt;
+&lt;/html&gt;</codeblock>
   </fig>
  </conbody>
 </concept>

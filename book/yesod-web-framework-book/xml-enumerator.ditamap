@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map>
-    <title>xml-enumerator</title>
-    <topicref href="xml-enumerator/xml.dita">
-        <topicref href="xml-enumerator/synopsis.dita"/>
-        <topicref href="xml-enumerator/types.dita">
-            <topicref href="xml-enumerator/four-node-types.dita"/>
-            <topicref href="xml-enumerator/documents.dita"/>
-            <topicref href="xml-enumerator/events.dita"/>
+<map id="x-1">
+    <title id="x-2">xml-enumerator</title>
+    <topicref id="x-3" href="xml-enumerator/xml.dita">
+        <topicref id="x-4" href="xml-enumerator/synopsis.dita"/>
+        <topicref id="x-5" href="xml-enumerator/types.dita">
+            <topicref id="x-6" href="xml-enumerator/four-node-types.dita"/>
+            <topicref id="x-7" href="xml-enumerator/documents.dita"/>
+            <topicref id="x-8" href="xml-enumerator/events.dita"/>
         </topicref>
-        <topicref href="xml-enumerator/text-xml.dita"/>
-        <topicref href="xml-enumerator/cursor.dita"/>
-        <topicref href="xml-enumerator/xml-hamlet.dita"/>
-        <topicref href="xml-enumerator/xml2html.dita"/>
+        <topicref id="x-9" href="xml-enumerator/text-xml.dita"/>
+        <topicref id="x-10" href="xml-enumerator/cursor.dita"/>
+        <topicref id="x-11" href="xml-enumerator/xml-hamlet.dita"/>
+        <topicref id="x-12" href="xml-enumerator/xml2html.dita"/>
     </topicref>
 </map>

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>The Four Types of Nodes</title>
- <conbody>
-  <p>XML documents are a tree of nested nodes. There are in fact four different types of nodes
+ <title id="x-1">The Four Types of Nodes</title>
+ <conbody id="x-2">
+  <p id="x-3">XML documents are a tree of nested nodes. There are in fact four different types of nodes
    allowed: elements, content (i.e., text), comments, and processing instructions.</p>
-  <note>You may not be familiar with that last one, it's less commonly used. It is marked up
-   as:<codeblock outputclass="xml">&lt;?target data?></codeblock>There are two commonly held
+  <note id="x-4">You may not be familiar with that last one, it's less commonly used. It is marked up
+   as:<codeblock id="x-5" outputclass="xml">&lt;?target data?&gt;</codeblock>There are two commonly held
    misconceptions about processing instructions. Let's set them to rest now:<ul id="ul_zfo_vsx_md">
-    <li>PIs don't have attributes. While often times you'll see processing instructions that appear
+    <li id="x-6">PIs don't have attributes. While often times you'll see processing instructions that appear
      to have attributes, there are in fact no rules about that data of an instruction.</li>
-    <li>The &lt;?xml ...?> stuff at the beginning of a document is not a processing instruction. It
+    <li id="x-7">The &lt;?xml ...?&gt; stuff at the beginning of a document is not a processing instruction. It
      is simply the beginning of the document, and happens to look an awful lot like a PI. The
-     difference though is that the &lt;?xml ...?> line will not appear in your parsed content.</li>
+     difference though is that the &lt;?xml ...?&gt; line will not appear in your parsed content.</li>
    </ul></note>
-  <p>Since processing instructions have two pieces of text associated with them (the target and the
+  <p id="x-8">Since processing instructions have two pieces of text associated with them (the target and the
    data), we have a simple data type:</p>
-  <codeblock outputclass="haskell">data Instruction = Instruction
+  <codeblock id="x-9" outputclass="haskell">data Instruction = Instruction
     { instructionTarget :: Text
     , instructionData :: Text
     }</codeblock>
-  <p>Comments have no special datatype, since they are simple pieces of text. But content is an
+  <p id="x-10">Comments have no special datatype, since they are simple pieces of text. But content is an
    interesting one: it could contain either plain text or unresolved entities (e.g.,
-   &amp;copyright-statement;). <apiname>xml-types</apiname> keeps those unresolved entities in all
+   &amp;copyright-statement;). <apiname id="x-11">xml-types</apiname> keeps those unresolved entities in all
    the data types in order to completely match the spec. However, in practice, it can be very
    tedious to program against those data types. And in most use cases, an unresolved entity is going
    to end up as an error anyway.</p>
-  <p>So the <apiname>xml-enumerator:Text.XML</apiname> module defines its own set of datatypes for
+  <p id="x-12">So the <apiname id="x-13">xml-enumerator:Text.XML</apiname> module defines its own set of datatypes for
    nodes, elements and documents that removes all unresolved entities. If you need to deal with
    unresolved entities instead, you should use the
-    <apiname>xml-enumerator:Text.XML.Unresolved</apiname> module. From now on, we'll be focusing
+    <apiname id="x-14">xml-enumerator:Text.XML.Unresolved</apiname> module. From now on, we'll be focusing
    only on the Text.XML data types, though they are almost identical to the xml-types versions.</p>
-  <p>Anyway, after that detour: content is simply a piece of text, and therefore it too does not
+  <p id="x-15">Anyway, after that detour: content is simply a piece of text, and therefore it too does not
    have a special datatype. The last node type is an element, which contains three pieces of
    information: a name, a list of attributes and a list of children nodes. An attribute has two
    pieces of information: a name and a value. (In xml-types, this value could contain unresolved
    entities as well.) So our Element is defined as:</p>
-  <codeblock outputclass="element">data Element = Element
+  <codeblock id="x-16" outputclass="element">data Element = Element
     { elementName :: Name
     , elementAttributes :: [(Name, Text)]
     , elementNodes :: [Node]
     }</codeblock>
-  <p>Which of course begs the question: what does a Node look like? This is where Haskell really
+  <p id="x-17">Which of course begs the question: what does a Node look like? This is where Haskell really
    shines: its sum types model the XML data model perfectly.</p>
-  <codeblock outputclass="haskell">data Node
+  <codeblock id="x-18" outputclass="haskell">data Node
     = NodeElement Element
     | NodeInstruction Instruction
     | NodeContent Text

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="xml-hamlet">
- <title>xml-hamlet</title>
- <conbody>
-  <p outputclass="haskell">Thanks to the simplicity of Haskell's data type system, creating XML
+ <title id="x-1">xml-hamlet</title>
+ <conbody id="x-2">
+  <p id="x-3" outputclass="haskell">Thanks to the simplicity of Haskell's data type system, creating XML
    content with the Text.XML API is very simple, if a bit verbose. The following code:</p>
-  <codeblock>{-# LANGUAGE OverloadedStrings #-}
+  <codeblock id="x-4">{-# LANGUAGE OverloadedStrings #-}
 import Text.XML
 import Prelude hiding (writeFile)
 
@@ -28,15 +28,15 @@ main =
                 ]
             ]
         ]</codeblock>
-  <p>produces</p>
-  <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;html>&lt;head>&lt;title>My &lt;b>Title&lt;/b>&lt;/title>&lt;/head>&lt;body>&lt;p>foo bar baz&lt;/p>&lt;/body>&lt;/html></codeblock>
-  <p>This is leaps and bounds easier than having to deal with an imperative, mutable-value-based API
+  <p id="x-5">produces</p>
+  <codeblock id="x-6" outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;My &lt;b&gt;Title&lt;/b&gt;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;foo bar baz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</codeblock>
+  <p id="x-7">This is leaps and bounds easier than having to deal with an imperative, mutable-value-based API
    (cough, Java, cough), but it's far from pleasant, and obscures what we're really trying to
-   achieve. To simplify things, we have the <apiname>xml-hamlet</apiname> package, which using
+   achieve. To simplify things, we have the <apiname id="x-8">xml-hamlet</apiname> package, which using
    Quasi-Quotation to allow you to type in your XML in a natural syntax. For example, the above
    could be rewritten as:</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+  <codeblock id="x-9" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 import Text.XML
 import Text.Hamlet.XML
@@ -47,29 +47,29 @@ main =
     writeFile def "test3.xml" $ Document (Prologue [] Nothing []) root []
   where
     root = Element "html" [] [xml|
-&lt;head>
-    &lt;title>
+&lt;head&gt;
+    &lt;title&gt;
         My #
-        &lt;b>Title
-&lt;body>
-    &lt;p>foo bar baz
+        &lt;b&gt;Title
+&lt;body&gt;
+    &lt;p&gt;foo bar baz
 |]</codeblock>
-  <p>Let's make a few points:</p>
+  <p id="x-10">Let's make a few points:</p>
   <ul id="ul_56cf6fac-3c78-4e75-b51a-7dfd6b087eeb">
-   <li>The syntax is almost identical to normal Hamlet, except URL-interpolation (@{...}) has been
+   <li id="x-11">The syntax is almost identical to normal Hamlet, except URL-interpolation (@{...}) has been
     removed. As such:<ul id="ul_db2c4193-433e-48a6-abe9-29ca9b3835bc">
-     <li>No close tags.</li>
-     <li>Whitespace-sensitive.</li>
-     <li>If you want to have whitespace at the end of a line, use a # at the end. At the beginning,
+     <li id="x-12">No close tags.</li>
+     <li id="x-13">Whitespace-sensitive.</li>
+     <li id="x-14">If you want to have whitespace at the end of a line, use a # at the end. At the beginning,
       use a backslash.</li>
     </ul></li>
-   <li>An xml interpolation will return a list of <codeph>Node</codeph>s. So you still need to wrap
+   <li id="x-15">An xml interpolation will return a list of <codeph id="x-16">Node</codeph>s. So you still need to wrap
     up the output in all the normal Document and root element constructs.</li>
-   <li>There is no support for the special .class and #id attribute forms.</li>
+   <li id="x-17">There is no support for the special .class and #id attribute forms.</li>
   </ul>
-  <p>And like normal Hamlet, you can use variable interpolation and control structures. So a
+  <p id="x-18">And like normal Hamlet, you can use variable interpolation and control structures. So a
    slightly more complex example would be:</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+  <codeblock id="x-19" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 import Text.XML
 import Text.Hamlet.XML
@@ -94,28 +94,28 @@ main =
     writeFile def "people.xml" $ Document (Prologue [] Nothing []) root []
   where
     root = Element "html" [] [xml|
-&lt;head>
-    &lt;title>Some People
-&lt;body>
-    &lt;h1>Some People
+&lt;head&gt;
+    &lt;title&gt;Some People
+&lt;body&gt;
+    &lt;h1&gt;Some People
     $if null people
-        &lt;p>There are no people.
+        &lt;p&gt;There are no people.
     $else
-        &lt;dl>
+        &lt;dl&gt;
             $forall person &lt;- people
                 ^{personNodes person}
 |]
 
-personNodes :: Person -> [Node]
+personNodes :: Person -&gt; [Node]
 personNodes person = [xml|
-&lt;dt>#{personName person}
-&lt;dd>#{pack $ show $ personAge person}
+&lt;dt&gt;#{personName person}
+&lt;dd&gt;#{pack $ show $ personAge person}
 |]</codeblock>
-  <p>A few more notes:</p>
+  <p id="x-20">A few more notes:</p>
   <ul id="ul_4f926e00-4348-4801-97a1-a9d95fb18a04">
-   <li>The caret-interpolation (^{...}) takes a list of nodes, and so can easily embed other
+   <li id="x-21">The caret-interpolation (^{...}) takes a list of nodes, and so can easily embed other
     xml-quotations.</li>
-   <li>Unlike Hamlet, hash-interpolations (#{...}) are not polymorphic, and can <i>only</i> accept
+   <li id="x-22">Unlike Hamlet, hash-interpolations (#{...}) are not polymorphic, and can <i id="x-23">only</i> accept
     Text values.</li>
   </ul>
  </conbody>
