@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="transformers">
- <title>Monad Transformers</title>
- <conbody>
-  <lq>Monads are like onions. Monads are <i>not</i> like cakes.<cite>Shrek, more or less</cite></lq>
-  <p>Before we get into the heart of Yesod's monads, we need to understand a bit about monad
+ <title id="x-1">Monad Transformers</title>
+ <conbody id="x-2">
+  <lq id="x-3">Monads are like onions. Monads are <i id="x-4">not</i> like cakes.<cite id="x-5">Shrek, more or less</cite></lq>
+  <p id="x-6">Before we get into the heart of Yesod's monads, we need to understand a bit about monad
    transformers. (If you already know all about monad transformers, you can likely skip this
    section.) Different monads provide different functionality: Reader allows read-only access to
    some piece of data throughout a computation, Error allows you to short-circuit computations, and
    so on.</p>
-  <p>Often times, however, you would like to be able to combine a few of these features together.
+  <p id="x-7">Often times, however, you would like to be able to combine a few of these features together.
    After all, why not have a computation with read-only access to some settings variable, that could
    error out at any time? One approach to this would be to write a new monad like ReaderError, but
    this has the obvious downside of exponential complexity: you'll need to write a new monad for
    every single possible combination.</p>
-  <p>Instead, we have monad transformer. In addition to Reader, we have ReaderT, which adds reader
+  <p id="x-8">Instead, we have monad transformer. In addition to Reader, we have ReaderT, which adds reader
    functionality to any other monad. So we could represent our ReaderError as (conceptually):</p>
-  <codeblock outputclass="haskell">type ReaderError = ReaderT Error</codeblock>
-  <p>So in order to access our settings variable, we can use the <codeph>ask</codeph> function. But
+  <codeblock id="x-9" outputclass="haskell">type ReaderError = ReaderT Error</codeblock>
+  <p id="x-10">So in order to access our settings variable, we can use the <codeph id="x-11">ask</codeph> function. But
    what about short-circuiting a computation? We'd like to use throwError, but that won't exactly
-   work. Instead, we need to <codeph>lift</codeph> our call into the next monad up. In other
+   work. Instead, we need to <codeph id="x-12">lift</codeph> our call into the next monad up. In other
    words:</p>
-  <codeblock outputclass="haskell">throwError :: errValue -> Error
-lift . throwError :: errValue -> ReaderT Error</codeblock>
-  <p>So there are a few things you should pick up here:</p>
+  <codeblock id="x-13" outputclass="haskell">throwError :: errValue -&gt; Error
+lift . throwError :: errValue -&gt; ReaderT Error</codeblock>
+  <p id="x-14">So there are a few things you should pick up here:</p>
   <ul id="ul_d29d1697-acc1-4f67-8cc6-a1b8305f865a">
-   <li>A transformer can be used to add functionality to an existing monad.</li>
-   <li>A transformer must always wrap around an existing monad.</li>
-   <li>The functionality available in a wrapped monad will be dependendant not only on the monad
+   <li id="x-15">A transformer can be used to add functionality to an existing monad.</li>
+   <li id="x-16">A transformer must always wrap around an existing monad.</li>
+   <li id="x-17">The functionality available in a wrapped monad will be dependendant not only on the monad
     transformer, but also on the inner monad that is being wrapped.</li>
   </ul>
-  <p>A great example of that last point is the IO monad. No matter how many layers of transformers
+  <p id="x-18">A great example of that last point is the IO monad. No matter how many layers of transformers
    you have around an IO, there's still an IO at the core, meaning you can perform I/O in any of
-   these <term>monad transformer stacks</term>. You'll often see code that looks like <codeph>liftIO
+   these <term id="x-19">monad transformer stacks</term>. You'll often see code that looks like <codeph id="x-20">liftIO
     $ putStrLn "Hello There!"</codeph>.</p>
  </conbody>
 </concept>

@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="the-three-transformers">
- <title>The Three Transformers</title>
- <conbody>
-  <p>In <apiname>persistent</apiname>, we have a typeclass called PersistBackend. This typeclass
-   defines all of the primitive operations you can perform on a database, like <codeph>get</codeph>
-   and <codeph>selectEnum</codeph>. This typeclass essentially looks like <codeph>class (Monad (b
-    m)) => PersistBackend b m</codeph>. <codeph>b</codeph> is the backend itself, and is in fact a
-   monad transformer, while <codeph>m</codeph> is the inner monad that <codeph>b</codeph> wraps
+ <title id="x-1">The Three Transformers</title>
+ <conbody id="x-2">
+  <p id="x-3">In <apiname id="x-4">persistent</apiname>, we have a typeclass called PersistBackend. This typeclass
+   defines all of the primitive operations you can perform on a database, like <codeph id="x-5">get</codeph>
+   and <codeph id="x-6">selectEnum</codeph>. This typeclass essentially looks like <codeph id="x-7">class (Monad (b
+    m)) =&gt; PersistBackend b m</codeph>. <codeph id="x-8">b</codeph> is the backend itself, and is in fact a
+   monad transformer, while <codeph id="x-9">m</codeph> is the inner monad that <codeph id="x-10">b</codeph> wraps
    around. Both SQL and MongoDB have their own instances; in the case of SQL, it looks like:</p>
-  <codeblock outputclass="haskell">instance MonadControlIO m => PersistBackend SqlPersist m</codeblock>
-  <p>This means that you can run a SQL database with any underlying monad, so long as that
-   underlying monad supports <codeph>MonadControlIO</codeph>. That basically means any transformer
-   stack built around <codeph>IO</codeph>, as well as <codeph>ContT</codeph> and
-    <codeph>Iteratee</codeph> are not involved.</p>
-  <p>In order to make it simpler to refer to the relevant Persistent transformer, the
-    <apiname>yesod-persistent</apiname> package defines the <codeph>YesodPersistBackend</codeph>
-   associated type. For example, if I have a site called <codeph>MyApp</codeph> and it uses SQL, I
-   would define something like <codeph>type instance YesodPersistBackend MyApp =
+  <codeblock id="x-11" outputclass="haskell">instance MonadControlIO m =&gt; PersistBackend SqlPersist m</codeblock>
+  <p id="x-12">This means that you can run a SQL database with any underlying monad, so long as that
+   underlying monad supports <codeph id="x-13">MonadControlIO</codeph>. That basically means any transformer
+   stack built around <codeph id="x-14">IO</codeph>, as well as <codeph id="x-15">ContT</codeph> and
+    <codeph id="x-16">Iteratee</codeph> are not involved.</p>
+  <p id="x-17">In order to make it simpler to refer to the relevant Persistent transformer, the
+    <apiname id="x-18">yesod-persistent</apiname> package defines the <codeph id="x-19">YesodPersistBackend</codeph>
+   associated type. For example, if I have a site called <codeph id="x-20">MyApp</codeph> and it uses SQL, I
+   would define something like <codeph id="x-21">type instance YesodPersistBackend MyApp =
    SqlPersist</codeph>.</p>
-  <p>We'll come back to Persistent in a bit, but let's take a detour to Handlers. Our handler
+  <p id="x-22">We'll come back to Persistent in a bit, but let's take a detour to Handlers. Our handler
    functions need to have the ability to:</p>
   <ul id="ul_f01bc3c6-b615-4325-ac93-d2801797b130">
-   <li>Access the foundation value, render functions, and other static stuff</li>
-   <li>Read request-specific information, like headers</li>
-   <li><b>Access the request body</b></li>
-   <li>Short-circuit responses like redirects and errors</li>
-   <li>Keep track of response headers and session updates</li>
+   <li id="x-23">Access the foundation value, render functions, and other static stuff</li>
+   <li id="x-24">Read request-specific information, like headers</li>
+   <li id="x-25"><b id="x-26">Access the request body</b></li>
+   <li id="x-27">Short-circuit responses like redirects and errors</li>
+   <li id="x-28">Keep track of response headers and session updates</li>
   </ul>
-  <p>This is basically implemented with a combination of ReaderT, WriterT, StateT and ErrorT
+  <p id="x-29">This is basically implemented with a combination of ReaderT, WriterT, StateT and ErrorT
    transformers. The one thing that I want to focus on is the request body. In WAI, all applications
-   live inside an <codeph>Iteratee</codeph> monad, which gives them access to the request body. So a
+   live inside an <codeph id="x-30">Iteratee</codeph> monad, which gives them access to the request body. So a
    naive implementation of our Handler monad would be:</p>
-  <codeblock outputclass="haskell">type Handler = ReaderT RequestData (WriterT Headers (ErrorT Response (Iteratee ByteString IO)))</codeblock>
-  <p>But this is actually problematic for two reasons:</p>
+  <codeblock id="x-31" outputclass="haskell">type Handler = ReaderT RequestData (WriterT Headers (ErrorT Response (Iteratee ByteString IO)))</codeblock>
+  <p id="x-32">But this is actually problematic for two reasons:</p>
   <ul id="ul_31ea5dab-144d-4038-b710-a19c210bbd02">
-   <li>The RequestData will need to contain information specific to both the master and subsites, so
+   <li id="x-33">The RequestData will need to contain information specific to both the master and subsites, so
     we need a type parameter to track that information.</li>
-   <li>As we mentioned above, the Persistent backends must wrap around an instance of
+   <li id="x-34">As we mentioned above, the Persistent backends must wrap around an instance of
     MonadControlIO, and since our Handler above is an Iteratee at its core, there is no
     MonadControlIO instance.</li>
   </ul>
-  <p>The solution to both problems is simply providing more type parameters: one for the subsite
+  <p id="x-35">The solution to both problems is simply providing more type parameters: one for the subsite
    foundation type, one for the master site foundation type, and one for the inner monad. We call
    this GGHandler, and it looks something like:</p>
-  <codeblock outputclass="haskell">type GGHandler sub master monad =
+  <codeblock id="x-36" outputclass="haskell">type GGHandler sub master monad =
     ReaderT (RequestData sub master) (WriterT Headers (ErrorT Response monad))</codeblock>
-  <p>For the common case of wrapping around an Iteratee, we provide the synonym <codeph>type
+  <p id="x-37">For the common case of wrapping around an Iteratee, we provide the synonym <codeph id="x-38">type
     GHandler sub master = GGHandler sub master (Iteratee ByteString IO)</codeph>. And for each
-   application, we also get a synonym <codeph>type Handler = GHandler MyApp MyApp</codeph>.</p>
-  <p>When we want to run our database actions, we'll have a SqlPersist wrapped around a GGHandler
-   with an IO at its core, i.e. <codeph>SqlPersist (GGHandler sub master IO)</codeph>. But in order
+   application, we also get a synonym <codeph id="x-39">type Handler = GHandler MyApp MyApp</codeph>.</p>
+  <p id="x-40">When we want to run our database actions, we'll have a SqlPersist wrapped around a GGHandler
+   with an IO at its core, i.e. <codeph id="x-41">SqlPersist (GGHandler sub master IO)</codeph>. But in order
    to include this action, we'll need to include it with the rest of our handler function, which
-   lives in the <codeph>GHandler sub master</codeph> monad. So how do we make the conversion?
+   lives in the <codeph id="x-42">GHandler sub master</codeph> monad. So how do we make the conversion?
    Unwrapping the SqlPersist is simply a call to
-    <apiname>persistent:Database.Persist.GenericSql:runSqlPool</apiname>. But this leaves us with a
-    <codeph>GGHandler sub master IO</codeph>; how do we replace the <codeph>IO</codeph> with a
-    <codeph>Iteratee ByteString IO</codeph>?</p>
-  <p>The answer is <apiname>yesod-core:Yesod.Handler:liftIOHandler</apiname>. This function is very
-   similar to the <codeph>liftIO</codeph> we mentioned earlier: it lifts any action living into an
-    <codeph>IO</codeph> monad into an arbitrary monad stack based on an <codeph>IO</codeph>. The
-   different is that <codeph>liftIOHandler</codeph> keeps the GGHandler wrapper as-is. For our
-   purposes, this means it is able to turn <codeph>GGHandler sub master IO</codeph> into
-    <codeph>GHandler sub master</codeph>. Combined with runSqlPool, we can now run database actions
+    <apiname id="x-43">persistent:Database.Persist.GenericSql:runSqlPool</apiname>. But this leaves us with a
+    <codeph id="x-44">GGHandler sub master IO</codeph>; how do we replace the <codeph id="x-45">IO</codeph> with a
+    <codeph id="x-46">Iteratee ByteString IO</codeph>?</p>
+  <p id="x-47">The answer is <apiname id="x-48">yesod-core:Yesod.Handler:liftIOHandler</apiname>. This function is very
+   similar to the <codeph id="x-49">liftIO</codeph> we mentioned earlier: it lifts any action living into an
+    <codeph id="x-50">IO</codeph> monad into an arbitrary monad stack based on an <codeph id="x-51">IO</codeph>. The
+   different is that <codeph id="x-52">liftIOHandler</codeph> keeps the GGHandler wrapper as-is. For our
+   purposes, this means it is able to turn <codeph id="x-53">GGHandler sub master IO</codeph> into
+    <codeph id="x-54">GHandler sub master</codeph>. Combined with runSqlPool, we can now run database actions
    inside our handlers.</p>
-  <note>If you're paying very close attention, you might realize that <codeph>liftIOHandler</codeph>
+  <note id="x-55">If you're paying very close attention, you might realize that <codeph id="x-56">liftIOHandler</codeph>
    isn't strictly necessary. Instead of that complication, we could just use a normal
-    <codeph>liftIO</codeph>, since database actions are not required to run inside a
-    <codeph>GGHandler</codeph> at all. However, by running inside <codeph>GGHandler</codeph>, your
+    <codeph id="x-57">liftIO</codeph>, since database actions are not required to run inside a
+    <codeph id="x-58">GGHandler</codeph> at all. However, by running inside <codeph id="x-59">GGHandler</codeph>, your
    database actions have the ability to access request information and, more importantly, send
-   short-circuit responses. This is vital to the implementation of <codeph>get404</codeph> and
-    <codeph>getBy404</codeph>. We'll also see other cases where this is functionality is very
+   short-circuit responses. This is vital to the implementation of <codeph id="x-60">get404</codeph> and
+    <codeph id="x-61">getBy404</codeph>. We'll also see other cases where this is functionality is very
    powerful.</note>
-  <p>The final transformer is <codeph>GGWidget</codeph>. It is a monad transformer that is always
-   applied to <codeph>GGHandler</codeph>, it it actually has the exact same story of the latter
-   transformer. In particular, in comes in the same three varieties <codeph>GGWidget sub master
-    monad</codeph>, <codeph>GWidget sub master</codeph>, and <codeph>Widget</codeph>.</p>
-  <p>Most of the time in Yesod code, and especially thus far in this book, widgets have been treated
+  <p id="x-62">The final transformer is <codeph id="x-63">GGWidget</codeph>. It is a monad transformer that is always
+   applied to <codeph id="x-64">GGHandler</codeph>, it it actually has the exact same story of the latter
+   transformer. In particular, in comes in the same three varieties <codeph id="x-65">GGWidget sub master
+    monad</codeph>, <codeph id="x-66">GWidget sub master</codeph>, and <codeph id="x-67">Widget</codeph>.</p>
+  <p id="x-68">Most of the time in Yesod code, and especially thus far in this book, widgets have been treated
    has actionless containers that simply combine together HTML, CSS and Javascript. But if you look
    at that last paragraph again, you'll realize that's not the way things have to be. Since a widget
    is a transformer on top of a handler, anything you do in a handler can be done in a widget,

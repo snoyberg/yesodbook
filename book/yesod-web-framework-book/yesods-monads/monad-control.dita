@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="monad-control">
- <title>monad-control</title>
- <conbody>
-  <p>This leads us to one last interesting point. It wouldn't normally make it into a monad
+ <title id="x-1">monad-control</title>
+ <conbody id="x-2">
+  <p id="x-3">This leads us to one last interesting point. It wouldn't normally make it into a monad
    transformer introduction, but it is vitally important to the next few sections, so we'll cover it
    here. Let's say that you have a function that takes an action as an argument. A typical example
-   would be <codeph>try</codeph>:</p>
-  <codeblock outputclass="haskell">try :: IO a -> IO (Either SomeException a)</codeblock>
-  <p>This function is used for catching and dealing with exceptions from a block of code. Let's say
-   that instead of a standard IO action, you have a <codeph>ReaderT IO</codeph> action:</p>
-  <codeblock outputclass="haskell">myAction :: ReaderT ReaderValue IO SomeResult</codeblock>
-  <p>There's no way to pass this directly to the <codeph>try</codeph> function, and therefore there
-   appears to be no way to catch the exceptions from <codeph>myAction</codeph>. This is where the
-    <apiname>monad-control</apiname> packages comes into play. It essentially <i>inverts</i>
-   myAction, turning it into something like <codeph>myActionInverted :: IO (ReaderValue ->
-    SomeResult)</codeph>. It then passes this action to <codeph>try</codeph>, gets back <codeph>IO
-    (Either SomeException (ReaderValue -> SomeResult))</codeph> and un-inverts it back to
-    <codeph>ReaderT ReaderValue IO (Either SomeException SomeResult)</codeph>.</p>
-  <note>Don't worry too much about the details here. If you're really interested, there's a <xref
-    href="../monad-control-wrapper/monad-control.dita#monad-control" format="dita">whole chapter
+   would be <codeph id="x-4">try</codeph>:</p>
+  <codeblock id="x-5" outputclass="haskell">try :: IO a -&gt; IO (Either SomeException a)</codeblock>
+  <p id="x-6">This function is used for catching and dealing with exceptions from a block of code. Let's say
+   that instead of a standard IO action, you have a <codeph id="x-7">ReaderT IO</codeph> action:</p>
+  <codeblock id="x-8" outputclass="haskell">myAction :: ReaderT ReaderValue IO SomeResult</codeblock>
+  <p id="x-9">There's no way to pass this directly to the <codeph id="x-10">try</codeph> function, and therefore there
+   appears to be no way to catch the exceptions from <codeph id="x-11">myAction</codeph>. This is where the
+    <apiname id="x-12">monad-control</apiname> packages comes into play. It essentially <i id="x-13">inverts</i>
+   myAction, turning it into something like <codeph id="x-14">myActionInverted :: IO (ReaderValue -&gt;
+    SomeResult)</codeph>. It then passes this action to <codeph id="x-15">try</codeph>, gets back <codeph id="x-16">IO
+    (Either SomeException (ReaderValue -&gt; SomeResult))</codeph> and un-inverts it back to
+    <codeph id="x-17">ReaderT ReaderValue IO (Either SomeException SomeResult)</codeph>.</p>
+  <note id="x-18">Don't worry too much about the details here. If you're really interested, there's a <xref id="x-19" href="../monad-control-wrapper/monad-control.dita#monad-control" format="dita">whole chapter
     devoted to monad-control</xref>.</note>
-  <p>monad-control has built in support for a number of the standard monad transformers out there,
+  <p id="x-20">monad-control has built in support for a number of the standard monad transformers out there,
    like ReaderT, WriterT, and StateT. However, there are some transformers for it is impossible to
    provide such support. One example is ContT, for continuations. At some point in the past, Yesod
    used the ContT monad transformers in defining Handler, and switched over to ErrorT for
    specifically this reason.</p>
-  <p>But more importantly for our purposes today, is that there is no support for the Iteratee monad
+  <p id="x-21">But more importantly for our purposes today, is that there is no support for the Iteratee monad
    transformer. This will become very important, very soon.</p>
  </conbody>
 </concept>
