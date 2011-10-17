@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Types</title>
+ <conbody>
+  <p>Let's take a bottom-up approach to analyzing types. This section will also serve as a primer on
+   the XML data model itself, so don't worry if you're not completely familiar with it.</p>
+  <p>I think the first place where Haskell really shows its strength is with the
+    <apiname>xml-types:Data.XML.Types:Name</apiname> datatype. Many languages (like Java) struggle
+   with properly expressing names. The issue is that there are in fact three components to a name:
+   its local name, its namespace (optional), and its prefix (also optional). Let's look at some XML
+   to explain:</p>
+  <codeblock outputclass="xml">&lt;no-namespace/>
+&lt;no-prefix xmlns="first-namespace" first-attr="value1"/>
+&lt;foo:with-prefix xmlns:foo="second-namespace" foo:second-attr="value2"/></codeblock>
+  <p>The first tag has a local name of <codeph>no-namespace</codeph>, and no namespace or prefix.
+   The second tag (local name: <codeph>no-prefix</codeph>) <i>also</i> has no prefix, but it does
+   have a namespace (<codeph>first-namespace</codeph>). first-attr, however, does <i>not</i> inherit
+   that namespace: attribute namespaces must always be explicitly set with a prefix.</p>
+  <note>Namespaces are almost always URIs of some sort, though there is nothing in any specification
+   requiring that it be so.</note>
+  <p>The third tag has a local name of <codeph>with-prefix</codeph>, a prefix of
+    <codeph>foo</codeph> and a namespace of <codeph>second-namespace</codeph>. Its attribute has a
+   second-attr local name and the same prefix and namespace. The xmlns and xmlns:foo attributes are
+   part of the namespace specification, and are not considered attributes of their respective
+   elements.</p>
+  <p>So let's review what we need from a name: every name has a local name, and it can optionally
+   have a prefix and namespace. Seems like a simple fit for a record type:</p>
+  <codeblock outputclass="haskell">data Name = Name
+    { nameLocalName :: Text
+    , nameNamespace :: Maybe Text
+    , namePrefix :: Maybe Text
+    }</codeblock>
+  <p>According the the XML namespace standard, two names are considered equivalent if they have the
+   same localname and namespace. In other words, the prefix is not important. Therefore, xml-types
+   defines Eq and Ord instances that ignore the prefix.</p>
+  <p>The last class instance worth mentioning is IsString. It would be very tedious to have to
+   manually type out <codeph>Name "p" Nothing Nothing</codeph> every time we want a paragraph. If
+   you turn on OverloadedStrings, "p" will resolve to that all by itself! In addition, the IsString
+   instance recognizes something called Clark notation, which allows you to prefix the namespace
+   surrounded in curly brackets. In other words:</p>
+  <codeblock outputclass="haskell">"{namespace}element" == Name "element" (Just "namespace") Nothing
+"element" == Name "element" Nothing Nothing</codeblock>
+ </conbody>
+</concept>

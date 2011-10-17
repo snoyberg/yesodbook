@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+    <title>xml-enumerator</title>
+    <topicref href="xml-enumerator/xml.dita">
+        <topicref href="xml-enumerator/synopsis.dita"/>
+        <topicref href="xml-enumerator/types.dita">
+            <topicref href="xml-enumerator/four-node-types.dita"/>
+            <topicref href="xml-enumerator/documents.dita"/>
+            <topicref href="xml-enumerator/events.dita"/>
+        </topicref>
+        <topicref href="xml-enumerator/text-xml.dita"/>
+        <topicref href="xml-enumerator/cursor.dita"/>
+        <topicref href="xml-enumerator/xml-hamlet.dita"/>
+        <topicref href="xml-enumerator/xml2html.dita"/>
+    </topicref>
+</map>

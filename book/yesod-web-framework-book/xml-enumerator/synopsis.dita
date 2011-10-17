@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Synopsis</title>
+ <conbody>
+  <fig>
+   <title>Input XML file</title>
+   <codeblock outputclass="xml">&lt;document title="My Title">
+    &lt;para>This is a paragraph. It has &lt;em>emphasized&lt;/em> and &lt;strong>strong&lt;/strong> words.&lt;/para>
+    &lt;image href="myimage.png"/>
+&lt;/document></codeblock>
+  </fig>
+  <fig>
+   <title>Haskell code</title>
+   <codeblock outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE OverloadedStrings #-}
+import Prelude hiding (writeFile)
+import Text.XML
+import Text.Hamlet.XML
+
+main :: IO ()
+main = do
+    -- readFile_ will throw any parse errors as runtime exceptions
+    -- def uses the default settings
+    Document prologue root epilogue &lt;- readFile_ def "input.xml"
+
+    -- root is the root element of the document, let's modify it
+    let root' = transform root
+
+    -- And now we write out. Let's indent our output
+    writeFile def
+        { rsPretty = True
+        } "output.html" $ Document prologue root' epilogue
+
+-- We'll turn out &lt;document> into an XHTML document
+transform :: Element -> Element
+transform (Element _name attrs children) = Element "html" [] [xml|
+&lt;head>
+    &lt;title>
+        $maybe title &lt;- lookup "title" attrs
+            \#{title}
+        $nothing
+            Untitled Document
+    &lt;body>
+        $forall child &lt;- children
+            ^{goNode child}
+|]
+
+goNode :: Node -> [Node]
+goNode (NodeElement e) = [NodeElement $ goElem e]
+goNode (NodeContent t) = [NodeContent t]
+goNode (NodeComment _) = [] -- hide comments
+goNode (NodeInstruction _) = [] -- and hide processing instructions too
+
+-- convert each source element to its XHTML equivalent
+goElem :: Element -> Element
+goElem (Element "para" attrs children) =
+    Element "p" attrs $ concatMap goNode children
+goElem (Element "em" attrs children) =
+    Element "i" attrs $ concatMap goNode children
+goElem (Element "strong" attrs children) =
+    Element "b" attrs $ concatMap goNode children
+goElem (Element "image" attrs _children) =
+    Element "img" (map fixAttr attrs) [] -- images can't have children
+  where
+    fixAttr ("href", value) = ("src", value)
+    fixAttr x = x
+goElem (Element name attrs children) =
+    -- don't know what to do, just pass it through...
+    Element name attrs $ concatMap goNode children</codeblock>
+  </fig>
+  <fig>
+   <title>Output XHTML</title>
+   <codeblock outputclass="html">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;html>
+    &lt;head>
+        &lt;title>
+            My Title
+        &lt;/title>
+        &lt;body>
+            &lt;p>
+                This is a paragraph. It has 
+                &lt;i>
+                    emphasized
+                &lt;/i>
+                and 
+                &lt;b>
+                    strong
+                &lt;/b>
+                words.
+            &lt;/p>
+            &lt;img src="myimage.png"/>
+        &lt;/body>
+    &lt;/head>
+&lt;/html></codeblock>
+  </fig>
+ </conbody>
+</concept>

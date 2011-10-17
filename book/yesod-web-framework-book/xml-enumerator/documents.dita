@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Documents</title>
+ <conbody>
+  <p>So now we have elements and nodes, but what about an entire document? Let's just lay out the
+   datatypes:</p>
+  <codeblock outputclass="haskell">data Document = Document
+    { documentPrologue :: Prologue
+    , documentRoot :: Element
+    , documentEpilogue :: [Miscellaneous]
+    }
+
+data Prologue = Prologue
+    { prologueBefore :: [Miscellaneous]
+    , prologueDoctype :: Maybe Doctype
+    , prologueAfter :: [Miscellaneous]
+    }
+
+data Miscellaneous
+    = MiscInstruction Instruction
+    | MiscComment Text
+
+data Doctype = Doctype
+    { doctypeName :: Text
+    , doctypeID :: Maybe ExternalID
+    }
+
+data ExternalID
+    = SystemID Text
+    | PublicID Text Text</codeblock>
+  <p>The XML spec says that a document has a single root element (documentRoot). It also has an
+   optional doctype statement. Before and after both the doctype and the root element, you are
+   allowed to have comments and processing instructions. (You can also have whitespace, but that is
+   ignored in the parsing.)</p>
+  <p>So what's up with the doctype? Well, it specifies the root element of the document, and then
+   optional public and system identifiers. These are used to refer to DTD files, which give more
+   information about the file (e.g., validation rules, default attributes, entity resolution). Let's
+   see some examples:</p>
+  <codeblock outputclass="xml">&lt;!DOCTYPE root> &lt;!-- no external identifier -->
+&lt;!DOCTYPE root SYSTEM "root.dtd"> &lt;!-- a system identifier -->
+&lt;!DOCTYPE root PUBLIC "My Root Public Identifier" "root.dtd"> &lt;!-- public identifiers have a system ID as well --></codeblock>
+  <p>And that, my friends, is the entire XML data model. For many parsing purposes, you'll be able
+   to simply ignore the entire Document datatype and go immediately to the documentRoot.</p>
+ </conbody>
+</concept>

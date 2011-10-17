@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="xml-hamlet">
+ <title>xml-hamlet</title>
+ <conbody>
+  <p outputclass="haskell">Thanks to the simplicity of Haskell's data type system, creating XML
+   content with the Text.XML API is very simple, if a bit verbose. The following code:</p>
+  <codeblock>{-# LANGUAGE OverloadedStrings #-}
+import Text.XML
+import Prelude hiding (writeFile)
+
+main :: IO ()
+main =
+    writeFile def "test3.xml" $ Document (Prologue [] Nothing []) root []
+  where
+    root = Element "html" []
+        [ NodeElement $ Element "head" []
+            [ NodeElement $ Element "title" []
+                [ NodeContent "My "
+                , NodeElement $ Element "b" []
+                    [ NodeContent "Title"
+                    ]
+                ]
+            ]
+        , NodeElement $ Element "body" []
+            [ NodeElement $ Element "p" []
+                [ NodeContent "foo bar baz"
+                ]
+            ]
+        ]</codeblock>
+  <p>produces</p>
+  <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;html>&lt;head>&lt;title>My &lt;b>Title&lt;/b>&lt;/title>&lt;/head>&lt;body>&lt;p>foo bar baz&lt;/p>&lt;/body>&lt;/html></codeblock>
+  <p>This is leaps and bounds easier than having to deal with an imperative, mutable-value-based API
+   (cough, Java, cough), but it's far from pleasant, and obscures what we're really trying to
+   achieve. To simplify things, we have the <apiname>xml-hamlet</apiname> package, which using
+   Quasi-Quotation to allow you to type in your XML in a natural syntax. For example, the above
+   could be rewritten as:</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+import Text.XML
+import Text.Hamlet.XML
+import Prelude hiding (writeFile)
+
+main :: IO ()
+main =
+    writeFile def "test3.xml" $ Document (Prologue [] Nothing []) root []
+  where
+    root = Element "html" [] [xml|
+&lt;head>
+    &lt;title>
+        My #
+        &lt;b>Title
+&lt;body>
+    &lt;p>foo bar baz
+|]</codeblock>
+  <p>Let's make a few points:</p>
+  <ul id="ul_56cf6fac-3c78-4e75-b51a-7dfd6b087eeb">
+   <li>The syntax is almost identical to normal Hamlet, except URL-interpolation (@{...}) has been
+    removed. As such:<ul id="ul_db2c4193-433e-48a6-abe9-29ca9b3835bc">
+     <li>No close tags.</li>
+     <li>Whitespace-sensitive.</li>
+     <li>If you want to have whitespace at the end of a line, use a # at the end. At the beginning,
+      use a backslash.</li>
+    </ul></li>
+   <li>An xml interpolation will return a list of <codeph>Node</codeph>s. So you still need to wrap
+    up the output in all the normal Document and root element constructs.</li>
+   <li>There is no support for the special .class and #id attribute forms.</li>
+  </ul>
+  <p>And like normal Hamlet, you can use variable interpolation and control structures. So a
+   slightly more complex example would be:</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+import Text.XML
+import Text.Hamlet.XML
+import Prelude hiding (writeFile)
+import Data.Text (Text, pack)
+
+data Person = Person
+    { personName :: Text
+    , personAge :: Int
+    }
+
+people :: [Person]
+people =
+    [ Person "Michael" 26
+    , Person "Miriam" 25
+    , Person "Eliezer" 3
+    , Person "Gavriella" 1
+    ]
+
+main :: IO ()
+main =
+    writeFile def "people.xml" $ Document (Prologue [] Nothing []) root []
+  where
+    root = Element "html" [] [xml|
+&lt;head>
+    &lt;title>Some People
+&lt;body>
+    &lt;h1>Some People
+    $if null people
+        &lt;p>There are no people.
+    $else
+        &lt;dl>
+            $forall person &lt;- people
+                ^{personNodes person}
+|]
+
+personNodes :: Person -> [Node]
+personNodes person = [xml|
+&lt;dt>#{personName person}
+&lt;dd>#{pack $ show $ personAge person}
+|]</codeblock>
+  <p>A few more notes:</p>
+  <ul id="ul_4f926e00-4348-4801-97a1-a9d95fb18a04">
+   <li>The caret-interpolation (^{...}) takes a list of nodes, and so can easily embed other
+    xml-quotations.</li>
+   <li>Unlike Hamlet, hash-interpolations (#{...}) are not polymorphic, and can <i>only</i> accept
+    Text values.</li>
+  </ul>
+ </conbody>
+</concept>

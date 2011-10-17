@@ -34,6 +34,7 @@
         <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
         <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"
         />
+        <mapref href="yesod-web-framework-book/xml-enumerator.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
