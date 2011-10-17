@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="monad-control-wrapper"><title id="x-1">monad-control wrapper</title><topicref chunk="to-content" id="monad-control" href="../yesod-web-framework-book/monad-control-wrapper/monad-control.dita"><mapref id="x-2" href="../yesod-web-framework-book/monad-control-wrapper/monad-control.ditamap"/></topicref></map>
+<map id="monad-control-wrapper">
+    <title id="x-1">monad-control wrapper</title>
+    <topicref chunk="to-content" id="monad-control"
+        href="../yesod-web-framework-book/monad-control-wrapper/monad-control.dita">
+        <topicref id="overview"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/overview.dita"/>
+        <topicref id="intuition"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/intuition.dita"/>
+        <topicref id="types"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/types.dita">
+            <topicref id="monadtranscontrol"
+                href="../yesod-web-framework-book/monad-control-wrapper/monad-control/monadtranscontrol.dita"/>
+            <topicref id="monadcontrolio"
+                href="../yesod-web-framework-book/monad-control-wrapper/monad-control/monadcontrolio.dita"
+            />
+        </topicref>
+        <topicref id="real-life-examples"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/real-life-examples.dita"/>
+        <topicref id="lost-state"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/lost-state.dita"/>
+        <topicref id="more-complicated-cases"
+            href="../yesod-web-framework-book/monad-control-wrapper/monad-control/more-complicated-cases.dita"
+        />
+    </topicref>
+</map>
