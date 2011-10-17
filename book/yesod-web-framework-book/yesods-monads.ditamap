@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
     <title>Yesod's Monads</title>
-    <topicref href="yesods-monads/yesods-monads.dita">
+    <topicref href="yesods-monads/yesods-monads.dita" chunk="to-content">
         <topicref href="yesods-monads/transformers.dita">
             <topicref href="yesods-monads/monad-control.dita"/>
         </topicref>
