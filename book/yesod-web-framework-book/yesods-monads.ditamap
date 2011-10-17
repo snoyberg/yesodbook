@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+    <title>Yesod's Monads</title>
+    <topicref href="yesods-monads/yesods-monads.dita">
+        <topicref href="yesods-monads/transformers.dita">
+            <topicref href="yesods-monads/monad-control.dita"/>
+        </topicref>
+        <topicref href="yesods-monads/the-three-transformers.dita"/>
+        <topicref href="yesods-monads/navbar.dita"/>
+        <topicref href="yesods-monads/gets.dita"/>
+    </topicref>
+</map>

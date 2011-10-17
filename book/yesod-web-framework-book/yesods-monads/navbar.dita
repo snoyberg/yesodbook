@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="navbar">
+ <title>Example: Database-driven navbar</title>
+ <conbody>
+  <p>Let's put some of this new knowledge into action. We want to create a widget that generates its
+   output based on the contents of the database. Previously, our approach would have been to load up
+   the data in a Handler, and then pass that data into a widget. Now, we'll do the loading of data
+   in the widget itself. This is a boon for modularity, as this widget can now be used in any
+   handler we want, without any need to pass in the database contents.</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+             QuasiQuotes, TypeFamilies, MultiParamTypeClasses, GADTs #-}
+import Yesod
+import Database.Persist.Sqlite
+import Data.Text (Text)
+import Data.Time
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
+Link
+    title Text
+    url Text
+    added UTCTime
+|]
+
+data Links = Links ConnectionPool
+
+mkYesod "Links" [parseRoutes|
+/ RootR GET
+/add-link AddLinkR POST
+|]
+
+instance Yesod Links where
+    approot _ = ""
+
+instance RenderMessage Links FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+instance YesodPersist Links where
+    type YesodPersistBackend Links = SqlPersist
+    runDB db = do
+        Links pool &lt;- getYesod
+        liftIOHandler $ runSqlPool db pool
+
+getRootR :: Handler RepHtml
+getRootR = defaultLayout [whamlet|
+&lt;form method=post action=@{AddLinkR}>
+    &lt;p>
+        Add a new link to #
+        &lt;input type=url name=url value=http://>
+        \ titled #
+        &lt;input type=text name=title>
+        \ #
+        &lt;input type=submit value="Add link">
+&lt;h2>Existing links
+^{existingLinks}
+|]
+
+existingLinks :: Widget
+existingLinks = do
+    links &lt;- lift $ runDB $ selectList [] [LimitTo 5, Desc LinkAdded]
+    [whamlet|
+&lt;ul>
+    $forall link &lt;- links
+        &lt;li>
+            &lt;a href=#{linkUrl $ snd link}>#{linkTitle $ snd link}
+|]
+
+postAddLinkR :: Handler ()
+postAddLinkR = do
+    url &lt;- runInputPost $ ireq urlField "url"
+    title &lt;- runInputPost $ ireq textField "title"
+    now &lt;- liftIO getCurrentTime
+    runDB $ insert $ Link title url now
+    setMessage "Link added"
+    redirect RedirectTemporary RootR
+
+main :: IO ()
+main = withSqlitePool "links.db3" 10 $ \pool -> do
+    runSqlPool (runMigration migrateAll) pool
+    warpDebug 3000 $ Links pool</codeblock>
+  <p>Pay attention in particular to the <codeph>existingLinks</codeph> function. Notice how all we
+   needed to do was apply <codeph>lift</codeph> to a normal database action. And from within
+    <codeph>getRootR</codeph>, we treated <codeph>existingLinks</codeph> like any ordinary
+    <codeph>Widget</codeph>, no special parameters at all.</p>
+  <p>You should also pay special attention to the <codeph>YesodPersist</codeph> instance. It should
+   make much more sense now that we've explained <codeph>liftIOHandler</codeph>.</p>
+  <fig>
+   <image id="image_xpd_yzj_zd" href="navbar.png"/>
+  </fig>
+ </conbody>
+</concept>
