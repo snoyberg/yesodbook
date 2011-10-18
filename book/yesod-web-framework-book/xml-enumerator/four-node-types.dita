@@ -36,7 +36,7 @@
    information: a name, a list of attributes and a list of children nodes. An attribute has two
    pieces of information: a name and a value. (In xml-types, this value could contain unresolved
    entities as well.) So our Element is defined as:</p>
-  <codeblock id="x-16" outputclass="element">data Element = Element
+  <codeblock id="x-16" outputclass="haskell">data Element = Element
     { elementName :: Name
     , elementAttributes :: [(Name, Text)]
     , elementNodes :: [Node]

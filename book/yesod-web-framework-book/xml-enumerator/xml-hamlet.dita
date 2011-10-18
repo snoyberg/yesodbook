@@ -5,7 +5,7 @@
  <conbody id="x-2">
   <p id="x-3" outputclass="haskell">Thanks to the simplicity of Haskell's data type system, creating XML
    content with the Text.XML API is very simple, if a bit verbose. The following code:</p>
-  <codeblock id="x-4">{-# LANGUAGE OverloadedStrings #-}
+  <codeblock outputclass="haskell" id="x-4">{-# LANGUAGE OverloadedStrings #-}
 import Text.XML
 import Prelude hiding (writeFile)
 
