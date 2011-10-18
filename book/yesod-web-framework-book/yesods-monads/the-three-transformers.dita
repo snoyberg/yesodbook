@@ -12,7 +12,7 @@
   <codeblock id="x-11" outputclass="haskell">instance MonadControlIO m =&gt; PersistBackend SqlPersist m</codeblock>
   <p id="x-12">This means that you can run a SQL database with any underlying monad, so long as that
    underlying monad supports <codeph id="x-13">MonadControlIO</codeph>. That basically means any transformer
-   stack built around <codeph id="x-14">IO</codeph>, as well as <codeph id="x-15">ContT</codeph> and
+   stack built around <codeph id="x-14">IO</codeph>, as long as <codeph id="x-15">ContT</codeph> and
     <codeph id="x-16">Iteratee</codeph> are not involved.</p>
   <p id="x-17">In order to make it simpler to refer to the relevant Persistent transformer, the
     <apiname id="x-18">yesod-persistent</apiname> package defines the <codeph id="x-19">YesodPersistBackend</codeph>
