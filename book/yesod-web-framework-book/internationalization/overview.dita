@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="overview">
+ <title>Overview</title>
+ <conbody>
+  <p>Most existing i18n solutions out there, like gettext or Java message bundles, work on the
+   principle of string lookups. Usually some form of printf-interpolation is used to interpolate
+   variables into the strings. In Yesod, as you might guess, we instead rely on types. This gives us
+   all of our normal advantages, such as the compiler automatically catching mistakes.</p>
+  <p>Let's take a concrete example. Suppose our application has two things it wants to say to a
+   user: say hello, and state how many users are logged into the system. This can be modeled with a
+   simple datatype:</p>
+  <codeblock outputclass="haskell">data MyMessage = MsgHello | MsgUsersLoggedIn Int</codeblock>
+  <p>I can also write a simple function to turn this datatype into an English representation:</p>
+  <codeblock outputclass="haskell">toEnglish :: MyMessage -> String
+toEnglish MsgHello = "Hello there!"
+toEnglish (MsgUsersLoggedIn 1) = "There is 1 user logged in."
+toEnglish (MsgUsersLoggedIn i) = "There are " ++ show i ++ " users logged in."</codeblock>
+  <p>We can also write similar functions for other languages. The advantage to this inside-Haskell
+   approach is that we have the fully power of Haskell for addressing tricky grammar issues,
+   especially pluralization.</p>
+  <note>You may think pluralization isn't so complicated: you have one version for 1 item, and
+   another for any other count. That might be true in English, but it's not true for every language.
+   Russian, for example, has six different forms, and you need to use some modulus logic to
+   determine which one to use.</note>
+  <p>The downside, however, is that you have to write all of this inside of Haskell, which won't be
+   very translator friendly. To solve this, Yesod introduces the concept of message files. We'll
+   cover that in a little bit.</p>
+  <p>So let's say we have this full set of translation functions. How do we go about using them?
+   What we need is a new function to wrap them all up together, and then choose the appropriate
+   translation function based on the user's selected language. Once we have that, Yesod can
+   automatically choose the most relevant render function and call it on the values you provide.</p>
+  <p>In order to simplify things a bit, Hamlet has a special interpolation syntax,
+    <codeph>_{...}</codeph>, which handles all the calls to the render functions. And in order to
+   associate a render function with your application, you use the <codeph>YesodMessage</codeph>
+   typeclass.</p>
+ </conbody>
+</concept>

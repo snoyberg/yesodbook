@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="map-internationalization"><title id="x-1">Internationalization</title><topicref id="internationalization" chunk="to-content" href="../yesod-web-framework-book/internationalization/internationalization.dita"/></map>
+<map id="map-internationalization">
+    <title id="x-1">Internationalization</title>
+    <topicref id="internationalization" chunk="to-content"
+        href="../yesod-web-framework-book/internationalization/internationalization.dita">
+        <topicref href="internationalization/synopsis.dita"/>
+        <topicref href="internationalization/overview.dita"/>
+    </topicref>
+</map>
