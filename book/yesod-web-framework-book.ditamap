@@ -12,26 +12,15 @@
         <mapref id="x-8" href="yesod-web-framework-book/forms-09.ditamap"/>
         <mapref id="x-9" href="yesod-web-framework-book/sessions.ditamap"/>
         <mapref id="x-10" href="yesod-web-framework-book/persistent-060.ditamap"/>
+        <mapref id="x-17" href="yesod-web-framework-book/deploying-your-webapp.ditamap"/>
     </topichead>
     <topichead id="advanced" navtitle="Advanced">
         <mapref id="x-11" href="yesod-web-framework-book/restful-content.ditamap"/>
-        <mapref id="x-26" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
         <mapref id="x-26" href="yesod-web-framework-book/yesods-monads.ditamap"/>
         <mapref id="x-12" href="yesod-web-framework-book/authentication-and-authorization.ditamap"/>
         <mapref id="x-13" href="yesod-web-framework-book/scaffolding-and-the-site-template.ditamap"/>
-        <mapref id="x-14" href="yesod-web-framework-book/advanced-forms.ditamap"/>
-        <mapref id="x-15" href="yesod-web-framework-book/testing.ditamap"/>
-        <mapref id="x-16" href="yesod-web-framework-book/sending-email.ditamap"/>
-        <mapref id="x-17" href="yesod-web-framework-book/deploying-your-webapp.ditamap"/>
         <mapref id="x-18" href="yesod-web-framework-book/internationalization.ditamap"/>
         <mapref id="x-19" href="yesod-web-framework-book/creating-a-subsite.ditamap"/>
-    </topichead>
-    <topichead id="appendices" navtitle="Appendices">
-        <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap"/>
-        <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
-        <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
-        <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"/>
-        <mapref href="yesod-web-framework-book/xml-enumerator.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
@@ -41,6 +30,14 @@
         <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
         <topicref id="example-internationalization"
             href="yesod-web-framework-book/example-internationalization.dita"/>
-        <mapref id="example-json-service" href="yesod-web-framework-book/example-json-service.ditamap"/>
+        <mapref id="example-json-service"
+            href="yesod-web-framework-book/example-json-service.ditamap"/>
+        <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
+    </topichead>
+    <topichead id="appendices" navtitle="Appendices">
+        <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap"/>
+        <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
+        <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
+        <mapref href="yesod-web-framework-book/xml-enumerator.ditamap"/>
     </topichead>
 </map>

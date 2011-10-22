@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template</title><conbody id="x-2"><ul id="x1"><li id="x2">How to scaffold: yesod executable</li><li id="x3">File structure layout</li><li id="x4">Some special features for static files (addStaticContent, urlRenderOverride)</li></ul></conbody></concept>
+<concept id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template (incomplete)</title><conbody id="x-2"><ul id="x1"><li id="x2">How to scaffold: yesod executable</li><li id="x3">File structure layout</li><li id="x4">Some special features for static files (addStaticContent, urlRenderOverride)</li></ul></conbody></concept>

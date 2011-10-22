@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization</title><conbody id="x-2"><p id="outline">This chapter is just an outline. It will contain the sections:</p><ul id="x1"><li id="x2">Authentication</li><li id="x3">Authorization</li><li id="x4">Auth stuff (isAuthorized, isWriteRequest, authRoute)</li></ul><note id="x5">Logout does not invalidate session.</note></conbody></concept>
+<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization (incomplete)</title><conbody id="x-2"><p id="outline">This chapter is just an outline. It will contain the sections:</p><ul id="x1"><li id="x2">Authentication</li><li id="x3">Authorization</li><li id="x4">Auth stuff (isAuthorized, isWriteRequest, authRoute)</li></ul><note id="x5">Logout does not invalidate session.</note></conbody></concept>
