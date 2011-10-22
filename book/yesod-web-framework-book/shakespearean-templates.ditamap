@@ -1,3 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="shakespearean-templates"><title id="x-1">Shakespearean Templates</title><topicref id="templates" chunk="to-content" href="../yesod-web-framework-book/shakespearean-templates/shakespearean-templates.dita"><topicref id="synopsis" href="../yesod-web-framework-book/shakespearean-templates/synopsis.dita"><topicref id="hamlet-html" href="../yesod-web-framework-book/shakespearean-templates/hamlet-html.dita"/><topicref id="cassius-css" href="../yesod-web-framework-book/shakespearean-templates/cassius-css.dita"/><topicref id="lucius-css" href="../yesod-web-framework-book/shakespearean-templates/lucius-css.dita"/><topicref id="julius-javascript" href="../yesod-web-framework-book/shakespearean-templates/julius-javascript.dita"/></topicref><topicref id="types" href="../yesod-web-framework-book/shakespearean-templates/types.dita"><topicref id="type-safe-urls" href="../yesod-web-framework-book/shakespearean-templates/type-safe-urls.dita"/></topicref><topicref id="syntax" href="../yesod-web-framework-book/shakespearean-templates/syntax.dita"><topicref id="hamlet-syntax" href="../yesod-web-framework-book/shakespearean-templates/hamlet-syntax.dita"><topicref id="tags" href="../yesod-web-framework-book/shakespearean-templates/tags.dita"/><topicref id="interpolation" href="../yesod-web-framework-book/shakespearean-templates/interpolation.dita"/><topicref id="attributes" href="../yesod-web-framework-book/shakespearean-templates/attributes.dita"/><topicref id="conditionals" href="../yesod-web-framework-book/shakespearean-templates/conditionals.dita"/><topicref id="maybe" href="../yesod-web-framework-book/shakespearean-templates/maybe.dita"/><topicref id="forall" href="../yesod-web-framework-book/shakespearean-templates/forall.dita"/><topicref id="with" href="../yesod-web-framework-book/shakespearean-templates/with.dita"/><topicref id="doctype" href="../yesod-web-framework-book/shakespearean-templates/doctype.dita"/></topicref><topicref id="cassius-syntax" href="../yesod-web-framework-book/shakespearean-templates/cassius-syntax.dita"/><topicref id="lucius-syntax" href="../yesod-web-framework-book/shakespearean-templates/lucius-syntax.dita"/><topicref id="julius-syntax" href="../yesod-web-framework-book/shakespearean-templates/julius-syntax.dita"/></topicref><topicref id="calling-shakespeare" href="../yesod-web-framework-book/shakespearean-templates/calling-shakespeare.dita"><topicref id="alternate-hamlet-types" href="../yesod-web-framework-book/shakespearean-templates/alternate-hamlet-types.dita"/></topicref><topicref id="general-recommendations" href="../yesod-web-framework-book/shakespearean-templates/general-recommendations.dita"/></topicref></map>
+<map id="shakespearean-templates">
+    <title id="x-1">Shakespearean Templates</title>
+    <topicref id="templates" chunk="to-content"
+        href="../yesod-web-framework-book/shakespearean-templates/shakespearean-templates.dita">
+        <topicref id="synopsis"
+            href="../yesod-web-framework-book/shakespearean-templates/synopsis.dita">
+            <topicref id="hamlet-html"
+                href="../yesod-web-framework-book/shakespearean-templates/hamlet-html.dita"/>
+            <topicref id="cassius-css"
+                href="../yesod-web-framework-book/shakespearean-templates/cassius-css.dita"/>
+            <topicref id="lucius-css"
+                href="../yesod-web-framework-book/shakespearean-templates/lucius-css.dita"/>
+            <topicref id="julius-javascript"
+                href="../yesod-web-framework-book/shakespearean-templates/julius-javascript.dita"/>
+        </topicref>
+        <topicref id="types" href="../yesod-web-framework-book/shakespearean-templates/types.dita">
+            <topicref id="type-safe-urls"
+                href="../yesod-web-framework-book/shakespearean-templates/type-safe-urls.dita"/>
+        </topicref>
+        <topicref id="syntax" href="../yesod-web-framework-book/shakespearean-templates/syntax.dita">
+            <topicref id="hamlet-syntax"
+                href="../yesod-web-framework-book/shakespearean-templates/hamlet-syntax.dita">
+                <topicref id="tags"
+                    href="../yesod-web-framework-book/shakespearean-templates/tags.dita"/>
+                <topicref id="interpolation"
+                    href="../yesod-web-framework-book/shakespearean-templates/interpolation.dita"/>
+                <topicref id="attributes"
+                    href="../yesod-web-framework-book/shakespearean-templates/attributes.dita"/>
+                <topicref id="conditionals"
+                    href="../yesod-web-framework-book/shakespearean-templates/conditionals.dita"/>
+                <topicref id="maybe"
+                    href="../yesod-web-framework-book/shakespearean-templates/maybe.dita"/>
+                <topicref id="forall"
+                    href="../yesod-web-framework-book/shakespearean-templates/forall.dita"/>
+                <topicref id="with"
+                    href="../yesod-web-framework-book/shakespearean-templates/with.dita"/>
+                <topicref id="doctype"
+                    href="../yesod-web-framework-book/shakespearean-templates/doctype.dita"/>
+            </topicref>
+            <topicref id="cassius-syntax"
+                href="../yesod-web-framework-book/shakespearean-templates/cassius-syntax.dita"/>
+            <topicref id="lucius-syntax"
+                href="../yesod-web-framework-book/shakespearean-templates/lucius-syntax.dita"/>
+            <topicref id="julius-syntax"
+                href="../yesod-web-framework-book/shakespearean-templates/julius-syntax.dita"/>
+        </topicref>
+        <topicref id="calling-shakespeare"
+            href="../yesod-web-framework-book/shakespearean-templates/calling-shakespeare.dita">
+            <topicref id="alternate-hamlet-types"
+                href="../yesod-web-framework-book/shakespearean-templates/alternate-hamlet-types.dita"
+            />
+        </topicref>
+        <topicref id="other-shakespeare" href="shakespearean-templates/other-shakespeare.dita"/>
+        <topicref id="general-recommendations"
+            href="../yesod-web-framework-book/shakespearean-templates/general-recommendations.dita"
+        />
+    </topicref>
+</map>
