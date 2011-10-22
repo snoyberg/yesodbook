@@ -25,15 +25,12 @@
         <mapref id="x-17" href="yesod-web-framework-book/deploying-your-webapp.ditamap"/>
         <mapref id="x-18" href="yesod-web-framework-book/internationalization.ditamap"/>
         <mapref id="x-19" href="yesod-web-framework-book/creating-a-subsite.ditamap"/>
-        <mapref id="x-20" href="yesod-web-framework-book/web-client-code.ditamap"/>
-        <mapref id="x-21" href="yesod-web-framework-book/low-level-tricks.ditamap"/>
     </topichead>
     <topichead id="appendices" navtitle="Appendices">
         <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap"/>
         <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
         <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
-        <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"
-        />
+        <mapref id="x-25" href="yesod-web-framework-book/blog-posts-that-should-be-chapters.ditamap"/>
         <mapref href="yesod-web-framework-book/xml-enumerator.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
@@ -44,5 +41,6 @@
         <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
         <topicref id="example-internationalization"
             href="yesod-web-framework-book/example-internationalization.dita"/>
+        <mapref id="example-json-service" href="yesod-web-framework-book/example-json-service.ditamap"/>
     </topichead>
 </map>
