@@ -3,8 +3,8 @@
 <concept id="insert"><title id="x-1">Insert</title><conbody id="x-2">  <p id="x1">It's all well and good to be able to play with data in the database, but how does it get there
    in the first place? The answer is the insert function. Its usage is incredibly simple, as you've
    seen already. You just give it a value, and it gives back an ID.</p>
-  <p id="x2">At this point, it makes sense to explain a it of the philosophy behind Persistent. In many
-   other ORM solutions, the datatypes used to hold data is opaque: you need to go through their
+  <p id="x2">At this point, it makes sense to explain a bit of the philosophy behind Persistent. In
+   many other ORM solutions, the datatypes used to hold data is opaque: you need to go through their
    defined interfaces to get at and modify the data. That's not the case with Persistent: we're
    using plain old Algebraic Data Types for the whole thing. This means you still get all the great
    benefits of pattern matching, currying and everything else you're used to.</p>

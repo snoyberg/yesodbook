@@ -21,7 +21,10 @@ http {
     listen 80;
     server_name static.myserver.com;
     root /home/michael/sites/mysite/static;
-    expires max; # Take advantage of yesod-static's content hash query strings
+    # Since yesod-static appends a content hash in the query string,
+    # we are free to set expiration dates far in the future without
+    # concerns of stale content.
+    expires max;
 }</codeblock><p id="config4">In order for this to work, your site must properly rewrite static URLs to this alternate domain name. The scaffolded site is set up to make this fairly simple via the Settings.staticroot function and the definition of urlRenderOverride. However, if you just want to get the benefit of nginx's faster static file serving without dealing with separate domain names, you can instead modify your original server block like so:</p><codeblock outputclass="nginx-conf" id="x6">server {
     listen 80; # Incoming port for Nginx
     server_name www.myserver.com;

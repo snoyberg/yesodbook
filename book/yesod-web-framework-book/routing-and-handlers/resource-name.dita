@@ -30,4 +30,4 @@
                  <codeph id="x18">/year/two-thousand-nine</codeph>,
                  <codeph id="x19">/person/michael/snoyman</codeph> and
                  <codeph id="x20">/page/FAQ</codeph> would all result in 404 errors without
-                 ever seeing your code.</p><note id="x21" type="other" othertype="advanced"><p id="rn6">Throughout the above discussion, I used the terms type-safe URLs and routes datatype interchangeably. Don't be confused, they are the exact same thing. They just sound better in different contexts.</p></note></conbody></concept>
+                 ever seeing your code.</p></conbody></concept>
