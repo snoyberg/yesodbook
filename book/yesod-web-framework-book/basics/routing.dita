@@ -6,12 +6,13 @@
         <codeblock id="x-4" outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
 / HomeR GET
 |]</codeblock>
-        <p id="x-5">In English, all this means <q id="x-6">In the HelloWorld application, create one route. I'd like
-                to call it HomeR, it should listen for requests to <codeph id="x-7">/</codeph> (the root of
-                the application), and should answer GET requests</q>. We call HomeR a
-                <term id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9">The R suffix
-                on resource names is simply convention, but it's a fairly universally followed
-                convention. It makes it just a bit easier to read and understand code.</note></p>
+        <p id="x-5">In English, all this means is: <q id="x-6">In the HelloWorld application, create
+                one route. I'd like to call it HomeR, it should listen for requests to <codeph
+                    id="x-7">/</codeph> (the root of the application), and should answer GET
+                requests</q>. We call HomeR a <term id="x-8">resource</term>, which is where the "R"
+            suffix comes from.<note id="x-9">The R suffix on resource names is simply convention,
+                but it's a fairly universally followed convention. It makes it just a bit easier to
+                read and understand code.</note></p>
         <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system. Most
             of them, however, are <i id="x-11">not</i> declarative. Let's take a quick example from
                 Django:<!--FIXME Django really is declarative, this isn't correct. I think I narrowed down four advantages for yesod:
