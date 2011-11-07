@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="other-shakespeare">
- <title>Other Shakespeare</title>
- <conbody>
-  <p>In addition to HTML, CSS and Javascript helpers, there is also some more general-purpose
-   Shakespeare available. <apiname>shakespeare-text</apiname> provides a simple way to create
+ <title id="x-1">Other Shakespeare</title>
+ <conbody id="x-2">
+  <p id="x-3">In addition to HTML, CSS and Javascript helpers, there is also some more general-purpose
+   Shakespeare available. <apiname id="x-4">shakespeare-text</apiname> provides a simple way to create
    interpolated strings, much like people are accustomed to in scripting languages like Ruby and
    Python. This package's utility is definitely not limited to Yesod.</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
+  <codeblock id="x-5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 import Text.Shakespeare.Text
 import qualified Data.Text.Lazy.IO as TLIO
 import Data.Text (Text)
@@ -25,14 +25,14 @@ items =
     ]
 
 main :: IO ()
-main = forM_ items $ \item -> TLIO.putStrLn
+main = forM_ items $ \item -&gt; TLIO.putStrLn
     [lt|You have #{show $ itemQty item} #{itemName item}.|]</codeblock>
-  <p>Some quick points about this simple example:</p>
+  <p id="x-6">Some quick points about this simple example:</p>
   <ul id="ul_dts_rzy_ae">
-   <li>Notice that we have three different textual datatypes involved (String, strict Text and lazy
+   <li id="x-7">Notice that we have three different textual datatypes involved (String, strict Text and lazy
     Text). They all play together well.</li>
-   <li>We use a quasiquoter named <codeph>lt</codeph>, which generates lazy text. There is also
-     <codeph>st</codeph>.</li>
+   <li id="x-8">We use a quasiquoter named <codeph id="x-9">lt</codeph>, which generates lazy text. There is also
+     <codeph id="x-10">st</codeph>.</li>
   </ul>
  </conbody>
 </concept>

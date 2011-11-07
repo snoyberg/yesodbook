@@ -29,8 +29,7 @@
    user a consistent experience.</p>
   <p id="x-15">As a small example, we'll create a new field type that is a password confirm field.
             This field has two text inputs- both with the same name attribute- and returns an error
-            message if the values don't match. Note that, unlike most fields, it does <i id="x-16"
-                >not</i> provide a value attribute on the input tags, as you don't want to send back
+            message if the values don't match. Note that, unlike most fields, it does <i id="x-16">not</i> provide a value attribute on the input tags, as you don't want to send back
             a user-entered password in your HTML <b id="x-17">ever</b>.</p>
   <codeblock id="x-18" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
              TemplateHaskell, MultiParamTypeClasses #-}

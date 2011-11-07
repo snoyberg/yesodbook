@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="synopsis">
- <title>Synopsis</title>
- <conbody>
-  <codeblock outputclass="messages">-- @messages/en.msg
+ <title id="x-1">Synopsis</title>
+ <conbody id="x-2">
+  <codeblock id="x-3" outputclass="messages">-- @messages/en.msg
 Hello: Hello
 EnterItemCount: I would like to buy: 
 Purchase: Purchase
 ItemCount count@Int: You have purchased #{showInt count} #{plural count "item" "items"}.
 SwitchLanguage: Switch language to: 
 Switch: Switch</codeblock>
-  <codeblock outputclass="messages">-- @messages/he.msg
+  <codeblock id="x-4" outputclass="messages">-- @messages/he.msg
 Hello: שלום
 EnterItemCount: אני רוצה לקנות: 
 Purchase: קנה
 ItemCount count: קנית #{showInt count} #{plural count "דבר" "דברים"}.
 SwitchLanguage: החלף שפה ל:
 Switch: החלף</codeblock>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, QuasiQuotes, TemplateHaskell, TypeFamilies,
+  <codeblock id="x-5" outputclass="haskell">{-# LANGUAGE OverloadedStrings, QuasiQuotes, TemplateHaskell, TypeFamilies,
     MultiParamTypeClasses #-}
 import Yesod
 
@@ -25,11 +25,11 @@ data I18N = I18N
 
 mkMessage "I18N" "messages" "en"
 
-plural :: Int -> String -> String -> String
+plural :: Int -&gt; String -&gt; String -&gt; String
 plural 1 x _ = x
 plural _ _ y = y
 
-showInt :: Int -> String
+showInt :: Int -&gt; String
 showInt = show
 
 instance Yesod I18N where
@@ -46,24 +46,24 @@ mkYesod "I18N" [parseRoutes|
 
 getRootR :: Handler RepHtml
 getRootR = defaultLayout [whamlet|
-&lt;h1>_{MsgHello}
-&lt;form action=@{BuyR}>
+&lt;h1&gt;_{MsgHello}
+&lt;form action=@{BuyR}&gt;
     _{MsgEnterItemCount}
-    &lt;input type=text name=count>
-    &lt;input type=submit value=_{MsgPurchase}>
-&lt;form action=@{LangR} method=post>
+    &lt;input type=text name=count&gt;
+    &lt;input type=submit value=_{MsgPurchase}&gt;
+&lt;form action=@{LangR} method=post&gt;
     _{MsgSwitchLanguage}
-    &lt;select name=lang>
-        &lt;option value=en>English
-        &lt;option value=he>Hebrew
-    &lt;input type=submit value=_{MsgSwitch}>
+    &lt;select name=lang&gt;
+        &lt;option value=en&gt;English
+        &lt;option value=he&gt;Hebrew
+    &lt;input type=submit value=_{MsgSwitch}&gt;
 |]
 
 getBuyR :: Handler RepHtml
 getBuyR = do
     count &lt;- runInputGet $ ireq intField "count"
     defaultLayout [whamlet|
-&lt;p>_{MsgItemCount count}
+&lt;p&gt;_{MsgItemCount count}
 |]
 
 postLangR :: Handler ()

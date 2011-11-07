@@ -25,19 +25,16 @@
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
         <topicref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
-        <topicref id="example-generalized-hamlet"
-            href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
+        <topicref id="example-generalized-hamlet" href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
         <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
-        <topicref id="example-internationalization"
-            href="yesod-web-framework-book/example-internationalization.dita"/>
-        <mapref id="example-json-service"
-            href="yesod-web-framework-book/example-json-service.ditamap"/>
+        <topicref id="example-internationalization" href="yesod-web-framework-book/example-internationalization.dita"/>
+        <mapref id="example-json-service" href="yesod-web-framework-book/example-json-service.ditamap"/>
         <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
     </topichead>
     <topichead id="appendices" navtitle="Appendices">
         <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap"/>
         <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
         <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
-        <mapref href="yesod-web-framework-book/xml-enumerator.ditamap"/>
+        <mapref id="x-14" href="yesod-web-framework-book/xml-enumerator.ditamap"/>
     </topichead>
 </map>

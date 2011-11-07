@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_jtl_d3d_d2">
- <title>Message files</title>
- <conbody>
-  <p>The simplest approach to creating translations is via <term>message files</term>. The setup is
+ <title id="x-1">Message files</title>
+ <conbody id="x-2">
+  <p id="x-3">The simplest approach to creating translations is via <term id="x-4">message files</term>. The setup is
    very simple: there is a single folder containing all of your translation files, with a single
    file for each language. Each file is named based on its language code, e.g.
-    <filepath>en.msg</filepath>. And each line in a file handles one phrase, which correlates to a
+    <filepath id="x-5">en.msg</filepath>. And each line in a file handles one phrase, which correlates to a
    single constructor in your message data type.</p>
-  <p>So firstly, a word about language codes. There are really two choices available: using a
+  <p id="x-6">So firstly, a word about language codes. There are really two choices available: using a
    two-letter language code, or a language-LOCALE code. For example, when I load up a page in my web
    browser, it sends two languages codes: en-US and en. What my browser is saying is "if you have
    American English, I like that the most. If you have English, I'll take that instead."</p>
-  <p>So which format should you use in your application? Most likely two-letter codes, unless you
+  <p id="x-7">So which format should you use in your application? Most likely two-letter codes, unless you
    are actually creating separate translations by locale. This ensures that someone asking for
    Canadian English will still see your English.</p>
-  <p>Now what about these message files? The syntax should be very familiar after your work with
+  <p id="x-8">Now what about these message files? The syntax should be very familiar after your work with
    Hamlet and Persistent. The line starts off with the name of the message. Since this is a data
    constructor, it must start with a capital letter. Next, you can have individual parameters, which
    must be given as lower case. (You can also omit the parameters entirely if you want a simple
    message.) These will be arguments to the data constructor.</p>
-  <p>The argument list is terminated by a colon, and then followed by the translated string, which
-   allows usage of our typical variable interpolation syntax <codeph>#{myVar}</codeph>. By referring
+  <p id="x-9">The argument list is terminated by a colon, and then followed by the translated string, which
+   allows usage of our typical variable interpolation syntax <codeph id="x-10">#{myVar}</codeph>. By referring
    to the parameters defined before the colon, and using translation helper functions to deal with
    issues like pluralization, you can create all the translated messages you need.</p>
  </conbody>

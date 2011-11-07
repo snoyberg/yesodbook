@@ -2,15 +2,14 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="map-internationalization">
     <title id="x-1">Internationalization</title>
-    <topicref id="internationalization" chunk="to-content"
-        href="../yesod-web-framework-book/internationalization/internationalization.dita">
-        <topicref href="internationalization/synopsis.dita"/>
-        <topicref href="internationalization/overview.dita"/>
-        <topicref href="internationalization/message-files.dita">
-            <topicref href="internationalization/message-types.dita"/>
+    <topicref id="internationalization" chunk="to-content" href="../yesod-web-framework-book/internationalization/internationalization.dita">
+        <topicref id="x-2" href="internationalization/synopsis.dita"/>
+        <topicref id="x-3" href="internationalization/overview.dita"/>
+        <topicref id="x-4" href="internationalization/message-files.dita">
+            <topicref id="x-5" href="internationalization/message-types.dita"/>
         </topicref>
-        <topicref href="internationalization/typeclass.dita"/>
-        <topicref href="internationalization/interpolation.dita"/>
-        <topicref href="internationalization/phrases-not-words.dita"/>
+        <topicref id="x-6" href="internationalization/typeclass.dita"/>
+        <topicref id="x-7" href="internationalization/interpolation.dita"/>
+        <topicref id="x-8" href="internationalization/phrases-not-words.dita"/>
     </topicref>
 </map>

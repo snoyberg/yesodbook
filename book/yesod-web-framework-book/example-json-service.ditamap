@@ -2,8 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="example-json-service">
     <title id="x-1">Example: JSON Web Service</title>
-    <topicref id="json-web-service" chunk="to-content"
-        href="../yesod-web-framework-book/example-json-service/json-web-service.dita">
+    <topicref id="json-web-service" chunk="to-content" href="../yesod-web-framework-book/example-json-service/json-web-service.dita">
         <topicref id="server" href="../yesod-web-framework-book/example-json-service/server.dita"/>
         <topicref id="client" href="../yesod-web-framework-book/example-json-service/client.dita"/>
     </topicref>

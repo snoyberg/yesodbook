@@ -69,8 +69,7 @@ getRootR = do
 
 main :: IO ()
 main = warpDebug 3000 Monadic</codeblock>
-        <p id="x-8">Similar to the applicative <codeph id="x-9">areq</codeph>, we use <codeph
-                id="x-10">mreq</codeph> for monadic forms. (And yes, there's also mopt for optional
+        <p id="x-8">Similar to the applicative <codeph id="x-9">areq</codeph>, we use <codeph id="x-10">mreq</codeph> for monadic forms. (And yes, there's also mopt for optional
             fields.) But there's a big difference: mreq gives us back a pair of values. Instead of
             hiding away the <apiname id="x-11">yesod-form:Yesod.Form.Types:FieldView</apiname> value
             and automatically inserting it into a widget, we get the control to insert it as we see
