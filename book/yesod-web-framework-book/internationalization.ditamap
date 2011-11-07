@@ -6,5 +6,11 @@
         href="../yesod-web-framework-book/internationalization/internationalization.dita">
         <topicref href="internationalization/synopsis.dita"/>
         <topicref href="internationalization/overview.dita"/>
+        <topicref href="internationalization/message-files.dita">
+            <topicref href="internationalization/message-types.dita"/>
+        </topicref>
+        <topicref href="internationalization/typeclass.dita"/>
+        <topicref href="internationalization/interpolation.dita"/>
+        <topicref href="internationalization/phrases-not-words.dita"/>
     </topicref>
 </map>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="internationalization"><title id="x-1">Internationalization (incomplete)</title><conbody id="x-2">
+<concept id="internationalization"><title id="x-1">Internationalization</title><conbody id="x-2">
         <p id="x-3">Users expect our software to speak their language. Unfortunately for us, there
             will likely be more than one language involved. While doing simple string replacement
             isn't too involved, correctly dealing with all the grammar issues can be tricky. After

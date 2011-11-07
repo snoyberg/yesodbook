@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_zkq_kjd_d2">
+ <title>Specifying types</title>
+ <conbody>
+  <p>Since we will be creating a datatype out of our message specifications, each parameter to a
+   data constructor must be given a data type. We use a simple @-syntax for this. For example, to
+   create the datatype <codeph>data MyMessage = MsgHello | MsgSayAge Int</codeph>, we would
+   write:</p>
+  <codeblock outputclass="messages">Hello: Hi there!
+SayAge age@Int: Your age is: #{show age}</codeblock>
+  <p>But there are two problems with this:</p>
+  <ol id="ol_cvd_tjd_d2">
+   <li>It's not very DRY (don't repeat yourself) to have to specify this datatype in every
+    file.</li>
+   <li>Translators will be very confused having to specify these datatypes.</li>
+  </ol>
+  <p>So instead, the type specification is only required in the main language file. This is
+   specified as the third argument in the <codeph>mkMessage</codeph> function. This also specifies
+   what will be the backup language, to be used when none of the languages provided by your
+   application match the user's language list.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_srz_1mc_22">
+ <title>RenderMessage typeclass</title>
+ <conbody>
+  <p>Your call to <codeph>mkMessage</codeph> creates an instance of the RenderMessage typeclass,
+   which is the core of Yesod's i18n. It is defined as:</p>
+  <codeblock>class RenderMessage master message where
+    renderMessage :: master
+                  -> [Text] -- ^ languages
+                  -> message
+                  -> Text </codeblock>
+  <p>Notice that there are two parameters to the RenderMessage class: the master site and the
+   message type. In theory, we could skip the master type here, but that would mean that every site
+   would need to have the same set of translations for each message type. When it comes to shared
+   libraries like forms, that would not be a workable solution.</p>
+  <p>So as with mostmethods within a typeclass, the renderMessage function takes a parameter for
+   each of the classes type parameters: master and message. The extra parameter is a list of
+   languages the user will accept, in descending order of priority. The method then returns a
+   user-ready Text that can be displayed.</p>
+  <p>A simple instance of RenderMessage may involve no actual translation of strings; instead, it
+   will just display the same value for every language. For example:</p>
+  <codeblock outputclass="haskell">data MyMessage = Hello | Greet Text
+instance RenderMessage MyApp MyMessage where
+    renderMessage _ _ Hello = "Hello"
+    renderMessage _ _ (Greet name) = "Welcome, " &lt;> name &lt;> "!"</codeblock>
+  <p>Notice how we ignore the first two parameters to renderMessage. We can now easily extend this
+   to support multiple languages:</p>
+  <codeblock outputclass="haskell">renderEn Hello = "Hello"
+renderEn (Greet name) = "Welcome, " &lt;> name &lt;> "!"
+renderHe Hello = "שלום"
+renderHe (Greet name) = "ברוכים הבאים, " &lt;> name &lt;> "!"
+instance RenderMessage MyApp MyMessage where
+    renderMessage _ ("en":_) = renderEn
+    renderMessage _ ("he":_) = renderHe
+    renderMessage master (_:langs) = renderMessage master langs
+    renderMessage _ [] = renderEn</codeblock>
+  <p>The idea here is fairly straight-forward: we define helper functions to support each language.
+   We then add a clause to catch each of those languages in the renderMessage definition. We then
+   have two final cases: if no languages matched, continue checking with the next language in the
+   user's priority list. If we've exhausted all languages the user specified, then use the default
+   language (in our case, English).</p>
+  <p>But odds are that you will never need to worry about writing this stuff manually, as the
+   message file interface does all this for you. But it's always a good idea to have an
+   understanding of what's going on under the surface.</p>
+ </conbody>
+</concept>
