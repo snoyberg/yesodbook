@@ -9,7 +9,7 @@
             process user input, perform database queries and create responses. In our simple
             example, we create a response using the <codeph id="x-6">defaultLayout</codeph> function. This
             function wraps up the content it's given in your site's template. By default, it
-            produces a simple HTML file including a doctype, html, head and body tags. <xref id="x1" href="../../yesod-web-framework-book/yesod-typeclass/yesod-typeclass.dita">As we'll
+            produces a simple HTML file including a doctype, html, head and body tags. <xref id="x1" href="../yesod-typeclass/yesod-typeclass.dita">As we'll
                 see later</xref>, this function can be overridden to do much more.</p><p id="handler2">In our example, we pass <codeph id="x2">[whamlet|Hello World!|]</codeph> to
                 <codeph id="x-7">defaultLayout</codeph>. <codeph id="x-8">whamlet</codeph> is another quasi-quoter. In
             this case, it converts Hamlet syntax into a Widget. Hamlet is the default HTML

@@ -17,5 +17,5 @@ toPieces "/foo/bar/baz/" = ["foo", "bar", "baz", ""]</codeblock><p id="pieces2">
                 intercalating the slashes and escaping problematic
                 characters.</p><p id="pieces4">If, by the way, you want more fine-tuned control of how paths
                 are split into pieces and joined together again, you'll want to
-                look at the cleanPath and joinPath methods in the <xref id="x4" href="../../yesod-web-framework-book/yesod-typeclass/joinpath.dita">Yesod
+                look at the cleanPath and joinPath methods in the <xref id="x4" href="../yesod-typeclass/joinpath.dita">Yesod
                     typeclass</xref> chapter.</p></conbody></concept>

@@ -20,7 +20,7 @@ main = warpDebug 3000 Simple
                 <codeph id="x-3">Handler</codeph>. Handler is a special monad that all handler functions live
             in. It provides access to request information, let's you send redirects, and lots of
             other stuff we'll <xref id="x-4" href="the-ghandler-monad.dita#the-ghandler-monad" format="dita">get to soon</xref>.</p>
-        <p id="x-5">Next we have <codeph id="x-6">RepHtml</codeph>. When we <xref id="x-7" href="../../yesod-web-framework-book/restful-content/representations.dita">discuss
+        <p id="x-5">Next we have <codeph id="x-6">RepHtml</codeph>. When we <xref id="x-7" href="../restful-content/representations.dita">discuss
                 representations</xref> we will explore the <i id="x-8">why</i> of things more; for now, we
             are just interested in the <i id="x-9">how</i>.</p>
         <p id="x-10">As you might guess, RepHtml is a datatype for HTML responses. But as you also may guess,

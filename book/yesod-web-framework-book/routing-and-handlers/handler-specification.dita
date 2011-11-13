@@ -11,7 +11,7 @@
                  need to define the three handler functions
                  <codeph id="x9">getPersonR</codeph>, <codeph id="x10">postPersonR</codeph> and
                  <codeph id="x11">deletePersonR</codeph>.</p><p id="rn10">Subsites are a very useful— but complicated— topic in Yesod. We
-                 will <xref id="x12" href="../../yesod-web-framework-book/creating-a-subsite/creating-a-subsite.dita">cover writing subsites
+                 will <xref id="x12" href="../creating-a-subsite/creating-a-subsite.dita">cover writing subsites
                      later</xref>, but using them is not too difficult. The
                  most commonly used subsite is the static subsite, which serves
                  static files for your application. In order to serve static
@@ -25,4 +25,4 @@
                      foundation datatype</term>, and <codeph id="x19">getStatic</codeph> is
                  a function that gets a <codeph id="x20">Static</codeph> value from a value
                  of your main application's foundation datatype.</p><p id="rn13">Let's not get too caught up in the details of subsites now. We
-                 will look more closely at the static subsite in the <xref id="x21" href="../../yesod-web-framework-book/scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita">scaffolded site chapter</xref>.</p></conbody></concept>
+                 will look more closely at the static subsite in the <xref id="x21" href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita">scaffolded site chapter</xref>.</p></conbody></concept>

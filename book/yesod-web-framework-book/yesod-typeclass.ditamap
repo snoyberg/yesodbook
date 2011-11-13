@@ -2,19 +2,19 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="yesod-typeclass">
     <title id="x-1">Yesod Typeclass</title>
-    <topicref id="typeclass" chunk="to-content" href="../yesod-web-framework-book/yesod-typeclass/yesod-typeclass.dita">
-        <topicref id="rendering-and-parsing-urls" href="../yesod-web-framework-book/yesod-typeclass/rendering-and-parsing-urls.dita">
-            <topicref id="joinpath" href="../yesod-web-framework-book/yesod-typeclass/joinpath.dita"/>
-            <topicref id="cleanpath" href="../yesod-web-framework-book/yesod-typeclass/cleanpath.dita"/>
+    <topicref id="typeclass" chunk="to-content" href="yesod-typeclass/yesod-typeclass.dita">
+        <topicref id="rendering-and-parsing-urls" href="yesod-typeclass/rendering-and-parsing-urls.dita">
+            <topicref id="joinpath" href="yesod-typeclass/joinpath.dita"/>
+            <topicref id="cleanpath" href="yesod-typeclass/cleanpath.dita"/>
         </topicref>
-        <topicref id="defaultlayout" href="../yesod-web-framework-book/yesod-typeclass/defaultlayout.dita">
-            <topicref id="getmessage" href="../yesod-web-framework-book/yesod-typeclass/getmessage.dita"/>
+        <topicref id="defaultlayout" href="yesod-typeclass/defaultlayout.dita">
+            <topicref id="getmessage" href="yesod-typeclass/getmessage.dita"/>
         </topicref>
-        <topicref id="custom-error-pages" href="../yesod-web-framework-book/yesod-typeclass/custom-error-pages.dita"/>
-        <topicref id="external-css-js" href="../yesod-web-framework-book/yesod-typeclass/external-css-js.dita"/>
-        <topicref id="smarter-static-files" href="../yesod-web-framework-book/yesod-typeclass/smarter-static-files.dita"/>
-        <topicref id="auth" href="../yesod-web-framework-book/yesod-typeclass/auth.dita"/>
-        <topicref id="some-simple-settings" href="../yesod-web-framework-book/yesod-typeclass/some-simple-settings.dita"/>
-        <topicref id="summary" href="../yesod-web-framework-book/yesod-typeclass/summary.dita"/>
+        <topicref id="custom-error-pages" href="yesod-typeclass/custom-error-pages.dita"/>
+        <topicref id="external-css-js" href="yesod-typeclass/external-css-js.dita"/>
+        <topicref id="smarter-static-files" href="yesod-typeclass/smarter-static-files.dita"/>
+        <topicref id="auth" href="yesod-typeclass/auth.dita"/>
+        <topicref id="some-simple-settings" href="yesod-typeclass/some-simple-settings.dita"/>
+        <topicref id="summary" href="yesod-typeclass/summary.dita"/>
     </topicref>
 </map>

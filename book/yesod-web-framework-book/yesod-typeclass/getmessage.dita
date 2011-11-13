@@ -31,4 +31,4 @@ instance Yesod Layout where
 getRootR = defaultLayout [whamlet|&lt;a href="@{MsgR}"&gt;message|]
 getMsgR = setMessage "foo" &gt;&gt; redirect RedirectTemporary RootR &gt;&gt; return ()
 main = warpDebug 4000 Layout
-</codeblock><p id="gm3">We'll cover getMessage/setMessage in more detail when we <xref id="x2" href="../../yesod-web-framework-book/sessions/sessions.dita">discuss sessions</xref>.</p></conbody></concept>
+</codeblock><p id="gm3">We'll cover getMessage/setMessage in more detail when we <xref id="x2" href="../sessions/sessions.dita">discuss sessions</xref>.</p></conbody></concept>
