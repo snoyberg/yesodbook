@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="authentication-and-authorization-map"><title id="x-1">Authentication and Authorization</title><topicref id="authentication-and-authorization" chunk="to-content" href="../yesod-web-framework-book/authentication-and-authorization/authentication-and-authorization.dita"/></map>
+<map id="authentication-and-authorization-map">
+    <title id="x-1">Authentication and Authorization</title>
+    <topicref id="authentication-and-authorization" chunk="to-content"
+        href="../yesod-web-framework-book/authentication-and-authorization/authentication-and-authorization.dita"
+    >
+        <topicref href="authentication-and-authorization/high-level-overview.dita"/>
+    </topicref>
+</map>

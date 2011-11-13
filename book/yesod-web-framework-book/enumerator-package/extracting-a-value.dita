@@ -12,7 +12,13 @@ extract (Iteratee mstep) = do
                 Yield b _ -&gt; return $ Right b
                 Error e -&gt; return $ Left e
         Yield b _ -&gt; return $ Right b
-        Error e -&gt; return $ Left e</codeblock><p id="extract4">Fortunately, you don't need to redefine this yourself: enumerator includes both a <xref id="x5" href="book/book/book/appendices/enumerator/enumerators/http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run" scope="external" format="html">run</xref> and <xref id="x6" href="book/book/book/appendices/enumerator/enumerators/http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run_" scope="external" format="html">run_</xref> function. Let's go ahead and use it on our sum6 function:</p><codeblock outputclass="haskell" id="x7">run_ = return
+        Error e -&gt; return $ Left e</codeblock><p id="extract4">Fortunately, you don't need to redefine this yourself: enumerator includes both a
+                <xref id="x5"
+                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run"
+                scope="external" format="html">run</xref> and <xref id="x6"
+                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run_"
+                scope="external" format="html">run_</xref> function. Let's go ahead and use it on
+            our sum6 function:</p><codeblock outputclass="haskell" id="x7">run_ = return
 sum6 = 5 :: Int
 -- START
 main = run_ sum6 &gt;&gt;= print</codeblock><p id="extract5">If you run this, the result will be 0. This emphasizes an important point: an iteratee is not just <i id="x8">how</i> to process incoming data, <b id="x9">it is the state of the processing</b>. In this case, we haven't done anything to change the initial state of sum6, so we still have the initial value of 0.</p><p id="extract6">To give an analogy: think of an iteratee as a machine. When you feed it data, you modify the internal state but you can't see any of those changes on the outside. When you are done feeding the data, you press a button and it spits out the result. If you don't feed in any data, your result is the initial state.</p></conbody></concept>

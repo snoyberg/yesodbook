@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization (incomplete)</title><conbody id="x-2"><p id="outline">This chapter is just an outline. It will contain the sections:</p><ul id="x1"><li id="x2">Authentication</li><li id="x3">Authorization</li><li id="x4">Auth stuff (isAuthorized, isWriteRequest, authRoute)</li></ul><note id="x5">Logout does not invalidate session.</note></conbody></concept>
+<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization (incomplete)</title><conbody id="x-2">
+        <p>Authentication and authorization are two very related, and yet separate, concepts. While
+            the former deals with identifying a user, the latter determines what a user is allowed
+            to do. Unfortunately, since both terms are often abbreviated as "auth," the concepts are
+            often conflated.</p>
+        <p>Yesod provides built-in support for a number of third-party authentication systems, such
+            as OpenID, BrowserID and OAuth. These are systems where your application trusts some
+            external system for validating a user's credentials. Additionally, there is support for
+            more commonly used username/password and email/password systems. The former route
+            ensures simplicity for users (no new passwords to remember) and implementors (no need to
+            deal with an entire security architecture), while the latter gives the developer more
+            control.</p>
+        <p>On the authorization side, we are able to take advantage of REST and type-safe URLs to
+            create simple, declarative systems. Since all authorization code is written in Haskell,
+            you have the full flexibility of the language at your disposal.</p>
+        <p>This chapter will cover how to set up an "auth" solution in Yesod and discuss some
+            trade-offs in the different authentication options.</p><p id="outline">This chapter is just an outline. It will contain the sections:</p><ul id="x1"><li id="x2">Authentication</li><li id="x3">Authorization</li><li id="x4">Auth stuff (isAuthorized, isWriteRequest, authRoute)</li></ul><note id="x5">Logout does not invalidate session.</note></conbody></concept>
