@@ -41,9 +41,10 @@ renderMyRoute Time = "http://example.com/display/time"</codeblock></p>
    create your render functions. The one thing to point out is that the type signature is actually a
    little more complicated to handle query
    strings:<codeblock outputclass="haskell" id="x19">type Query = [(Text, Text)]
-type Render url :: url -&gt; Query -&gt; Text
+type Render url = url -&gt; Query -&gt; Text
 renderMyRoute :: Render MyRoute
-renderMyRoute Home _ = ...</codeblock></p>
+renderMyRoute Home _ = ...
+renderMyRoute Time _ = ...</codeblock></p>
   <p id="x20">OK, we have our render function, and we have type-safe URLs embedded in the templates. How does
    this fit together exactly? Well, instead of generating an Html (or Css or Javascript) value
    directly, Shakespearean templates actually produce a function, that takes this render function
