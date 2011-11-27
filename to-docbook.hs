@@ -159,7 +159,7 @@ toChapters :: Int -> Node -> Node
 toChapters 0 (NodeElement (Element "section" a b)) =
     (NodeElement (Element "part" a $ map (toChapters 1) $ filter noPara b))
 toChapters 1 (NodeElement (Element "section" a b)) =
-    (NodeElement (Element "chapter" a $ filter noPara b))
+    (NodeElement (Element "chapter" a b))
 toChapters i (NodeElement (Element a b c)) = NodeElement $ Element a b $ map (toChapters i) c
 toChapters _ n = n
 
