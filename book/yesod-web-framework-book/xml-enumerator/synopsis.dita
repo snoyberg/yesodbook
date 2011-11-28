@@ -41,9 +41,9 @@ transform (Element _name attrs children) = Element "html" [] [xml|
             \#{title}
         $nothing
             Untitled Document
-    &lt;body&gt;
-        $forall child &lt;- children
-            ^{goNode child}
+&lt;body&gt;
+    $forall child &lt;- children
+        ^{goNode child}
 |]
 
 goNode :: Node -&gt; [Node]
@@ -77,21 +77,21 @@ goElem (Element name attrs children) =
         &lt;title&gt;
             My Title
         &lt;/title&gt;
-        &lt;body&gt;
-            &lt;p&gt;
-                This is a paragraph. It has 
-                &lt;i&gt;
-                    emphasized
-                &lt;/i&gt;
-                and 
-                &lt;b&gt;
-                    strong
-                &lt;/b&gt;
-                words.
-            &lt;/p&gt;
-            &lt;img src="myimage.png"/&gt;
-        &lt;/body&gt;
-    &lt;/head&gt;
+    &lt;/head>
+    &lt;body&gt;
+        &lt;p&gt;
+            This is a paragraph. It has 
+            &lt;i&gt;
+                emphasized
+            &lt;/i&gt;
+            and 
+            &lt;b&gt;
+                strong
+            &lt;/b&gt;
+            words.
+        &lt;/p&gt;
+        &lt;img src="myimage.png"/&gt;
+    &lt;/body&gt;
 &lt;/html&gt;</codeblock>
   </fig>
  </conbody>
