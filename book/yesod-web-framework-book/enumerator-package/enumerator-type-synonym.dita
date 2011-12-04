@@ -13,14 +13,6 @@ applyEnum enum iter = Iteratee $ do
     runIteratee $ enum step</codeblock><p id="ets6">Let me repeat the intuition here: the Enumerator is transforming the Iteratee from its initial state to a new state by feeding it more data. In order to use this function, we could write:</p><codeblock outputclass="haskell" id="x6">run_ (applyEnum sum10 sum6) &gt;&gt;= print</codeblock><p id="ets7">This results in 55, exactly as we'd expect. But now we can see one of the benefits of enumerators: we can use multiple data sources. Let's say we have another enumerator:</p><codeblock outputclass="haskell" id="x7">sum11 :: Monad m =&gt; Enumerator Int m Int
 sum11 (Continue k) = k $ Chunks [11..20]
 sum11 step = returnI step</codeblock><p id="ets8">Then we could simply apply both enumerators:</p><codeblock outputclass="haskell" id="x8">run_ (applyEnum sum11 $ applyEnum sum10 sum6) &gt;&gt;= print</codeblock><p id="ets9">And we would get the result 210. (Yes, (1 + 20) * 10 = 210.) But don't worry, you don't
-            need to write this applyEnum function yourself: enumerator provides a <xref id="x9"
-                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-36--36-"
-                scope="external" format="html">$$</xref> operator which does the same thing. Its
+            need to write this applyEnum function yourself: enumerator provides a <xref id="x9" href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-36--36-" scope="external" format="html">$$</xref> operator which does the same thing. Its
             type signature is a bit scarier, since it's a generalization of applyEnum, but it works
-            the same, and even makes code more readable:</p><codeblock outputclass="haskell" id="x10">run_ (sum11 $$ sum10 $$ sum6) &gt;&gt;= print</codeblock><p id="ets10"><codeph id="x11">$$</codeph> is a synonym for <xref id="x12"
-                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-61--61--60--60-"
-                scope="external" format="html">==&lt;&lt;</xref>, which is simply flip <xref
-                id="x13"
-                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-62--62--61--61-"
-                scope="external" format="html">&gt;&gt;==</xref>. I find <codeph id="x14"
-                >$$</codeph> the most readable, but YMMV (YMMV).</p></conbody></concept>
+            the same, and even makes code more readable:</p><codeblock outputclass="haskell" id="x10">run_ (sum11 $$ sum10 $$ sum6) &gt;&gt;= print</codeblock><p id="ets10"><codeph id="x11">$$</codeph> is a synonym for <xref id="x12" href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-61--61--60--60-" scope="external" format="html">==&lt;&lt;</xref>, which is simply flip <xref id="x13" href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:-62--62--61--61-" scope="external" format="html">&gt;&gt;==</xref>. I find <codeph id="x14">$$</codeph> the most readable, but YMMV (YMMV).</p></conbody></concept>

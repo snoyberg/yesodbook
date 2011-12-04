@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="basics-map"><title id="x-1">Basics</title><topicref id="basics" chunk="to-content" href="basics/basics.dita"><topicref id="getting-yesod" href="basics/getting-yesod.dita"/><topicref id="library-versus-framework" href="basics/library-versus-framework.dita"/><topicref id="hello-world" href="basics/hello-world.dita"/><topicref id="routing" href="basics/routing.dita"/><topicref id="handler-function" href="basics/handler-function.dita"/><topicref id="the-foundation" href="basics/the-foundation.dita"/><topicref id="running" href="basics/running.dita"/><topicref id="resources-and-type-safe-urls" href="basics/resources-and-type-safe-urls.dita"/><topicref id="development-server" href="basics/development-server.dita"/><topicref id="summary" href="basics/summary.dita"/></topicref></map>
+<map id="basics-map">
+    <title id="x-1">Basics</title>
+    <topicref id="basics" chunk="to-content" href="basics/basics.dita">
+        <topicref id="getting-yesod" href="basics/getting-yesod.dita"/>
+        <topicref id="scaffolded-site" href="basics/scaffolded-site.dita"/>
+        <topicref id="library-versus-framework" href="basics/library-versus-framework.dita"/>
+        <topicref id="hello-world" href="basics/hello-world.dita"/>
+        <topicref id="routing" href="basics/routing.dita"/>
+        <topicref id="handler-function" href="basics/handler-function.dita"/>
+        <topicref id="the-foundation" href="basics/the-foundation.dita"/>
+        <topicref id="running" href="basics/running.dita"/>
+        <topicref id="resources-and-type-safe-urls" href="basics/resources-and-type-safe-urls.dita"/>
+        <topicref id="development-server" href="basics/development-server.dita"/>
+        <topicref id="summary" href="basics/summary.dita"/>
+    </topicref>
+</map>

@@ -13,11 +13,7 @@ extract (Iteratee mstep) = do
                 Error e -&gt; return $ Left e
         Yield b _ -&gt; return $ Right b
         Error e -&gt; return $ Left e</codeblock><p id="extract4">Fortunately, you don't need to redefine this yourself: enumerator includes both a
-                <xref id="x5"
-                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run"
-                scope="external" format="html">run</xref> and <xref id="x6"
-                href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run_"
-                scope="external" format="html">run_</xref> function. Let's go ahead and use it on
+                <xref id="x5" href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run" scope="external" format="html">run</xref> and <xref id="x6" href="http://hackage.haskell.org/packages/archive/enumerator/0.4.0.2/doc/html/Data-Enumerator.html#v:run_" scope="external" format="html">run_</xref> function. Let's go ahead and use it on
             our sum6 function:</p><codeblock outputclass="haskell" id="x7">run_ = return
 sum6 = 5 :: Int
 -- START

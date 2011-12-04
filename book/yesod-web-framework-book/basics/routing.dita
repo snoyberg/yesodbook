@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="routing"><title id="x-1">Routing</title><conbody id="x-2"><p id="routing1">Like most modern web frameworks, Yesod follows a <xref id="x1" href="http://en.wikipedia.org/wiki/Front_Controller_pattern" scope="external" format="html">front controller pattern</xref>. This means that every request to a Yesod application enters at the same point and is routed from there. As a contrast, in systems like PHP and ASP you often times create a number of different files, and the web server automatically directs requests to the relevant file.</p>
+<concept id="routing"><title id="x-1">Routing</title><conbody id="x-2"><p id="routing1">Like most modern web frameworks, Yesod follows a <xref id="x1" href="http://en.wikipedia.org/wiki/Front_Controller_pattern" scope="external" format="html">front controller pattern</xref>. This means that every request to a
+            Yesod application enters at the same point and is routed from there. As a contrast, in
+            systems like PHP and ASP you usually create a number of different files, and the web
+            server automatically directs requests to the relevant file.</p>
         <p id="x-3">In addition, Yesod uses a declarative style for specifying routes. In our example above,
             this looked like:</p>
         <codeblock id="x-4" outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
@@ -12,8 +15,8 @@
                 <term id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9">The R suffix
                 on resource names is simply convention, but it's a fairly universally followed
                 convention. It makes it just a bit easier to read and understand code.</note></p>
-        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system. Most
-            of them, however, are <i id="x-11">not</i> declarative. Let's take a quick example from
+        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system.
+            Let's take a quick example from
                 Django:<!--FIXME Django really is declarative, this isn't correct. I think I narrowed down four advantages for yesod:
 
 the advantages for yesod i see are: more efficient parsing, can catch mistakes like
@@ -24,12 +27,11 @@ the advantages for yesod i see are: more efficient parsing, can catch mistakes l
     (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
     (r'^articles/(\d{4})/(\d{2})/(\d+)/$', 'news.views.article_detail'),
 )</codeblock><cite id="x-14">https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These routes are
-            specified via a regular expression. This is mostly declarative, but the fact is that
-            routes are really being resolved by running some extra code. This has some practical
-            ramifications. Firstly, there's no great ways to optimize the routing: the only way to
-            determine which route matches is to go through every single regular expression linearly.
-            Yesod's routes are broken down into individual pieces, and can thus be optimized for
-            routing.</p>
+            specified via a regular expression. While this is declarative, the routes are really
+            being resolved by running some extra code. This has some practical ramifications.
+            Firstly, there's no great ways to optimize the routing: the only way to determine which
+            route matches is to go through every single regular expression linearly. Yesod's routes
+            are broken down into individual pieces, and can thus be optimized for routing.</p>
         <p id="x-15">But the more important issue is overlapping. Yesod will stop you from accidently writing
             two routes that would match the same URL. This fits in with Yesod's overall philosophy
             of catching as many errors at possible at compile time.</p>
@@ -51,5 +53,6 @@ the advantages for yesod i see are: more efficient parsing, can catch mistakes l
             another. However, many developers prefer to keep their code and declarations separate.
             Yesod also lets you declare your routes in external files using <term id="x-23">Template
                 Haskell</term>:<codeblock id="x-24" outputclass="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
-        <p id="x-25">In general, we recommend for actual development to use external files. But for short
-            examples and tutorials, quasi-quotation is a great fit.</p></conbody></concept>
+        <p id="x-25">In general, we recommend for actual development to use external files. This is
+            the approach taken by the scaffolding tool, and most production Yesod code. But for
+            short examples and tutorials, quasi-quotation is a great fit.</p></conbody></concept>

@@ -77,7 +77,7 @@ goElem (Element name attrs children) =
         &lt;title&gt;
             My Title
         &lt;/title&gt;
-    &lt;/head>
+    &lt;/head&gt;
     &lt;body&gt;
         &lt;p&gt;
             This is a paragraph. It has 
