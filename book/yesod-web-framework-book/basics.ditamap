@@ -5,7 +5,6 @@
     <topicref id="basics" chunk="to-content" href="basics/basics.dita">
         <topicref id="getting-yesod" href="basics/getting-yesod.dita"/>
         <topicref id="scaffolded-site" href="basics/scaffolded-site.dita"/>
-        <topicref id="library-versus-framework" href="basics/library-versus-framework.dita"/>
         <topicref id="hello-world" href="basics/hello-world.dita"/>
         <topicref id="routing" href="basics/routing.dita"/>
         <topicref id="handler-function" href="basics/handler-function.dita"/>

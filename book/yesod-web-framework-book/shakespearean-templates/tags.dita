@@ -29,9 +29,12 @@
     <li id="x7">If the first non-space character in a line is a backslash, the backslash is ignored.</li>
     <li id="x8">If the last character in a line is a hash, it is ignored.</li>
    </ol></p>
-  <p id="x9">One other thing. Hamlet does <b id="x10">not</b> escape entities within its content. This is done on
-   purpose to allow existing HTML to be more easily copied in. So the example above could also be
-   written as:<codeblock outputclass="hamlet" id="x11">&lt;p&gt;Paragraph &lt;i&gt;italic&lt;/i&gt; end.</codeblock>Notice that the first
-   tag will be automatically closed by Hamlet, while the inner "i" tag will not. You are free to use
-   whichever approach you want, there is no penalty for either choice.</p>
+  <p id="x9">One other thing. Hamlet does <b id="x10">not</b> escape entities within its content.
+   This is done on purpose to allow existing HTML to be more easily copied in. So the example above
+   could also be written
+   as:<codeblock outputclass="hamlet" id="x11">&lt;p&gt;Paragraph &lt;i&gt;italic&lt;/i&gt; end.</codeblock>Notice
+   that the first tag will be automatically closed by Hamlet, while the inner "i" tag will not. You
+   are free to use whichever approach you want, there is no penalty for either choice. Be aware,
+   however, that the <b id="x-3">only</b> time you use closing tags in Hamlet is for such inline tags; normal
+   tags are not closed.</p>
  </conbody></concept>

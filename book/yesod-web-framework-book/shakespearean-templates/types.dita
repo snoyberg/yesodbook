@@ -9,11 +9,11 @@
    approach would be to use a Text value, and insert it verbatim. But that would give us quite a
    problem when <codeph id="x6">name="&lt;script src='http://nefarious.com/evil.js'&gt;&lt;/script&gt;"</codeph>.
    What we want is to be able to entity-encode the name, so that "&lt;" becomes "&amp;lt;".</p>
-  <p id="x7">An equally naive approach is to simply entity-encode <b id="x8">every</b> piece of text that gets
-   embedded. What happens when you have some preexisting HTML generated from another process? For
-   example, in this book, all Haskell code snippets are run through a colorizing that wraps up words
-   in appropriate <codeph id="x9">span</codeph> tags. If we entity escaped everything, code snippets would
-   be completely unreadable!</p>
+  <p id="x7">An equally naive approach is to simply entity-encode <b id="x8">every</b> piece of text
+   that gets embedded. What happens when you have some preexisting HTML generated from another
+   process? For example, in this book, all Haskell code snippets are run through a colorizing
+   function that wraps up words in appropriate <codeph id="x9">span</codeph> tags. If we entity
+   escaped everything, code snippets would be completely unreadable!</p>
   <p id="x10">Instead, we have an Html datatype. In order to generate an Html value, we have two options for
    APIs: the ToHtml typeclass provides a way to convert String and Text values into Html, via its
    toHtml function, automatically escaping entities along the way. This would be the approach we'd
@@ -25,12 +25,12 @@
    example, we might interpolate with something like <codeph id="x12">#{preEscapedText
     myHaskellHtml}</codeph>.</p>
   <note id="x13">The Html datatype, as well as the functions mentioned, are all provided by the
-    <apiname id="x14">blaze-html</apiname> package. This allows Hamlet to interact very nicely with all other
+    <apiname id="x14">blaze-html</apiname> package. This allows Hamlet to interact with all other
    blaze-html packages, and lets Hamlet provide a general solution for producing blaze-html values.
    Also, we get to take advantage of blaze-html's amazing performance.</note>
-  <p id="x15">Similarly, we have Css/ToCss, as well as Javascript/ToJavascript. In those cases, the goal is
-   not really security, as it is very uncommon to be interpolating user input to CSS and Javascript.
-   Instead, this just provides some nice compile-time guarantees that we haven't accidently stuck
+  <p id="x15">Similarly, we have Css/ToCss, as well as Javascript/ToJavascript. In those cases, the
+   goal is not really security, as it is very uncommon to be interpolating user input to CSS and
+   Javascript. Instead, it provides some compile-time sanity checks that we haven't accidently stuck
    some HTML in our CSS.</p>
   <note id="x16">One other advantage on the CSS side is some helper datatypes for colors and units. While this
    feature is not covered in this chapter, I encourage you to look at the API documentation and try
