@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="summary">
+ <title>Summary</title>
+ <conbody>
+  <p>The basic building block of each page is a widget. Individual snippets of HTML, CSS, and
+   Javascript can be turned into widgets via the polymorphic <codeph>toWidget</codeph> function.
+   Using do-notation, you can combine these individual widgets into larger widgets, eventually
+   containing all the content of your page.</p>
+  <p>Unwrapping these widgets is usually performed within the defaultLayout function, which can be
+   used to apply a unified look-and-feel to all your pages.</p>
+ </conbody>
+</concept>

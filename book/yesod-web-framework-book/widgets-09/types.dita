@@ -44,7 +44,7 @@ page = [whamlet|
 &lt;p&gt;This is my page. I hope you enjoyed it.
 ^{footer}
 |]</codeblock>
-  <p id="x11">And in case you were wondered: we have an almost identical breakdown for the Handler datatypes:
-   a less-used GGHandler, GHandler and finally a per-application Handler, defined as <codeph id="x12">type
-    Handler = GHandler MyCoolApp MyCoolApp</codeph>.</p>
+  <p id="x11">And in case you were wondering: we have an almost identical breakdown for the Handler
+   datatypes: a less-used GGHandler, GHandler and finally a per-application Handler, defined as
+    <codeph id="x12">type Handler = GHandler MyCoolApp MyCoolApp</codeph>.</p>
  </conbody></concept>

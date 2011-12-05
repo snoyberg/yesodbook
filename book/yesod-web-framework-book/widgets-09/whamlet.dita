@@ -28,5 +28,11 @@ footer = [hamlet|
 &lt;p&gt;This is my page. I hope you enjoyed it.
 ^{footer}
 |]</codeblock>
-  <p id="x7">There is also whamletFile, if you would prefer to keep your template in a separate file.</p>
+  <p id="x7">There is also whamletFile, if you would prefer to keep your template in a separate
+      file.</p>
+    <note>The scaffolded site has an even more convenient function, <codeph>widgetFile</codeph>,
+      which will also include your Lucius, Cassius, and Julius files automatically. We'll cover that
+      in the <xref
+        href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita#scaffolding-and-the-site-template"
+        format="dita">scaffolding chapter</xref>.</note>
  </conbody></concept>
