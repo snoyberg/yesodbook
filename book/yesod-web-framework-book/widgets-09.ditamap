@@ -12,6 +12,6 @@
             <topicref id="types" href="widgets-09/types.dita"/>
         </topicref>
         <topicref id="using-widgets" href="widgets-09/using-widgets.dita"/>
-        <topicref href="widgets-09/summary.dita"/>
+        <topicref id="x-2" href="widgets-09/summary.dita"/>
     </topicref>
 </map>

@@ -36,6 +36,5 @@ main = warpDebug 3000 W</codeblock>
    sitting on top of a Handler. newIdent is a function of a handler, so we need to "lift" the
    function from the Handler layer to the Widget layer to use it. We can actually use this same
    approach to perform complex actions, like database queries, from within a widget. We'll cover
-   that when we discuss <xref href="../yesods-monads/yesods-monads.dita#conceptId" format="dita"
-    >Yesod's monads</xref>.</note>
+   that when we discuss <xref id="x-3" href="../yesods-monads/yesods-monads.dita#conceptId" format="dita">Yesod's monads</xref>.</note>
  </conbody></concept>

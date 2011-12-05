@@ -2,8 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="using-widgets"><title id="x-1">Using Widgets</title><conbody id="x-2">  <p id="x1">It's all well and good that we have these beautiful Widget datatypes, but how exactly
             do we turn them into something the user can interact with? The most commonly used
-            function is defaultLayout, which essentially has the type signature <codeph id="x2"
-                >Widget -&gt; Handler RepHtml</codeph>. (I say "essentially" because of the whole
+            function is defaultLayout, which essentially has the type signature <codeph id="x2">Widget -&gt; Handler RepHtml</codeph>. (I say "essentially" because of the whole
             GHandler issue.) RepHtml is a datatype containing some raw HTML output ready to be sent
             over the wire.</p>
   <p id="x3">defaultLayout is actually a typeclass method, which can be overridden for each application.

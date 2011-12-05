@@ -30,9 +30,7 @@ footer = [hamlet|
 |]</codeblock>
   <p id="x7">There is also whamletFile, if you would prefer to keep your template in a separate
       file.</p>
-    <note>The scaffolded site has an even more convenient function, <codeph>widgetFile</codeph>,
+    <note id="x-3">The scaffolded site has an even more convenient function, <codeph id="x-4">widgetFile</codeph>,
       which will also include your Lucius, Cassius, and Julius files automatically. We'll cover that
-      in the <xref
-        href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita#scaffolding-and-the-site-template"
-        format="dita">scaffolding chapter</xref>.</note>
+      in the <xref id="x-5" href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita#scaffolding-and-the-site-template" format="dita">scaffolding chapter</xref>.</note>
  </conbody></concept>
