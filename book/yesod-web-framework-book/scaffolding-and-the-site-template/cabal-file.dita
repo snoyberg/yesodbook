@@ -9,7 +9,30 @@
    time, depending on the value of the <codeph>devel</codeph> flag. If <codeph>devel</codeph> is
    turned on, then the library is built, which is how <cmdname>yesod devel</cmdname> calls your app.
    Otherwise, the executable is built.</p>
-  <p>When doing development, the cabal file turns off all optimizations so that your code compiles
-   more quickly. For production builds</p>
+    <p>The <codeph>devel</codeph> flag should only be used by yesod devel; you should never be
+      explicitly passing it into cabal. There is an additional flag, <codeph>debug</codeph>, that
+      allows cabal to continue to building an executable, but turns on some of the same features as
+      the devel flag, i.e., no optimizations and debug versions of the Shakespearean template
+      functions.</p>
+  <p>In general, you will build as follows:</p>
+    <ul id="ul_4wr_4wg_42">
+      <li>When developing, use yesod devel exclusively.</li>
+      <li>When building a production build, perform <cmdname>cabal clean &amp;&amp; cabal configure
+          -fproduction &amp;&amp; cabal build</cmdname>. This will produce an optimized executable
+        in your dist folder.<note>The -fproduction flag is going away, but is still present in many
+          existing sites. Using it won't hurt if you have a newer site.</note></li>
+    </ul>
+    <p>You'll also notice that we specify all language extensions in the cabal file. Also notice
+      that the extensions are specified <i>twice</i>: once for the executable, and once for the
+      library. If you add any extensions to the list, add it to both places.</p>
+    <p>You might be surprised to see the <codeph>NoImplicitPrelude</codeph> extension. We turn this
+      on since the site includes its own module, <codeph>Import</codeph>, with a few changes to the
+      Prelude that make working with Yesod a little more convenient.</p>
+    <p>The last thing to note is the exported-modules list. If you add any modules to your
+      application, you <b>must</b> update this list to get yesod devel to work correctly.
+      Unfortunately, neither Cabal nor GHC will give you a warning if you forgot to make this
+      update, and instead you'll get a very scary-looking error message from yesod devel.<note>One
+        of our planned improvements to yesod devel is to check if there are any missing
+        modules.</note></p>
  </conbody>
 </concept>
