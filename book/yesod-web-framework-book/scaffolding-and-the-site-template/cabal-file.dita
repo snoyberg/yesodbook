@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Concept title</title>
- <shortdesc></shortdesc>
+ <title>Cabal file</title>
  <conbody>
-  <p>Concept definition.</p>
+  <p>Whether directly using <cmdname>cabal</cmdname>, or indirectly using <cmdname>yesod
+    devel</cmdname>, building your code will always go through the cabal file. If you open the file,
+   you'll see that there is both a library and an executable block. Only one of these is built at a
+   time, depending on the value of the <codeph>devel</codeph> flag. If <codeph>devel</codeph> is
+   turned on, then the library is built, which is how <cmdname>yesod devel</cmdname> calls your app.
+   Otherwise, the executable is built.</p>
+  <p>When doing development, the cabal file turns off all optimizations so that your code compiles
+   more quickly. For production builds</p>
  </conbody>
 </concept>
