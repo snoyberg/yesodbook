@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Routes and entities</title>
+ <conbody>
+  <p>Multiple times in this book, you've seen a comment like "We're declaring our routes/entities
+   with quasiquotes for convenience. In a production site, you should use an external file." The
+   scaffolding uses such an external file.</p>
+  <p>Routes are defined in <filepath>config/routes</filepath>, and entities in
+    <filepath>config/entities</filepath>. They have the exact same syntax as the quasiquoting you've
+   seen throughout the book, and yesod devel knows to automatically recompile the appropriate
+   modules when these files change.</p>
+  <p>The entities files is referenced by <codeph>Model.hs</codeph>. You are free to declare whatever
+   you like in this file, but here are some guidelines:</p>
+  <ul id="ul_gui_tyg_oe">
+   <li>Any data types used in entities <b>must</b> be imported/declared in Model.hs, above the
+     <codeph>persistFile</codeph> call.</li>
+   <li>Helper utilities should either be declared in <codeph>Import.hs</codeph> or, if very
+    model-centric, in a file within the <codeph>Model</codeph> folder and imported into
+    Import.hs.</li>
+  </ul>
+ </conbody>
+</concept>

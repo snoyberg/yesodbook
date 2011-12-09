@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template (incomplete)</title><conbody id="x-2">
+<concept id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template</title><conbody id="x-2">
         <p>So you're tired of running small examples, and ready to write a real site? Then you're at
             the right chapter. Even with the entire Yesod library at your fingertips, there are
             still a lot of steps you need to go through to get a production-quality site setup:</p>

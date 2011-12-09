@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE PatternGuards #-}
 import Prelude hiding (writeFile)
 import DITA.Parse
 import qualified DITA.Types as D
@@ -27,6 +28,7 @@ getSettings = do
         , dsGetFileId = Nothing
         , dsStrict = True
         , dsDitaval = def
+        , dsIsPrint = True
         }
 
 main :: IO ()

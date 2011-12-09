@@ -12,7 +12,9 @@
             <topicref href="scaffolding-and-the-site-template/import.dita"/>
             <topicref href="scaffolding-and-the-site-template/handlers.dita"/>
         </topicref>
-        <topicref href="scaffolding-and-the-site-template/static-files.dita"/>
         <topicref href="scaffolding-and-the-site-template/templates-widgetFile.dita"/>
+        <topicref href="scaffolding-and-the-site-template/default-layout.dita"/>
+        <topicref href="scaffolding-and-the-site-template/static-files.dita"/>
+        <topicref href="scaffolding-and-the-site-template/conclusion.dita"/>
     </topicref>
 </map>

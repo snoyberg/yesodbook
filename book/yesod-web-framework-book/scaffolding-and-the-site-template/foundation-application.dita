@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Foundation and Application modules</title>
+ <conbody>
+  <p>The <codeph>mkYesod</codeph> function which we have used throughout the book declares a few
+   things:</p>
+  <ul id="ul_ajc_dzg_oe">
+   <li>Route type</li>
+   <li>Route render function</li>
+   <li>Dispatch function</li>
+  </ul>
+  <p>The dispatch function refers to all of the handler functions, and therefore all of those must
+   either be defined in the same file as the dispatch function, or be imported by the dispatch
+   function.</p>
+  <p>Meanwhile, the handler functions will almost certainly refer to the route type. Therefore,
+    <i>they</i> must be either in the same file where the route type is defined, or must import that
+   file. If you follow the logic here, your entire application must essentially live in a single
+   file!</p>
+  <p>Clearly this isn't what we want. So instead of using <codeph>mkYesod</codeph>, the scaffolding
+   site uses a decomposed version of the function. <codeph>Foundation</codeph> calls
+    <codeph>mkYesodData</codeph>, which declares the route type and render function. Since it does
+   not declare the dispatch function, the handler functions need not be in scope.
+    <codeph>Import.hs</codeph> imports <codeph>Foundation.hs</codeph>, and all the handler modules
+   import <codeph>Import.hs</codeph>.</p>
+  <p>In <codeph>Application.hs</codeph>, we call <codeph>mkYesodDispatch</codeph>, which creates our
+   dispatch function. For this to work, all handler functions must be in scope, so be sure to add an
+   import statement for any new handler modules you create.</p>
+  <p>Other than than, Application.hs is pretty simple. It provides two functions: withDevelAppPort
+   is used by <cmdname>yesod devel</cmdname> to launch your app, and
+    <codeph>with&lt;YourAppName></codeph> is used by the executable to launch.</p>
+  <p>Foundation is much more exciting. It:</p>
+  <ul id="ul_ero_hah_oe">
+   <li>Declares your foundation datatype</li>
+   <li>Declares a number of instances, such as Yesod, YesodAuth, and YesodPersist</li>
+   <li>Imports the messages files. If you look for the line start with <codeph>mkMessage</codeph>,
+    you will see that it specifies the folder containing the messages
+    (<filepath>messages</filepath>) and the default language (en, for English).</li>
+  </ul>
+  <p>This is the right file for adding extra instances for your foundation, such as YesodAuthEmail
+   or YesodBreadcrumbs.</p>
+  <p>We'll be referring back to this file later, as we discussed some of the special implementations
+   of Yesod typeclass methods.</p>
+ </conbody>
+</concept>

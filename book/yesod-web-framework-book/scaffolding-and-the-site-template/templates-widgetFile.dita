@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>widgetFile</title>
+ <conbody>
+  <p>It's very common to want to include CSS and Javascript specific to a page. You don't want to
+   have to remember to include those Lucius and Julius files manually every time you refer to a
+   Hamlet file. For this, the site template provides the <codeph>widgetFile</codeph> function.</p>
+  <p>If you have a handler function:</p>
+  <codeblock>getRootR = defaultLayout $(widgetFile "homepage")</codeblock>
+  <p>, Yesod will look for the following files:</p>
+  <ul id="ul_vih_ddh_oe">
+   <li><filepath>templates/homepage.hamlet</filepath></li>
+   <li><filepath>templates/homepage.lucius</filepath></li>
+   <li><filepath>templates/homepage.cassius</filepath></li>
+   <li><filepath>templates/homepage.julius</filepath></li>
+  </ul>
+  <p>If any of those files are present, they will be automatically included in the output.</p>
+  <note>Due to the nature of how this works, if you launch your app with yesod devel, and then
+   create a new file (e.g., templates/homepage.julius), the contents will <i>not</i> be included
+   until the file calling widgetFile is recompiled. In such a case, you may need to force a save of
+   that file to get yesod devel to recompile.</note>
+ </conbody>
+</concept>

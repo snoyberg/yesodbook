@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Handler modules</title>
+ <conbody>
+  <p>Handler modules should go inside the Handler folder. The site template includes one:
+   Handler/Root.hs. How you split up your handler functions into individual modules is your
+   decision, but a good rule of thumb is:</p>
+  <ul id="ul_esf_zbh_oe">
+   <li>Different methods for the same route should go in the same file, e.g. getBlogR and
+    postBlogR.</li>
+   <li>Related routes can also usually go in the same file, e.g., getPeopleR and getPersonR.</li>
+  </ul>
+  <p>Of course, it's entirely up to you. When you add a new handler file, make sure you do the
+   following:</p>
+  <ul id="ul_qml_dch_oe">
+   <li>Add it to version control (you <i>are</i> using version control, right?).</li>
+   <li>Add it to the cabal file.</li>
+   <li>Add it to the Application.hs file.</li>
+   <li>Put a module statement at the top, and an <codeph>import Import</codeph> line below it.</li>
+  </ul>
+ </conbody>
+</concept>

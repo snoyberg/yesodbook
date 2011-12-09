@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Static files</title>
+ <conbody>
+  <p>The scaffolded site automatically embeds the static file subsite, optimized for serving files
+   that will not change over the lifetime of the current build. What this means is that:</p>
+  <ul id="ul_rui_odh_oe">
+   <li>When your static file identifiers are generated (e.g., "static/mylogo.png" becomes
+    mylogo_png), a query-string parameter is added to it with a hash of the contents of the file.
+    All of this happens at compile time.</li>
+   <li>When yesod-static serves your static files, it sets expiration headers far in the future, and
+    incldues an etag based on a hash of your content.</li>
+   <li>Whenever you embed a link to mylogo_png, the rendering includes the query-string parameter.
+    If you change the logo, recompile, and launch your new app, the query string will have changed,
+    causing users to ignore the cached copy and download a new version.</li>
+  </ul>
+  <p>Additionally, you can set a specific static root in your Settings file to serve from a
+   different domain name. This has the advantage of not requiring transmission of cookies for static
+   file requests, and also lets you offload static file hosting to a CDN or a service like Amazon
+   S3. See the comments in the file for more details.</p>
+  <p>Another optimization is that CSS and Javascript included in your widgets will not be included
+   inside your HTML. Instead, their contents will be written to an external file, and a link given.
+   This file will be named based on a hash of the contents as well, meaning:</p>
+  <ol id="ol_xmt_geh_oe">
+   <li>Caching works properly.</li>
+   <li>Yesod can avoid an expensive disk write of the CSS/Javascript file contents if a file with
+    the same hash already exists.</li>
+  </ol>
+  <p>Finally, all of your Javascript is automatically minified via <apiname>hjsmin</apiname>.</p>
+ </conbody>
+</concept>
