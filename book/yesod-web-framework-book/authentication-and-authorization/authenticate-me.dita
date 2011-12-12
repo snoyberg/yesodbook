@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_d1y_t2f_p2">
+ <title>Authenticate Me</title>
+ <conbody>
+  <p>Let's jump right in with an example of authentication.</p>
+  <codeblock>{-# LANGUAGE OverloadedStrings, TemplateHaskell, TypeFamilies,
+             MultiParamTypeClasses, QuasiQuotes #-}
+import Yesod
+import Yesod.Auth
+import Yesod.Auth.BrowserId
+import Yesod.Auth.GoogleEmail
+import Data.Text (Text)
+
+data MyAuthSite = MyAuthSite
+
+mkYesod "MyAuthSite" [parseRoutes|
+/ RootR GET
+/auth AuthR Auth getAuth
+|]
+
+instance Yesod MyAuthSite where
+    -- Note: In order to log in with BrowserID, you must correctly
+    -- set your hostname here.
+    approot _ = "http://localhost:3000"
+
+instance YesodAuth MyAuthSite where
+    type AuthId MyAuthSite = Text
+    getAuthId = return . Just . credsIdent
+
+    loginDest _ = RootR
+    logoutDest _ = RootR
+
+    authPlugins =
+        [ authBrowserId'
+        , authGoogleEmail
+        ]
+
+instance RenderMessage MyAuthSite FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+getRootR :: Handler RepHtml
+getRootR = do
+    maid &lt;- maybeAuthId
+    defaultLayout [whamlet|
+&lt;p>Your current auth ID: #{show maid}
+$maybe _ &lt;- maid
+    &lt;p>
+        &lt;a href=@{AuthR LogoutR}>Logout
+$nothing
+    &lt;p>
+        &lt;a href=@{AuthR LoginR}>Go to the login page
+|]
+
+main :: IO ()
+main = warpDebug 3000 MyAuthSite</codeblock>
+  <p>We'll start with the route declarations. First we declare our standard <codeph>RootR</codeph>
+   route, and then we set up the authentication subsite. Remember that a subsite needs four
+   parameters: the path to the subsite, the route name, the subsite name, and a function to get the
+   subsite value. In other words, based on the line:</p>
+  <codeblock>/auth AuthR Auth getAuth</codeblock>
+  <p>We need to have <codeph>getAuth :: MyAuthSite -> Auth</codeph>. While we haven't written that
+   function ourselves, <apiname>yesod-auth</apiname> provides it automatically. With other subsites
+   (like static files), we provide configuration settings in the subsite value, and therefore need
+   to specify the get function. In the auth subsite, we specify these settings in a separate
+   typeclass, <codeph>YesodAuth</codeph>.</p>
+  <note>Why not use the subsite value? There are a number of settings we would like to give for an
+   auth subsite, and doing so from a record type would be inconvenient. Also, since we want to have
+   an <codeph>AuthId</codeph> associated type, a typeclass is more natural.<p>On the flip side, why
+    not use a typeclass for all subsites? It comes with a downside: you can then only have a single
+    instance per site, disallowing serving different sets of static files from different routes.
+    Also, the subsite value works better when we want to load data at app initialization.</p></note>
+  <p>So what exactly goes in this YesodAuth instance? There are five required declarations:</p>
+  <ul id="ul_mgj_phf_p2">
+   <li>AuthId is an associated type. This is the value yesod-auth will give you when you ask if a
+    user is logged in (via maybeAuthId or requireAuthId). In our case, we're simply using Text, to
+    store the raw identifier- email address in our case, as we'll soon see.</li>
+   <li>getAuthId gets the actual AuthId from the <codeph>Creds</codeph> (credentials) data type.
+    This type has three pieces of information: the authentication backend used (browserid or
+    googleemail in our case), the actual identifier, and an associated list of arbitrary extra
+    information. Each backend provides different extra information, see their docs for more
+    information.</li>
+   <li>loginDest gives the route to redirect to after a successful login.</li>
+   <li>Likewise, logoutDest gives the route to redirect to after a logout.</li>
+   <li>Finally, authPlugins is a list of individual authentication backends to use. In our example,
+    we're using BrowserID, which logs in via Mozilla's BrowserID system, and Google Email, which
+    authenticates a user's email address using their Google account. The nice thing about these two
+    backends is:<ul id="ul_xwj_f3f_p2">
+     <li>They require no set up, as opposed to Facebook or OAuth, which require setting up
+      credentials.</li>
+     <li>They use email addresses as identifiers, which people are comfortable with, as opposed to
+      OpenID, which uses a URL.</li>
+    </ul></li>
+  </ul>
+  <p>In our RootR handler, we have some simple links to the login and logout pages, depending on
+   whether or not the user is logged in. Notice how we construct these subsite links: first we give
+   the subsite route name (AuthR), followed by the route within the subsite (LoginR and
+   LogoutR).</p>
+  <p>The figures below show what the login process looks like from a user perspective.</p>
+  <fig>
+   <title>Initial page load</title>
+   <image href="initial-screen.png" id="image_vw4_r3f_p2"/>
+  </fig>
+  <fig>
+   <title>BrowserID login screen</title>
+   <image href="login-with-browserid.png" id="image_jp4_t3f_p2"/>
+  </fig>
+  <fig>
+   <title>Homepage after logging in</title>
+   <image href="after-login.png" id="image_gz2_v3f_p2"/>
+  </fig>
+ </conbody>
+</concept>
