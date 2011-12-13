@@ -45,11 +45,11 @@ data Person = Person
 --
 -- * We have the sub and master site types, as usual.
 --
--- * FormResult can be in three states: FormMissing (not data available),
+-- * FormResult can be in three states: FormMissing (no data available),
 -- FormFailure (invalid data) and FormSuccess
 --
 -- * The Widget is the viewable form to place into the web page.
-personForm :: Html -&gt; Form Synopsis Synopsis (FormResult Person, Widget)
+personForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Person, Widget)
 personForm = renderDivs $ Person
     &lt;$&gt; areq textField "Name" Nothing
     &lt;*&gt; areq (jqueryDayField def

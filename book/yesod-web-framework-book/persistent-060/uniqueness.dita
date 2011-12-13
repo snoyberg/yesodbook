@@ -10,7 +10,8 @@
         </fig>
         <p id="x6">While each field name must begin with a lowercase letter, the uniqueness constraints must
             begin with an uppercase letter.</p><codeblock id="x2" outputclass="haskell">-- START
-{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

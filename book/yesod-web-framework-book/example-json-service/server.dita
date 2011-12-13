@@ -18,7 +18,7 @@ import Data.Aeson.Encode (fromValue)
 import Data.Enumerator (catchError, Iteratee)
 import Control.Exception (SomeException)
 import Data.ByteString (ByteString)
-import qualified Data.Map as Map
+import qualified Data.HashMap.Strict as Map
 import Data.Text (pack)
 
 main :: IO ()

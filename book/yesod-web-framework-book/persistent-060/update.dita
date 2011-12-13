@@ -8,7 +8,8 @@
    (We better not be of course, since Haskell data types are immutable.)</p>
   <p id="x4">Instead, we're looking at ways of modifying rows in a table. And the simplest way to do that is
    with the update function.</p>
-  <codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH
@@ -45,7 +46,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
   <p id="x6">update simply takes two arguments: an ID, and a list of Updates. The simplest update is
    assignment, but it's not always the best. What if you want to increase someones age by 1, but you
    don't have their current age? Persistent has you covered:</p>
-  <codeblock id="x7" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x7" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH
@@ -90,7 +92,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
   <p id="x9">Sometimes you'll want to update many fields at once (give all your employees a 5% pay increase,
    for example). updateWhere takes two parameters: a list of filters, and a list of updates to
    apply.</p>
-  <codeblock id="x10" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x10" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH
@@ -130,7 +133,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
 -- STOP</codeblock>
   <p id="x11">Occassionally, you'll just want to completely replace the value in a database with a different
    value. For that, you use (surprise) the replace function.</p>
-  <codeblock id="x12" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x12" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

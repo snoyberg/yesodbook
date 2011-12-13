@@ -40,7 +40,7 @@ carAForm = Car
     &lt;$&gt; areq textField "Model" Nothing
     &lt;*&gt; areq intField "Year" Nothing
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable carAForm
 -- STOP
 
@@ -108,7 +108,7 @@ carAForm mcar = Car
     &lt;*&gt; areq intField "Year" (carYear &lt;$&gt; mcar)
 -- STOP
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable (carAForm $ Just $ Car "Forte" 2010)
 
 getCarR :: Handler RepHtml

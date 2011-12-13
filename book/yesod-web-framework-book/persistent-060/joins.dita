@@ -45,7 +45,7 @@ type Result = [(PersonPair, [CarPair])]</codeblock>
    it. Without it, there is no guarantee that the cars will be grouped appropriately. You might end
    up with multiple records for a single person.</p>
   <codeblock id="x-17" outputclass="haskell">{-# LANGUAGE TypeFamilies, TemplateHaskell, MultiParamTypeClasses,
-             GADTs, QuasiQuotes, OverloadedStrings #-}
+             GADTs, QuasiQuotes, OverloadedStrings, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

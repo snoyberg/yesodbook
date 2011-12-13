@@ -36,7 +36,8 @@
   <note id="x20">The combination of limits and offsets is very important, it allows for efficient pagination
    in your webapps.</note>
   <p id="x21">Let's jump straight into an example of filtering, and then analyze it.</p>
-   <codeblock id="x22" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+   <codeblock id="x22" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH
@@ -74,7 +75,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
    you. The other two surprising operators are the "is member" and "is not member". They are,
    respectively, <codeph id="x28">&lt;-.</codeph> and <codeph id="x29">/&lt;-.</codeph> (both end with a period).</p>
   <p id="x30">And regarding ORs, we use the <codeph id="x31">||.</codeph> operator. Let's see an example:</p>
-  <codeblock id="x32" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x32" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

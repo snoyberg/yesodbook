@@ -43,7 +43,7 @@ carAForm = Car
     &lt;*&gt; aopt textField "Color" Nothing
 -- STOP
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable carAForm
 
 getCarR :: Handler RepHtml
@@ -101,7 +101,7 @@ carAForm mcar = Car
     &lt;*&gt; areq intField "Year" (carYear &lt;$&gt; mcar)
     &lt;*&gt; aopt textField "Color" (carColor &lt;$&gt; mcar)
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just "gray"
 -- STOP
 

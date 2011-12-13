@@ -8,7 +8,7 @@
    the data in a Handler, and then pass that data into a widget. Now, we'll do the loading of data
    in the widget itself. This is a boon for modularity, as this widget can now be used in any
    handler we want, without any need to pass in the database contents.</p>
-  <codeblock id="x-4" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+  <codeblock id="x-4" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell, FlexibleContexts,
              QuasiQuotes, TypeFamilies, MultiParamTypeClasses, GADTs #-}
 import Yesod
 import Database.Persist.Sqlite

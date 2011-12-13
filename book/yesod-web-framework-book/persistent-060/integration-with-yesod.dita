@@ -8,7 +8,7 @@
   <p id="x2">The <apiname id="x3">yesod-persistent</apiname> package provides the meeting point between Persistent
    and Yesod. It provides the YesodPersist typeclass, to standardize access to the database via the
    runDB method. Let's see this in action.</p>
-  <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving #-}
+  <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
 {-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
 import Yesod
 import Database.Persist.Sqlite

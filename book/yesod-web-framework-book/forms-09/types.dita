@@ -41,11 +41,11 @@
    </dlentry>
    <dlentry id="x26">
     <dt id="x27">FieldSettings</dt>
-    <dd id="x28">Basic information on how a field should be displayed, such as the display name, an optional
-     tooltip, and possibly hardcoded id and name attributes. (If none are provided, they are
-     automatically generated.)<note id="x29">FieldSettings provides an IsString instance, so you can usually
-      just type in the name of the field. That's how we interacted with it in the
-     synopsis.</note></dd>
+    <dd id="x28">Basic information on how a field should be displayed, such as the display name, an
+     optional tooltip, and possibly hardcoded id and name attributes. (If none are provided, they
+     are automatically generated.)<note id="x29">FieldSettings provides an IsString instance, so
+      when you need to provide a FieldSettings value, you can actually type in a literal string.
+      That's how we interacted with it in the synopsis.</note></dd>
    </dlentry>
    <dlentry id="x30">
     <dt id="x31">FieldView</dt>
@@ -53,10 +53,10 @@
      ever used directly by the user, we'll see more details later.</dd>
    </dlentry>
   </dl>
-  <p id="x33">And finally, we get to the important stuff: the forms themselves. There are three types for
-   this: Form is for monadic forms, AForm for Applicative and IForm (declared in
-    <apiname id="x34">yesod-form:Yesod.Form.Input:IForm</apiname>) for input. Form is actually just a simple
-   type synonym for a monad stack that provides the following features:</p>
+  <p id="x33">And finally, we get to the important stuff: the forms themselves. There are three
+   types for this: MForm is for monadic forms, AForm for Applicative and IForm (declared in <apiname
+    id="x34">yesod-form:Yesod.Form.Input:IForm</apiname>) for input. Form is actually a type synonym
+   for a monad stack that provides the following features:</p>
   <ul id="ul_cju_elg_md">
    <li id="x35">A Reader monad giving us the parameters (Env and FileEnv), the master site argument and the
     list of languages the user supports. The last two are used for i18n (more on this later).</li>

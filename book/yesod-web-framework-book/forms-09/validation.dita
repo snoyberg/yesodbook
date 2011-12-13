@@ -53,7 +53,7 @@ carAForm mcar = Car
         | otherwise = Right y
 -- STOP
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just "gray"
 
 getCarR :: Handler RepHtml
@@ -115,7 +115,7 @@ carAForm mcar = Car
     carYearField = checkBool (&gt;= 1990) errorMessage intField
 -- STOP
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just "gray"
 
 getCarR :: Handler RepHtml
@@ -195,7 +195,7 @@ getCurrentYear = do
     return $ fromInteger year
 -- STOP
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just "gray"
 
 getCarR :: Handler RepHtml

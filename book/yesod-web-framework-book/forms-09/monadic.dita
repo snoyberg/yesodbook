@@ -35,7 +35,7 @@ instance RenderMessage Monadic FormMessage where
 data Person = Person { personName :: Text, personAge :: Int }
     deriving Show
 
-personForm :: Html -&gt; Form Monadic Monadic (FormResult Person, Widget)
+personForm :: Html -&gt; MForm Monadic Monadic (FormResult Person, Widget)
 personForm extra = do
     (nameRes, nameView) &lt;- mreq textField "this is not used" Nothing
     (ageRes, ageView) &lt;- mreq intField "neither is this" Nothing

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="migrations"><title id="x-1">Migrations</title><conbody id="x-2"><p id="m1">I'm sorry to tell you, but so far I have lied to you a bit: the example from the previous section does not actually work. If you try to run it, you will get an error message about a missing table.</p><p id="m2">For SQL databases, one of the major pains can be managing schema changes. Instead of leaving this to the user, Persistent steps in to help, but you have to <i id="x1">ask</i> it to help. Let's see what this looks like:</p><codeblock id="x2" outputclass="haskell">-- START
-{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.TH
 import Database.Persist.Sqlite
@@ -20,7 +21,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     liftIO $ print michael
 -- STOP
 </codeblock><p id="m3">With this one little code change, Persistent will automatically create your Person table for you. This split between runMigration and migrate allows you to migrate multiple tables simultaneously.</p><p id="m4">This works when dealing with just a few entities, but can quickly get tiresome once we are dealing with a dozen entities. Instead of repeating yourself, Persistent provides a helper function:</p><codeblock id="x3" outputclass="haskell">-- START
-{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

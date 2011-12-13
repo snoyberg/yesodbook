@@ -26,7 +26,8 @@
   <p id="x15">The following code defines a function that will break down results into pages. It returns all
    people aged 18 and over, and then sorts them by age (oldest person first). For people with the
    same age, they are sorted alphabetically by last name, then first name.</p>
-  <codeblock id="x16" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+  <codeblock id="x16" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
+             OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH

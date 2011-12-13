@@ -4,7 +4,7 @@
  <title id="x-1">Full code</title>
  <conbody id="x-2">
   <codeblock id="x-3" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
-    QuasiQuotes, MultiParamTypeClasses, GADTs
+    QuasiQuotes, MultiParamTypeClasses, GADTs, FlexibleContexts
   #-}
 import Yesod
 import Data.Text (Text, unpack)
@@ -57,12 +57,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -&gt; Form Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
     &lt;$&gt; areq textField "Title" Nothing
     &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -&gt; Form Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml

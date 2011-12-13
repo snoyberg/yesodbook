@@ -35,4 +35,8 @@
    cover why all of those exist in the course of this chapter, but for now realize that by making
    these parameters explicit, we are able to reuse the individuals fields (like
     <apiname id="x17">yesod-form:Yesod.Form.Fields:intField</apiname>) in many different ways.</p>
+  <p>A quick note on naming conventions. Each form type has a one-letter prefix (A, M and I) which
+   is used in a few places, such as saying MForm. We also use req and opt to mean required and
+   optional. Combining these, we create a required applicative field with areq, or an optional input
+   field with iopt.</p>
  </conbody></concept>

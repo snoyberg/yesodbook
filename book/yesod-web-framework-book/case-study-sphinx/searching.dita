@@ -19,7 +19,7 @@
     }</codeblock>
   <p id="x-9">Next we'll look at the search handler:</p>
   <codeblock id="x-10" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
-    QuasiQuotes, MultiParamTypeClasses, GADTs
+    QuasiQuotes, MultiParamTypeClasses, GADTs, FlexibleContexts
   #-}
 import Yesod
 import Data.Text (Text, unpack)
@@ -72,12 +72,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -&gt; Form Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
     &lt;$&gt; areq textField "Title" Nothing
     &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -&gt; Form Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml
@@ -261,7 +261,7 @@ main = withSqlitePool "searcher.db3" 10 $ \pool -&gt; do
    functions: query will return a list of matches, and buildExcerpts will return the highlighted
    excerpts. Let's first look at query:</p>
   <codeblock id="x-12" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
-    QuasiQuotes, MultiParamTypeClasses, GADTs
+    QuasiQuotes, MultiParamTypeClasses, GADTs, FlexibleContexts
   #-}
 import Yesod
 import Data.Text (Text, unpack)
@@ -314,12 +314,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -&gt; Form Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
     &lt;$&gt; areq textField "Title" Nothing
     &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -&gt; Form Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml
@@ -511,7 +511,7 @@ main = withSqlitePool "searcher.db3" 10 $ \pool -&gt; do
     <i id="x-21">any</i> term matches the document.</p>
   <p id="x-22">Let's finally look at the getResult function:</p>
   <codeblock id="x-23" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
-    QuasiQuotes, MultiParamTypeClasses, GADTs
+    QuasiQuotes, MultiParamTypeClasses, GADTs, FlexibleContexts
   #-}
 import Yesod
 import Data.Text (Text, unpack)
@@ -564,12 +564,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -&gt; Form Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
     &lt;$&gt; areq textField "Title" Nothing
     &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -&gt; Form Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml

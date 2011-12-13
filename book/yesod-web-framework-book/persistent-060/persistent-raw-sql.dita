@@ -16,7 +16,7 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE GADTs #-}
+{-# LANGUAGE GADTs, FlexibleContexts #-}
 import Database.Persist.Sqlite (withSqliteConn)
 import Database.Persist.TH (mkPersist, persist, share, mkMigrate, sqlSettings)
 import Database.Persist.GenericSql (runSqlConn, runMigration, SqlPersist)

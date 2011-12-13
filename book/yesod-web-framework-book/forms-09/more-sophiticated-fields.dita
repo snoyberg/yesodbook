@@ -66,7 +66,7 @@ getCurrentYear = do
     let (year, _, _) = toGregorian today
     return $ fromInteger year
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just Black
 
 getCarR :: Handler RepHtml
@@ -149,7 +149,7 @@ getCurrentYear = do
     let (year, _, _) = toGregorian today
     return $ fromInteger year
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just Black
 
 getCarR :: Handler RepHtml
@@ -232,7 +232,7 @@ getCurrentYear = do
     let (year, _, _) = toGregorian today
     return $ fromInteger year
 
-carForm :: Html -&gt; Form Synopsis Synopsis (FormResult Car, Widget)
+carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)
 carForm = renderTable $ carAForm $ Just $ Car "Forte" 2010 $ Just Black
 
 getCarR :: Handler RepHtml
