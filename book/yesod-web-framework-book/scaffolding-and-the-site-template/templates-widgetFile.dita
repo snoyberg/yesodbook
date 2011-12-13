@@ -7,7 +7,7 @@
    have to remember to include those Lucius and Julius files manually every time you refer to a
    Hamlet file. For this, the site template provides the <codeph id="x-4">widgetFile</codeph> function.</p>
   <p id="x-5">If you have a handler function:</p>
-  <codeblock id="x-6">getRootR = defaultLayout $(widgetFile "homepage")</codeblock>
+  <codeblock id="x-6" outputclass="haskell">getRootR = defaultLayout $(widgetFile "homepage")</codeblock>
   <p id="x-7">, Yesod will look for the following files:</p>
   <ul id="ul_vih_ddh_oe">
    <li id="x-8"><filepath id="x-9">templates/homepage.hamlet</filepath></li>

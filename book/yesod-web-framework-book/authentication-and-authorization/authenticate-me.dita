@@ -4,7 +4,7 @@
  <title id="x-1">Authenticate Me</title>
  <conbody id="x-2">
   <p id="x-3">Let's jump right in with an example of authentication.</p>
-  <codeblock id="x-4">{-# LANGUAGE OverloadedStrings, TemplateHaskell, TypeFamilies,
+  <codeblock id="x-4" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TemplateHaskell, TypeFamilies,
              MultiParamTypeClasses, QuasiQuotes #-}
 import Yesod
 import Yesod.Auth
@@ -58,7 +58,7 @@ main = warpDebug 3000 MyAuthSite</codeblock>
    route, and then we set up the authentication subsite. Remember that a subsite needs four
    parameters: the path to the subsite, the route name, the subsite name, and a function to get the
    subsite value. In other words, based on the line:</p>
-  <codeblock id="x-7">/auth AuthR Auth getAuth</codeblock>
+  <codeblock id="x-7" outputclass="routes">/auth AuthR Auth getAuth</codeblock>
   <p id="x-8">We need to have <codeph id="x-9">getAuth :: MyAuthSite -&gt; Auth</codeph>. While we haven't written that
    function ourselves, <apiname id="x-10">yesod-auth</apiname> provides it automatically. With other subsites
    (like static files), we provide configuration settings in the subsite value, and therefore need

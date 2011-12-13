@@ -5,7 +5,7 @@
  <conbody id="x-2">
   <p id="x-3">Your call to <codeph id="x-4">mkMessage</codeph> creates an instance of the RenderMessage typeclass,
    which is the core of Yesod's i18n. It is defined as:</p>
-  <codeblock id="x-5">class RenderMessage master message where
+  <codeblock id="x-5" outputclass="haskell">class RenderMessage master message where
     renderMessage :: master
                   -&gt; [Text] -- ^ languages
                   -&gt; message

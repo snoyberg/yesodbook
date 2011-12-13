@@ -25,7 +25,7 @@
    emails to users (verify account, password retrieval, etc.).</p>
   <p id="x-11">Let's have a look at a site that provides email authentication, storing passwords in a
    Persistent SQLite database.</p>
-  <codeblock id="x-12">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes, GADTs,
+  <codeblock id="x-12" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes, GADTs,
              TemplateHaskell, MultiParamTypeClasses, FlexibleContexts #-}
 import Yesod
 import Yesod.Auth
