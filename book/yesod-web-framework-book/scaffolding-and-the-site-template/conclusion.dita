@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Conclusion</title>
- <conbody>
-  <p>The purpose of this chapter was not to explain every line that exists in the scaffolded site,
+ <title id="x-1">Conclusion</title>
+ <conbody id="x-2">
+  <p id="x-3">The purpose of this chapter was not to explain every line that exists in the scaffolded site,
    but instead to give a general overview to how it works. The best way to become more familiar with
    it is to jump right in and start writing a Yesod site with it.</p>
  </conbody>

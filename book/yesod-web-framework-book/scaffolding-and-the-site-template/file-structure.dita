@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>File Structure</title>
- <conbody>
-  <p>The scaffolded site is build as a fully cabalized Haskell package. In addition to source files,
+ <title id="x-1">File Structure</title>
+ <conbody id="x-2">
+  <p id="x-3">The scaffolded site is build as a fully cabalized Haskell package. In addition to source files,
    config files, templates, and static files and produced as well.</p>
  </conbody>
 </concept>

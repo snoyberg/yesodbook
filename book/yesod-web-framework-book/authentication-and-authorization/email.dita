@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Email</title>
- <conbody>
-  <p>For many use cases, third-party authentication of email will be sufficient. Occassionally,
+ <title id="x-1">Email</title>
+ <conbody id="x-2">
+  <p id="x-3">For many use cases, third-party authentication of email will be sufficient. Occassionally,
    you'll want users to actual create passwords on your site. The scaffolded site does not include
    this setup, because:</p>
   <ul id="ul_mmf_nsk_pe">
-   <li>In order to securely accept passwords, you need to be running over SSL. Many users are not
+   <li id="x-4">In order to securely accept passwords, you need to be running over SSL. Many users are not
     serving their sites over SSL.</li>
-   <li>While the email backend properly salts and hashes passwords, a compromised database could
+   <li id="x-5">While the email backend properly salts and hashes passwords, a compromised database could
     still be problematic. Again, we make no assumptions that Yesod users are following secure
     deployment practices.</li>
-   <li>You need to have a working system for sending email. Many web servers these days are not
-    equipped to deal with all of the spam protection measures used by emai servers.<note>The example
-     below will use the system's built-in <cmdname>sendmail</cmdname> executable. If you would like
+   <li id="x-6">You need to have a working system for sending email. Many web servers these days are not
+    equipped to deal with all of the spam protection measures used by emai servers.<note id="x-7">The example
+     below will use the system's built-in <cmdname id="x-8">sendmail</cmdname> executable. If you would like
      to avoid the hassle of dealing with an email server yourself, you can use Amazon SES. There is
-     a package called <apiname>mime-mail-ses</apiname> which provides a drop-in replacement for the
+     a package called <apiname id="x-9">mime-mail-ses</apiname> which provides a drop-in replacement for the
      sendmail code used below. This is the approach we use on the Haskellers.com site.</note></li>
   </ul>
-  <p>But assuming you are able to meet these demands, and you want to have a separate password login
+  <p id="x-10">But assuming you are able to meet these demands, and you want to have a separate password login
    specifically for your site, Yesod offers a built-in backend. It requires quite a bit of code to
    set up, since it needs to store passwords securely in the database and send a number of different
    emails to users (verify account, password retrieval, etc.).</p>
-  <p>Let's have a look at a site that provides email authentication, storing passwords in a
+  <p id="x-11">Let's have a look at a site that provides email authentication, storing passwords in a
    Persistent SQLite database.</p>
-  <codeblock>{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes, GADTs,
+  <codeblock id="x-12">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes, GADTs,
              TemplateHaskell, MultiParamTypeClasses, FlexibleContexts #-}
 import Yesod
 import Yesod.Auth
@@ -84,8 +84,8 @@ instance YesodAuth MyEmailApp where
         x &lt;- insertBy $ User (credsIdent creds) Nothing Nothing False
         return $ Just $
             case x of
-                Left (userid, _) -> userid -- newly added user
-                Right userid -> userid -- existing user
+                Left (userid, _) -&gt; userid -- newly added user
+                Right userid -&gt; userid -- existing user
 
 -- Here's all of the email-specific code
 instance YesodAuthEmail MyEmailApp where
@@ -121,10 +121,10 @@ Thank you
             , partEncoding = None
             , partFilename = Nothing
             , partContent = renderHtml [shamlet|
-&lt;p>Please confirm your email address by clicking on the link below.
-&lt;p>
-    &lt;a href=#{verurl}>#{verurl}
-&lt;p>Thank you
+&lt;p&gt;Please confirm your email address by clicking on the link below.
+&lt;p&gt;
+    &lt;a href=#{verurl}&gt;#{verurl}
+&lt;p&gt;Thank you
 |]
             , partHeaders = []
             }
@@ -133,8 +133,8 @@ Thank you
     verifyAccount uid = runDB $ do
         mu &lt;- get uid
         case mu of
-            Nothing -> return Nothing
-            Just u -> do
+            Nothing -&gt; return Nothing
+            Just u -&gt; do
                 update uid [UserVerified =. True]
                 return $ Just uid
     getPassword = runDB . fmap (join . fmap userPassword) . get
@@ -142,8 +142,8 @@ Thank you
     getEmailCreds email = runDB $ do
         mu &lt;- getBy $ UniqueUser email
         case mu of
-            Nothing -> return Nothing
-            Just (uid, u) -> return $ Just EmailCreds
+            Nothing -&gt; return Nothing
+            Just (uid, u) -&gt; return $ Just EmailCreds
                 { emailCredsId = uid
                 , emailCredsAuthId = Just uid
                 , emailCredsStatus = isJust $ userPassword u
@@ -155,17 +155,17 @@ getRootR :: Handler RepHtml
 getRootR = do
     maid &lt;- maybeAuthId
     defaultLayout [whamlet|
-&lt;p>Your current auth ID: #{show maid}
+&lt;p&gt;Your current auth ID: #{show maid}
 $maybe _ &lt;- maid
-    &lt;p>
-        &lt;a href=@{AuthR LogoutR}>Logout
+    &lt;p&gt;
+        &lt;a href=@{AuthR LogoutR}&gt;Logout
 $nothing
-    &lt;p>
-        &lt;a href=@{AuthR LoginR}>Go to the login page
+    &lt;p&gt;
+        &lt;a href=@{AuthR LoginR}&gt;Go to the login page
 |]
 
 main :: IO ()
-main = withSqliteConn "email.db3" $ \conn -> do
+main = withSqliteConn "email.db3" $ \conn -&gt; do
     runSqlConn (runMigration migrateAll) conn
     warpDebug 3000 $ MyEmailApp conn</codeblock>
  </conbody>

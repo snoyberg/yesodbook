@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="scaffolding-and-the-site-template"><title id="x-1">Scaffolding and the Site Template</title><conbody id="x-2">
-        <p>So you're tired of running small examples, and ready to write a real site? Then you're at
+        <p id="x-3">So you're tired of running small examples, and ready to write a real site? Then you're at
             the right chapter. Even with the entire Yesod library at your fingertips, there are
             still a lot of steps you need to go through to get a production-quality site setup:</p>
         <ul id="ul_nys_vtf_42">
-            <li>Config file parsing</li>
-            <li>Signal handling (*nix)</li>
-            <li>More efficient static file serving</li>
-            <li>A good file layout</li>
+            <li id="x-4">Config file parsing</li>
+            <li id="x-5">Signal handling (*nix)</li>
+            <li id="x-6">More efficient static file serving</li>
+            <li id="x-7">A good file layout</li>
         </ul>
-        <p>The scaffolded site is a combination of many Yesoders' best practices combined together
+        <p id="x-8">The scaffolded site is a combination of many Yesoders' best practices combined together
             into a ready-to-use skeleton for your sites. It is highly recommended for all sites.
             This chapter will explain the overall structure of the scaffolding, how to use it, and
             some of its less-than-obvious features.</p>
-        <note>Due to the nature of the scaffolded site, it is the most fluid component of Yesod, and
+        <note id="x-9">Due to the nature of the scaffolded site, it is the most fluid component of Yesod, and
             can change from version to version. It is possible that the information in this chapter
             is slightly outdated.</note></conbody></concept>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Conclusion</title>
- <conbody>
-  <p>This chapter covered the basics of setting up user authentication, as well as how the built-in
+ <title id="x-1">Conclusion</title>
+ <conbody id="x-2">
+  <p id="x-3">This chapter covered the basics of setting up user authentication, as well as how the built-in
    authorization functions provide a simple, declarative approach for users. While these are
    complicated concepts, with many approaches, Yesod should provide you with the building blocks you
    need to create your own customized auth solution.</p>

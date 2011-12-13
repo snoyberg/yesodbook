@@ -4,9 +4,9 @@
     <title id="x-1">Authentication and Authorization</title>
     <topicref id="authentication-and-authorization" chunk="to-content" href="authentication-and-authorization/authentication-and-authorization.dita">
         <topicref id="x-2" href="authentication-and-authorization/high-level-overview.dita"/>
-        <topicref href="authentication-and-authorization/authenticate-me.dita"/>
-        <topicref href="authentication-and-authorization/email.dita"/>
-        <topicref href="authentication-and-authorization/authorization.dita"/>
-        <topicref href="authentication-and-authorization/conclusion.dita"/>
+        <topicref id="x-3" href="authentication-and-authorization/authenticate-me.dita"/>
+        <topicref id="x-4" href="authentication-and-authorization/email.dita"/>
+        <topicref id="x-5" href="authentication-and-authorization/authorization.dita"/>
+        <topicref id="x-6" href="authentication-and-authorization/conclusion.dita"/>
     </topicref>
 </map>

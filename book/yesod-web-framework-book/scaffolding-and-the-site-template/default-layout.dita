@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>defaultLayout</title>
- <conbody>
-  <p>One of the first things you're going to want to customize is the look of your site. The layout
+ <title id="x-1">defaultLayout</title>
+ <conbody id="x-2">
+  <p id="x-3">One of the first things you're going to want to customize is the look of your site. The layout
    is actually broken up into two files:</p>
   <ul id="ul_jjz_kch_oe">
-   <li><filepath>templates/default-layout-wrapper.hamlet</filepath> contains just the basic shell of
+   <li id="x-4"><filepath id="x-5">templates/default-layout-wrapper.hamlet</filepath> contains just the basic shell of
     a page. This file is interpretted as plain Hamlet, not as a Widget, and therefore cannot refer
     to other widgets, embed i18n strings, or add extra CSS/JS.</li>
-   <li><filepath>templates/default-layout.hamlet</filepath> is where you would put the bulk of your
-    page. You <b>must</b> remember to include the <codeph>widget</codeph> value in the page, as that
+   <li id="x-6"><filepath id="x-7">templates/default-layout.hamlet</filepath> is where you would put the bulk of your
+    page. You <b id="x-8">must</b> remember to include the <codeph id="x-9">widget</codeph> value in the page, as that
     contains the per-page contents. This file is interpretted as a Widget.</li>
   </ul>
-  <p>Also, since default-layout is included via the widgetFile function, any Lucius, Cassius, or
-   Julius files named <filepath>default-layout.*</filepath> will automatically be included as
+  <p id="x-10">Also, since default-layout is included via the widgetFile function, any Lucius, Cassius, or
+   Julius files named <filepath id="x-11">default-layout.*</filepath> will automatically be included as
    well.</p>
  </conbody>
 </concept>
