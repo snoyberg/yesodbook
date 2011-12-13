@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization (incomplete)</title><conbody id="x-2">
+<concept id="authentication-and-authorization"><title id="x-1">Authentication and Authorization</title><conbody id="x-2">
         <p id="x-3">Authentication and authorization are two very related, and yet separate, concepts. While
             the former deals with identifying a user, the latter determines what a user is allowed
             to do. Unfortunately, since both terms are often abbreviated as "auth," the concepts are

@@ -55,11 +55,13 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In carAForm, we use the &lt;$&gt;
-   and &lt;*&gt; operators. This should be surprising; these are almost always used in
-   applicative-style code. (For more information on applicative code, see <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor" format="html" scope="external">the
-    Haskell wiki</xref>.) And we have one line for each record in our Car datatype. Perhaps
-   unsurprisingly, we have a textField for the Text record, and an intField for the Int record.</p>
+  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In carAForm, we use the
+            &lt;$&gt; and &lt;*&gt; operators. This should not be surprising; these are almost
+            always used in applicative-style code. (For more information on applicative code, see
+                <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor"
+                format="html" scope="external">the Haskell wiki</xref>.) And we have one line for
+            each record in our Car datatype. Perhaps unsurprisingly, we have a textField for the
+            Text record, and an intField for the Int record.</p>
   <p id="x5">Let's look a bit more closely at the areq function. Its (simplified) type signature is
     <codeph id="x6">Field a -&gt; FieldSettings -&gt; Maybe a -&gt; AForm a</codeph>. So that first argument is going
    to determine the datatype of this field, how to parse it, and how to render it. The next

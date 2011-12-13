@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map SYSTEM "/home/snoyman/suite/DITA-OT1.5.2/dtd/technicalContent/dtd/map.dtd">
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "/home/snoyman/suite/DITA-OT1.5.2/dtd/technicalContent/dtd/map.dtd">
 <map id="yesod-web-framework-book">
     <title id="x-1">Yesod Web Framework Book</title>
     <topichead id="basics-part" navtitle="Basics">

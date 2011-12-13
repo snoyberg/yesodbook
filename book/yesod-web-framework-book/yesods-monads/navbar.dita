@@ -85,6 +85,7 @@ main = withSqlitePool "links.db3" 10 $ \pool -&gt; do
   <p id="x-11">You should also pay special attention to the <codeph id="x-12">YesodPersist</codeph> instance. It should
    make much more sense now that we've explained <codeph id="x-13">liftIOHandler</codeph>.</p>
   <fig id="x-14">
+      <title>Screenshot of the navbar</title>
    <image id="image_xpd_yzj_zd" href="navbar.png"/>
   </fig>
  </conbody>
