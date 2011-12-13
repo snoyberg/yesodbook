@@ -26,7 +26,7 @@ instance Yesod Slash where
         qs = map (TE.encodeUtf8 *** go) qs'
         go "" = Nothing
         go x = Just $ TE.encodeUtf8 x
-        pieces = if null pieces' then [] else pieces' ++ [""]
+        pieces = pieces' ++ [""]
 
     -- We want to keep canonical URLs. Therefore, if the URL is missing a
     -- trailing slash, redirect. But the empty set of pieces always stays the
@@ -49,4 +49,7 @@ getRootR = defaultLayout [whamlet|
 getFooR = getRootR
 
 main = warpDebug 3000 Slash
-</codeblock><p id="cp3">First, let's look at our joinPath implementation. This is copied almost verbatim from the default Yesod implementation, with one difference: when the initial pieces is not empty, we append an extra empty string to the end. When dealing with path pieces, an empty string will simply append another slash. So adding an extra empty string will force a trailing slash. The only time to <i id="x10">not</i> want this trailing slash is when we are looking at the root of the application, because adding an extra slash will result in two slashes in a row.</p><p id="cp4">cleanPath is a little bit trickier. First, we check for the empty path like before, and if so pass it through as-is. We use Right to indicate that a redirect is not necessary. The next clause is actually checking for two different possible URL issues:</p><ul id="x11"><li id="x12">There is a double slash, which would show up as an empty string in the middle of our paths.</li><li id="x13">There is a missing trailing slash, which would show up as the last piece not being an empty string.</li></ul><p id="cp5">Assuming neither of those conditions hold, then only the last piece is empty, and we should dispatch based on all but the last piece. However, if this is not the case, we want to redirect to a canonical URL. In this case, we strip out all empty pieces and do not bother appending a trailing slash, since joinPath will do that for us.</p></conbody></concept>
+</codeblock><p id="cp3">First, let's look at our joinPath implementation. This is copied almost verbatim from
+            the default Yesod implementation, with one difference: we append an extra empty string
+            to the end. When dealing with path pieces, an empty string will simply append another
+            slash. So adding an extra empty string will force a trailing slash.</p><p id="cp4">cleanPath is a little bit trickier. First, we check for the empty path like before, and if so pass it through as-is. We use Right to indicate that a redirect is not necessary. The next clause is actually checking for two different possible URL issues:</p><ul id="x11"><li id="x12">There is a double slash, which would show up as an empty string in the middle of our paths.</li><li id="x13">There is a missing trailing slash, which would show up as the last piece not being an empty string.</li></ul><p id="cp5">Assuming neither of those conditions hold, then only the last piece is empty, and we should dispatch based on all but the last piece. However, if this is not the case, we want to redirect to a canonical URL. In this case, we strip out all empty pieces and do not bother appending a trailing slash, since joinPath will do that for us.</p></conbody></concept>

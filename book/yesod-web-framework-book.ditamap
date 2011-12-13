@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<!DOCTYPE map SYSTEM "/home/snoyman/suite/DITA-OT1.5.2/dtd/technicalContent/dtd/map.dtd">
 <map id="yesod-web-framework-book">
     <title id="x-1">Yesod Web Framework Book</title>
     <topichead id="basics-part" navtitle="Basics">
@@ -23,11 +23,11 @@
         <mapref id="x-19" href="yesod-web-framework-book/creating-a-subsite.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
-        <topicref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
-        <topicref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
-        <topicref id="example-generalized-hamlet" href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
-        <topicref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
-        <topicref id="example-internationalization" href="yesod-web-framework-book/example-internationalization.dita"/>
+        <mapref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
+        <mapref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
+        <mapref id="example-generalized-hamlet" href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
+        <mapref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
+        <mapref id="example-internationalization" href="yesod-web-framework-book/example-internationalization.dita"/>
         <mapref id="example-json-service" href="yesod-web-framework-book/example-json-service.ditamap"/>
         <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
     </topichead>

@@ -5,5 +5,6 @@
     <topicref id="authentication-and-authorization" chunk="to-content" href="authentication-and-authorization/authentication-and-authorization.dita">
         <topicref id="x-2" href="authentication-and-authorization/high-level-overview.dita"/>
         <topicref href="authentication-and-authorization/authenticate-me.dita"/>
+        <topicref href="authentication-and-authorization/email.dita"/>
     </topicref>
 </map>

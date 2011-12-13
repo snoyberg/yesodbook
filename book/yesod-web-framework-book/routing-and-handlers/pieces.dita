@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="pieces"><title id="x-1">Pieces</title><conbody id="x-2"><p id="pieces1">The first thing Yesod does when it gets a request (well, maybe
-                not the <i id="x1">first</i>) is split up the requested path into
-                pieces. The pieces are simply tokenized at all forward slashes.
-                So:</p><codeblock id="x2" outputclass="haskell">toPieces "/" = []
+<concept id="pieces"><title id="x-1">Pieces</title><conbody id="x-2"><p id="pieces1">One of the first thing Yesod does when it gets a request is split up the requested
+                                                path into pieces. The pieces are simply tokenized at
+                                                all forward slashes. So:</p><codeblock id="x2" outputclass="haskell">toPieces "/" = []
 toPieces "/foo/bar/baz/" = ["foo", "bar", "baz", ""]</codeblock><p id="pieces2">You may notice that there are some funny things going on with
                 trailing slashes, or double slashes ("/foo//bar//"), or a few
                 other things. Yesod believes in having <term id="x3">canonical
