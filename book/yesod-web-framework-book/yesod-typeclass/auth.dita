@@ -3,7 +3,6 @@
 <concept id="auth">
  <title id="x-1">Authentication/Authorization</title>
  <conbody id="x-2">
-  <p id="x-3">FIXME: Cover isAuthorized, isWriteRequest, authRoute</p>
   <p id="x-4">For simple applications, checking permissions inside each handler function can be a simple,
    convenient approach. However, it doesn't scale well. Eventually, you're going to want to have a
    more declarative approach. Many systems our there define ACLs, special config files, and a lot of

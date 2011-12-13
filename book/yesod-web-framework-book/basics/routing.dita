@@ -17,11 +17,7 @@
                 convention. It makes it just a bit easier to read and understand code.</note></p>
         <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system.
             Let's take a quick example from
-                Django:<!--FIXME Django really is declarative, this isn't correct. I think I narrowed down four advantages for yesod:
-
-the advantages for yesod i see are: more efficient parsing, can catch mistakes like
-      overlapping routes, a bit terser, automatic data marshaling\u0000
---><lq id="x-12"><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
+                Django:<lq id="x-12"><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
     (r'^articles/2003/$', 'news.views.special_case_2003'),
     (r'^articles/(\d{4})/$', 'news.views.year_archive'),
     (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
