@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Authorization</title>
+ <conbody>
+  <p>Once you can authenticate your users, you can use their credentials to <i>authorize</i>
+   requests. Authorization in Yesod is simple and declarative: most of the time, you just need to
+   add the authRoute and isAuthorized methods to your Yesod typeclass instance. Let's see an
+   example.</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TemplateHaskell, TypeFamilies,
+             MultiParamTypeClasses, QuasiQuotes #-}
+import Yesod
+import Yesod.Auth
+import Yesod.Auth.Dummy -- just for testing, don't use in real life!!!
+import Data.Text (Text)
+
+data MyAuthSite = MyAuthSite
+
+mkYesod "MyAuthSite" [parseRoutes|
+/ RootR GET POST
+/admin AdminR GET
+/auth AuthR Auth getAuth
+|]
+
+instance Yesod MyAuthSite where
+    approot _ = ""
+
+    authRoute _ = Just $ AuthR LoginR
+
+    -- route name, then a boolean indicating if it's a write request
+    isAuthorized RootR True = isAdmin
+    isAuthorized AdminR _ = isAdmin
+
+    -- anyone can access other pages
+    isAuthorized _ _ = return Authorized
+
+isAdmin = do
+    mu &lt;- maybeAuthId
+    return $ case mu of
+        Nothing -> AuthenticationRequired
+        Just "admin" -> Authorized
+        Just _ -> Unauthorized "You must be an admin"
+
+instance YesodAuth MyAuthSite where
+    type AuthId MyAuthSite = Text
+    getAuthId = return . Just . credsIdent
+
+    loginDest _ = RootR
+    logoutDest _ = RootR
+
+    authPlugins = [authDummy]
+
+instance RenderMessage MyAuthSite FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+getRootR :: Handler RepHtml
+getRootR = do
+    maid &lt;- maybeAuthId
+    defaultLayout [whamlet|
+&lt;p>Note: Log in as "admin" to be an administrator.
+&lt;p>Your current auth ID: #{show maid}
+$maybe _ &lt;- maid
+    &lt;p>
+        &lt;a href=@{AuthR LogoutR}>Logout
+&lt;p>
+    &lt;a href=@{AdminR}>Go to admin page
+&lt;form method=post>
+    Make a change (admins only)
+    \ #
+    &lt;input type=submit>
+|]
+
+postRootR :: Handler ()
+postRootR = do
+    setMessage "You made some change to the page"
+    redirect RedirectTemporary RootR
+
+getAdminR :: Handler RepHtml
+getAdminR = defaultLayout [whamlet|
+&lt;p>I guess you're an admin!
+&lt;p>
+    &lt;a href=@{RootR}>Return to homepage
+|]
+
+main :: IO ()
+main = warpDebug 3000 MyAuthSite</codeblock>
+  <p>authRoute should be your login page, almost always AuthR LoginR. isAuthorized is a function
+   that takes two parameters: the requested route, and whether or not the request was a "write"
+   request. You can actually change the meaning of what a write request is using the isWriteRequest
+   method, but the out-of-the-box version follows RESTful principles: anything but a GET, HEAD,
+   OPTIONS or TRACE request is a write request.</p>
+  <p>What's convenient about the body of isAuthorized is that you can run any Handler code you want.
+   This means you can:</p>
+  <ul id="ul_tew_ill_pe">
+   <li>Access the filesystem (normal IO)</li>
+   <li>Lookup values in the database</li>
+   <li>Pull any session or request values you want</li>
+  </ul>
+  <p>Using these techniques, you can develop as sophisticated an authorization system as you like,
+   or even tie into existing systems used by your organization.</p>
+ </conbody>
+</concept>

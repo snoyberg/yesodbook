@@ -6,5 +6,7 @@
         <topicref id="x-2" href="authentication-and-authorization/high-level-overview.dita"/>
         <topicref href="authentication-and-authorization/authenticate-me.dita"/>
         <topicref href="authentication-and-authorization/email.dita"/>
+        <topicref href="authentication-and-authorization/authorization.dita"/>
+        <topicref href="authentication-and-authorization/conclusion.dita"/>
     </topicref>
 </map>
