@@ -11,6 +11,8 @@ import Network.URI.Enumerator.File
 import Text.XML
 import qualified Text.XML as X
 import Text.Hamlet.XML
+import Text.XML.Cursor.Generic
+import qualified Data.Text as T
 
 catalogFile :: FilePath
 catalogFile = "catalog-dita.xml"
@@ -47,7 +49,7 @@ main = do
         []
 
 docToElem :: D.Doc -> X.Element
-docToElem doc = Element "book" [] $ concatMap (fixDoubleParas False) $ map (toChapters 0) [xml|
+docToElem doc = Element "book" [] $ addPreface $ concatMap (fixDoubleParas False) $ map (toChapters 0) [xml|
 <title>#{D.docTitle doc}
 ^{concatMap navToSection $ D.docNavs doc}
 |]
@@ -90,7 +92,10 @@ render e =
         "p" -> to "para"
         "ul" -> to "itemizedlist"
         "li" -> toPara "listitem"
-        "apiname" -> to "function" -- FIXME
+        "apiname" ->
+            case D.elementChildren e of
+                [D.NodeContent t] -> [xml|<function>#{snd $ T.breakOnEnd ":" t}|]
+                _ -> to "function"
         "xref"
             | Just url <- DU.getAttrText "href" e -> [xml|
 <ulink url=#{url}>^{kids}
@@ -104,7 +109,10 @@ render e =
         "term" -> to "glossterm"
         "note" -> toPara "note"
         "lq" -> toPara "blockquote"
-        "codeblock" -> to "programlisting"
+        "codeblock" ->
+            case D.elementChildren e of
+                [D.NodeContent t] -> [xml|<programlisting>#{removeStartStop t}|]
+                _ -> to "programlisting"
         "varname" -> to "varname"
         "filepath" -> to "filename"
         "ol" -> to "orderedlist"
@@ -117,10 +125,19 @@ render e =
         "dlentry" -> to "varlistentry"
         "dt" -> to "term"
         "userinput" -> to "userinput"
-        "fig" -> [xml|<para>FIXME figures not implemented|] -- FIXME to "figure"
+        "fig" -> to "figure"
         "title" -> to "title"
         "dd" -> toPara "listitem"
-        "image" -> [] -- FIXME
+        "cmdname" -> toPara "command"
+        "image" ->
+            case DU.getAttrHref "href" e of
+                Just (D.Href uri _) -> [xml|
+<mediaobject>
+    <imageobject>
+        <imagedata fileref=images/#{T.drop (T.length "/home/snoyman/haskell/book/book/yesod-web-framework-book/") $ uriPath uri}>
+|]
+                Nothing -> error $ "image missing href: " ++ show e
+        "simpletable" -> simpletable e
         name -> [xml|
 <para>FIXME: Unknown element: #{nameLocalName name}
 |]
@@ -135,6 +152,65 @@ render e =
                 (D.NodeElement (D.Element "p" _ _ _):_) -> kids
                 _ -> [xml|<para>^{kids}|]
     attrs = [] -- FIXME
+
+simpletable e = [xml|
+<table>
+    <title>
+    <tgroup cols=#{count}>
+        $forall sthead <- stheads
+            <thead>^{row sthead}
+            <tbody>
+                $forall strow <- strows
+                    ^{row strow}
+|]
+  where
+    c = fromNode $ D.NodeElement e
+    stheads = c $/ element "sthead"
+    strows = c $/ element "strow"
+    firstRow =
+        case strows of
+            [] -> error "simpletable with no strow"
+            a:_ -> a
+    count = T.pack $ show $ length $ firstRow $/ element "stentry"
+
+    row x = return $ NodeElement $ Element "row" [] $ concatMap entry $ x $/ element "stentry"
+
+    entry x = [xml|
+<entry>^{concatMap renderN $ D.elementChildren e}
+|]
+      where
+        D.NodeElement e = node x
+
+removeStartStop t
+    | any (== "-- START") ls = T.unlines $ go False ls
+    | otherwise = t
+  where
+    ls = T.lines t
+    go _ [] = []
+    go _ ("-- START":rest) = go True rest
+    go _ ("-- STOP":rest) = go False rest
+    go True (x:xs) = x : go True xs
+    go False (_:xs) = go False xs
+
+text :: Cursor D.Node -> [T.Text]
+text c =
+    case node c of
+        D.NodeContent t -> [t]
+        _ -> []
+
+element :: Name -> Cursor D.Node -> [Cursor D.Node]
+element name c =
+    case node c of
+        D.NodeElement e
+            | D.elementName e == name -> [c]
+        _ -> []
+
+fromNode :: D.Node -> Cursor D.Node
+fromNode =
+    toCursor children
+  where
+    children (D.NodeElement e) = D.elementChildren e
+    children _ = []
 
 renderN :: D.Node -> [X.Node]
 renderN (D.NodeElement e) = render e
@@ -164,6 +240,12 @@ toChapters 1 (NodeElement (Element "section" a b)) =
     (NodeElement (Element "chapter" a b))
 toChapters i (NodeElement (Element a b c)) = NodeElement $ Element a b $ map (toChapters i) c
 toChapters _ n = n
+
+addPreface :: [Node] -> [Node]
+addPreface (t1:(NodeElement (Element a b (t2:rest2))):rest1) =
+    t1 : (NodeElement (Element a b (t2:helper:rest2))) : rest1
+  where
+    helper = NodeElement $ Element "{http://www.w3.org/2001/XInclude}include" [("href", "ch00.xml")] []
 
 noPara :: Node -> Bool
 noPara (NodeElement (Element "para" _ _)) = False

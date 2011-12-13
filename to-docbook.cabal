@@ -1,0 +1,17 @@
+Name:                to-docbook
+Version:             0.1
+License:             BSD3
+License-file:        LICENSE
+Category:            Text
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+Executable to-docbook
+  Main-is:             to-docbook.hs
+  Build-depends:       base
+                     , dita
+                     , dtd
+                     , xml-hamlet
+                     , xml-enumerator
+                     , uri-enumerator-file
+                     , uri-enumerator
