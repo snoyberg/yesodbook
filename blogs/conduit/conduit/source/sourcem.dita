@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>SourceM</title>
+ <conbody>
+  <p>Having a monadic <codeph>Source</codeph> value is so common, that is has its own data type:</p>
+  <codeblock outputclass="haskell">newtype SourceM m a = SourceM { genSource :: ResourceT m (Source m a) }</codeblock>
+  <p>We can easily wrap up our previous function with this newtype wrapper:</p>
+  <codeblock outputclass="haskell">sourceList2 :: Resource m => [a] -> SourceM m a
+sourceList2 = SourceM . sourceList
+
+sourceList :: Resource m => [a] -> ResourceT m (Source m a)</codeblock>
+  <p>In addition to shorter type signatures, having a newtype allows us to write more appropriate
+   instances. For example, we get a nice <codeph>Functor</codeph> instance:</p>
+  <codeblock outputclass="haskell">sourceInts :: Resource m => SourceM m Int
+sourceInts = sourceList2 [1..10]
+
+sourceStrings :: Resource m => SourceM m String
+sourceStrings = fmap show sourceInts</codeblock>
+  <p>We also have a <codeph>Monoid</codeph> instance. What's important to note is that, the way this
+   instance is implemented, any resource allocations occur as late as possible. For example, if you
+   have a source that opens a file, reads its contents, and closes the file, and you
+    <codeph>mconcat</codeph> five of those together, each file will be closed before the next one is
+   open.</p>
+  <p>There's one more important instance to cover, but we first have to explain buffering.</p>
+ </conbody>
+</concept>

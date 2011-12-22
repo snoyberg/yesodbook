@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Next time</title>
+ <conbody>
+  <p>Everyone loves cliffhangers, right? Well, there's too much information to stick into a single
+   blog post, so here are the topics I'm hoping to cover in the rest of this series:</p>
+  <ul id="ul_kmi_biy_re">
+   <li>Sinks</li>
+   <li>Connecting sources to sinks</li>
+   <li>Conduits</li>
+   <li>The fuse operators</li>
+   <li>The rules of data loss</li>
+   <li>Using conduits in pure code</li>
+   <li>Some real-life examples</li>
+  </ul>
+  <p>Remember that conduits has not yet been officially released, and some of the information in
+   this article may change over time. However, the core concepts are mostly solidified now.</p>
+ </conbody>
+</concept>

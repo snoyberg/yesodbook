@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Terminology</title>
+ <conbody>
+  <p>Before getting into the actual design, let's cover the terminology we'll be using.</p>
+  <dl>
+   <dlentry>
+    <dt>Source</dt>
+    <dd>A producer of data. The data could be in a file, coming from a socket, or in memory as a
+     list. To access this data, we <term>pull</term> from the source.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Sink</dt>
+    <dd>A consumer of data. Basic examples would be a sum function (adding up a stream of numbers
+     fed in), a file sink (which writes all incoming bytes to a file), or a socket. We
+      <term>push</term> data into a sink. When the sink finishes processing (we'll explain that
+     later), it returns some value.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Conduit</dt>
+    <dd>A transformer of data. The simplest example is a map function, though there are many others.
+     Like a sink, we <term>push</term> data into a conduit. But instead of returning a single value
+     at the end, a conduit can return multiple outputs every time it is pushed to.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Fuse</dt>
+    <dd>(Thanks to David Mazieres for the term.) A conduit can be <term>fused</term> with a source
+     to produce a new, modified source. For example, you could have a source that reads bytes from a
+     file, and a conduit that decodes bytes into text. If you fuse them together, you would now have
+     a source that reads text from a file. Likewise, a conduit and a sink can fuse into a new sink,
+     and two conduits can fuse into a new conduit.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Connect</dt>
+    <dd>You can connect a source to a sink. Doing so will pull data from the source and push it to
+     the sink, until either the source or sink signals that they are "done." We'll define "done" in
+     the course of this article.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

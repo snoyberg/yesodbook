@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+    <title>Conduits</title>
+    <topicref href="conduits.dita" chunk="to-content">
+        <topicref href="goals.dita"/>
+        <topicref href="terminology.dita"/>
+        <topicref href="source.dita">
+            <topicref href="source/state.dita"/>
+            <topicref href="source/sourcem.dita"/>
+            <topicref href="source/buffering.dita"/>
+        </topicref>
+        <topicref href="next-time.dita"/>
+    </topicref>
+</map>

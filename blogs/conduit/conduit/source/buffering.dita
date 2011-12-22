@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Buffering</title>
+ <conbody>
+  <p>Let's show some code that actually uses a source. Since we haven't fully explained our tools
+   yet, we're going to cut some corners and use lazy I/O, as well as write some helper functions the
+   long way. Don't worry: real life conduit code is nothing like this!</p>
+  <p>We want to create a source that reads data from a file as a stream of characters. Then we'll
+   have two functions that pull data from the source. The first one will take the first line of the
+   file, and the second will read the rest of it. We have the input file:</p>
+  <codeblock>This is a file
+Hello world!</codeblock>
+  <p>When we run our code on it (apologies for the length, focus on the getLine function):</p>
+  <codeblock>import Data.Conduit
+import Control.Monad.Trans.Resource
+import Control.Monad.IO.Class (liftIO)
+
+import qualified Data.ByteString.Char8 as S8
+import System.IO (openFile, hClose, IOMode (ReadMode))
+import Prelude hiding (getLine)
+
+sourceFile :: ResourceIO m => FilePath -> SourceM m Char
+sourceFile fp = SourceM $ do
+    (releaseKey, handle) &lt;- withIO (openFile fp ReadMode) hClose
+    return Source
+        { sourcePull = do
+            -- Pull in some bytes, and then we'll
+            -- unpack to characters. We'll use a small
+            -- chunking value for demonstration purposes
+            bs &lt;- liftIO $ S8.hGet handle 20
+            if S8.null bs
+                then do
+                    release releaseKey
+                    return $ SourceResult StreamClosed []
+                else return $ SourceResult StreamOpen $ S8.unpack bs
+        , sourceClose = release releaseKey
+        }
+
+getLine :: ResourceIO m => Source m Char -> ResourceT m String
+getLine src = do
+    SourceResult streamState chars &lt;- sourcePull src
+    let (before, after) = break (== '\n') chars
+    if null after
+        then do
+            line &lt;- getLine src
+            return $ before ++ line
+        else return before
+
+getRest :: ResourceIO m => Source m Char -> ResourceT m String
+getRest src = do
+    SourceResult streamState cs &lt;- sourcePull src
+    case streamState of
+        StreamOpen -> do
+            rest &lt;- getRest src
+            return $ cs ++ rest
+        StreamClosed -> return cs
+
+main :: IO ()
+main = runResourceT $ do
+    src &lt;- genSource $ sourceFile "test.txt"
+    first &lt;- getLine src
+    rest &lt;- getRest src
+    liftIO $ print (first, rest)</codeblock>
+  <p>we get the following output: <msgph>("This is a file"," world!\n")</msgph>. What happened to
+   "Hello "?</p>
+  <p>The problem exists in <codeph>getLine</codeph>. There are two problems in this function.</p>
+  <ol id="ol_dvo_jdy_re">
+   <li>It violates our invariants, because it will call <codeph>sourcePull</codeph> even after it
+    receives a <codeph>StreamClosed</codeph>. But that's not what's causing our bug.</li>
+   <li>All of the leftover data in <codeph>after</codeph> is being thrown away!</li>
+  </ol>
+  <p>We need to be able to put back data which has been pulled and is not currently needed, so that
+   later steps are able to reuse this data. In order to handle this, we introduce one final type
+   into the source family:</p>
+  <codeblock outputclass="haskell">data BSource m a = BSource
+    { bsourcePull :: ResourceT m (SourceResult a)
+    , bsourceUnpull :: [a] -> ResourceT m ()
+    , bsourceClose :: ResourceT m ()
+    }</codeblock>
+  <p><codeph>bsourcePull</codeph> and <codeph>bsourceClose</codeph> are basically identical to their
+    <codeph>Source</codeph> cousins. The new addition is <codeph>bsourceUnpull</codeph>, which puts
+   some data into the <codeph>BSource</codeph>'s buffer. Next time <codeph>bsourcePull</codeph> is
+   called, if there is any data on the buffer, it is returned before getting fresh data.</p>
+  <p>Clearly, we neither want to have to rewrite all of our <codeph>SourceM</codeph>s as
+    <codeph>BSource</codeph>s, nor have to manually convert them. Instead, we have a typeclass
+   called <codeph>BufferSource</codeph>, which a single method named (imaginatively)
+    <codeph>bufferSource</codeph>. Using this, we can rewrite the last three functions in our
+   example as:</p>
+  <codeblock outputclass="haskell">getLine :: ResourceIO m => BSource m Char -> ResourceT m String
+getLine src = do
+    SourceResult streamState chars &lt;- bsourcePull src
+    let (before, after) = break (== '\n') chars
+    if null after
+        then do
+            line &lt;- getLine src
+            return $ before ++ line
+        else do
+            bsourceUnpull src after
+            return before
+
+getRest :: ResourceIO m => BSource m Char -> ResourceT m String
+getRest src = do
+    SourceResult streamState cs &lt;- bsourcePull src
+    case streamState of
+        StreamOpen -> do
+            rest &lt;- getRest src
+            return $ cs ++ rest
+        StreamClosed -> return cs
+
+main :: IO ()
+main = runResourceT $ do
+    src &lt;- bufferSource $ sourceFile "test.txt"
+    first &lt;- getLine src
+    rest &lt;- getRest src
+    liftIO $ print (first, rest)</codeblock>
+  <p>The changes are:</p>
+  <ol id="ol_zoo_bgy_re">
+   <li>In <codeph>main</codeph>, we replace our call to <codeph>genSource</codeph> with a call to
+     <codeph>bufferSource</codeph>.</li>
+   <li><codeph>getLine</codeph> and <codeph>getRest</codeph> now take a <codeph>BSource</codeph>
+    instead of a <codeph>Source</codeph>.</li>
+   <li>Replace all calls to <codeph>sourcePull</codeph> with calls to
+    <codeph>bsourcePull</codeph>.</li>
+   <li>In <codeph>getLine</codeph>, we add a call to <codeph>bsourceUnpull</codeph> to put back the
+    extra data we did not consume.</li>
+  </ol>
+  <p>And as expected, our output is now <msgph>("This is a file","\nHello world!\n")</msgph>.</p>
+  <p>At this point, we have a few take-aways:</p>
+  <ul id="ul_sqs_xgy_re">
+   <li>A buffered source should be powerful enough to model almost any data producer.</li>
+   <li>While the concepts here are simple, writing code directly on top of <codeph>Source</codeph>s
+    is tedious. We need some better abstractions.</li>
+  </ul>
+ </conbody>
+</concept>
