@@ -23,7 +23,7 @@ import Prelude hiding (getLine)
 sourceFile :: ResourceIO m => FilePath -> Source m Char
 sourceFile fp = Source $ do
     (releaseKey, handle) &lt;- withIO (openFile fp ReadMode) hClose
-    return PureSource
+    return PreparedSource
         { sourcePull = do
             -- Pull in some bytes, and then we'll
             -- unpack to characters. We'll use a small
@@ -32,12 +32,12 @@ sourceFile fp = Source $ do
             if S8.null bs
                 then do
                     release releaseKey
-                    return $ SourceResult StreamClosed []
-                else return $ SourceResult StreamOpen $ S8.unpack bs
+                    return $ SourceResult Closed []
+                else return $ SourceResult Open $ S8.unpack bs
         , sourceClose = release releaseKey
         }
 
-getLine :: ResourceIO m => PureSource m Char -> ResourceT m String
+getLine :: ResourceIO m => PreparedSource m Char -> ResourceT m String
 getLine src = do
     SourceResult streamState chars &lt;- sourcePull src
     let (before, after) = break (== '\n') chars
@@ -47,14 +47,14 @@ getLine src = do
             return $ before ++ line
         else return before
 
-getRest :: ResourceIO m => PureSource m Char -> ResourceT m String
+getRest :: ResourceIO m => PreparedSource m Char -> ResourceT m String
 getRest src = do
     SourceResult streamState cs &lt;- sourcePull src
     case streamState of
-        StreamOpen -> do
+        Open -> do
             rest &lt;- getRest src
             return $ cs ++ rest
-        StreamClosed -> return cs
+        Closed -> return cs
 
 main :: IO ()
 main = runResourceT $ do
@@ -67,27 +67,28 @@ main = runResourceT $ do
   <p>The problem exists in <codeph>getLine</codeph>. There are two problems in this function.</p>
   <ol id="ol_dvo_jdy_re">
    <li>It violates our invariants, because it will call <codeph>sourcePull</codeph> even after it
-    receives a <codeph>StreamClosed</codeph>. But that's not what's causing our bug.</li>
+    receives a <codeph>Closed</codeph>. But that's not what's causing our bug.</li>
    <li>All of the leftover data in <codeph>after</codeph> is being thrown away!</li>
   </ol>
   <p>We need to be able to put back data which has been pulled and is not currently needed, so that
    later steps are able to reuse this data. In order to handle this, we introduce one final type
    into the source family:</p>
-  <codeblock outputclass="haskell">data BSource m a = BSource
+  <codeblock outputclass="haskell">data BufferedSource m a = BufferedSource
     { bsourcePull :: ResourceT m (SourceResult a)
     , bsourceUnpull :: [a] -> ResourceT m ()
     , bsourceClose :: ResourceT m ()
     }</codeblock>
   <p><codeph>bsourcePull</codeph> and <codeph>bsourceClose</codeph> are basically identical to their
     <codeph>Source</codeph> cousins. The new addition is <codeph>bsourceUnpull</codeph>, which puts
-   some data into the <codeph>BSource</codeph>'s buffer. Next time <codeph>bsourcePull</codeph> is
-   called, if there is any data on the buffer, it is returned before getting fresh data.</p>
+   some data into the <codeph>BufferedSource</codeph>'s buffer. Next time
+    <codeph>bsourcePull</codeph> is called, if there is any data on the buffer, it is returned
+   before getting fresh data.</p>
   <p>Clearly, we neither want to have to rewrite all of our <codeph>SourceM</codeph>s as
-    <codeph>BSource</codeph>s, nor have to manually convert them. Instead, we have a typeclass
-   called <codeph>BufferSource</codeph>, which a single method named (imaginatively)
+    <codeph>BufferedSource</codeph>s, nor have to manually convert them. Instead, we have a
+   typeclass called <codeph>BufferSource</codeph>, which a single method named (imaginatively)
     <codeph>bufferSource</codeph>. Using this, we can rewrite the last three functions in our
    example as:</p>
-  <codeblock outputclass="haskell">getLine :: ResourceIO m => BSource m Char -> ResourceT m String
+  <codeblock outputclass="haskell">getLine :: ResourceIO m => BufferedSource m Char -> ResourceT m String
 getLine src = do
     SourceResult streamState chars &lt;- bsourcePull src
     let (before, after) = break (== '\n') chars
@@ -99,14 +100,14 @@ getLine src = do
             bsourceUnpull src after
             return before
 
-getRest :: ResourceIO m => BSource m Char -> ResourceT m String
+getRest :: ResourceIO m => BufferedSource m Char -> ResourceT m String
 getRest src = do
     SourceResult streamState cs &lt;- bsourcePull src
     case streamState of
-        StreamOpen -> do
+        Open -> do
             rest &lt;- getRest src
             return $ cs ++ rest
-        StreamClosed -> return cs
+        Closed -> return cs
 
 main :: IO ()
 main = runResourceT $ do
@@ -118,14 +119,16 @@ main = runResourceT $ do
   <ol id="ol_zoo_bgy_re">
    <li>In <codeph>main</codeph>, we replace our call to <codeph>genSource</codeph> with a call to
      <codeph>bufferSource</codeph>.</li>
-   <li><codeph>getLine</codeph> and <codeph>getRest</codeph> now take a <codeph>BSource</codeph>
-    instead of a <codeph>Source</codeph>.</li>
+   <li><codeph>getLine</codeph> and <codeph>getRest</codeph> now take a
+     <codeph>BufferedSource</codeph> instead of a <codeph>Source</codeph>.</li>
    <li>Replace all calls to <codeph>sourcePull</codeph> with calls to
     <codeph>bsourcePull</codeph>.</li>
    <li>In <codeph>getLine</codeph>, we add a call to <codeph>bsourceUnpull</codeph> to put back the
     extra data we did not consume.</li>
   </ol>
-  <p>And as expected, our output is now <msgph>("This is a file","\nHello world!\n")</msgph>.</p>
+  <p>And as expected, our output is now <msgph>("This is a file","\nHello world!\n")</msgph>. As an
+   aside, this is how we implement the concept of <term>resumable sources</term>, which we'll
+   demonstrate in some later examples.</p>
   <p>At this point, we have a few take-aways:</p>
   <ul id="ul_sqs_xgy_re">
    <li>A buffered source should be powerful enough to model almost any data producer.</li>
