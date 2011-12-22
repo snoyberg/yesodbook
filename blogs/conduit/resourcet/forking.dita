@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Forking</title>
+ <conbody>
+  <p>It would seem that forking a thread would be inherently unsafe with <codeph>ResourceT</codeph>,
+   since the parent thread may call <codeph>runResourceT</codeph> while the child thread is still
+   accessing some of the allocated resources. This is indeed true, <i>if</i> you use the normal
+    <codeph>forkIO</codeph> function.</p>
+  <note>You can't actually use the standard <codeph>forkIO</codeph>, since it only operates in the
+    <codeph>IO</codeph> monad, but you could use the <codeph>fork</codeph> function from
+    <apiname>lifted-base</apiname>. In fact, due to this issue, the <apiname>regions</apiname>
+   package does not provide a <codeph>MonadBaseControl</codeph> instance for its transformer (which
+   is very similar to ResourceT). However, our goal in ResourceT is not to make it impossible for
+   programmers to mess up, simply to make it simpler to do the right thing. Therefore, we still
+   provide the instance, even though it could be abused.</note>
+  <p>In order to solve this, ResourceT includes reference counting. When you fork a new thread via
+    <codeph>resourceForkIO</codeph>, the RefCount value of the ReleaseMap is incremented. Every time
+   runResourceT is called, the value is decremented. Only when the value hits 0 are all the release
+   actions called.</p>
+ </conbody>
+</concept>

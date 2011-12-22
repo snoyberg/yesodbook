@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>How it Works</title>
+ <conbody>
+  <p>There are essentially three base functions on <codeph>ResourceT</codeph>, and then a bunch of
+   conveniences thrown on top. The first function is:</p>
+  <codeblock>register :: IO () -> ResourceT IO ReleaseKey</codeblock>
+  <note>This function, and the others below, are actually more polymorphic than implied here,
+   allowing other monads besides <codeph>IO</codeph>. In fact, almost any transformer on top of
+    <codeph>IO</codeph>, as well as any <codeph>ST</codeph> stacks, work. We'll cover the details of
+   that later.</note>
+  <p>This function registers a piece of code that it asserts <b>must</b> be run. It gives back a
+    <codeph>ReleaseKey</codeph>, which is used by the next function:</p>
+  <codeblock outputclass="haskell">release :: ReleaseKey -> ResourceT IO ()</codeblock>
+  <p>Calling <codeph>release</codeph> on a <codeph>ReleaseKey</codeph> immediately performs the
+   action you previously registered. You may call <codeph>release</codeph> on the same
+    <codeph>ReleaseKey</codeph> as many times as you like; the first time it is called, it
+    <term>unregisters</term> the action. This means you can safely register an action like a memory
+   free, and have no concerns that it will be called twice.</p>
+  <p>Eventually, we'll want to exit our special <codeph>ResourceT</codeph>. To do so, we use:</p>
+  <codeblock outputclass="haskell">runResourceT :: ResourceT IO a -> IO a</codeblock>
+  <p>This seemingly innocuous function is where all the magic happens. It runs through all of the
+   registered cleanup actions and performs them. It is fully exception safe, meaning the cleanups
+   will be performed in the presence of both synchronous and asynchronous exceptions. And as
+   mentioned before, calling <codeph>release</codeph> will unregister an action, so there is no
+   concern of double-freeing.</p>
+  <p>Finally, as a convenient, we provide one more function for the common case of allocating a
+   resource and registering a release action:</p>
+  <codeblock outputclass="haskell">with :: IO a -- ^ allocate
+     -> (a -> IO ()) -- ^ free resource
+     -> ResourceT IO (ReleaseKey, a)</codeblock>
+  <p>So, to rework our first buggy example to use <codeph>ResourceT</codeph>, we would write:</p>
+  <codeblock outputclass="haskell">import System.IO
+import Control.Monad.Trans.Resource
+import Control.Monad.Trans.Class (lift)
+
+main = runResourceT $ do
+    (releaseO, output) &lt;- with (openFile "output.txt" WriteMode) hClose
+    (releaseI, input)  &lt;- with (openFile "input.txt"  ReadMode)  hClose
+    lift $ hGetContents input >>= hPutStr output
+    release releaseI
+    release releaseO</codeblock>
+  <p>Now there is no concern of any exceptions preventing the releasing of resources. We could skip
+   the <codeph>release</codeph> calls if we want to, and in an example this small, it would not make
+   any difference. But for larger applications, where we want processing to continue, this ensures
+   that the <codeph>Handle</codeph>s are freed as early as possible, keeping our scarce resource
+   usage to a minimum.</p>
+ </conbody>
+</concept>
