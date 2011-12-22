@@ -20,10 +20,10 @@ import qualified Data.ByteString.Char8 as S8
 import System.IO (openFile, hClose, IOMode (ReadMode))
 import Prelude hiding (getLine)
 
-sourceFile :: ResourceIO m => FilePath -> SourceM m Char
-sourceFile fp = SourceM $ do
+sourceFile :: ResourceIO m => FilePath -> Source m Char
+sourceFile fp = Source $ do
     (releaseKey, handle) &lt;- withIO (openFile fp ReadMode) hClose
-    return Source
+    return PureSource
         { sourcePull = do
             -- Pull in some bytes, and then we'll
             -- unpack to characters. We'll use a small
@@ -37,7 +37,7 @@ sourceFile fp = SourceM $ do
         , sourceClose = release releaseKey
         }
 
-getLine :: ResourceIO m => Source m Char -> ResourceT m String
+getLine :: ResourceIO m => PureSource m Char -> ResourceT m String
 getLine src = do
     SourceResult streamState chars &lt;- sourcePull src
     let (before, after) = break (== '\n') chars
@@ -47,7 +47,7 @@ getLine src = do
             return $ before ++ line
         else return before
 
-getRest :: ResourceIO m => Source m Char -> ResourceT m String
+getRest :: ResourceIO m => PureSource m Char -> ResourceT m String
 getRest src = do
     SourceResult streamState cs &lt;- sourcePull src
     case streamState of

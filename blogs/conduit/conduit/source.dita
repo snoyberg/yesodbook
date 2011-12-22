@@ -6,14 +6,14 @@
   <p>I think it's simplest to understand sources by looking at the types:</p>
   <codeblock outputclass="haskell">data StreamState = StreamOpen | StreamClosed
 data SourceResult a = SourceResult StreamState [a]
-data Source m a = Source
+data PureSource m a = PureSource
     { sourcePull :: ResourceT m (SourceResult a)
     , sourceClose :: ResourceT m ()
     }</codeblock>
   <p><codeph>StreamState</codeph> is a simple flag to indicate whether the stream has been closed or
-   not. A <codeph>SourceResult</codeph> then tells you the state of the stream, and any data pulled.
-   The <codeph>Source</codeph> itself has two operations: pull some data, or close it. Let's look at
-   some of the simplest sources:</p>
+      not. A <codeph>SourceResult</codeph> then tells you the state of the stream, and any data
+      pulled. The <codeph>PureSource</codeph> (we'll explain pure in a second) itself has two
+      operations: pull some data, or close it. Let's look at some of the simplest sources:</p>
   <codeblock outputclass="haskell">import Prelude hiding (repeat, cycle)
 import Data.Conduit
 

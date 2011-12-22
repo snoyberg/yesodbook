@@ -3,19 +3,22 @@
 <concept id="conceptId">
  <title>SourceM</title>
  <conbody>
-  <p>Having a monadic <codeph>Source</codeph> value is so common, that is has its own data type:</p>
-  <codeblock outputclass="haskell">newtype SourceM m a = SourceM { genSource :: ResourceT m (Source m a) }</codeblock>
-  <p>We can easily wrap up our previous function with this newtype wrapper:</p>
-  <codeblock outputclass="haskell">sourceList2 :: Resource m => [a] -> SourceM m a
-sourceList2 = SourceM . sourceList
+  <p>Having a monadic <codeph>PureSource</codeph> value is so common, that is has its own data
+   type:</p>
+  <codeblock outputclass="haskell">newtype Source m a = Source { genSource :: ResourceT m (PureSource m a) }</codeblock>
+  <p>In fact, this is precisely why we refer to the original data type as a
+    <codeph>PureSource</codeph>. We'll see later that all of conduits follows this naming pattern.
+   We can easily wrap up our previous function with this newtype wrapper:</p>
+  <codeblock outputclass="haskell">sourceList2 :: Resource m => [a] -> Source m a
+sourceList2 = Source . sourceList
 
-sourceList :: Resource m => [a] -> ResourceT m (Source m a)</codeblock>
+sourceList :: Resource m => [a] -> ResourceT m (PureSource m a)</codeblock>
   <p>In addition to shorter type signatures, having a newtype allows us to write more appropriate
    instances. For example, we get a nice <codeph>Functor</codeph> instance:</p>
-  <codeblock outputclass="haskell">sourceInts :: Resource m => SourceM m Int
+  <codeblock outputclass="haskell">sourceInts :: Resource m => Source m Int
 sourceInts = sourceList2 [1..10]
 
-sourceStrings :: Resource m => SourceM m String
+sourceStrings :: Resource m => Source m String
 sourceStrings = fmap show sourceInts</codeblock>
   <p>We also have a <codeph>Monoid</codeph> instance. What's important to note is that, the way this
    instance is implemented, any resource allocations occur as late as possible. For example, if you

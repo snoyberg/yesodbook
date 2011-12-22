@@ -33,10 +33,10 @@
 import Control.Monad.Trans.Resource
 
 -- | Provide data from the list, one element at a time.
-sourceList :: Resource m => [a] -> ResourceT m (Source m a)
+sourceList :: Resource m => [a] -> ResourceT m (PureSource m a)
 sourceList state0 = do
     stateRef &lt;- newRef state0
-    return Source
+    return PureSource
         { sourcePull = do
             state &lt;- readRef stateRef
             case state of
@@ -62,10 +62,10 @@ sourceList state0 = do
    clause:<codeblock outputclass="haskell">[x] -> return $ SourceResult StreamClosed [x]</codeblock>This
    would prevent <codeph>sourcePull</codeph> from being called an extra time just to find out there
    is no data left.</note>
-  <p>Note, however, that instead of returning a <codeph>Source</codeph>, we get a monadic value. In
-   order to use this <codeph>Source</codeph>, we will need to extract that value first. Doing so
-   will turn out to be a tedious activity (trust me, that's how I first wrote conduits). We need a
-   better approach. And since we use <codeph>ResourceT</codeph>'s <codeph>newRef</codeph> and
+  <p>Note, however, that instead of returning a <codeph>PureSource</codeph>, we get a monadic value.
+   In order to use this <codeph>PureSource</codeph>, we will need to extract that value first. Doing
+   so will turn out to be a tedious activity (trust me, that's how I first wrote conduits). We need
+   a better approach. And since we use <codeph>ResourceT</codeph>'s <codeph>newRef</codeph> and
    related functions, we now need to put <codeph>Resource m</codeph> in the context.</p>
  </conbody>
 </concept>
