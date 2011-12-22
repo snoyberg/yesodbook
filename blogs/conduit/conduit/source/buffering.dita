@@ -3,16 +3,16 @@
 <concept id="conceptId">
  <title>Buffering</title>
  <conbody>
-  <p>Let's show some code that actually uses a source. Since we haven't fully explained our tools
-   yet, we're going to cut some corners and use lazy I/O, as well as write some helper functions the
-   long way. Don't worry: real life conduit code is nothing like this!</p>
+  <p>Let's show some code that actually uses a source. We're writing this in a much more low-level
+   style than usual to clarify the concepts. Don't worry: real life conduit code is nothing like
+   this!</p>
   <p>We want to create a source that reads data from a file as a stream of characters. Then we'll
    have two functions that pull data from the source. The first one will take the first line of the
    file, and the second will read the rest of it. We have the input file:</p>
   <codeblock>This is a file
 Hello world!</codeblock>
   <p>When we run our code on it (apologies for the length, focus on the getLine function):</p>
-  <codeblock>import Data.Conduit
+  <codeblock outputclass="haskell">import Data.Conduit
 import Control.Monad.Trans.Resource
 import Control.Monad.IO.Class (liftIO)
 

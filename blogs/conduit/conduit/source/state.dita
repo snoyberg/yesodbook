@@ -40,9 +40,9 @@ sourceList state0 = do
         { sourcePull = do
             state &lt;- readRef stateRef
             case state of
-                a:as -> do
-                    writeRef stateRef as
-                    return $ SourceResult StreamOpen [a]
+                x:xs -> do
+                    writeRef stateRef xs
+                    return $ SourceResult StreamOpen [x]
                 [] -> do
                     -- We could write some dummy value to
                     -- stateRef, but since we're returning
@@ -59,7 +59,7 @@ sourceList state0 = do
    then read the value in the reference on each pull. If there is more data, then pop one value from
    the front of the list and update the state. If the list is empty, return a StreamClosed.</p>
   <note>If we wanted to, we could add in a minor optimization with an extra
-   clause:<codeblock outputclass="haskell">                [a] -> return $ SourceResult StreamClosed [a]</codeblock>This
+   clause:<codeblock outputclass="haskell">[x] -> return $ SourceResult StreamClosed [x]</codeblock>This
    would prevent <codeph>sourcePull</codeph> from being called an extra time just to find out there
    is no data left.</note>
   <p>Note, however, that instead of returning a <codeph>Source</codeph>, we get a monadic value. In
