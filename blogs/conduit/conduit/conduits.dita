@@ -3,7 +3,7 @@
 <concept id="conceptId">
  <title>Conduits</title>
  <conbody>
-  <p>Conduits is a solution to the streaming data problem. It fits the same solution space as
+  <p>Conduits are a solution to the streaming data problem. They fit the same solution space as
    enumerators, in that we want to have deterministic resource handling, constant memory usage, and
    composability. However, conduits have been designed based on a huge amount of experience using
    enumerators in real life projects. They intend to solve the same problems in a simpler, more
@@ -14,8 +14,8 @@
    concepts can draw his/her own conclusions. In addition, the README file of the <xref
     href="https://github.com/snoyberg/conduit" format="html" scope="external">conduit repo on
     Github</xref> provides some of the motivation for conduits.</p>
-  <p>Note that this article will assume an understanding of the Resource monad transformer, which
-   was described in a <xref href="http://www.yesodweb.com/blog/2011/12/resourcet" format="html"
-    scope="external">previous article</xref>.</p>
+  <p>Note that this article will assume a basic understanding of the Resource monad transformer,
+   which was described in a <xref href="http://www.yesodweb.com/blog/2011/12/resourcet"
+    format="html" scope="external">previous article</xref>.</p>
  </conbody>
 </concept>

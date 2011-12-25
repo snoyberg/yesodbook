@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Source</title>
+ <conbody>
+  <p>I think it's simplest to understand sources by looking at the types:</p>
+  <codeblock outputclass="haskell">data SourceResult a = Open a | Closed
+data PreparedSource m a = PreparedSource
+    { sourcePull :: ResourceT m (SourceResult a)
+    , sourceClose :: ResourceT m ()
+    }</codeblock>
+  <p>We'll see later why this is called a PreparedSource. For now, what's important is that a source
+            has just two operations on it: you can pull data from it, and you can close it (think of
+            closing a file handle). When you pull, you either get some data (the source is still
+            open), or nothing (the source is closed). Let's look at some of the simplest
+            sources:</p>
+  <codeblock outputclass="haskell">import Prelude hiding (repeat)
+import Data.Conduit
+
+-- | Never give any data
+eof :: Monad m => PreparedSource m a
+eof = PreparedSource
+    { sourcePull = return Closed
+    , sourceClose = return ()
+    }
+
+-- | Always give the same value
+repeat :: Monad m => a -> PreparedSource m a
+repeat a = PreparedSource
+    { sourcePull = return $ Open a
+    , sourceClose = return ()
+    }</codeblock>
+  <p>These sources are very straight-forward, since they always return the same results.
+            Additionally, their close records don't do anything. You might think that this is a bug:
+            should a call to <codeph>sourcePull</codeph> return <codeph>Closed</codeph> after its
+            been closed? This isn't required, due to the invariants of a source:</p>
+  <ol id="ol_vpl_mvx_re">
+   <li>It is illegal to call <codeph>sourcePull</codeph> after a previous call returns
+          <codeph>Closed</codeph>, or after a call to <codeph>sourceClose</codeph>.</li>
+   <li>It is illegal to call <codeph>sourceClose</codeph> multiple times, or after a previous
+          <codeph>sourcePull</codeph> returns a <codeph>Closed</codeph>.</li>
+   <li>A <codeph>Source</codeph> is responsible to free any resources when either
+          <codeph>sourceClose</codeph> is called or a <codeph>Closed</codeph> is returned. However,
+        based on the usage of <codeph>ResourceT</codeph>, this is simply an optimization. </li>
+  </ol>
+  <p>Don't worry too much about these invariants. In practice, you will almost never call sourcePull
+            or sourceClose yourself. In fact, you hardly even write them yourself either (that's
+            what sourceState and sourceIO are for). The point is that we can make some assumptions
+            when we implement our sources.</p>
+ </conbody>
+</concept>

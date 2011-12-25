@@ -3,13 +3,9 @@
 <map>
     <title>Conduits</title>
     <topicref href="conduits.dita" chunk="to-content">
+        <topicref href="conduits-in-five-minutes.dita"/>
         <topicref href="goals.dita"/>
-        <topicref href="terminology.dita"/>
-        <topicref href="source.dita">
-            <topicref href="source/state.dita"/>
-            <topicref href="source/sourcem.dita"/>
-            <topicref href="source/buffering.dita"/>
-        </topicref>
+        <mapref href="source/source.ditamap"/>
         <topicref href="next-time.dita"/>
     </topicref>
 </map>

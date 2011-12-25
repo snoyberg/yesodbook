@@ -15,7 +15,7 @@
   <ol id="ol_apj_swx_re">
    <li>In my experience, encoding state in this way is one of the aspects of enumerators that has
     made them complicated to understand.</li>
-   <li>Doing so would prevent one of the most powerful features of conduit, the resumable source.
+   <li>Doing so would prevent one of the most powerful features of conduit: the resumable source.
     We'll cover that aspect of sources later.</li>
   </ol>
   <p>So instead, sources- and conduits in general- rely on mutable state. Before you bring out the
@@ -42,13 +42,13 @@ sourceList state0 = do
             case state of
                 x:xs -> do
                     writeRef stateRef xs
-                    return $ SourceResult Open [x]
+                    return $ Open x
                 [] -> do
                     -- We could write some dummy value to
                     -- stateRef, but since we're returning
                     -- a Closed, we know that sourcePull
                     -- cannot legally be called again.
-                    return $ SourceResult Closed []
+                    return Closed
         , sourceClose = do
             -- Likewise, we could write something to stateRef
             -- to indicate the source has been closed, but the
@@ -58,14 +58,11 @@ sourceList state0 = do
   <p>Our algorithm is simple: store the initial state (the input list) in a mutable reference, and
    then read the value in the reference on each pull. If there is more data, then pop one value from
    the front of the list and update the state. If the list is empty, return a Closed.</p>
-  <note>If we wanted to, we could add in a minor optimization with an extra
-   clause:<codeblock outputclass="haskell">[x] -> return $ SourceResult Closed [x]</codeblock>This
-   would prevent <codeph>sourcePull</codeph> from being called an extra time just to find out there
-   is no data left.</note>
-  <p>Note, however, that instead of returning a <codeph>PreparedSource</codeph>, we get a monadic value.
-   In order to use this <codeph>PreparedSource</codeph>, we will need to extract that value first. Doing
-   so will turn out to be a tedious activity (trust me, that's how I first wrote conduits). We need
-   a better approach. And since we use <codeph>ResourceT</codeph>'s <codeph>newRef</codeph> and
-   related functions, we now need to put <codeph>Resource m</codeph> in the context.</p>
+  <p>Note, however, that instead of returning a <codeph>PreparedSource</codeph>, we get a monadic
+   value. In order to use this <codeph>PreparedSource</codeph>, we will need to extract that value
+   first. Doing so will turn out to be a tedious activity (trust me, that's how I first wrote
+   conduits). We need a better approach. And since we use <codeph>ResourceT</codeph>'s
+    <codeph>newRef</codeph> and related functions, we now need to put <codeph>Resource m</codeph> in
+   the context.</p>
  </conbody>
 </concept>

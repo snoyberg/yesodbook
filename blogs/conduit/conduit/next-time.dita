@@ -11,6 +11,7 @@
    <li>Conduits</li>
    <li>The fuse operators</li>
    <li>The rules of data loss</li>
+   <li>Buffering/resumable sources</li>
    <li>Using conduits in pure code</li>
    <li>Some real-life examples</li>
   </ul>
