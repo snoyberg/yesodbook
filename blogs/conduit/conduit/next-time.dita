@@ -13,6 +13,7 @@
    <li>The rules of data loss</li>
    <li>Buffering/resumable sources</li>
    <li>Using conduits in pure code</li>
+   <li>Building up conduits from sinks</li>
    <li>Some real-life examples</li>
   </ul>
   <p>Remember that conduit has not yet been officially released, and some of the information in this
