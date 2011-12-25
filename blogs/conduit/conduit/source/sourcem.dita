@@ -5,7 +5,7 @@
  <conbody>
   <p>Having a monadic <codeph>PreparedSource</codeph> value is so common, that is has its own data
    type:</p>
-  <codeblock outputclass="haskell">newtype Source m a = Source { genSource :: ResourceT m (PreparedSource m a) }</codeblock>
+  <codeblock outputclass="haskell">newtype Source m a = Source { prepareSource :: ResourceT m (PreparedSource m a) }</codeblock>
   <p>In fact, this is precisely why we refer to the original data type as a
     <codeph>PreparedSource</codeph>. We'll see later that the whole conduit package follows this
    naming pattern. We can easily wrap up our previous function with this newtype wrapper:</p>
