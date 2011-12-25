@@ -3,8 +3,8 @@
 <map>
     <title>Conduits</title>
     <topicref href="conduits.dita" chunk="to-content">
-        <topicref href="conduits-in-five-minutes.dita"/>
         <topicref href="goals.dita"/>
+        <topicref href="conduits-in-five-minutes.dita"/>
         <topicref conref="source/source.ditamap#top"/>
         <topicref href="next-time.dita"/>
     </topicref>

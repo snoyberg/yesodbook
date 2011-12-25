@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>SourceM</title>
+ <title>Source</title>
  <conbody>
   <p>Having a monadic <codeph>PreparedSource</codeph> value is so common, that is has its own data
    type:</p>

@@ -42,6 +42,7 @@
      they are "done."</dd>
    </dlentry>
   </dl>
+  <p>Let's see some examples of conduit code.</p>
   <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 import Data.Conduit -- the core library
 import qualified Data.Conduit.List as CL -- some list-like functions
