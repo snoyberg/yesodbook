@@ -5,7 +5,7 @@
     <topicref href="conduits.dita" chunk="to-content">
         <topicref href="conduits-in-five-minutes.dita"/>
         <topicref href="goals.dita"/>
-        <mapref href="source/source.ditamap"/>
+        <topicref conref="source/source.ditamap#top"/>
         <topicref href="next-time.dita"/>
     </topicref>
 </map>
