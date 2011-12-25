@@ -49,11 +49,6 @@ import qualified Data.Conduit.List as CL -- some list-like functions
 import qualified Data.Conduit.Binary as CB -- bytes
 import qualified Data.Conduit.Text as CT
 
--- We use the system-filepath package to provide a nice, abstract datatype for
--- files.
-import Prelude hiding (FilePath)
-import Filesystem.Path.CurrentOS (FilePath)
-
 import Data.ByteString (ByteString)
 import Data.Text (Text)
 import qualified Data.Text as T
