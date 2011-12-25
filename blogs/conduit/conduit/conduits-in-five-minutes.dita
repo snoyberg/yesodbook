@@ -137,7 +137,7 @@ textify2 = conduitState
     (\() -> return [])
 
 -- Let's make the unlines conduit, that puts a newline on the end of each piece
--- of input. We'l just use CL.map; feel free to write it with conduitState as
+-- of input. We'll just use CL.map; feel free to write it with conduitState as
 -- well for practice.
 unlines' :: Resource m => Conduit Text m Text
 unlines' = CL.map $ \t -> t `T.append` "\n"

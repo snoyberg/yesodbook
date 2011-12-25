@@ -3,7 +3,7 @@
 <concept id="conceptId">
  <title>State</title>
  <conbody>
-  <p>There is something similar about the three sources mentioned above: they never change. They
+  <p>There is something similar about the two sources mentioned above: they never change. They
     <i>always</i> return the same value. In other words, they have no state. For almost all serious
    sources, we'll need some kind of state.</p>
   <note>The state might actually be defined outside of our program. For example, if we write a

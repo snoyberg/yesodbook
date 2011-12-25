@@ -32,7 +32,7 @@ repeat a = PreparedSource
     }</codeblock>
   <p>These sources are very straight-forward, since they always return the same results.
             Additionally, their close records don't do anything. You might think that this is a bug:
-            should a call to <codeph>sourcePull</codeph> return <codeph>Closed</codeph> after its
+            should a call to <codeph>sourcePull</codeph> return <codeph>Closed</codeph> after it's
             been closed? This isn't required, due to the invariants of a source:</p>
   <ol id="ol_vpl_mvx_re">
    <li>It is illegal to call <codeph>sourcePull</codeph> after a previous call returns

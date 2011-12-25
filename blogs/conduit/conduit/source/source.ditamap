@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
     <title>Source</title>
-    <topicref href="source.dita">
+    <topicref id="top" href="source.dita">
         <topicref href="state.dita"/>
         <topicref href="sourcem.dita"/>
         <topicref href="sourcestateio.dita"/>
