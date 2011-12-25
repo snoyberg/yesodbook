@@ -16,6 +16,8 @@
     Github</xref> provides some of the motivation for conduits.</p>
   <p>Note that this article will assume a basic understanding of the Resource monad transformer,
    which was described in a <xref href="http://www.yesodweb.com/blog/2011/12/resourcet"
-    format="html" scope="external">previous article</xref>.</p>
+    format="html" scope="external">previous article</xref>. Also, conduits have not yet been
+   released to Hackage, though the code in question is mostly stable, and is in fact in production
+   use already.</p>
  </conbody>
 </concept>
