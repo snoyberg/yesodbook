@@ -30,7 +30,7 @@ count = sinkState
     0
     -- The push function gets both the current state and the next input...
     (\state _ignored ->
-        -- and it return the new state and result.
+        -- and it returns the new state and result.
         return (state + 1, Processing))
     -- The close function gets the final state and returns the output.
     (\state -> return state)</codeblock>

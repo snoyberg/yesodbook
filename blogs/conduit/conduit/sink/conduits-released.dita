@@ -6,7 +6,7 @@
   <p>Since the last blog post, I've uploaded the conduit packages to Hackage so that everyone can
    play along at home. Obviously, this code is very new, and user feedback is highly appreciated. In
    the same vein, it's entirely possible that there will be changes to the API. That said, a huge
-   amount of code is already migrated over to conduit (besides the packages below, all of WAI,
+   amount of code has already been migrated over to conduit (besides the packages below, all of WAI,
    http-conduit, and a number of XML libraries have been ported), so I feel pretty confident that
    things are mostly stable.</p>
   <p>The code is split into a few different pacakges:</p>

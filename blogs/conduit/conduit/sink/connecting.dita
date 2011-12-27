@@ -28,8 +28,8 @@ main = runResourceT $ do
     res &lt;- CL.sourceList [1..10] $$ printSum
     liftIO $ putStrLn $ "Got a result: " ++ show res</codeblock>
   <p>Connecting takes care of preparing both the source and the sink, testing for the sink
-   constructore (<codeph>SinkData</codeph> versus <codeph>SinkNoData</codeph>) pulling from the
-   sink, and pushing to/closing the sink.</p>
+   constructor (<codeph>SinkData</codeph> versus <codeph>SinkNoData</codeph>) pulling from the sink,
+   and pushing to/closing the sink.</p>
   <p>However, there is one thing I wanted to point out from the long-winded example. On the second
    to last line, we ignore the leftover value of <codeph>Done</codeph>. This brings up the issue of
     <term>data loss</term>. This is an important topic that has had a lot of thought put into it.
