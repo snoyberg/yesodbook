@@ -22,7 +22,9 @@ sinkLine = sinkState
   where
     -- On a new line, return the contents up until here
     push front '\n' =
-        return (error "unused state", Done Nothing $ front [])
+        return ( id -- state value won't be used, since we're returning Done
+               , Done Nothing $ front []
+               )
 
     -- Just another character, add it to the front and keep going
     push front char =
