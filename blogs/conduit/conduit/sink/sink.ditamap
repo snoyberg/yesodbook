@@ -2,7 +2,6 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
     <title>Conduits, part 3: Sinks</title>
-    <topicref href="wrapper.dita" chunk="to-content">
         <topicref href="conduits-released.dita"/>
         <topicref href="quick-review.dita"/>
         <topicref href="sink.dita">
@@ -13,5 +12,4 @@
             <topicref href="connecting.dita"/>
         </topicref>
         <topicref href="to-be-continued.dita"/>
-    </topicref>
 </map>
