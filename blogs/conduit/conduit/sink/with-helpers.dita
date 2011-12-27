@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Sinks: with helpers</title>
+ <conbody>
+  <p>Let's rewrite <codeph>sinkFile</codeph> and <codeph>count</codeph> to take advantage of the
+   helper functions <codeph>sinkIO</codeph> and <codeph>sinkState</codeph>, respectively.</p>
+  <codeblock outputclass="haskell">import Data.Conduit
+import System.IO
+import Control.Monad.IO.Class (liftIO)
+
+-- We never have to touch the release key directly, sinkIO automatically
+-- releases our resource as soon as we return Done from sinkPush or sinkClose
+-- is called.
+sinkFile :: ResourceIO m => FilePath -> Sink Char m ()
+sinkFile fp = sinkIO
+    (openFile fp WriteMode)
+    hClose
+    -- push: notice that we are given the handle and the input
+    (\handle char -> do
+        liftIO $ hPutChar handle char
+        return Processing)
+    -- close: we're also given the handle, but we don't use it
+    (\_handle -> return ())
+
+-- And we'll count how many values were in the stream. Like sources, we use
+-- mutable references.
+count :: Resource m => Sink a m Int
+count = sinkState
+    0
+    -- The push function gets both the current state and the next input...
+    (\state _ignored ->
+        -- and it return the new state and result.
+        return (state + 1, Processing))
+    -- The close function gets the final state and returns the output.
+    (\state -> return state)</codeblock>
+  <p>Nothing dramatic, just slightly shorter, less error-prone code. Using these two helper
+   functions is highly recommended, as it ensures proper resource management and state updating.</p>
+ </conbody>
+</concept>

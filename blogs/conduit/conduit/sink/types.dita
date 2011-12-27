@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Types</title>
+ <conbody>
+  <p>Like sources, we also have the prepared versus non-prepared distinction in sinks. Let's look at
+   all the types together.</p>
+  <codeblock outputclass="haskell">data SinkResult input output = Processing | Done (Maybe input) output
+data PreparedSink input m output =
+    SinkNoData output
+  | SinkData
+        { sinkPush :: input -> ResourceT m (SinkResult input output)
+        , sinkClose :: ResourceT m output
+        }
+newtype Sink input m output = Sink { prepareSink :: ResourceT m (PreparedSink input m output) }</codeblock>
+  <p>We saw the <codeph>SinkResult</codeph> constructors in the previous example. Whenever a sink is
+   pushed to, it can either say it needs more data (<codeph>Processing</codeph>) or say it's all
+   done, in which case it returns any leftover data and the output. Fairly-straight-forward. Also
+   straight-forward is the <codeph>Sink</codeph> newtype wrapper around
+    <codeph>PreparedSink</codeph>, which follows the same logic as the
+    <codeph>Source</codeph>/<codeph>PreparedSource</codeph> breakdown from the last post.</p>
+  <p>The first real "gotcha" is the two constructors for <codeph>PreparedSink</codeph>. Why do we
+   need <codeph>SinkNoData</codeph>: aren't sinks all about consuming data? The answer is that we
+   need it to efficiently implement our <codeph>Monad</codeph> instance. When we use
+    <codeph>return</codeph>, we're giving back a value that requires no data in order to compute it.
+   We could model this with the <codeph>SinkData</codeph> constructor, with something like:</p>
+  <codeblock outputclass="haskell">myReturn a = SinkData (\input -> return (Done (Just input) a)) (return a)</codeblock>
+  <p>But doing so would force reading in an extra bit of input that we don't need right now, and
+   possibly will never need. (Have a look again at the <codeph>sinkLines</codeph> example.) So
+   instead, we have an extra constructor to indicate that no input is required.</p>
+ </conbody>
+</concept>

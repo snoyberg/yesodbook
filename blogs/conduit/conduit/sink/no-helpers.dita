@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Sinks: no helpers</title>
+ <conbody>
+  <p>Let's try to implement some sinks on the "bare metal", without any helper functions.</p>
+  <codeblock outputclass="haskell">import Data.Conduit
+import System.IO
+import Control.Monad.Trans.Resource
+import Control.Monad.IO.Class (liftIO)
+
+-- Consume all input and discard it. This is the simplest sink, and requires no
+-- state or initialization.
+preparedSinkNull :: Resource m => PreparedSink a m ()
+preparedSinkNull = SinkData
+    { sinkPush = \_ignored -> return Processing
+    , sinkClose = return ()
+    }
+
+-- Let's wrap it up in a Sink.
+sinkNull :: Resource m => Sink a m ()
+sinkNull = Sink $ return preparedSinkNull
+
+-- Let's stream characters to a file. Here we do need some kind of
+-- initialization. By using withIO, we know that the handle will be closed even
+-- if there's an exception.
+sinkFile :: ResourceIO m => FilePath -> Sink Char m ()
+sinkFile fp = Sink $ do
+    (releaseKey, handle) &lt;- withIO (openFile fp WriteMode) hClose
+    return SinkData
+        { sinkPush = \char -> do
+            liftIO $ hPutChar handle char
+            return Processing
+        , sinkClose = do
+            -- Close the file handle as soon as possible.
+            release releaseKey
+            return ()
+        }
+
+-- And we'll count how many values were in the stream. Like sources, we use
+-- mutable references.
+count :: Resource m => Sink a m Int
+count = Sink $ do
+    countRef &lt;- newRef 0
+    return SinkData
+        { sinkPush = \_ignored -> do
+            count &lt;- readRef countRef
+            writeRef countRef $ count + 1
+            return Processing
+        , sinkClose = readRef countRef
+        }</codeblock>
+  <p>Nothing is particularly complicated to implement, though it's tedious having to deal directly
+   with resource allocation or mutable state. That's why we have helper functions.</p>
+ </conbody>
+</concept>

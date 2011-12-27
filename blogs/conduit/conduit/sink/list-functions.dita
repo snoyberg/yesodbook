@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>List functions</title>
+ <conbody>
+  <p>As easy as it is to write your own sinks, you'll likely want to take advantage of the built-in
+   sinks available in the <apiname>conduit:Data.Conduit.List</apiname> module. These provide
+   analogues to common list functions, like folding. (The module also has some Conduits, like
+    <apiname>conduit:Data.Conduit.List:map</apiname>, but we'll need to wait till the next post for
+   that.)</p>
+  <p>If you're looking for some way to practice with conduits, reimplementing the functions in the
+   List module- both with and without the helper functions- would be a good start.</p>
+  <p>Let's look at some simple things we can make out of the built-in sinks.</p>
+  <codeblock outputclass="haskell">import Data.Conduit
+import qualified Data.Conduit.List as CL
+import Control.Monad.IO.Class (liftIO)
+
+-- A sum function.
+sum' :: Resource m => Sink Int m Int
+sum' = CL.fold (+) 0
+
+-- Print every input value to standard output.
+printer :: (Show a, ResourceIO m) => Sink a m ()
+printer = CL.mapM_ (liftIO . print)
+
+-- Sum up all the values in a stream after the first five.
+sumSkipFive :: Resource m => Sink Int m Int
+sumSkipFive = do
+    CL.drop 5
+    CL.fold (+) 0
+
+-- Print each input number and sum the total
+printSum :: ResourceIO m => Sink Int m Int
+printSum = do
+    total &lt;- CL.foldM go 0
+    liftIO $ putStrLn $ "Sum: " ++ show total
+    return total
+  where
+    go accum int = do
+        liftIO $ putStrLn $ "New input: " ++ show int
+        return $ accum + int</codeblock>
+ </conbody>
+</concept>

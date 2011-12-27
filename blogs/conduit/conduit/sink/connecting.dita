@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Connecting</title>
+ <conbody>
+  <p>At the end of the day, we're actually going to want to use our sinks. While we could manually
+   call sinkPush and sinkClose, it's tedious. For example:</p>
+  <codeblock outputclass="haskell">main :: IO ()
+main = runResourceT $ do
+    sink &lt;- prepareSink printSum
+    res &lt;-
+        case sink of
+            SinkData push close -> loop [1..10] push close
+            SinkNoData res -> return res
+    liftIO $ putStrLn $ "Got a result: " ++ show res
+  where
+    loop [] _push close = close
+    loop (x:xs) push close = do
+        mres &lt;- push x
+        case mres of
+            Done _leftover res -> return res
+            Processing -> loop xs push close</codeblock>
+  <p>Instead, the recommended approach is to connect your sink to a source. Not only is this
+   simpler, it's less error prone, and means you have a lot of flexibility in where your data is
+   coming from. To rewrite the example above:</p>
+  <codeblock outputclass="haskell">main :: IO ()
+main = runResourceT $ do
+    res &lt;- CL.sourceList [1..10] $$ printSum
+    liftIO $ putStrLn $ "Got a result: " ++ show res</codeblock>
+  <p>Connecting takes care of preparing both the source and the sink, testing for the sink
+   constructore (<codeph>SinkData</codeph> versus <codeph>SinkNoData</codeph>) pulling from the
+   sink, and pushing to/closing the sink.</p>
+  <p>However, there is one thing I wanted to point out from the long-winded example. On the second
+   to last line, we ignore the leftover value of <codeph>Done</codeph>. This brings up the issue of
+    <term>data loss</term>. This is an important topic that has had a lot of thought put into it.
+   Unfortunately, we can't fully cover it yet, as we haven't discussed the main culprit in the
+   drama: <codeph>Conduit</codeph>s (the type, not the package).</p>
+  <p>But as a quick note here, the leftover value from the <codeph>Done</codeph> constructor is not
+   always ignored. The <codeph>Monad</codeph> instance, for example, uses it to pass data from one
+   sink to the next in a binding. And in fact, the real connect operator <i>doesn't</i> throw away
+   the leftovers. When we cover resumable sources later, we'll see that the leftover value is put
+   back on the buffer to allow later sinks reusing an existing source to pull the value.</p>
+ </conbody>
+</concept>
