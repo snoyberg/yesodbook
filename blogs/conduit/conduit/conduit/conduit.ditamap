@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/map.dtd">
-<map title="Conduits, part 4: Conduits">
+<map>
+    <title>Conduits, part 4: Conduits</title>
     <topicref href="review-and-status.dita"/>
     <topicref href="types.dita"/>
     <topicref href="simple-conduits.dita"/>
