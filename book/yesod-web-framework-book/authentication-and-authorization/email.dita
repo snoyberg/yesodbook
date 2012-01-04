@@ -12,12 +12,14 @@
    <li id="x-5">While the email backend properly salts and hashes passwords, a compromised database could
     still be problematic. Again, we make no assumptions that Yesod users are following secure
     deployment practices.</li>
-   <li id="x-6">You need to have a working system for sending email. Many web servers these days are not
-    equipped to deal with all of the spam protection measures used by emai servers.<note id="x-7">The example
-     below will use the system's built-in <cmdname id="x-8">sendmail</cmdname> executable. If you would like
-     to avoid the hassle of dealing with an email server yourself, you can use Amazon SES. There is
-     a package called <apiname id="x-9">mime-mail-ses</apiname> which provides a drop-in replacement for the
-     sendmail code used below. This is the approach we use on the Haskellers.com site.</note></li>
+   <li id="x-6">You need to have a working system for sending email. Many web servers these days are
+                not equipped to deal with all of the spam protection measures used by mail
+                    servers.<note id="x-7">The example below will use the system's built-in <cmdname
+                        id="x-8">sendmail</cmdname> executable. If you would like to avoid the
+                    hassle of dealing with an email server yourself, you can use Amazon SES. There
+                    is a package called <apiname id="x-9">mime-mail-ses</apiname> which provides a
+                    drop-in replacement for the sendmail code used below. This is the approach we
+                    use on the Haskellers.com site.</note></li>
   </ul>
   <p id="x-10">But assuming you are able to meet these demands, and you want to have a separate password login
    specifically for your site, Yesod offers a built-in backend. It requires quite a bit of code to

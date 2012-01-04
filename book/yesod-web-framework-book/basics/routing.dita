@@ -28,9 +28,9 @@
             Firstly, there's no great ways to optimize the routing: the only way to determine which
             route matches is to go through every single regular expression linearly. Yesod's routes
             are broken down into individual pieces, and can thus be optimized for routing.</p>
-        <p id="x-15">But the more important issue is overlapping. Yesod will stop you from accidently writing
-            two routes that would match the same URL. This fits in with Yesod's overall philosophy
-            of catching as many errors at possible at compile time.</p>
+        <p id="x-15">But aW more important issue is overlapping. Yesod will stop you from accidently
+            writing two routes that would match the same URL. This fits in with Yesod's overall
+            philosophy of catching as many errors at possible at compile time.</p>
         <note id="x-16">You're probably wondering what the Django example would look like in Yesod. It looks
             very similar
             actually:<codeblock id="x-17" outputclass="haskell">/articles/2003 News2003R GET
