@@ -8,3 +8,5 @@ mv $(find tmp -name \*.html) html
 for f in html/*.html ; do sed -i 's@"\.\./\.\./\.\./images@"images@g' $f ; done
 mv tmp/images html
 rm -rf tmp
+rm -rf ~/sites/yesodweb.com/content/book
+mv html/ ~/sites/yesodweb.com/content/book
