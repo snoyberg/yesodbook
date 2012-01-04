@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conceptId">
+ <title>Stateful conduits</title>
+ <conbody>
+  <p>Of course, not all conduits can be declared without state. Doing so on the bare metal is not
+   too difficult.</p>
+  <codeblock outputclass="haskell">import Prelude hiding (reverse)
+import qualified Data.List
+import Data.Conduit
+import Control.Monad.Trans.Resource
+
+-- Reverse the elements in the stream. Note that this has the same downside as
+-- the standard reverse function: you have to read the entire stream into
+-- memory before producing any output.
+reverse :: Resource m => Conduit input m input
+reverse = Conduit $ do
+    stateRef &lt;- newRef []
+    return $ PreparedConduit
+        { conduitPush = \input -> do
+            state &lt;- readRef stateRef
+            writeRef stateRef $ input : state
+            return $ Producing []
+        , conduitClose = readRef stateRef
+        }
+
+-- Same thing with sort: it will pull everything into memory
+sort :: (Ord input, Resource m) => Conduit input m input
+sort = Conduit $ do
+    stateRef &lt;- newRef []
+    return $ PreparedConduit
+        { conduitPush = \input -> do
+            state &lt;- readRef stateRef
+            writeRef stateRef $ input : state
+            return $ Producing []
+        , conduitClose = do
+            list &lt;- readRef stateRef
+            return $ Data.List.sort list
+        }</codeblock>
+  <p>But who wants to deal directly with mutable variables? Just like sourceState and sinkState, we
+   have conduitState to help you keep your sanity.</p>
+  <codeblock outputclass="haskell">import Prelude hiding (reverse)
+import qualified Data.List
+import Data.Conduit
+
+-- Reverse the elements in the stream. Note that this has the same downside as
+-- the standard reverse function: you have to read the entire stream into
+-- memory before producing any output.
+reverse :: Resource m => Conduit input m input
+reverse =
+    conduitState [] push close
+  where
+    push state input = return (input : state, Producing [])
+    close state = return state
+
+-- Same thing with sort: it will pull everything into memory
+sort :: (Ord input, Resource m) => Conduit input m input
+sort =
+    conduitState [] push close
+  where
+    push state input = return (input : state, Producing [])
+    close state = return $ Data.List.sort state</codeblock>
+ </conbody>
+</concept>

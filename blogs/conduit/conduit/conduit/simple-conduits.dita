@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conceptId">
+ <title>Simple conduits</title>
+ <conbody>
+  <p>We'll start off by defining some simple conduits that don't require any initialization. As
+   opposed to sources and sinks, we can actually implement a fair number of very useful conduits in
+   this fashion.</p>
+  <codeblock outputclass="haskell">import Prelude hiding (map, concatMap)
+import Data.Conduit
+
+-- A simple conduit that just passes on the data as-is.
+passThroughPrepared :: Monad m => PreparedConduit input m input
+passThroughPrepared = PreparedConduit
+    { conduitPush = \input -> return $ Producing [input]
+    , conduitClose = return []
+    }
+
+-- Wrapped up in the Conduit newtype
+passThrough :: Monad m => Conduit input m input
+passThrough = Conduit $ return $ PreparedConduit
+    { conduitPush = \input -> return $ Producing [input]
+    , conduitClose = return []
+    }
+
+-- map values in a stream
+map :: Monad m => (input -> output) -> Conduit input m output
+map f = Conduit $ return $ PreparedConduit
+    { conduitPush = \input -> return $ Producing [f input]
+    , conduitClose = return []
+    }
+
+-- map and concatenate
+concatMap :: Monad m => (input -> [output]) -> Conduit input m output
+concatMap f = Conduit $ return $ PreparedConduit
+    { conduitPush = \input -> return $ Producing $ f input
+    , conduitClose = return []
+    }</codeblock>
+ </conbody>
+</concept>

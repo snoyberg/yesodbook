@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Data loss</title>
+ <conbody>
+  <p>Let's forget about conduits for a moment. Instead, suppose we want to write a program- using
+   plain old lists- that will take a list of numbers, apply some kind of transformation to them,
+   take the first five transformed values and do something with them, and then do something else
+   with the remaining <b>non-transformed</b> values. For example, we want something like:</p>
+  <codeblock outputclass="haskell">main = do
+    let list = [1..10]
+        transformed = map show list
+        (begin, end) = splitAt 5 transformed
+        untransformed = map read end
+    mapM_ putStrLn begin
+    print $ sum untransformed</codeblock>
+  <p>But clearly this isn't a good general solution, since we don't want to have to transform and
+   then untransform every element in the list. For one thing, we may not always have an inverse
+   function. Another issue is efficiency. In this case, we can write something more efficient:</p>
+  <codeblock outputclass="haskell">main = do
+    let list = [1..10]
+        (begin, end) = splitAt 5 list
+        transformed = map show begin
+    mapM_ putStrLn transformed
+    print $ sum end</codeblock>
+  <p>Note the change: we perform our split before transforming any elements. This works because,
+   with <codeph>map</codeph>, we have a 1-to-1 correspondence between the input and output elements.
+   So splitting at 5 before or after mapping <codeph>show</codeph> is the same thing. But what
+   happens if we replace <codeph>map show</codeph> with something more devious.</p>
+  <codeblock outputclass="haskell">deviousTransform =
+    concatMap go
+  where
+    go 1 = [show 1]
+    go 2 = [show 2, "two"]
+    go 3 = replicate 5 "three"
+    go x = [show x]</codeblock>
+  <p>We no longer have the 1-to-1 correspondence. As a result, we can't use the second method. But
+   it's even worse: we can't use the first method either, since there's no inverse of our
+    <codeph>deviousTransform</codeph>.</p>
+  <p>There's only one solution to the problem that I'm aware of: transform elements one at a time.
+   The final program looks like this:</p>
+  <codeblock outputclass="haskell">deviousTransform 1 = [show 1]
+deviousTransform 2 = [show 2, "two"]
+deviousTransform 3 = replicate 5 "three"
+deviousTransform x = [show x]
+
+transform5 :: [Int] -> ([String], [Int])
+transform5 list =
+    go [] list
+  where
+    go output (x:xs)
+        | newLen >= 5 = (take 5 output', xs)
+        | otherwise = go output' xs
+      where
+        output' = output ++ deviousTransform x
+        newLen = length output'
+
+    -- Degenerate case: not enough input to make 5 outputs
+    go output [] = (output, [])
+
+main = do
+    let list = [1..10]
+        (begin, end) = transform5 list
+    mapM_ putStrLn begin
+    print $ sum end</codeblock>
+  <p>The final output of this program is<msgblock>1
+2
+two
+three
+three
+49</msgblock>What's important
+   to note is that the number 3 is converted into five copies of the word "three", yet only two of
+   them show up in the output. The rest are discarded in the <codeph>take 5</codeph> call.</p>
+  <p>This whole exercise is just to demonstrate the issue of data loss in conduits. By forcing
+   conduits to accept only one input at a time, we avoid the issue of transforming too many elements
+   at once. That doesn't mean we don't lose <i>any</i> data: if a conduit produces too much output
+   for the receiving sink to handle, some of it may be lost.</p>
+  <p>To put all this another way: conduits avoid chunking to get away from data loss. This is not an
+   issue unique to conduits. If you look in the implementation of <codeph>concatMapM</codeph> for
+    <apiname>enumerator</apiname>, you'll see that it forces elements to be handled one at a time.
+   In conduits, we opted to force the issue at the type level.</p>
+ </conbody>
+</concept>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>SequencedSink</title>
+ <conbody>
+  <p>Suppose we want to be able to combine up existing conduits and sinks to produce a new, more
+   powerful conduit. For example, we want to write a conduit that takes a stream of numbers and sums
+   up every five. In other words, for the input <codeph>[1..50]</codeph>, it should result in the
+   sequence <codeph>[15,40,65,90,115,140,165,190,215,240]</codeph>. We can definitely do this with
+   the low-level conduit interface.</p>
+  <codeblock outputclass="haskell">sum5Raw :: Resource m => Conduit Int m Int
+sum5Raw =
+    conduitState (0, 0) push close
+  where
+    push (total, count) input
+        | newCount == 5 = return ((0, 0), Producing [newTotal])
+        | otherwise     = return ((newTotal, newCount), Producing [])
+      where
+        newTotal = total + input
+        newCount = count + 1
+    close (total, count)
+        | count == 0 = return []
+        | otherwise  = return [total]</codeblock>
+  <p>But this is frustrating, since we already have all the tools we need to do this at a high
+   level! There's the <codeph>fold</codeph> sink for adding up the numbers, and the
+    <codeph>isolate</codeph> conduit which will only allow up to a certain number of elements to be
+   passed to a sink. Can't we combine these somehow?</p>
+  <p>The answer is a <codeph>SequencedSink</codeph>. The idea is to create a normal
+    <codeph>Sink</codeph>, except it returns a special output called a
+    <codeph>SequencedSinkResponse</codeph>. This value can emit new output, stop processing data, or
+   transfer control to a new conduit. (See the Haddocks for more information.) Then we can turn this
+   into a <codeph>Conduit</codeph> using the <codeph>sequenceSink</codeph> function. This function
+   also takes some state value that gets passed through to the sink.</p>
+  <p>So we can rewrite <codeph>sum5Raw</codeph> in a much more high-level manor.</p>
+  <codeblock outputclass="haskell">sum5 :: Resource m => Conduit Int m Int
+sum5 = sequenceSink () $ \() -> do
+    nextSum &lt;- CL.isolate 5 =$ CL.fold (+) 0
+    return $ Emit () [nextSum]</codeblock>
+  <p>All of the <codeph>()</codeph> in there are simply the unused state variable being passed
+   around, they can be ignored. Otherwise, we're doing exactly what we want. We fuse
+    <codeph>isolate</codeph> to <codeph>fold</codeph> to get the sum of the next five elements from
+   the stream. We then emit that value, and start all over again.</p>
+  <p>Let's say we want to modify this slightly. We want to get the first 8 sums, and then pass
+   through the remaining values, multiplied by 2. We can keep track of how many values we've
+   returned in our state, and then use the <codeph>Startconduit</codeph> constructor to pass control
+   to the multiply-by-2 conduit next.</p>
+  <codeblock outputclass="haskell">sum5Pass :: Resource m => Conduit Int m Int
+sum5Pass = sequenceSink 0 $ \count -> do
+    if count == 8
+        then return $ StartConduit $ CL.map (* 2)
+        else do
+            nextSum &lt;- CL.isolate 5 =$ CL.fold (+) 0
+            return $ Emit (count + 1) [nextSum]</codeblock>
+  <p>These are obviously very contrived examples, but I hope it makes clear the power and simplicity
+   available from this approach.</p>
+ </conbody>
+</concept>
