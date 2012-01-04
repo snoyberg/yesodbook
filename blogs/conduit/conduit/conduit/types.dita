@@ -31,6 +31,6 @@ newtype Conduit input m output =
     for conduits. We'll see later how you can still use a familiar Monadic approach to creating
     conduits.</li>
   </ul>
-  <p>Overall sinks should seem very similar to what we've covered so far.</p>
+  <p>Overall conduits should seem very similar to what we've covered so far.</p>
  </conbody>
 </concept>

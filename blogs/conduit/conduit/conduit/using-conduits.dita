@@ -16,7 +16,7 @@
 -- Middle fusion: conduit + conduit = conduit
 (=$=) :: Resource m => Conduit a m b -> Conduit b m c -> Conduit a m c</codeblock>
   <p>Using these operators is straightforward.</p>
-  <codeblock>useConduits = do
+  <codeblock outputclass="haskell">useConduits = do
     runResourceT
           $  CL.sourceList [1..10]
           $= reverse
