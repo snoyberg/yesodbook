@@ -4,7 +4,7 @@
  <title>Summary</title>
  <conbody>
   <p>We're nearing the end of our conduits series. The last remaining major point is buffering and
-   resumable sources. (I would have included it hear, but (a) it doesn't exactly fit with the rest
+   resumable sources. (I would have included it here, but (a) it doesn't exactly fit with the rest
    of the material and (b) it's 10:30 at night and I want to go to sleep.) In addition, we'll try to
    cover some real-life use cases for conduits, and give examples of where libraries like
     <apiname>http-conduit</apiname> and the upcoming conduit-based <apiname>wai</apiname> can be
