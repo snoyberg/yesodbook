@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>A note about file paths</title>
+ <conbody>
+  <p>In the type signature above, we have a type <codeph>FilePath</codeph>. However, <b>this isn't
+     <codeph>Prelude.FilePath</codeph></b>. The standard <codeph>Prelude</codeph> defines a type
+   synonym <codeph>type FilePath = [Char]</codeph>. Unfortunately, there are many limitations to
+   using such an approach, including confusion of filename character encodings and differences in
+   path separators.</p>
+  <p>Instead, <codeph>xml-conduit</codeph> uses the <apiname>system-filepath</apiname> package,
+   which defines an abstract <codeph>FilePath</codeph> type. I've personally found this to be a much
+   nicer approach to work with. The package is fairly easy to follow, so I won't go into details
+   here. But I do want to give a few quick explanations of how to use it:</p>
+  <ul id="ul_lgl_lyb_we">
+   <li>Since a <codeph>FilePath</codeph> is an instance of <codeph>IsString</codeph>, you can type
+    in regular strings and they will be treated properly, as long as the
+     <codeph>OverloadedStrings</codeph> extension is enabled. (I highly recommend enabling it
+    anyway, as it makes dealing with <codeph>Text</codeph> values much more pleasant.)</li>
+   <li>If you need to explicitly convert to or from <codeph>Prelude</codeph>'s
+     <codeph>FilePath</codeph>, you should use the
+     <apiname>system-filepath:Filesystem.Path.CurrentOS:encodeString</apiname> and
+     <apiname>system-filepath:Filesystem.Path.CurrentOS:decodeString</apiname>, respectively. This
+    takes into account file path encodings.</li>
+   <li>Instead of manually splicing together directory names and file names with extensions, use the
+    operators in the <codeph>Filesystem.Path.CurrentOS</codeph> module, e.g. <codeph>myfolder &lt;/>
+     filename &lt;.> extension</codeph>.</li>
+  </ul>
+ </conbody>
+</concept>

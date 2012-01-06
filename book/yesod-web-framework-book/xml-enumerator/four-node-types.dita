@@ -26,11 +26,11 @@
    the data types in order to completely match the spec. However, in practice, it can be very
    tedious to program against those data types. And in most use cases, an unresolved entity is going
    to end up as an error anyway.</p>
-  <p id="x-12">So the <apiname id="x-13">xml-enumerator:Text.XML</apiname> module defines its own set of datatypes for
-   nodes, elements and documents that removes all unresolved entities. If you need to deal with
-   unresolved entities instead, you should use the
-    <apiname id="x-14">xml-enumerator:Text.XML.Unresolved</apiname> module. From now on, we'll be focusing
-   only on the Text.XML data types, though they are almost identical to the xml-types versions.</p>
+  <p id="x-12">So the <apiname id="x-13">xml-conduit:Text.XML</apiname> module defines its own set
+   of datatypes for nodes, elements and documents that removes all unresolved entities. If you need
+   to deal with unresolved entities instead, you should use the <apiname id="x-14"
+    >xml-conduit:Text.XML.Unresolved</apiname> module. From now on, we'll be focusing only on the
+   Text.XML data types, though they are almost identical to the xml-types versions.</p>
   <p id="x-15">Anyway, after that detour: content is simply a piece of text, and therefore it too does not
    have a special datatype. The last node type is an element, which contains three pieces of
    information: a name, a list of attributes and a list of children nodes. An attribute has two

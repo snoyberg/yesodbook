@@ -3,22 +3,19 @@
 <concept id="conceptId">
  <title id="x-1">Text.XML</title>
  <conbody id="x-2">
-  <p id="x-3">The recommended entry point to xml-enumerator is the <apiname id="x-4">xml-enumerator:Text.XML</apiname>
-   module. This module exports all of the datatypes you'll need to manipulate XML in a DOM fashion,
-   as well as a number of different approaches for parsing and rendering XML content. Let's start
-   with the simple
-   ones:<codeblock id="x-5" outputclass="haskell">readFile_ :: ParseSettings  -&gt; FilePath -&gt; IO Document
+  <p id="x-3">The recommended entry point to xml-conduit is the <apiname id="x-4"
+    >xml-conduit:Text.XML</apiname> module. This module exports all of the datatypes you'll need to
+   manipulate XML in a DOM fashion, as well as a number of different approaches for parsing and
+   rendering XML content. Let's start with the simple
+   ones:<codeblock id="x-5" outputclass="haskell">readFile  :: ParseSettings  -&gt; FilePath -&gt; IO Document
 writeFile :: RenderSettings -&gt; FilePath -&gt; Document -&gt; IO ()</codeblock>This
-   introduces the <codeph id="x-6">ParseSettings</codeph> and <codeph id="x-7">RenderSettings</codeph> datatypes. You
-   can use these to modify the behavior of the parser and renderer, such as adding character
-   entities and turning on pretty (i.e., indented) output. Both these types are instances of the
-    <apiname id="x-8">data-default:Data.Default:Default</apiname> typeclass, so you can simply use
-    <codeph id="x-9">def</codeph> when these need to be supplied. That is how we will supply these values
-   through the rest of the chapter; please see the API docs for more information.</p>
-  <p id="x-10">In addition to <codeph id="x-11">readFile_</codeph>, there is also <codeph id="x-12">readFile</codeph> which
-   returns <codeph id="x-13">Either SomeException Document</codeph>. Most of the parsing functions provide
-   such a dual set of functions, where the underscore suffix indicates that any parse errors will
-   simply be thrown as exceptions.</p>
+   introduces the <codeph id="x-6">ParseSettings</codeph> and <codeph id="x-7"
+    >RenderSettings</codeph> datatypes. You can use these to modify the behavior of the parser and
+   renderer, such as adding character entities and turning on pretty (i.e., indented) output. Both
+   these types are instances of the <apiname id="x-8">data-default:Data.Default:Default</apiname>
+   typeclass, so you can simply use <codeph id="x-9">def</codeph> when these need to be supplied.
+   That is how we will supply these values through the rest of the chapter; please see the API docs
+   for more information.</p>
   <p id="x-14">It's worth pointing out that in addition to the file-based API, there is also a text- and
    bytestring-based API. The bytestring-powered functions all perform intelligent encoding
    detections, and support UTF-8, UTF-16 and UTF-32, in either big or little endian, with and

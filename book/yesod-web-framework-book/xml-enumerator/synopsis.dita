@@ -14,15 +14,15 @@
    <title id="x-7">Haskell code</title>
    <codeblock id="x-8" outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE OverloadedStrings #-}
-import Prelude hiding (writeFile)
+import Prelude hiding (readFile, writeFile)
 import Text.XML
 import Text.Hamlet.XML
 
 main :: IO ()
 main = do
-    -- readFile_ will throw any parse errors as runtime exceptions
+    -- readFile will throw any parse errors as runtime exceptions
     -- def uses the default settings
-    Document prologue root epilogue &lt;- readFile_ def "input.xml"
+    Document prologue root epilogue &lt;- readFile def "input.xml"
 
     -- root is the root element of the document, let's modify it
     let root' = transform root

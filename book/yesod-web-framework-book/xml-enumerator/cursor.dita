@@ -3,12 +3,12 @@
 <concept id="cursor">
  <title id="x-1">Cursor</title>
  <conbody id="x-2">
-  <p id="x-3">Let's say you want to pull the title out of an XHTML document. You could do so with the
-   Text.XML interface we just described, using standard pattern matching on the children of
+  <p id="x-3">Let's say you want to pull the title out of an XHTML document. You could do so with
+   the Text.XML interface we just described, using standard pattern matching on the children of
    elements. But that would get very tedious, very quickly. Probably the gold standard for these
-   kinds of lookups is XPath, where you would be able to write <codeph id="x-4">/html/head/title</codeph>.
-   And that's exactly what inspired the design of the
-    <apiname id="x-5">xml-enumerator:Text.XML.Cursor</apiname> combinators.</p>
+   kinds of lookups is XPath, where you would be able to write <codeph id="x-4"
+    >/html/head/title</codeph>. And that's exactly what inspired the design of the <apiname id="x-5"
+    >xml-conduit:Text.XML.Cursor</apiname> combinators.</p>
   <p id="x-6">A cursor is an XML node that knows its location in the tree; it's able to traverse upwards,
    sideways, and downwards. (Under the surface, this is achieved by <xref id="x-7" href="http://www.haskell.org/haskellwiki/Tying_the_Knot" format="html" scope="external">tying
     the knot</xref>.) There are two functions available for creating cursors from Text.XML types:
@@ -27,13 +27,14 @@
   <p id="x-16">And thanks to the monad instance for lists, it's very easy to string all of these together. For
    example, to do our title lookup, we would write the following program:</p>
   <codeblock id="x-17" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Prelude hiding (readFile)
 import Text.XML
 import Text.XML.Cursor
 import qualified Data.Text as T
 
 main :: IO ()
 main = do
-    doc &lt;- readFile_ def "test.xml"
+    doc &lt;- readFile def "test.xml"
     let cursor = fromDocument doc
     print $ T.concat $
             child cursor &gt;&gt;= element "head" &gt;&gt;= child
@@ -61,13 +62,14 @@ main = do
    more verbose than the XPath solution. To combat this verbosity, Aristid Breitkreuz added a set of
    operators to the Cursor module to handle many common cases. So we can rewrite our example as:</p>
   <codeblock id="x-29" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Prelude hiding (readFile)
 import Text.XML
 import Text.XML.Cursor
 import qualified Data.Text as T
 
 main :: IO ()
 main = do
-    doc &lt;- readFile_ def "test.xml"
+    doc &lt;- readFile def "test.xml"
     let cursor = fromDocument doc
     print $ T.concat $
         cursor $/ element "head" &amp;/ element "title" &amp;// content</codeblock>
@@ -97,13 +99,14 @@ main = do
     <codeph id="x-38">h2</codeph> tag with a <codeph id="x-39">class</codeph> attribute of "bar". To perform this
    convoluted lookup, we can write:</p>
   <codeblock id="x-40" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Prelude hiding (readFile)
 import Text.XML
 import Text.XML.Cursor
 import qualified Data.Text as T
 
 main :: IO ()
 main = do
-    doc &lt;- readFile_ def "test2.xml"
+    doc &lt;- readFile def "test2.xml"
     let cursor = fromDocument doc
     print $ T.concat $
         cursor $// element "h2"
