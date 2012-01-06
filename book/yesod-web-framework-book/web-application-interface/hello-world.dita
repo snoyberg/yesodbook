@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="hello-world"><title id="x-1">Hello World</title><conbody id="x-2"><p id="helloworld1">To demonstrate the simplicity of WAI, let's look at a hello world example. In this example, we're going to use the OverloadedStrings language extension to avoid explicitly packing string values into bytestrings.</p><codeblock outputclass="haskell" id="x1">1 {-# LANGUAGE OverloadedStrings #-}
-2 import Network.Wai
-3 import Network.HTTP.Types (statusOK)
-4 import Network.Wai.Handler.Warp (run)
-5
-6 application _ = return $
-7   responseLBS statusOK [("Content-Type", "text/plain")] "Hello World"
-8
-9 main = run 3000 application</codeblock><p id="helloworld2">Lines 2 through 4 perform our imports. Warp is provided by the <apiname id="x2">warp</apiname> package, and is the premiere WAI backend. WAI is also built on top of the <apiname id="x3">http-types</apiname> package, which provides a number of datatypes and convenience values, including <codeph id="x4">statusOK</codeph>.</p><p id="helloworld3">First we define our application. Since we don't care about the specific request parameters, we ignore the argument to the function. For any request, we are returning a response with status code 200 ("OK"), and text/plain content type and a body containing the words "Hello World". Pretty straight-forward.</p></conbody></concept>
+<concept id="hello-world"><title id="x-1">Hello World</title><conbody id="x-2"><p id="helloworld1">To demonstrate the simplicity of WAI, let's look at a hello world example. In this example, we're going to use the OverloadedStrings language extension to avoid explicitly packing string values into bytestrings.</p><codeblock outputclass="haskell" id="x1">{-# LANGUAGE OverloadedStrings #-}
+import Network.Wai
+import Network.HTTP.Types (statusOK)
+import Network.Wai.Handler.Warp (run)
+
+application _ = return $
+  responseLBS statusOK [("Content-Type", "text/plain")] "Hello World"
+
+main = run 3000 application</codeblock><p id="helloworld2">Lines 2 through 4 perform our imports. Warp is provided by the <apiname id="x2">warp</apiname> package, and is the premiere WAI backend. WAI is also built on top of the <apiname id="x3">http-types</apiname> package, which provides a number of datatypes and convenience values, including <codeph id="x4">statusOK</codeph>.</p><p id="helloworld3">First we define our application. Since we don't care about the specific request parameters, we ignore the argument to the function. For any request, we are returning a response with status code 200 ("OK"), and text/plain content type and a body containing the words "Hello World". Pretty straight-forward.</p></conbody></concept>
