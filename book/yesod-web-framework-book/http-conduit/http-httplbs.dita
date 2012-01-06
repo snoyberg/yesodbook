@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>http and httpLbs</title>
+ <conbody>
+  <p>So let's tie it together. The <codeph>http</codeph> function gives you access to the streaming
+   interface (i.e., it returns a <codeph>Response</codeph> using a <codeph>BufferedSource</codeph>)
+   while <codeph>httpLbs</codeph> returns a lazy <codeph>ByteString</codeph>. Both of these return
+   values in the <codeph>ResourceT</codeph> transformer so that they can access the
+    <codeph>Manager</codeph> and have connections handled properly in the case of exceptions.</p>
+ </conbody>
+</concept>

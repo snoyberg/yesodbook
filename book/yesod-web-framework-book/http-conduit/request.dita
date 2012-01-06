@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Request</title>
+ <conbody>
+  <p>The easiest way to creating a <codeph>Request</codeph> is with the <codeph>parseUrl</codeph>
+   function. This function will return a value in any <codeph>Failure</codeph> monad, such as
+    <codeph>Maybe</codeph> or <codeph>IO</codeph>. The last of those is the most commonly used, and
+   results in a runtime exception whenever an invalid URL is provided. However, you can use a
+   different monad if, for example, you want to validate user input.</p>
+  <codeblock outputclass="haskell">import Network.HTTP.Conduit
+import System.Environment (getArgs)
+import qualified Data.ByteString.Lazy as L
+import Control.Monad.IO.Class (liftIO)
+
+main :: IO ()
+main = do
+    args &lt;- getArgs
+    case args of
+        [urlString] ->
+            case parseUrl urlString of
+                Nothing -> putStrLn "Sorry, invalid URL"
+                Just req -> withManager $ \manager -> do
+                    Response _ _ lbs &lt;- httpLbs req manager
+                    liftIO $ L.putStr lbs
+        _ -> putStrLn "Sorry, please provide example one URL"</codeblock>
+  <p>The <codeph>Request</codeph> type is abstract so that <codeph>http-conduit</codeph> can add new
+   settings in the future without breaking the API (see the <xref
+    href="http://www.yesodweb.com/blog/2011/10/settings-types" format="html" scope="external"
+    >Settings Type</xref> blog post for more information). In order to make changes to individual
+   records, you use record notation. For example, a modification to our program that issues
+    <codeph>HEAD</codeph> requests and prints the response headers would be:</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Network.HTTP.Conduit
+import System.Environment (getArgs)
+import qualified Data.ByteString.Lazy as L
+import Control.Monad.IO.Class (liftIO)
+
+main :: IO ()
+main = do
+    args &lt;- getArgs
+    case args of
+        [urlString] ->
+            case parseUrl urlString of
+                Nothing -> putStrLn "Sorry, invalid URL"
+                Just req -> withManager $ \manager -> do
+                    let reqHead = req { method = "HEAD" }
+                    Response status headers _ &lt;- http req manager
+                    liftIO $ do
+                        print status
+                        mapM_ print headers
+        _ -> putStrLn "Sorry, please provide example one URL"</codeblock>
+  <p>There are a number of different configuration settings in the API, some noteworthy ones
+   are:</p>
+  <dl>
+   <dlentry>
+    <dt>proxy</dt>
+    <dd>Allows you to pass the request through the given proxy server.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>redirectCount</dt>
+    <dd>Indicate how many redirects to follow. Default is 10.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>checkStatus</dt>
+    <dd>Check the status code of the return value. By default, gives an exception for any non-2XX
+     response.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>requestBody</dt>
+    <dd>The request body to be sent. Be sure to also update the <codeph>method</codeph>. For the
+     common case of url-encoded data, you can use the <codeph>urlEncodedBody</codeph> function.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

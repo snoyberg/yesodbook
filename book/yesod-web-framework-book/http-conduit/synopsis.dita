@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Synopsis</title>
+ <conbody>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Network.HTTP.Conduit -- the main module
+
+-- The streaming interface uses conduits
+import Data.Conduit
+import Data.Conduit.Binary (sinkFile)
+
+import qualified Data.ByteString.Lazy as L
+import Control.Monad.IO.Class (liftIO)
+
+main :: IO ()
+main = do
+    -- Simplest query: just download the information from the given URL as a
+    -- lazy ByteString.
+    simpleHttp "http://www.example.com/foo.txt" >>= L.writeFile "foo.txt"
+
+    -- Use the streaming interface instead. We need to run all of this inside a
+    -- ResourceT, to ensure that all our connections get properly cleaned up in
+    -- the case of an exception.
+    runResourceT $ do
+        -- We need a Manager, which keeps track of open connections. simpleHttp
+        -- creates a new manager on each run (i.e., it never reuses
+        -- connections).
+        manager &lt;- newManager
+
+        -- A more efficient version of the simpleHttp query above. First we
+        -- parse the URL to a request.
+        req &lt;- liftIO $ parseUrl "http://www.example.com/foo.txt"
+
+        -- Now get the response
+        res &lt;- http req manager
+
+        -- And finally stream the value to a file
+        responseBody res $$ sinkFile "foo.txt"
+
+        -- Make it a POST request, don't follow redirects, and accept any
+        -- status code.
+        let req2 = req
+                { method = "POST"
+                , redirectCount = 0
+                , checkStatus = \_ _ -> Nothing
+                }
+        res2 &lt;- http req2 manager
+        responseBody res $$ sinkFile "post-foo.txt"</codeblock>
+ </conbody>
+</concept>

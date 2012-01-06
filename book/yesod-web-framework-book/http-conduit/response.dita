@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Response</title>
+ <conbody>
+  <p>The <codeph>Response</codeph> datatype has three pieces of information: the status code, the
+   response headers, and the response body. The first two are straight-forward; let's discuss the
+   body.</p>
+  <p>The <codeph>Response</codeph> type has a type variable to allow the response body to be of
+   multiple types. If you want to use <codeph>http-conduit</codeph>'s streaming interface, you want
+   this to be a <codeph>BufferedSource</codeph>. For the simple interface, it will be a lazy
+    <codeph>ByteString</codeph>. One thing to note is that, even though we use a lazy
+    <codeph>ByteString</codeph>, <i>the entire response is held in memory</i>. In other words, we
+   perform no lazy I/O in this package.</p>
+  <note>The conduit package does provide a lazy module which would allow you to read this value in
+   lazily, but like any lazy I/O, it's a bit unsafe, and definitely non-deterministic. If you need
+   it though, you can use it.</note>
+ </conbody>
+</concept>
