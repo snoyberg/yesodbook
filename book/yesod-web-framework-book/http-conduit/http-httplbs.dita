@@ -8,5 +8,13 @@
    while <codeph>httpLbs</codeph> returns a lazy <codeph>ByteString</codeph>. Both of these return
    values in the <codeph>ResourceT</codeph> transformer so that they can access the
     <codeph>Manager</codeph> and have connections handled properly in the case of exceptions.</p>
+  <p>Here are a bunch of random comments about the library. Consider it the FAQ. Likewise, if you
+   have a question, please ask it so that this section can be updated.</p>
+  <dl>
+   <dlentry>
+    <dt>How do I ignore the remainder of a response body without reading it?</dt>
+    <dd>Use <codeph>bsourceClose</codeph> on the <codeph>responseBody</codeph> record.</dd>
+   </dlentry>
+  </dl>
  </conbody>
 </concept>

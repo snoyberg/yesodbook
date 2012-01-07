@@ -45,7 +45,7 @@ main = do
                 Nothing -> putStrLn "Sorry, invalid URL"
                 Just req -> withManager $ \manager -> do
                     let reqHead = req { method = "HEAD" }
-                    Response status headers _ &lt;- http req manager
+                    Response status headers _ &lt;- http reqHead manager
                     liftIO $ do
                         print status
                         mapM_ print headers

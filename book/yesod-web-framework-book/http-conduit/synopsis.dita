@@ -46,6 +46,6 @@ main = do
                 , checkStatus = \_ _ -> Nothing
                 }
         res2 &lt;- http req2 manager
-        responseBody res $$ sinkFile "post-foo.txt"</codeblock>
+        responseBody res2 $$ sinkFile "post-foo.txt"</codeblock>
  </conbody>
 </concept>
