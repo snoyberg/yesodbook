@@ -33,5 +33,6 @@
         <mapref id="x-24" href="yesod-web-framework-book/monad-control-wrapper.ditamap"/>
         <mapref id="x-14" href="yesod-web-framework-book/xml-enumerator.ditamap"/>
         <mapref href="yesod-web-framework-book/http-conduit/http-conduit.ditamap"/>
+        <topicref href="../blogs/2011/10/settings-types.dita"/>
     </topichead>
 </map>
