@@ -3,6 +3,7 @@
 <concept id="conceptId">
  <title>Buffering</title>
  <conbody>
-  <p>FIXME</p>
+  <p>Buffering is one of the unique features of conduits. With buffering, conduits no longer need to
+   control the flow of your application. In some cases, this can lead to simpler code.</p>
  </conbody>
 </concept>

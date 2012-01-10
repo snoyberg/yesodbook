@@ -4,13 +4,9 @@
  <title>The Resource monad transformer</title>
  <conbody>
   <p>The Resource transformer (<codeph>ResourceT</codeph>) plays a vital role in proper resource
-   management in the conduit project. I have no yet released conduit, but consider this the first
-   post in a series describing conduit and how to use it. For the impatient, you can see <xref
-    href="https://github.com/snoyberg/conduit" format="html" scope="external">the Github
-   repo</xref>, which has a fairly comprehensive README file. Note that the code is not final, and
-   API changes are expected before release.</p>
-  <p>This post is devoted to explaining <codeph>ResourceT</codeph> as its own entity. While some of
-   the design decisions clearly are biased towards conduits, <codeph>ResourceT</codeph> should
-   remain a usable tool in its own right.</p>
+   management in the conduit project. It is included within the conduit package itself. We'll
+   explaining <codeph>ResourceT</codeph> as its own entity. While some of the design decisions
+   clearly are biased towards conduits, <codeph>ResourceT</codeph> should remain a usable tool in
+   its own right.</p>
  </conbody>
 </concept>

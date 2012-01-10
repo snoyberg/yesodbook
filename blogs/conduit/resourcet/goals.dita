@@ -48,7 +48,7 @@ main =
    file.</p>
   <p>One of the stated goals of conduits is to solve this problem, and it does so via
     <codeph>ResourceT</codeph>. As a result, the above program can be written in conduit as:</p>
-  <codeblock>{-# LANGUAGE OverloadedStrings #-}
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 import Data.Conduit
 import Data.Conduit.Binary
 

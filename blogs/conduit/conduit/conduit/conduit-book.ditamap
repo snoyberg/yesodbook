@@ -3,7 +3,6 @@
 <map>
  <title>Conduits</title>
  <topicref href="conduit-book.dita" id="top">
-  <topicref href="review-and-status.dita"/>
   <topicref href="types.dita"/>
   <topicref href="simple-conduits.dita"/>
   <topicref href="stateful-conduits.dita"/>

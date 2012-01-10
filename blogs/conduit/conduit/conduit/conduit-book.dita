@@ -3,6 +3,7 @@
 <concept id="conceptId">
  <title>Conduit</title>
  <conbody>
-  <p>FIXME</p>
+  <p>This section covers the final major datatype in our package, conduits. While sources produce a
+   stream of data and sinks consume a stream, conduits transform a stream.</p>
  </conbody>
 </concept>
