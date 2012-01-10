@@ -45,6 +45,7 @@
     , settingsHost
     , settingsTimeout
     , run
+    , defaultSettings
     ) where</codeblock>
   <p>With this approach, no one can write code like (2), so you can freely add new records without
    any fear of code breaking.</p>
