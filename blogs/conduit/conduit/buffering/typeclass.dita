@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conceptId">
+ <title>Typeclass</title>
+ <conbody>
+  <p>We want to be able to connect a buffered source to a sink, just like we would a regular source.
+   We would also like to be able to fuse it to a conduit. In order to make this convenient, conduit
+   has a typeclass, <codeph>BufferSource</codeph>:</p>
+  <codeblock outputclass="haskell">class BufferSource s where
+    bufferSource :: Resource m => s m a -> ResourceT m (BufferedSource m a)</codeblock>
+  <p>There's one "gotcha" in the instances of this typeclass, so let's explain it. Suppose we want
+   to write a file copy function, without any buffering. This is a fairly standard usage of
+   conduits:</p>
+  <codeblock outputclass="haskell">sourceFile input $$ sinkFile output</codeblock>
+  <p>When this line is run, both the input and output files are opened, the data is copied, and then
+   both files are closed. Let's change this example slightly to use buffering:</p>
+  <codeblock outputclass="haskell">bsrc &lt;- bufferSource $ sourceFile input
+bsrc $$ isolate 50 =$ sinkFile output1
+bsrc $$ sinkFile output2</codeblock>
+  <p>When is the input file opened and closed? The opening occurs on the first line, when buffering
+   the source. And if we follow the normal rules from sources, the file should be closed after the
+   second line. However, if we did that, we couldn't reuse <codeph>bsrc</codeph> for line 3!</p>
+  <p>So instead, <codeph>$$</codeph> does <i>not</i> close the file. This is achieved through the
+   special <codeph>BufferSource</codeph> instance for <codeph>BufferedSource</codeph>. Instead of
+   simply using <codeph>id</codeph>, it replaces the <codeph>bsourceClose</codeph> record with a
+   no-op. As a result, you can pass a buffered source to as many actions as you want, without
+   concerns that the file handle has been closed out from under you.</p>
+  <note>If you remember from a few posts ago, one of the invariants of a source is that it cannot be
+   pulled from after it returns a <codeph>Closed</codeph> response. In order to allow you to work
+   more easily with a <codeph>BufferedSource</codeph>, this invariant is relaxed. It is the
+   responsibility of the <codeph>BufferSource</codeph> implementation to ensure that after the
+   underlying <codeph>PreparedSource</codeph> is closed, it is never used again.</note>
+  <p>This presents one caveat: when you're finished with a buffered source, you should manually call
+    <codeph>bsourceClose</codeph> on it. However, as usual, this is merely an optimization, as the
+   source will automatically be closed when <codeph>runResourceT</codeph> is called.</p>
+ </conbody>
+</concept>

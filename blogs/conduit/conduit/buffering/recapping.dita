@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conceptId">
+ <title>Recapping the web server</title>
+ <conbody>
+  <p>So what exactly does our web server look like now?</p>
+  <codeblock outputclass="haskell">import Data.ByteString (ByteString)
+import Data.Conduit
+import Data.Conduit.Network (sourceSocket)
+import Control.Monad.IO.Class (liftIO)
+import Network.Socket (Socket)
+
+data RequestLine = RequestLine ByteString ByteString ByteString
+type Headers = [(ByteString, ByteString)]
+data Request = Request RequestLine Headers (BufferedSource IO ByteString)
+data Response = Response
+type Application = Request -> ResourceT IO Response
+
+parseRequestHeaders :: Sink ByteString IO Headers
+parseRequestHeaders = undefined
+
+parseRequestLine :: Sink ByteString IO RequestLine
+parseRequestLine = undefined
+
+sendResponse :: Socket -> Response -> IO ()
+sendResponse = undefined
+
+handleConn :: Application -> Socket -> IO ()
+handleConn app socket = runResourceT $ do
+    bsrc &lt;- bufferSource $ sourceSocket socket
+    requestLine &lt;- bsrc $$ parseRequestLine
+    headers &lt;- bsrc $$ parseRequestHeaders
+    let req = Request requestLine headers bsrc
+    res &lt;- app req
+    liftIO $ sendResponse socket res</codeblock>
+  <p>We've made a few minor changes. Firstly, the <codeph>Application</codeph> now lives in the
+    <codeph>ResourceT IO</codeph> monad. This isn't strictly necessary, but it's very convenient:
+   the application can now register cleanup actions that will only take place after the response has
+   been fully sent to the client.</p>
+  <p>But the major changes are in the <codeph>handleConn</codeph> function. We now start off by
+   buffering our source. This buffered source is then used twice in our function, and then passed
+   off to the application.</p>
+ </conbody>
+</concept>

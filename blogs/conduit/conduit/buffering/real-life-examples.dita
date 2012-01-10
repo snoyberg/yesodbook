@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>A web server</title>
+ <conbody>
+  <p>Let's say we're going to write a web server. We're going to use the following low-level
+   operations:</p>
+  <codeblock outputclass="haskell">data Socket
+recv    :: Socket -> Int -> IO ByteString -- returns empty when the socket is closed
+sendAll :: Socket -> ByteString -> IO ()</codeblock>
+  <p>We're up to the part where we need to implement the function <codeph>handleConn</codeph> that
+   handles an individual connection. It will look something like this:</p>
+  <codeblock outputclass="haskell">data Request  -- request headers, HTTP version, etc
+data Response -- status code, response headers, resposne body
+type Application = Request -> IO Response
+handleConn :: Application -> Socket -> IO ()</codeblock>
+  <p>What does our <codeph>handleConn</codeph> need to do? In broad strokes:</p>
+  <ol id="ol_23c2db36-3ed2-4d54-bc0e-38be6417ccf1">
+   <li>Parse the request line</li>
+   <li>Parse the request headers</li>
+   <li>Construct the <codeph>Request</codeph> value</li>
+   <li>Pass <codeph>Request</codeph> to the <codeph>Application</codeph> and get back a
+     <codeph>Response</codeph></li>
+   <li>Send the <codeph>Response</codeph> over the <codeph>Socket</codeph></li>
+  </ol>
+  <p>We status off by writing steps 1 and 2 manually, without using conduits. We'll do this very
+   simply and just assume three space-separated strings. We end up with something that looks
+   like:</p>
+  <codeblock outputclass="haskell">data RequestLine = RequestLine ByteString ByteString ByteString
+
+parseRequestLine :: Socket -> IO RequestLine
+parseRequestLine socket = do
+    bs &lt;- recv socket 4096
+    let (method:path:version:ignored) = S8.words bs
+    return $ RequestLine method path version</codeblock>
+  <p>There are two issues here: it doesn't handle the case where there are less than three words in
+   the chunk of data, and it throws away any extra data. We can definitely solve both of these
+   issues manually, but it's very tedious. It's much easier to implement this in terms of
+   conduits.</p>
+  <codeblock outputclass="haskell">import Data.ByteString (ByteString)
+import qualified Data.ByteString as S
+import Data.Conduit
+import qualified Data.Conduit.Binary as CB
+import qualified Data.Conduit.List as CL
+
+data RequestLine = RequestLine ByteString ByteString ByteString
+
+parseRequestLine :: Sink ByteString IO RequestLine
+parseRequestLine = do
+    let space = toEnum $ fromEnum ' '
+    let getWord = do
+            CB.dropWhile (== space)
+            bss &lt;- CB.takeWhile (/= space) =$ CL.consume
+            return $ S.concat bss
+
+    method &lt;- getWord
+    path &lt;- getWord
+    version &lt;- getWord
+    return $ RequestLine method path version</codeblock>
+  <p>This means that our code will automatically be supplied with more data as it comes in, and any
+   extra data will automatically be buffered in the Source, ready for the next time it's used. Now
+   we can easily structure our program together, demonstrating the pwoer of the conduits
+   approach:</p>
+  <codeblock outputclass="haskell">import Data.ByteString (ByteString)
+import Data.Conduit
+import Data.Conduit.Network (sourceSocket)
+import Control.Monad.IO.Class (liftIO)
+import Network.Socket (Socket)
+
+data RequestLine = RequestLine ByteString ByteString ByteString
+type Headers = [(ByteString, ByteString)]
+data Request = Request RequestLine Headers
+data Response = Response
+type Application = Request -> IO Response
+
+parseRequestHeaders :: Sink ByteString IO Headers
+parseRequestHeaders = undefined
+
+parseRequestLine :: Sink ByteString IO RequestLine
+parseRequestLine = undefined
+
+sendResponse :: Socket -> Response -> IO ()
+sendResponse = undefined
+
+handleConn :: Application -> Socket -> IO ()
+handleConn app socket = do
+    req &lt;- runResourceT $ sourceSocket socket $$ do
+        requestLine &lt;- parseRequestLine
+        headers &lt;- parseRequestHeaders
+        return $ Request requestLine headers
+    res &lt;- liftIO $ app req
+    liftIO $ sendResponse socket res</codeblock>
+ </conbody>
+</concept>
