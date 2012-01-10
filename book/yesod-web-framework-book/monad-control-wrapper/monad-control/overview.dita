@@ -51,8 +51,8 @@ useMyFile = withMyFile sayHi</codeblock>
 sayHiError handle = do
     lift $ hPutStrLn handle "Hi there, error!"
     throwError MyError</codeblock>
-  <p id="x16">We would like to write a function that combines withmyFile and sayHiError. Unfortunately, GHC
-   doesn't like this very
+  <p id="x16">We would like to write a function that combines withMyFile and sayHiError.
+   Unfortunately, GHC doesn't like this very
    much:<codeblock id="x17" outputclass="haskell">useMyFileErrorBad :: ErrorT MyError IO ()
 useMyFileErrorBad = withMyFile sayHiError
 
