@@ -3,7 +3,7 @@
 <concept id="interpolation"><title id="x-1">Interpolation</title><conbody id="x-2">  <p id="x1">What we have so far is a nice, simplified HTML, but it doesn't let us interact with our Haskell
    code at all. How do we pass in variables? Simple: with
    interpolation:<codeblock outputclass="hamlet" id="x2">&lt;head&gt;
-    &lt;title&gt;#{title}</codeblock>The hash followed be a pair
+    &lt;title&gt;#{title}</codeblock>The hash followed by a pair
    of braces denotes <b id="x3">variable interpolation</b>. In the case above, the <codeph id="x4">title</codeph>
    variable from the scope in which the template was called will be used. Let me state that again:
    Hamlet automatically has access to the variables in scope when it's called. There is no need to
