@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="client"><title id="x-1">Client</title><conbody id="x-2">
-  <p id="x1"><apiname id="x2">http-enumerator</apiname> was written as a companion to WAI. It too
-            uses enumerator and blaze-builder pervasively, meaning we once again get easy interop
-            with aeson. A few extra comments for those not familiar with http-enumerator:</p>
+  <p id="x1"><apiname id="x2">http-conduit</apiname> was written as a companion to WAI. It too uses
+   conduit and blaze-builder pervasively, meaning we once again get easy interop with aeson. A few
+   extra comments for those not familiar with http-conduit:</p>
   <ul id="ul_4be25b01-52e2-414f-ba22-d6c0b97232c8">
    <li id="x3">A <codeph id="x4">Manager</codeph> is present to keep track of open connections, so that multiple
     requests to the same server use the same connection. You usually want to use the
@@ -17,37 +17,33 @@
     that let you ignore the issues of enumerators and get the entire body directly.</li>
   </ul>
   <codeblock outputclass="haskell" id="x8">{-# LANGUAGE OverloadedStrings #-}
-import Network.HTTP.Enumerator
+import Network.HTTP.Conduit
     ( http, parseUrl, withManager, RequestBody (RequestBodyLBS)
-    , requestBody
+    , requestBody, method, Response (..)
     )
 import Data.Aeson (Value (Object, String))
-import qualified Data.HashMap.Strict as Map
 import Data.Aeson.Parser (json)
-import Data.Attoparsec.Enumerator (iterParser)
+import Data.Conduit (($$))
+import Data.Conduit.Attoparsec (sinkParser)
 import Control.Monad.IO.Class (liftIO)
-import Data.Enumerator (run_)
-import Data.Aeson.Encode (fromValue)
-import Blaze.ByteString.Builder (toLazyByteString)
+import Data.Aeson (encode, (.=), object)
 
 main :: IO ()
 main = withManager $ \manager -&gt; do
-    value &lt;- makeValue
+    value &lt;- liftIO makeValue
     -- We need to know the size of the request body, so we convert to a
     -- ByteString
-    let valueBS = toLazyByteString $ fromValue value
-    req' &lt;- parseUrl "http://localhost:3000/"
-    let req = req' { requestBody = RequestBodyLBS valueBS }
-    run_ $ flip (http req) manager $ \status headers -&gt; do
-        -- Might want to ensure we have a 200 status code and Content-Type is
-        -- application/json. We skip that here.
-        resValue &lt;- iterParser json
-        liftIO $ handleResponse resValue
+    let valueBS = encode value
+    req' &lt;- liftIO $ parseUrl "http://localhost:3000/"
+    let req = req' { method = "POST", requestBody = RequestBodyLBS valueBS }
+    Response status headers body &lt;- http req manager
+    resValue &lt;- body $$ sinkParser json
+    liftIO $ handleResponse resValue
 
 -- Application-specific function to make the request value
 makeValue :: IO Value
-makeValue = return $ Object $ Map.fromList
-    [ ("foo", String "bar")
+makeValue = return $ object
+    [ ("foo" .= ("bar" :: String))
     ]
 
 -- Application-specific function to handle the response from the server
