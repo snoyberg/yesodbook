@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/map.dtd">
+<map>
+ <title>Conduits</title>
+ <topicref href="conduit-book.dita">
+  <topicref href="review-and-status.dita"/>
+  <topicref href="types.dita"/>
+  <topicref href="simple-conduits.dita"/>
+  <topicref href="stateful-conduits.dita"/>
+  <topicref href="using-conduits.dita"/>
+  <topicref href="data-loss.dita"/>
+  <topicref href="sequenced-sink.dita"/>
+ </topicref>
+</map>

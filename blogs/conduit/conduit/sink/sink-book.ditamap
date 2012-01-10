@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Sinks</title>
+ <topicref href="sink.dita">
+  <topicref href="types.dita"/>
+  <topicref href="no-helpers.dita"/>
+  <topicref href="with-helpers.dita"/>
+  <topicref href="list-functions.dita"/>
+  <topicref href="connecting.dita"/>
+ </topicref>
+</map>
