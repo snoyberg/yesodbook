@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
  <title>Sinks</title>
- <topicref href="sink.dita">
+ <topicref href="sink.dita" id="top">
   <topicref href="types.dita"/>
   <topicref href="no-helpers.dita"/>
   <topicref href="with-helpers.dita"/>

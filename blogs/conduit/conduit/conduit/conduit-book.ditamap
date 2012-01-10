@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/map.dtd">
 <map>
  <title>Conduits</title>
- <topicref href="conduit-book.dita">
+ <topicref href="conduit-book.dita" id="top">
   <topicref href="review-and-status.dita"/>
   <topicref href="types.dita"/>
   <topicref href="simple-conduits.dita"/>

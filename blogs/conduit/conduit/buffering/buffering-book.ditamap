@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
  <title>Buffering</title>
- <topicref href="buffering-book.dita">
+ <topicref href="buffering-book.dita" id="top">
  <topicref href="inversion-of-control.dita">
   <topicref href="real-life-examples.dita"/>
   <topicref href="whither-request-body.dita"/>

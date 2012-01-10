@@ -6,10 +6,10 @@
   <topicref href="../../../blogs/conduit/conduit/goals.dita"/>
   <topicref href="../../../blogs/conduit/conduit/conduits-in-five-minutes.dita"/>
   <topicref href="structure.dita"/>
-  <mapref href="../../../blogs/conduit/resourcet/resourcet-book.ditamap"/>
-  <mapref href="../../../blogs/conduit/conduit/source/source-book.ditamap"/>
-  <mapref href="../../../blogs/conduit/conduit/sink/sink-book.ditamap"/>
-  <mapref href="../../../blogs/conduit/conduit/conduit/conduit-book.ditamap"/>
-  <mapref href="../../../blogs/conduit/conduit/buffering/buffering-book.ditamap"/>
+  <topicref conref="../../../blogs/conduit/resourcet/resourcet-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/source/source-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/sink/sink-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/conduit/conduit-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/buffering/buffering-book.ditamap#top"/>
  </topicref>
 </map>
