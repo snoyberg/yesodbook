@@ -23,12 +23,8 @@
         <mapref id="x-19" href="yesod-web-framework-book/creating-a-subsite.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
-        <mapref id="example-blog" href="yesod-web-framework-book/example-blog.dita"/>
-        <mapref id="example-ajax" href="yesod-web-framework-book/example-ajax.dita"/>
-        <mapref id="example-generalized-hamlet" href="yesod-web-framework-book/example-generalized-hamlet.dita"/>
-        <mapref id="example-pretty-yaml" href="yesod-web-framework-book/example-pretty-yaml.dita"/>
-        <mapref id="example-internationalization" href="yesod-web-framework-book/example-internationalization.dita"/>
-        <mapref id="example-json-service" href="yesod-web-framework-book/example-json-service.ditamap"/>
+        <mapref id="example-json-service"
+            href="yesod-web-framework-book/example-json-service.ditamap"/>
         <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
     </topichead>
     <topichead id="appendices" navtitle="Appendices">
