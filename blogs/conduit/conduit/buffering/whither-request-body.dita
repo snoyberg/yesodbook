@@ -12,7 +12,7 @@
   <ul id="ul_6cdf43df-026f-4a2b-9806-baf8013379ff">
    <li>People find it confusing. What people <i>expect</i> is that the <codeph>Request</codeph>
     value would have a <codeph>requestBody</codeph> value of type <codeph>Source</codeph>.</li>
-   <li>This makes certain kinds of usage incredibly. For example, trying to write an HTTP proxy
+   <li>This makes certain kinds of usage incredibly difficult. For example, trying to write an HTTP proxy
     combining WAI and http-enumerator proved to be almost impossible.</li>
   </ul>
   <p>This is the downside of inversion of control. Our code wants to be in control. It wants to be
