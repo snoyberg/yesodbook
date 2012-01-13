@@ -96,6 +96,8 @@ language.
 
 Our en message file contains the following content:
 
+    NotAnAdmin: You must be an administrator to access this page.
+
     WelcomeHomepage: Welcome to the homepage
     SeeArchive: See the archive
 
@@ -165,7 +167,7 @@ First, we'll authorize requests to add a new entry.
 >             Nothing -> return AuthenticationRequired
 >             Just (_, user)
 >                 | isAdmin user -> return Authorized
->                 | otherwise    -> return $ Unauthorized "Not an admin"
+>                 | otherwise    -> unauthorizedI MsgNotAnAdmin
 
 Now we'll authorize requests to add a new comment.
 
@@ -391,7 +393,8 @@ logged in.
 >         comments &lt;- selectList [] [Asc CommentPosted]
 >         return (entry, map entityVal comments)
 >     muser &lt;- maybeAuth
->     ((_, commentWidget), enctype) &lt;- generateFormPost (commentForm entryId)
+>     ((_, commentWidget), enctype) &lt;-
+>         generateFormPost (commentForm entryId)
 >     defaultLayout $ do
 >         setTitleI $ MsgEntryTitle $ entryTitle entry
 >         [whamlet|
@@ -423,7 +426,8 @@ Receive an incoming comment submission.
 
 > postEntryR :: EntryId -> Handler RepHtml
 > postEntryR entryId = do
->     ((res, commentWidget), enctype) &lt;- runFormPost (commentForm entryId)
+>     ((res, commentWidget), enctype) &lt;-
+>         runFormPost (commentForm entryId)
 >     case res of
 >         FormSuccess comment -> do
 >             _ &lt;- runDB $ insert comment
@@ -443,7 +447,8 @@ Finally our main function.
 > main :: IO ()
 > main = do
 >     pool &lt;- createSqlitePool "blog.db3" 10 -- create a new pool
->     runSqlPool (runMigration migrateAll) pool -- perform any necessary migration
+>     -- perform any necessary migration
+>     runSqlPool (runMigration migrateAll) pool
 >     manager &lt;- newManagerIO 10 -- create a new HTTP manager
 >     warpDebug 3000 $ Blog pool manager -- start our server</codeblock>
  </conbody>
