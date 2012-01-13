@@ -13,7 +13,7 @@ authorization system, and templates.
 
 While in general we recommend placing templates, Persist entity definitions,
 and routing in separate files, we'll keep it all in one file here for
-convenience. The once exception you'll see below will be i18n messages.
+convenience. The one exception you'll see below will be i18n messages.
 
 We'll start off with our language extensions. In scaffolded code, the language
 extensions are specified in the cabal file, so you won't need to put this in
@@ -126,7 +126,7 @@ Our en message file contains the following content:
     BlogArchiveTitle: Blog Archive
 
 Now we're going to set up our routing table. We have four entries: a homepage,
-an entry list page (BlogR), an individual entry pge (EntryR) and our
+an entry list page (BlogR), an individual entry page (EntryR) and our
 authentication subsite. Note that BlogR and EntryR both accept GET and POST
 methods. The POST methods are for adding a new blog post and adding a new
 comment, respectively.
