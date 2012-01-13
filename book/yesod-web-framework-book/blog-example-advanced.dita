@@ -36,7 +36,6 @@ Now our imports.
 >     , createSqlitePool
 >     )
 > import Data.Time (UTCTime, getCurrentTime)
-> import Database.Persist.Query.GenericSql () -- FIXME get rid of the need for this
 > import Control.Applicative ((&lt;$>), (&lt;*>), pure)
 
 First we'll set up our Persistent entities. We're going to both create our data
