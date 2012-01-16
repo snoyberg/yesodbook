@@ -84,8 +84,9 @@
     to implement a general purpose solution to this problem in enumerator.</li>
    <li>To deal with the remaining inversion of control cases, we've introduced buffered sources.
     This is a direct outcome of the third point above, and means massively simplified APIs (compare
-    the <codeph>http</codeph> functions in <apiname>http-enumerator</apiname> and
-     <apiname>http-conduit</apiname>).</li>
+    the <codeph>http</codeph> functions in
+     <apiname>http-enumerator:Network.HTTP.Enumerator:http</apiname> and
+     <apiname>http-conduit:Network.HTTP.Conduit:http</apiname>).</li>
   </ul>
   <p>Vague criticisms of the conduit package notwithstanding, the only real downside I know of to
    the approach is its reliance on mutable state. I've considered reworking parts of the codebase to
@@ -108,10 +109,10 @@
    enumerators.</p>
   <section>
    <title>Other alternatives</title>
-   <p>I linked to three other alternate approaches. Firstly, none of these address the resource
-    allocation issue. While a few authors have pointed out that they could reuse the
-     <codeph>ResourceT</codeph> approach to do so, that hasn't actually been done, and therefore- as
-    they stand- they do <i>not</i> solve the problem.</p>
+   <p>In the first paragraph of this post, I linked to three other alternate approaches. Firstly,
+    none of these address the resource allocation issue. While a few authors have pointed out that
+    they could reuse the <codeph>ResourceT</codeph> approach to do so, that hasn't actually been
+    done, and therefore- as they stand- they do <i>not</i> solve the problem.</p>
    <p><xref href="http://personal.cis.strath.ac.uk/%7Eraa/posts/2012-01-06-streams.html"
      format="html" scope="external">One</xref> of the approaches is actually <xref
      href="http://www.reddit.com/r/haskell/comments/o5ioy/reasoning_about_stream_processing_with_effects/"
@@ -140,12 +141,6 @@
     norm. Elegant solutions are wonderful, but we can't have that elegance at the cost of
     correctness. Any solution to the problems at hand needs to take into account all the bad stuff
     that can happen.</p>
-   <p>I have no problem with people exploring other solutions to the problem; on the contrary, I
-    encourage it. If someone comes up with a better approach than conduit, I would switch to it
-    (I've ditched my own solutions in the past, e.g. moving to <apiname>monad-peel</apiname> and
-     <apiname>monad-control</apiname>). But before you think you've solved the problem with a
-    simple, elegant solution, try implementing a complex system in it and see if it stands up to the
-    challenge. And then see if anyone else can understand how you did it.</p>
   </section>
  </conbody>
 </concept>
