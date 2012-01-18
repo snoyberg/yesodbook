@@ -8,14 +8,14 @@ import Database.Persist.TH
 import Database.Persist.Sqlite
 import Control.Monad.IO.Class (liftIO)
 
-mkPersist sqlSettings [persist|
+share [mkPersist sqlSettings, mkSave "entityDefs"] [persist|
 Person
     name String
     age Int
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
-    runMigration $ migrate (undefined :: Person) -- this line added: that's it!
+    runMigration $ migrate entityDefs (undefined :: Person) -- this line added: that's it!
     michaelId &lt;- insert $ Person "Michael" 26
     michael &lt;- get michaelId
     liftIO $ print michael

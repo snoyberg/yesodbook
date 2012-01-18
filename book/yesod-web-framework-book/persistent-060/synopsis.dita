@@ -27,7 +27,7 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     insert $ BlogPost "One more for good measure" johnId
 
     oneJohnPost &lt;- selectList [BlogPostAuthorId ==. johnId] [LimitTo 1]
-    liftIO $ print (oneJohnPost :: [(BlogPostId, BlogPost)])
+    liftIO $ print (oneJohnPost :: [Entity SqlPersist BlogPost])
 
     john &lt;- get johnId
     liftIO $ print (john :: Maybe Person)

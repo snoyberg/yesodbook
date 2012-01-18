@@ -3,10 +3,10 @@
 <concept id="middleware"><title id="x-1">Middleware</title><conbody id="x-2"><p id="middleware1">In addition to allowing our applications to run on multiple backends without code changes, the WAI allows us another benefits: middleware. Middleware is essentially an <term id="x1">application transformer</term>, taking one application and returning another one.</p><p id="middleware2">Middlewares can be used to provide lots of services: cleaning up URLs, authentication, caching, JSON-P requests. But perhaps the most useful and most intuitive middleware is gzip compression. The middleware works very simply: it parses the request headers to determine if a client supports compression, and if so compresses the response body and adds the appropriate response header.</p><p id="middleware3">The great thing about middlewares is that they are unobtrusive. Let's see how we would apply the gzip middleware to our hello world application.</p><codeblock outputclass="haskell" id="x2">{-# LANGUAGE OverloadedStrings #-}
 import Network.Wai
 import Network.Wai.Handler.Warp (run)
-import Network.Wai.Middleware.Gzip (gzip)
+import Network.Wai.Middleware.Gzip (gzip, def)
 import Network.HTTP.Types (statusOK)
 
 application _ = return $ responseLBS statusOK [("Content-Type", "text/plain")]
                        "Hello World"
 
-main = run 3000 $ gzip False application</codeblock><p id="middleware4">We added an import line to actually have access to the middleware, and then simply applied gzip to our application. You can also <i id="x3">chain together</i> multiple middlewares: a line such as <codeph id="x4">gzip False $ jsonp $ othermiddleware $ myapplication</codeph> is perfectly valid. One word of warning: the order the middleware is applied can be important. For example, jsonp needs to work on uncompressed data, so if you apply it after you apply gzip, you'll have trouble.</p></conbody></concept>
+main = run 3000 $ gzip def application</codeblock><p id="middleware4">We added an import line to actually have access to the middleware, and then simply applied gzip to our application. You can also <i id="x3">chain together</i> multiple middlewares: a line such as <codeph id="x4">gzip False $ jsonp $ othermiddleware $ myapplication</codeph> is perfectly valid. One word of warning: the order the middleware is applied can be important. For example, jsonp needs to work on uncompressed data, so if you apply it after you apply gzip, you'll have trouble.</p></conbody></concept>

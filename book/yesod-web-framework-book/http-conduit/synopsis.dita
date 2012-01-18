@@ -26,7 +26,7 @@ main = do
         -- We need a Manager, which keeps track of open connections. simpleHttp
         -- creates a new manager on each run (i.e., it never reuses
         -- connections).
-        manager &lt;- newManager
+        manager &lt;- liftIO $ newManager def
 
         -- A more efficient version of the simpleHttp query above. First we
         -- parse the URL to a request.

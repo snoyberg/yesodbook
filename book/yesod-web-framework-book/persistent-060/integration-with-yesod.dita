@@ -41,9 +41,7 @@ instance Yesod PersistTest where
 instance YesodPersist PersistTest where
     type YesodPersistBackend PersistTest = SqlPersist
 
-    -- This is a bit complicated, but liftIOHandler is necessary for proper
-    -- handling of exceptions.
-    runDB action = liftIOHandler $ do
+    runDB action = do
         PersistTest pool &lt;- getYesod
         runSqlPool action pool
 
@@ -63,8 +61,7 @@ main = withSqlitePool "test.db3" openConnectionCount $ \pool -&gt; do
     runSqlPool (insert $ Person "Michael" "Snoyman" 26) pool
     warpDebug 3000 $ PersistTest pool</codeblock>
   <p id="x5">There are two important pieces here for general use. runDB is used to run a DB action from
-   within a Handler. That liftIOHandler is a little scary, but it can be safely ignored. It is
-   necessary in order to properly catch exceptions and rollback changes. Within the runDB, you can
+   within a Handler. Within the runDB, you can
    use any of the functions we've spoken about so far, such as insert and selectList.</p>
   <p id="x6">The other new feature is get404. It works just like get, but instead of returning a Nothing
    when a result can't be found, it returns a 404 message page. The getPersonR function is a very

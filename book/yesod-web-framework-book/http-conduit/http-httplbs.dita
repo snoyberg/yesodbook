@@ -21,7 +21,7 @@
     <dd>The simplest approach is to simply wrap your <codeph>main</codeph> function with a call to
       <codeph>withManager</codeph> and <codeph>liftIO</codeph>,
      e.g.<codeblock outputclass="haskell">main = withManager $ \manager -> liftIO $ do
-   ...</codeblock>Your
+     return () -- do something more useful<codeblock>Your
      manager will exist through the entire lifetech of your application, and individual calls to
       <codeph>http</codeph> and <codeph>httpLbs</codeph> will live in separate
       <codeph>ResourceT</codeph>s than the main function's. This ensures that those individual

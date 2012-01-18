@@ -30,7 +30,7 @@ Now our imports.
 > import Yesod.Form.Nic (YesodNic, nicHtmlField)
 > import Yesod.Auth.BrowserId (authBrowserId)
 > import Data.Text (Text)
-> import Network.HTTP.Conduit (Manager, newManagerIO)
+> import Network.HTTP.Conduit (Manager, newManager, def)
 > import Database.Persist.Sqlite
 >     ( ConnectionPool, SqlPersist, runSqlPool, runMigration
 >     , createSqlitePool
@@ -92,7 +92,7 @@ named based on the language code (e.g., en, es, de-DE) and placed in that
 folder. We also specify the main language file (here, "en") as a default
 language.
 
-> mkMessage "Blog" "messages" "en"
+> mkMessage "Blog" "../messages-blog" "en"
 
 Our en message file contains the following content:
 
@@ -449,7 +449,7 @@ Finally our main function.
 >     pool &lt;- createSqlitePool "blog.db3" 10 -- create a new pool
 >     -- perform any necessary migration
 >     runSqlPool (runMigration migrateAll) pool
->     manager &lt;- newManagerIO 10 -- create a new HTTP manager
+>     manager &lt;- newManager def -- create a new HTTP manager
 >     warpDebug 3000 $ Blog pool manager -- start our server</codeblock>
  </conbody>
 </concept>

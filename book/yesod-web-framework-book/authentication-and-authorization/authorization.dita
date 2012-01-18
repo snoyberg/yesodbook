@@ -13,8 +13,11 @@ import Yesod
 import Yesod.Auth
 import Yesod.Auth.Dummy -- just for testing, don't use in real life!!!
 import Data.Text (Text)
+import Network.HTTP.Conduit (Manager, newManager, def)
 
 data MyAuthSite = MyAuthSite
+    { httpManager :: Manager
+    }
 
 mkYesod "MyAuthSite" [parseRoutes|
 / RootR GET POST
@@ -50,6 +53,8 @@ instance YesodAuth MyAuthSite where
 
     authPlugins = [authDummy]
 
+    authHttpManager = httpManager
+
 instance RenderMessage MyAuthSite FormMessage where
     renderMessage _ _ = defaultFormMessage
 
@@ -73,7 +78,7 @@ $maybe _ &lt;- maid
 postRootR :: Handler ()
 postRootR = do
     setMessage "You made some change to the page"
-    redirect RedirectTemporary RootR
+    redirect RootR
 
 getAdminR :: Handler RepHtml
 getAdminR = defaultLayout [whamlet|
@@ -83,7 +88,9 @@ getAdminR = defaultLayout [whamlet|
 |]
 
 main :: IO ()
-main = warpDebug 3000 MyAuthSite</codeblock>
+main = do
+    manager &lt;- newManager def
+    warpDebug 3000 $ MyAuthSite manager</codeblock>
   <p id="x-6">authRoute should be your login page, almost always AuthR LoginR. isAuthorized is a function
    that takes two parameters: the requested route, and whether or not the request was a "write"
    request. You can actually change the meaning of what a write request is using the isWriteRequest

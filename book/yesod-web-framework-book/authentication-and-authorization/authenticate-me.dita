@@ -11,8 +11,11 @@ import Yesod.Auth
 import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
 import Data.Text (Text)
+import Network.HTTP.Conduit (Manager, newManager, def)
 
 data MyAuthSite = MyAuthSite
+    { httpManager :: Manager
+    }
 
 mkYesod "MyAuthSite" [parseRoutes|
 / RootR GET
@@ -32,9 +35,11 @@ instance YesodAuth MyAuthSite where
     logoutDest _ = RootR
 
     authPlugins =
-        [ authBrowserId'
+        [ authBrowserId
         , authGoogleEmail
         ]
+
+    authHttpManager = httpManager
 
 instance RenderMessage MyAuthSite FormMessage where
     renderMessage _ _ = defaultFormMessage
@@ -53,7 +58,9 @@ $nothing
 |]
 
 main :: IO ()
-main = warpDebug 3000 MyAuthSite</codeblock>
+main = do
+    man &lt;- newManager def
+    warpDebug 3000 $ MyAuthSite man</codeblock>
   <p id="x-5">We'll start with the route declarations. First we declare our standard <codeph id="x-6">RootR</codeph>
    route, and then we set up the authentication subsite. Remember that a subsite needs four
    parameters: the path to the subsite, the route name, the subsite name, and a function to get the

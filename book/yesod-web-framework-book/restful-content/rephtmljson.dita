@@ -39,7 +39,7 @@ getNameR name = do
     let widget = do
             setTitle $ toHtml name
             addHamlet [hamlet|Looks like you have Javascript off. Name: #{name}|]
-    let json = jsonMap [("name", jsonScalar name)]
+    let json = object ["name" .= name]
     defaultLayoutJson widget json
 
 main = warpDebug 4000 R

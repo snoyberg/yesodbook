@@ -70,7 +70,7 @@ instance RenderMessage MyEmailApp FormMessage where
 -- Set up Persistent
 instance YesodPersist MyEmailApp where
     type YesodPersistBackend MyEmailApp = SqlPersist
-    runDB f = liftIOHandler $ do
+    runDB f = do
         MyEmailApp conn &lt;- getYesod
         runSqlConn f conn
 
@@ -86,8 +86,10 @@ instance YesodAuth MyEmailApp where
         x &lt;- insertBy $ User (credsIdent creds) Nothing Nothing False
         return $ Just $
             case x of
-                Left (userid, _) -&gt; userid -- newly added user
+                Left (Entity userid _) -&gt; userid -- newly added user
                 Right userid -&gt; userid -- existing user
+
+    authHttpManager = error "Email doesn't need an HTTP manager"
 
 -- Here's all of the email-specific code
 instance YesodAuthEmail MyEmailApp where
@@ -145,7 +147,7 @@ Thank you
         mu &lt;- getBy $ UniqueUser email
         case mu of
             Nothing -&gt; return Nothing
-            Just (uid, u) -&gt; return $ Just EmailCreds
+            Just (Entity uid u) -&gt; return $ Just EmailCreds
                 { emailCredsId = uid
                 , emailCredsAuthId = Just uid
                 , emailCredsStatus = isJust $ userPassword u

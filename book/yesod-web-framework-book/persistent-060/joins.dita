@@ -20,7 +20,7 @@
    runJoin function you import, and the behavior changes as well.</p>
   <p id="x-8">So how does this joining work? Let's look at a one-to-many relationship, such as a car/owner
    example above. Every car has an owner, and every owner has zero or more cars. The
-   Database.Persist.Join module provides a datatype, SelectOneMany, that contains a bunch of join
+   Database.Persist.Query.Join module provides a datatype, SelectOneMany, that contains a bunch of join
    settings, such as how to sort the owners (somOrderOne) and how to filter the cars
    (somFitlterMany).</p>
   <p id="x-9">In addition, there is a selectOneMany function, which will fill in defaults for all the
@@ -49,12 +49,12 @@ type Result = [(PersonPair, [CarPair])]</codeblock>
 import Database.Persist
 import Database.Persist.Sqlite
 import Database.Persist.TH
-import Database.Persist.Join (SelectOneMany (..), selectOneMany)
+import Database.Persist.Query.Join (SelectOneMany (..), selectOneMany)
 import Control.Monad.IO.Class (liftIO)
 
 -- We'll use the SQL-enhanced joins. If you want the in-application join
--- behavior instead, just import runJoin from Database.Persist.Join
-import Database.Persist.Join.Sql (runJoin)
+-- behavior instead, just import runJoin from Database.Persist.Query.Join
+import Database.Persist.Query.Join.Sql (runJoin)
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
 Person
@@ -88,17 +88,17 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
 
     liftIO $ printResults results
 
-printResults :: [((PersonId, Person), [(CarId, Car)])] -&gt; IO ()
+printResults :: [(Entity SqlPersist Person, [Entity SqlPersist Car])] -&gt; IO ()
 printResults =
     mapM_ goPerson
   where
-    goPerson :: ((PersonId, Person), [(CarId, Car)]) -&gt; IO ()
-    goPerson ((_personid, person), cars) = do
+    goPerson :: (Entity SqlPersist Person, [Entity SqlPersist Car]) -&gt; IO ()
+    goPerson ((Entity _personid person), cars) = do
         putStrLn $ personName person
         mapM_ goCar cars
         putStrLn ""
 
-    goCar :: (CarId, Car) -&gt; IO ()
-    goCar (_carid, car) = putStrLn $ "    " ++ carName car</codeblock>
+    goCar :: (Entity SqlPersist Car) -&gt; IO ()
+    goCar (Entity _carid car) = putStrLn $ "    " ++ carName car</codeblock>
  </conbody>
 </concept>
