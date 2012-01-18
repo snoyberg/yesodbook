@@ -58,7 +58,7 @@ passwordConfirmField = Field
                 | otherwise -&gt; return $ Left "Passwords don't match"
             [] -&gt; return $ Right Nothing
             _ -&gt; return $ Left "You must enter two values"
-    , fieldView = \idAttr nameAttr eResult isReq -&gt; [whamlet|
+    , fieldView = \idAttr nameAttr _ eResult isReq -&gt; [whamlet|
 &lt;input id=#{idAttr} name=#{nameAttr} type=password&gt;
 &lt;div&gt;Confirm:
 &lt;input id=#{idAttr}-confirm name=#{nameAttr} type=password&gt;

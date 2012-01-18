@@ -44,7 +44,7 @@ carAForm :: Maybe Car -&gt; AForm Synopsis Synopsis Car
 carAForm mcar = Car
     &lt;$&gt; areq textField "Model" (carModel &lt;$&gt; mcar)
     &lt;*&gt; areq carYearField "Year" (carYear &lt;$&gt; mcar)
-    &lt;*&gt; aopt (selectField colors) "Color" (carColor &lt;$&gt; mcar)
+    &lt;*&gt; aopt (selectFieldList colors) "Color" (carColor &lt;$&gt; mcar)
   where
     colors = [("Red", Red), ("Blue", Blue), ("Gray", Gray), ("Black", Black)]
 -- STOP
@@ -81,7 +81,7 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x5">selectField takes a list of pairs. The first item in the pair is the text displayed to the user
+  <p id="x5">selectFieldList takes a list of pairs. The first item in the pair is the text displayed to the user
    in the drop-down list, and the second item is the actual Haskell value. Of course, the code above
    looks really repetitive; we can get the same result using the Enum and Bounded instance GHC
    automatically derives for us.</p>
@@ -127,7 +127,7 @@ carAForm :: Maybe Car -&gt; AForm Synopsis Synopsis Car
 carAForm mcar = Car
     &lt;$&gt; areq textField "Model" (carModel &lt;$&gt; mcar)
     &lt;*&gt; areq carYearField "Year" (carYear &lt;$&gt; mcar)
-    &lt;*&gt; aopt (selectField colors) "Color" (carColor &lt;$&gt; mcar)
+    &lt;*&gt; aopt (selectFieldList colors) "Color" (carColor &lt;$&gt; mcar)
   where
     colors = map (pack . show &amp;&amp;&amp; id) $ [minBound..maxBound]
 -- STOP
@@ -210,7 +210,7 @@ carAForm :: Maybe Car -&gt; AForm Synopsis Synopsis Car
 carAForm mcar = Car
     &lt;$&gt; areq textField "Model" (carModel &lt;$&gt; mcar)
     &lt;*&gt; areq carYearField "Year" (carYear &lt;$&gt; mcar)
-    &lt;*&gt; aopt (radioField colors) "Color" (carColor &lt;$&gt; mcar)
+    &lt;*&gt; aopt (radioFieldList colors) "Color" (carColor &lt;$&gt; mcar)
   where
     colors = map (pack . show &amp;&amp;&amp; id) $ [minBound..maxBound]
 -- STOP

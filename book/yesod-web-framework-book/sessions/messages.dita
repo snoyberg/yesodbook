@@ -55,7 +55,7 @@ postSetMessageR :: Handler ()
 postSetMessageR = do
     msg &lt;- runInputPost $ ireq textField "message"
     setMessage $ toHtml msg
-    redirect RedirectTemporary RootR
+    redirect RootR
 
 main :: IO ()
 main = warpDebug 3000 Messages</codeblock>

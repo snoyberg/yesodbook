@@ -70,7 +70,7 @@ postLangR :: Handler ()
 postLangR = do
     lang &lt;- runInputPost $ ireq textField "lang"
     setLanguage lang
-    redirect RedirectTemporary RootR
+    redirect RootR
 
 main :: IO ()
 main = warpDebug 3000 I18N</codeblock>

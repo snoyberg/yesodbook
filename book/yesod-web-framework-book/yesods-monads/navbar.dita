@@ -39,7 +39,7 @@ instance YesodPersist Links where
     type YesodPersistBackend Links = SqlPersist
     runDB db = do
         Links pool &lt;- getYesod
-        liftIOHandler $ runSqlPool db pool
+        runSqlPool db pool
 
 getRootR :: Handler RepHtml
 getRootR = defaultLayout [whamlet|
@@ -60,9 +60,9 @@ existingLinks = do
     links &lt;- lift $ runDB $ selectList [] [LimitTo 5, Desc LinkAdded]
     [whamlet|
 &lt;ul&gt;
-    $forall link &lt;- links
+    $forall Entity _ link &lt;- links
         &lt;li&gt;
-            &lt;a href=#{linkUrl $ snd link}&gt;#{linkTitle $ snd link}
+            &lt;a href=#{linkUrl link}&gt;#{linkTitle link}
 |]
 
 postAddLinkR :: Handler ()
@@ -72,7 +72,7 @@ postAddLinkR = do
     now &lt;- liftIO getCurrentTime
     runDB $ insert $ Link title url now
     setMessage "Link added"
-    redirect RedirectTemporary RootR
+    redirect RootR
 
 main :: IO ()
 main = withSqlitePool "links.db3" 10 $ \pool -&gt; do

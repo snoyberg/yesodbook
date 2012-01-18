@@ -32,7 +32,7 @@ postRoot = do
         Nothing -&gt; deleteSession key
         Just val -&gt; setSession key val
     liftIO $ print (key, mval)
-    redirect RedirectTemporary Root
+    redirect Root
 
 instance Yesod Session where
     approot _ = ""

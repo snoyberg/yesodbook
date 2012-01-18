@@ -26,7 +26,7 @@ mkYesod "Layout" [parseRoutes|/ RootR GET|]
 instance Yesod Layout where
     approot _ = ""
 -- START
-    errorHandler NotFound = redirect RedirectTemporary RootR
+    errorHandler NotFound = redirect RootR
     errorHandler other = defaultErrorHandler other
 -- STOP
 getRootR = defaultLayout [whamlet|Hello World|]
