@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>Conduits</title>
+ <topicref href="conduits.dita" id="conduit" chunk="to-content">
+  <topicref href="../../../blogs/conduit/conduit/goals.dita"/>
+  <topicref href="../../../blogs/conduit/conduit/conduits-in-five-minutes.dita"/>
+  <topicref href="structure.dita"/>
+  <topicref conref="../../../blogs/conduit/resourcet/resourcet-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/source/source-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/sink/sink-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/conduit/conduit-book.ditamap#top"/>
+  <topicref conref="../../../blogs/conduit/conduit/buffering/buffering-book.ditamap#top"/>
+ </topicref>
+</map>

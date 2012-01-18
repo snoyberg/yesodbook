@@ -5,7 +5,7 @@
  <conbody>
   <p>There are essentially three base functions on <codeph>ResourceT</codeph>, and then a bunch of
    conveniences thrown on top. The first function is:</p>
-  <codeblock>register :: IO () -> ResourceT IO ReleaseKey</codeblock>
+  <codeblock outputclass="haskell">register :: IO () -> ResourceT IO ReleaseKey</codeblock>
   <note>This function, and the others below, are actually more polymorphic than implied here,
    allowing other monads besides <codeph>IO</codeph>. In fact, almost any transformer on top of
     <codeph>IO</codeph>, as well as any <codeph>ST</codeph> stacks, work. We'll cover the details of
@@ -25,7 +25,7 @@
    will be performed in the presence of both synchronous and asynchronous exceptions. And as
    mentioned before, calling <codeph>release</codeph> will unregister an action, so there is no
    concern of double-freeing.</p>
-  <p>Finally, as a convenient, we provide one more function for the common case of allocating a
+  <p>Finally, as a convenience, we provide one more function for the common case of allocating a
    resource and registering a release action:</p>
   <codeblock outputclass="haskell">with :: IO a -- ^ allocate
      -> (a -> IO ()) -- ^ free resource

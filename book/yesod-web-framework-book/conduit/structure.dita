@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Structure of this Chapter</title>
+ <conbody>
+  <p>The remainder of this chapter covers five major topics in conduits:</p>
+  <ul id="ul_rex_ckj_xe">
+   <li><codeph>ResourceT</codeph>, the underlying technique that allows us to have guaranteed
+    resource deallocation.</li>
+   <li>Sources, our data producers</li>
+   <li>Sinks, our data consumers</li>
+   <li>Conduits, our data transformers</li>
+   <li>Buffering, which allows us to avoid Inversion of Control</li>
+  </ul>
+ </conbody>
+</concept>

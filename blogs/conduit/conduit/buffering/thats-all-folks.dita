@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conceptId">
+ <title>That's all folks!</title>
+ <conbody>
+  <p>Thanks for making it through this very long series of posts, I hope it's been informative. The
+   next step is to dive into the <xref
+    href="http://hackage.haskell.org/packages/archive/pkg-list.html#cat:conduit" format="html"
+    scope="external">conduit packages on Hackage</xref>. Also, stay tuned in the next few weeks for
+   an all new, all conduit release of Yesod.</p>
+  <p>My hope is that the simplicity afforded by conduits will allow people not alone to become more
+   involved in playing around with code, but will let people make even more interesting combinations
+   of the existing packages. I'm looking forward to seeing the results.</p>
+ </conbody>
+</concept>
