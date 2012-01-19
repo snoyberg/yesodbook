@@ -3,8 +3,9 @@
 <concept id="generate-ids"><title id="x-1">Generate IDs</title><conbody id="x-2">
   <p id="x1">If we're really going for true code reuse here, we're eventually going to run into name
    conflicts. Let's say that there are two helper libraries that both use the class name "foo" to
-   affect styling. We want to avoid such a possibility. Therefore, we have the newIdent function.
-   This function automatically generates a word that is unique for this handler.</p>
+   affect styling. We want to avoid such a possibility. Therefore, we have the
+    <codeph>newIdent</codeph> function. This function automatically generates a word that is unique
+   for this handler.</p>
   <fig id="x2">
    <title id="x3">Using newIdent</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
@@ -32,9 +33,11 @@ getRootR = defaultLayout $ do
 
 main = warpDebug 3000 W</codeblock>
   </fig>
-  <note id="x5">You might be wondering: what does lift mean? A Widget is a monad transformer,
-   sitting on top of a Handler. newIdent is a function of a handler, so we need to "lift" the
-   function from the Handler layer to the Widget layer to use it. We can actually use this same
-   approach to perform complex actions, like database queries, from within a widget. We'll cover
-   that when we discuss <xref id="x-3" href="../yesods-monads/yesods-monads.dita#conceptId" format="dita">Yesod's monads</xref>.</note>
+  <note id="x5">You might be wondering: what does lift mean? A <codeph>Widget</codeph> is a monad
+   transformer, sitting on top of a <codeph>Handler</codeph>. <codeph>newIdent</codeph> is a
+   function of a <codeph>Handler</codeph>, so we need to "lift" the function from the
+    <codeph>Handler</codeph> layer to the <codeph>Widget</codeph> layer to use it. We can actually
+   use this same approach to perform complex actions, like database queries, from within a widget.
+   We'll cover that when we discuss <xref id="x-3"
+    href="../yesods-monads/yesods-monads.dita#conceptId" format="dita">Yesod's monads</xref>.</note>
  </conbody></concept>

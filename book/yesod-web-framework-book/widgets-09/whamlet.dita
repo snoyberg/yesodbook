@@ -20,16 +20,17 @@ footer = [hamlet|
 &lt;footer&gt;
     &lt;p&gt;That's all folks!
 |]</codeblock>
-  <p id="x5">But now we've got a problem: a Hamlet template can only embed another Hamlet template; it knows
-   nothing about a Widget. This is where whamlet comes in. It takes exactly the same syntax as
-   normal Hamlet, and variable (#{...}) and URL (@{...}) interpolation are unchanged. But embedding
-   (^{...}) takes a widget, and the final result is a widget. To use it, we can just do:</p>
+  <p id="x5">But now we've got a problem: a Hamlet template can only embed another Hamlet template;
+      it knows nothing about a Widget. This is where <codeph>whamlet</codeph> comes in. It takes
+      exactly the same syntax as normal Hamlet, and variable (#{...}) and URL (@{...}) interpolation
+      are unchanged. But embedding (^{...}) takes a <codeph>Widget</codeph>, and the final result is
+      a <codeph>Widget</codeph>. To use it, we can just do:</p>
   <codeblock outputclass="haskell" id="x6">page = [whamlet|
 &lt;p&gt;This is my page. I hope you enjoyed it.
 ^{footer}
 |]</codeblock>
-  <p id="x7">There is also whamletFile, if you would prefer to keep your template in a separate
-      file.</p>
+  <p id="x7">There is also <codeph>whamletFile</codeph>, if you would prefer to keep your template
+      in a separate file.</p>
     <note id="x-3">The scaffolded site has an even more convenient function, <codeph id="x-4">widgetFile</codeph>,
       which will also include your Lucius, Cassius, and Julius files automatically. We'll cover that
       in the <xref id="x-5" href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita#scaffolding-and-the-site-template" format="dita">scaffolding chapter</xref>.</note>

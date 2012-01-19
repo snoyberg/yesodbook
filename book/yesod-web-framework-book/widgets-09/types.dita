@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="types"><title id="x-1">Types</title><conbody id="x-2">
-  <p id="x1">You may have noticed that I've been avoiding type signatures so far. That's because there's a
-   little bit of a complication involved here. At the most basic level, all you need to know is that
-   the scaffolded site defines a type synonym called Widget which you will almost always use. The
-   technical details follow, but don't worry if it's a little hazy.</p>
-  <p id="x2">Earlier, we said that a Widget is a monad transformer around a Handler. Well, that's mostly
-   true, but we actually have a little more flexibility than that. We have a base datatype:
-    <codeph id="x3">GGWidget master monad a</codeph>. The first parameter is the master site's foundation
-   datatype. We'll be covering the difference between master and subsites in much more detail later,
-   but for now, suffice it to say that the master foundation type is what uniquely represents your
-   application.</p>
-  <p id="x4">The second parameter is the inner monad. This in theory could be any monad, but as we'll see
-   soon, it's almost always a Handler. Finally, the last parameter is the value contained by the
-   GGWidget (remember, a GGWidget is a Monad).</p>
-  <p id="x5">In practice, you will almost never see a GGWidget; that extra flexibility is really only needed
-   internally to Yesod. What you will bump into occassionally is the GWidget, defined as
-    <codeph id="x6">type GWidget sub master = GGWidget master (GHandler sub master)</codeph>. This spells
-   out that our GWidget has a subsite and master site foundation (explained in a second), and that
-   the inner monad is a GHandler, using the same sub and master sites.</p>
+  <p id="x1">You may have noticed that I've been avoiding type signatures so far. That's because
+   there's a little bit of a complication involved here. At the most basic level, all you need to
+   know is that there's a type synonym called <codeph>Widget</codeph> which you will almost always
+   use. The technical details follow, but don't worry if it's a little hazy.</p>
+  <p>There isn't actually a <codeph>Widget</codeph> type defined in the Yesod libraries, since the
+   exact meaning of it changes between sites. Instead, we have a more general type <codeph>GWidget
+    sub master a</codeph>. The first two parameters give the sub and master foundation types,
+   respectively. The final parameter is the contained value, just like any <codeph>Monad</codeph>
+   has.</p>
   <p id="x7">So what's the deal with that sub/master stuff? Well, when you're writing some reusable code,
    such as a CRUD application, you can write it as a subsite that can be embedded within any other
    Yesod application. In such a case, we need to keep track of information for both the sub and
@@ -44,7 +35,20 @@ page = [whamlet|
 &lt;p&gt;This is my page. I hope you enjoyed it.
 ^{footer}
 |]</codeblock>
-  <p id="x11">And in case you were wondering: we have an almost identical breakdown for the Handler
-   datatypes: a less-used GGHandler, GHandler and finally a per-application Handler, defined as
-    <codeph id="x12">type Handler = GHandler MyCoolApp MyCoolApp</codeph>.</p>
+  <p id="x11">If you've been paying close attention, you might be confused. We used
+    <codeph>lift</codeph> before on <codeph>Widget</codeph>, but <codeph>GWidget</codeph> isn't
+   actually a monad transformer. What's going on here? Well, in older versions of Yesod, it
+    <i>was</i> a transformer around the <codeph>Handler</codeph> type. Unfortunately, this led to
+   difficult-to-parse error messages. As a result, <codeph>GWidget</codeph> is now a
+    <codeph>newtype</codeph> wrapper that hides away its monad-transformer essence. But we still
+   want to be able to <codeph>lift</codeph> functions from the inner <codeph>Handler</codeph>
+   monad.</p>
+  <p>To solve this, Yesod provides an alternate, more general <codeph>lift</codeph> function that
+   works for both standard <codeph>MonadTrans</codeph> instances, and special
+    <codeph>newtype</codeph> wrappers like <codeph>GWidget</codeph>. As a result, you can pretend
+   like <codeph>GWidget</codeph> is a standard transformer, while still getting to keep your nice
+   error message.</p>
+  <p>One last point: just like we have the breakdown between <codeph>Widget</codeph> and
+    <codeph>GWidget</codeph>, we have a similar breakdown between <codeph>Handler</codeph> and
+    <codeph>GHandler</codeph>.</p>
  </conbody></concept>

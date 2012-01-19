@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="combining-widgets"><title id="x-1">Combining Widgets</title><conbody id="x-2">
-  <p id="x1">The whole idea of widgets is to increase composability. You can easily take these individual pieces of
-   HTML, CSS and Javascript, combine them together into something more complicated, and then combine
-   these larger entities into complete pages. This all works naturally through the Monad instance of
-   Widgets, meaning you can just use do-notation to compose pieces together.</p>
+  <p id="x1">The whole idea of widgets is to increase composability. You can take these individual
+   pieces of HTML, CSS and Javascript, combine them together into something more complicated, and
+   then combine these larger entities into complete pages. This all works naturally through the
+    <codeph>Monad</codeph> instance of <codeph>Widget</codeph>, meaning you can use do-notation to
+   compose pieces together.</p>
   <fig id="x2">
    <title id="x3">Combining Widgets</title>
    <codeblock id="x4" outputclass="haskell">myWidget1 = do
@@ -22,7 +23,8 @@ myWidget = do
 -- or, if you want
 myWidget' = myWidget1 &gt;&gt; myWidget2</codeblock>
   </fig>
-  <note id="x5">If you're so inclined, there's also a Monoid instance of Widget, meaning you can use mconcat
-   or a Writer monad to build things up. In my experience, it's easiest and most natural to just use
-   do-notation.</note>
+  <note id="x5">If you're so inclined, there's also a <codeph>Monoid</codeph> instance of
+    <codeph>Widget</codeph>, meaning you can use <codeph>mconcat</codeph> or a
+    <codeph>Writer</codeph> monad to build things up. In my experience, it's easiest and most
+   natural to just use do-notation.</note>
  </conbody></concept>
