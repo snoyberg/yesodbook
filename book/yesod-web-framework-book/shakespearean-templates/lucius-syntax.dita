@@ -6,9 +6,10 @@
    however, a few additions to Lucius:<ul id="ul_a847e33f-f3af-4fe1-9a3b-d7b2353921f7">
     <li id="x2">Like Cassius, we allow both variable and URL interpolation.</li>
     <li id="x3">CSS blocks are allowed to nest.</li>
+    <li>You can declare variables in your templates.</li>
    </ul></p>
-  <p id="x4">That second point requires a bit of explanation. Let's say you want to have some special
-   styling for some tags within your <codeph id="x5">article</codeph>. In plain ol' CSS, you'd have to
+  <p id="x4">Starting the with second point: let's say you want to have some special styling for
+   some tags within your <codeph id="x5">article</codeph>. In plain ol' CSS, you'd have to
    write:<codeblock outputclass="css" id="x6">article code { background-color: grey; }
 article p { text-indent: 2em; }
 article a { text-decoration: none; }</codeblock>In
@@ -20,5 +21,10 @@ article a { text-decoration: none; }</codeblock>In
     p { text-indent: 2em; }
     a { text-decoration: none; }
 }</codeblock></p>
+  <p>Having Lucius variables allows you to avoid repeating yourself. A simple example would be to
+   define a commonly used color:</p>
+  <codeblock outputclass="lucius">@textcolor: #ccc; /* just because we hate our users */
+body { color: #{textcolor} }
+a:link, a:visited { color: #{textcolor} }</codeblock>
   <p id="x8">Other than that, Lucius is identical to CSS.</p>
  </conbody></concept>

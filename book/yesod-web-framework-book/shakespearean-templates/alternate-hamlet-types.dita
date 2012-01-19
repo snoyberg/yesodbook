@@ -11,10 +11,11 @@
       <codeph id="x6">shamlet</codeph> and the external file function is <codeph id="x7">shamletFile</codeph>. How
      we pronounce those is still up for debate.</li>
     <li id="x8">No URL interpolation is allowed. Doing so will result in a compile-time error.</li>
-    <li id="x9">Embedding (the caret-interpolator) no longer allows arbitrary <codeph id="x10">HtmlUrl</codeph>
-     values. The rule is that the embedded value must have the same type as the template itself, so
-     in this case it must be <codeph id="x11">Html</codeph>. That means that for shamlet, embedding can be
-     completely replaced with normal variable interpolation (with a hash).</li>
+    <li id="x9">Embedding (the caret-interpolator) no longer allows arbitrary <codeph id="x10"
+      >HtmlUrl</codeph> values. The rule is that the embedded value must have the same type as the
+     template itself, so in this case it must be <codeph id="x11">Html</codeph>. That means that for
+      <codeph>shamlet</codeph>, embedding can be completely replaced with normal variable
+     interpolation (with a hash).</li>
    </ul></p>
   <p id="x12">Internationalized (from now on, i18n) is a bit more complicated than normal Hamlet. This is
    based around the idea of a message datatype, very similar in concept and implementation to a
@@ -35,14 +36,14 @@ renderEnglish (Apples i) = T.concat ["You bought ", T.pack $ show i, " apples."]
     &lt;body&gt;
         &lt;h1&gt;_{Hello}
         &lt;p&gt;_{Apples count}</codeblock></p>
-  <p id="x16">This kind of a template now needs some way to turn those values into HTML. So just like
-   type-safe URLs, we pass in a render function. To represent this, we define a new type
+  <p id="x16">This kind of a template now needs some way to turn those values into HTML. So just
+   like type-safe URLs, we pass in a render function. To represent this, we define a new type
    synonym:<codeblock outputclass="haskell" id="x17">type Render url = url -&gt; [(Text, Text)] -&gt; Text
 type Translate msg = msg -&gt; Html
 type HtmlUrlI18n msg url = Translate msg -&gt; Render url -&gt; Html</codeblock>At
-   this point, you can pass off renderEnglish, renderSpanish, or renderKlingon to this template, and
-   it will generate nicely translated output (depending, of course, on the quality of your
-   translators). A full sample program follows.</p>
+   this point, you can pass <codeph>renderEnglish</codeph>, <codeph>renderSpanish</codeph>, or
+    <codeph>renderKlingon</codeph> to this template, and it will generate nicely translated output
+   (depending, of course, on the quality of your translators). A full sample program follows.</p>
   <fig id="x18">
    <title id="x19">i18n Example</title>
    <codeblock outputclass="haskell" id="x20">{-# LANGUAGE QuasiQuotes #-}

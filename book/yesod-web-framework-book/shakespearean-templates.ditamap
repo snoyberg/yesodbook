@@ -20,6 +20,7 @@
                 <topicref id="conditionals" href="shakespearean-templates/conditionals.dita"/>
                 <topicref id="maybe" href="shakespearean-templates/maybe.dita"/>
                 <topicref id="forall" href="shakespearean-templates/forall.dita"/>
+                <topicref id="case" href="shakespearean-templates/case.dita"/>
                 <topicref id="with" href="shakespearean-templates/with.dita"/>
                 <topicref id="doctype" href="shakespearean-templates/doctype.dita"/>
             </topicref>

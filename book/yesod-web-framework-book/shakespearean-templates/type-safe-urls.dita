@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="type-safe-urls"><title id="x-1">Type-safe URLs</title><conbody id="x-2">
-  <p id="x1">One of the most unique features in Yesod is type-safe URLs, and the ability to use them
-   conveniently is provided directly by Shakespeare. Usage is nearly identical to variable
+  <p id="x1">Possibly the most unique feature in Yesod is type-safe URLs, and the ability to use
+   them conveniently is provided directly by Shakespeare. Usage is nearly identical to variable
    interpolation, we just use the at-sign (@) instead of the hash (#). We'll cover the syntax later;
    first, let's clarify the intuition.</p>
   <p id="x2">Suppose we have an application with two routes: <filepath id="x3">http://example.com/profile/home</filepath> is the homepage, and <filepath id="x4">http://example.com/display/time</filepath> displays the current time. And let's say we want to
@@ -26,10 +26,10 @@
    which the compiler doesn't understand, to some well defined datatypes. For our simple
    application, let's model our routes with a sum
    type:<codeblock outputclass="haskell" id="x14">data MyRoute = Home | Time</codeblock></p>
-  <p id="x15">Now, instead of placing a link like /display/time in our template, we can use the Time
-   constructor. But at the end of the day, HTML is made up of text, not data types, so we need some
-   way to convert these values to text. We call this a <term id="x16">URL rendering function</term>,
-   and a simple one
+  <p id="x15">Instead of placing a link like /display/time in our template, we can use the
+    <codeph>Time</codeph> constructor. But at the end of the day, HTML is made up of text, not data
+   types, so we need some way to convert these values to text. We call this a <term id="x16">URL
+    rendering function</term>, and a simple one
    is:<codeblock outputclass="haskell" id="x17">renderMyRoute :: MyRoute -&gt; Text
 renderMyRoute Home = "http://example.com/profile/home"
 renderMyRoute Time = "http://example.com/display/time"</codeblock></p>
@@ -44,10 +44,11 @@ renderMyRoute :: Render MyRoute
 renderMyRoute Home _ = ...
 renderMyRoute Time _ = ...</codeblock></p>
   <p id="x20">OK, we have our render function, and we have type-safe URLs embedded in the templates.
-   How does this fit together exactly? Instead of generating an Html (or Css or Javascript) value
-   directly, Shakespearean templates actually produce a function, which takes this render function
-   and produces HTML. To see this better, let's have a quick (fake) peek at how Hamlet would work
-   under the surface. Supposing we had a
+   How does this fit together exactly? Instead of generating an <codeph>Html</codeph> (or
+    <codeph>Css</codeph> or <codeph>Javascript</codeph>) value directly, Shakespearean templates
+   actually produce a function, which takes this render function and produces HTML. To see this
+   better, let's have a quick (fake) peek at how Hamlet would work under the surface. Supposing we
+   had a
    template:<codeblock outputclass="hamlet" id="x21">&lt;a href=@{Time}&gt;The time</codeblock>this
    would translate roughly into the Haskell
    code:<codeblock outputclass="haskell" id="x22">\render -&gt; mconcat ["&lt;a href='", render Time, "'&gt;The time&lt;/a&gt;"]</codeblock></p>

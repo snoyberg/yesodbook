@@ -5,5 +5,10 @@
 <li id="x3">For actual sites, use external files. For libraries, it's OK to use quasiquoters, assuming they aren't too long.</li>
 <li id="x4">Patrick Brisbin has put together a <xref id="x5" scope="external" href="https://github.com/pbrisbin/html-template-syntax" format="html">Vim code
                     highlighter</xref> that can help out immensely.</li>
-<li id="x6">You should almost always start Hamlet tags on their own line instead of embedding start/end tags after an existing tag. The only exception to this is the occasional &lt;i&gt; or &lt;b&gt; tag inside a large block of text.</li>
+<li id="x6">You should almost always start Hamlet tags on their own line instead of embedding
+                                                  start/end tags after an existing tag. The only
+                                                  exception to this is the occasional
+                                                  <codeph>&lt;i&gt;</codeph> or
+                                                  <codeph>&lt;b&gt;</codeph> tag inside a large
+                                                  block of text.</li>
 </ul></conbody></concept>

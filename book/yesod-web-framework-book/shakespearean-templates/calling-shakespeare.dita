@@ -14,11 +14,13 @@
      Haskell.</dd>
    </dlentry>
    <dlentry id="x9">
-    <dt id="x10">Debug mode</dt>
-    <dd id="x11">Both of the above modes require a full recompile to see any changes. In debug mode, your
-     template is kept in a separate file and referenced via Template Haskell. But at runtime, the
-     external file is reparsed from scratch each time.<note id="x12">Debug mode is not available for Hamlet,
-      only for Cassius, Lucius and Julius.</note></dd>
+    <dt id="x10">Reload mode</dt>
+    <dd id="x11">Both of the above modes require a full recompile to see any changes. In reload
+     mode, your template is kept in a separate file and referenced via Template Haskell. But at
+     runtime, the external file is reparsed from scratch each time.<note id="x12">Reload mode is not
+      available for Hamlet, only for Cassius, Lucius and Julius. There are too many sophisticated
+      features in Hamlet that rely directly on the Haskell compiler and could not feasible be
+      reimplemented at runtime.</note></dd>
    </dlentry>
   </dl>
   <p id="x13">One of the first two approaches should be used in production. They both embed the entirety of
@@ -30,8 +32,9 @@
     <li id="x15">You can easily switch between external file and debug mode with some simple CPP macros,
      meaning you can keep rapid development and still achieve high performance in production.</li>
    </ul></p>
-  <p id="x16">Since these are special quasiquoters and TH functions, you need to be sure to enable the
-   appropriate language extensions and use correct syntax. A simple example of each.</p>
+  <p id="x16">Since these are special quasiquoters and TH functions, you need to be sure to enable
+   the appropriate language extensions and use correct syntax. You can see a simple example of each
+   in the figures.</p>
   <fig id="x17">
    <title id="x18">Quasiquoter</title>
    <codeblock id="x19" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-} -- we're using Text below
@@ -95,31 +98,31 @@ foo { bar: baz }</codeblock>
     <stentry id="x25">Language</stentry>
     <stentry id="x26">Quasiquoter</stentry>
     <stentry id="x27">External file</stentry>
-    <stentry id="x28">Debug</stentry>
+    <stentry id="x28">Reload</stentry>
    </sthead>
    <strow id="x29">
     <stentry id="x30">Hamlet</stentry>
     <stentry id="x31"><apiname id="x50">hamlet:Text.Hamlet:hamlet</apiname></stentry>
-    <stentry id="x32">hamletFile</stentry>
+    <stentry id="x32"><codeph>hamletFile</codeph></stentry>
     <stentry id="x33"><i id="x34">N/A</i></stentry>
    </strow>
    <strow id="x35">
     <stentry id="x36">Cassius</stentry>
-    <stentry id="x37">cassius</stentry>
-    <stentry id="x38">cassiusFile</stentry>
-    <stentry id="x39">cassiusFileDebug</stentry>
+    <stentry id="x37"><codeph>cassius</codeph></stentry>
+    <stentry id="x38"><codeph>cassiusFile</codeph></stentry>
+    <stentry id="x39"><codeph>cassiusFileReload</codeph></stentry>
    </strow>
    <strow id="x40">
     <stentry id="x41">Lucius</stentry>
-    <stentry id="x42">lucius</stentry>
-    <stentry id="x43">luciusFile</stentry>
-    <stentry id="x44">luciusFileDebug</stentry>
+    <stentry id="x42"><codeph>lucius</codeph></stentry>
+    <stentry id="x43"><codeph>luciusFile</codeph></stentry>
+    <stentry id="x44"><codeph>luciusFileReload</codeph></stentry>
    </strow>
    <strow id="x45">
     <stentry id="x46">Julius</stentry>
-    <stentry id="x47">julius</stentry>
-    <stentry id="x48">juliusFile</stentry>
-    <stentry id="x49">juliusFileDebug</stentry>
+    <stentry id="x47"><codeph>julius</codeph></stentry>
+    <stentry id="x48"><codeph>juliusFile</codeph></stentry>
+    <stentry id="x49"><codeph>juliusFileReload</codeph></stentry>
    </strow>
   </simpletable>
  </conbody></concept>

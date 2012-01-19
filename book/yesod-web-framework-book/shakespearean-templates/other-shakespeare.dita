@@ -29,8 +29,9 @@ main = forM_ items $ \item -&gt; TLIO.putStrLn
     [lt|You have #{show $ itemQty item} #{itemName item}.|]</codeblock>
   <p id="x-6">Some quick points about this simple example:</p>
   <ul id="ul_dts_rzy_ae">
-   <li id="x-7">Notice that we have three different textual datatypes involved (String, strict Text and lazy
-    Text). They all play together well.</li>
+   <li id="x-7">Notice that we have three different textual datatypes involved
+     (<codeph>String</codeph>, strict <codeph>Text</codeph> and lazy <codeph>Text</codeph>). They
+    all play together well.</li>
    <li id="x-8">We use a quasiquoter named <codeph id="x-9">lt</codeph>, which generates lazy text. There is also
      <codeph id="x-10">st</codeph>.</li>
   </ul>
