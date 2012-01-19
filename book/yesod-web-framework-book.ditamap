@@ -23,6 +23,7 @@
         <mapref id="x-19" href="yesod-web-framework-book/creating-a-subsite.ditamap"/>
     </topichead>
     <topichead id="examples" navtitle="Examples">
+        <mapref id="example-blog" href="yesod-web-framework-book/blog-example-advanced.dita"/>
         <mapref id="example-json-service"
             href="yesod-web-framework-book/example-json-service.ditamap"/>
         <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
