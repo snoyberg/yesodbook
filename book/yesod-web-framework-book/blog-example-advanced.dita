@@ -3,10 +3,7 @@
 <concept id="conceptId">
  <title>Blog: i18n, authentication, authorization, and database</title>
  <conbody>
-  <codeblock outputclass="lhaskell">__Note:__ This example is using the pre-release Yesod 0.10. It will require a
-few tweaks to work on Yesod 0.9.
-
-This is a simple blog app. It allows an admin to add blog posts via a rich text
+  <codeblock outputclass="lhaskell">This is a simple blog app. It allows an admin to add blog posts via a rich text
 editor (nicedit), allows logged-in users to comment, and has full i18n support.
 It is also a good example of using a Persistent database, leveraging Yesod's
 authorization system, and templates.
