@@ -59,7 +59,7 @@ parseRequestLine = do
     return $ RequestLine method path version</codeblock>
   <p>This means that our code will automatically be supplied with more data as it comes in, and any
    extra data will automatically be buffered in the Source, ready for the next time it's used. Now
-   we can easily structure our program together, demonstrating the pwoer of the conduits
+   we can easily structure our program together, demonstrating the power of the conduits
    approach:</p>
   <codeblock outputclass="haskell">import Data.ByteString (ByteString)
 import Data.Conduit
