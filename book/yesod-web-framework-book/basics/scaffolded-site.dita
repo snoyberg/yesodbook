@@ -3,95 +3,14 @@
 <concept id="scaffolded-site">
   <title id="x-1">The scaffolded site</title>
   <conbody id="x-2">
-    <p id="x-3">Installing Yesod will give you both the Yesod library, as well as a <codeph id="x-4">yesod</codeph>
-      executable. This executable accepts a few commands, but the first one you'll want to be
-      acquainted with is <codeph id="x-5">yesod init</codeph>. It will ask you some questions, and then
-      generate a folder containing the default <term id="x-6">scaffolded site</term>. Inside that folder, you
-      can run <codeph id="x-7">cabal install</codeph> to build any extra dependency, and then <xref id="x-8" href="development-server.dita#development-server" format="dita"><codeph id="x-9">yesod
-        devel</codeph></xref> to run your site. Here is an example session with the scaffolding
-      tool:</p>
-    <codeblock id="x-10">Welcome to the Yesod scaffolder.
-I'm going to be creating a skeleton Yesod project for you.
-
-What is your name? We're going to put this in the cabal and LICENSE files.
-
-Your name: <userinput id="x-11">Michael</userinput>
-Welcome Michael.
-What do you want to call your project? We'll use this for the cabal name.
-
-Project name: <userinput id="x-12">my-first-project</userinput>
-Great, we'll be creating my-first-project today, and placing it in my-first-project.
-What's going to be the name of your foundation datatype? This name must
-start with a capital letter.
-
-Foundation: <userinput id="x-13">FirstProject</userinput>
-Yesod uses Persistent for its (you guessed it) persistence layer.
-This tool will build in either SQLite or PostgreSQL or MongoDB support for you.
-We recommend starting with SQLite: it has no dependencies.
-
-We have another option: a tiny project with minimal dependencies.
-Mostly this means no database and no authentication.
-
-So, what'll it be?
-s for sqlite, p for postgresql, m for mongodb, or t for tiny: <userinput id="x-14">s</userinput>
-That's it! I'm creating your files now...
-Generating deploy/Procfile
-Generating config/sqlite.yml
-Generating config/settings.yml
-Generating main.hs
-Generating my-first-project.cabal
-Generating .ghci
-Generating LICENSE
-Generating Foundation.hs
-Generating Import.hs
-Generating Application.hs
-Generating Handler/Root.hs
-Generating Model.hs
-Generating Settings.hs
-Generating Settings/StaticFiles.hs
-Generating templates/default-layout.lucius
-Generating templates/default-layout.hamlet
-Generating templates/default-layout-wrapper.hamlet
-Generating templates/boilerplate-wrapper.hamlet
-Generating templates/normalize.lucius
-Generating templates/homepage.hamlet
-Generating config/routes
-Generating templates/homepage.lucius
-Generating templates/homepage.julius
-Generating config/models
-Generating messages/en.msg
-
----------------------------------------
-
-                     ___
-                            {-)   |\
-                       [m,].-"-.   /
-      [][__][__]         \(/\__/\)/
-      [__][__][__][__]  |  |
-      [][__][__][__][__][] /   |
-      [__][__][__][__][__]| /| |
-      [][__][__][__][__][]| || |  
-  ejm [__][__][__][__][__]__,__,  \__/
-
-
----------------------------------------
-
-The foundation for your site has been laid.
-
-
-There are a lot of resources to help you use Yesod.
-Start with the book: http://www.yesodweb.com/book
-Take part in the community: http://yesodweb.com/page/community
-
-
-Start your project:
-
-   cd my-first-project &amp;&amp; cabal install &amp;&amp; yesod devel
-
-or if you use cabal-dev:
-
-   cd my-first-project &amp;&amp; cabal-dev install &amp;&amp; yesod --dev devel
-</codeblock>
+    <p id="x-3">Installing Yesod will give you both the Yesod library, as well as a <codeph id="x-4"
+        >yesod</codeph> executable. This executable accepts a few commands, but the first one you'll
+      want to be acquainted with is <codeph id="x-5">yesod init</codeph>. It will ask you some
+      questions, and then generate a folder containing the default <term id="x-6">scaffolded
+        site</term>. Inside that folder, you can run <codeph id="x-7">cabal install</codeph> to
+      build any extra dependency, and then <xref id="x-8"
+        href="development-server.dita#development-server" format="dita"><codeph id="x-9">yesod
+          devel</codeph></xref> to run your site.</p>
     <p id="x-15">The scaffolded site gives you a lot of best practices out of the box, setting up files and
       dependencies in a time-tested approach used by most production Yesod sites. However, all this
       convenience can get in the way of actually learning Yesod. Therefore, most of this book will

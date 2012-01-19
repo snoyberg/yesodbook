@@ -13,7 +13,8 @@
             throughout. Some very common examples are:</p>
         <ul id="ul_vzn_ucu_qd">
             <li id="x-7">A database connection pool.</li>
-            <li id="x-8">Settings loaded from a settings file.</li>
+            <li id="x-8">Settings loaded from a config file.</li>
+            <li>An HTTP connection manager.</li>
         </ul><note id="x4">
             <p id="foundation3">By the way, the word Yesod (יסוד) means <i id="x5">foundation</i> in
                 Hebrew.</p>

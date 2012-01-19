@@ -3,8 +3,8 @@
 <concept id="running"><title id="x-1">Running</title><conbody id="x-2"><p id="running1">Once again we mention HelloWorld in our main function. Our foundation contains all
             the information we need to route and respond to requests in our application, now we just
             need to convert it into something that can run. A great function for this in Yesod is
-            warpDebug, which runs the Warp webserver with debug output enabled on the specified port
-            (here, it's 3000).</p><p id="running3">One of the great features of Yesod is that you aren't tied down to a single deployment strategy. Yesod is built on top of the Web Application Interface (WAI), allowing it to run on FastCGI, SCGI, Warp, or even as a desktop application using the Webkit library. We'll discuss some of these options in the <xref id="x2" href="../deploying-your-webapp/deploying-your-webapp.dita">deployment chapter</xref>. And at the end of this chapter, we will explain the <xref id="x3" href="../basics/development-server.dita">development server</xref>.</p>
+                <codeph>warpDebug</codeph>, which runs the Warp webserver with debug output enabled
+            on the specified port (here, it's 3000).</p><p id="running3">One of the great features of Yesod is that you aren't tied down to a single deployment strategy. Yesod is built on top of the Web Application Interface (WAI), allowing it to run on FastCGI, SCGI, Warp, or even as a desktop application using the Webkit library. We'll discuss some of these options in the <xref id="x2" href="../deploying-your-webapp/deploying-your-webapp.dita">deployment chapter</xref>. And at the end of this chapter, we will explain the <xref id="x3" href="../basics/development-server.dita">development server</xref>.</p>
         <p id="x-3">Warp is the premiere deployment option for Yesod. It is a lightweight, highly efficient
             web server developed specifically for hosting Yesod. It is also used outside of Yesod
             for other Haskell development (both framework and non-framework applications), as well

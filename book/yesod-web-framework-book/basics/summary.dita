@@ -4,7 +4,8 @@
             resources with that datatype and define some handler functions, and Yesod handles all of
             the routing. These resources are also data constructors, which lets us have type-safe
             URLs.</p><p id="summary2">By being built on top of WAI, Yesod applications can run with a number of different backends. warpDebug is an easy way to get started, as it's included with Yesod. For rapid development, wai-handler-devel is a good choice. And when you're ready to move to production, there are high-performance options like Warp and FastCGI.</p>
-        <p id="x-3">When developing in Yesod, we get a number of choices for coding style: quasi-quotation or
-            external files, warpDebug or yesod devel, and so on. The examples in this book will tend
-            towards using the choices that are easiest to copy-and-paste, but the more powerful
-            options will be available when you start building real Yesod applications.</p></conbody></concept>
+        <p id="x-3">When developing in Yesod, we get a number of choices for coding style:
+            quasi-quotation or external files, <codeph>warpDebug</codeph> or <codeph>yesod
+                devel</codeph>, and so on. The examples in this book will tend towards using the
+            choices that are easiest to copy-and-paste, but the more powerful options will be
+            available when you start building real Yesod applications.</p></conbody></concept>

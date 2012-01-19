@@ -13,8 +13,9 @@
                 works with other versions of GHC as well, but you may run into issues.</li>
             <li id="x-5">The Haskell Platform includes some utilities (like alex and happy) that are not
                 automatically installed with a normal GHC install.</li>
-            <li id="x-6">Most distributions have very out-of-date versions of GHC. At the time of writing,
-                for example, Ubuntu provides GHC 6.12, while the newest GHC is 7.2.</li>
+            <li id="x-6">Most distributions have very out-of-date versions of GHC. At the time of
+                writing, for example, Ubuntu provides GHC 7.0, while the newest GHC is 7.2 (and 7.4
+                is just around the corner).</li>
         </ul>
         <p id="x-7">One other note: on Linux systems, the Haskell Platform will rely on some system
             libraries, and without them, you may get some funny error messages. Please make sure you

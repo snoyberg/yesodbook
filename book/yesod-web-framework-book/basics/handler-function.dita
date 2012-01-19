@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="handler-function"><title id="x-1">Handler function</title><conbody id="x-2">
-        <p id="x-3">So we have a route named HomeR, and it responds to GET requests. How do you
-            define your response? You write a <term id="x-4">handler function</term>. Yesod follows
-            a very simple naming scheme for these functions: it's the lower case method name (e.g.,
-            GET becomes get) followed by the route name. In this case, the function name would be
-                <codeph id="x-5">getHomeR</codeph>.</p><p id="handler1">Most of the code you write in Yesod lives in handler functions. This is where you
+        <p id="x-3">So we have a route named <codeph>HomeR</codeph>, and it responds to
+                <codeph>GET</codeph> requests. How do you define your response? You write a <term
+                id="x-4">handler function</term>. Yesod follows a very simple naming scheme for
+            these functions: it's the lower case method name (e.g., <codeph>GET</codeph> becomes
+                <codeph>get</codeph>) followed by the route name. In this case, the function name
+            would be <codeph id="x-5">getHomeR</codeph>.</p><p id="handler1">Most of the code you write in Yesod lives in handler functions. This is where you
             process user input, perform database queries and create responses. In our simple
             example, we create a response using the <codeph id="x-6">defaultLayout</codeph> function. This
             function wraps up the content it's given in your site's template. By default, it
