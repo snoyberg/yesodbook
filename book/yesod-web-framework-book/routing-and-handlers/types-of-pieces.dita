@@ -29,11 +29,20 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 getFibsR :: Natural -&gt; GHandler Fibs Fibs RepPlain
 getFibsR (Natural i) = return $ RepPlain $ toContent $ show $ fibs !! (i - 1)
 main = warpDebug 3000 Fibs
-</codeblock><p id="pieces8">On line 1 we define a simple newtype wrapper around Int to protect ourselves from invalid input. We can see that PathPiece is a typeclass with two methods. <codeph id="x17">toPathPiece</codeph> does nothing more than convert to a <codeph id="x18">Text</codeph>. <codeph id="x19">fromPathPiece</codeph> <i id="x20">attempts</i> to convert a <codeph id="x21">Text</codeph> to our datatype, returning <codeph id="x22">Nothing</codeph> when this conversion is impossible. By using this datatype, we can ensure that our handler function is only ever given natural numbers, allowing us to once again use the type system to battle the boundary issue.</p>
+</codeblock><p id="pieces8">On line 1 we define a simple newtype wrapper around Int to protect ourselves from
+            invalid input. We can see that <codeph>PathPiece</codeph> is a typeclass with two
+            methods. <codeph id="x17">toPathPiece</codeph> does nothing more than convert to a
+                <codeph id="x18">Text</codeph>. <codeph id="x19">fromPathPiece</codeph>
+            <i id="x20">attempts</i> to convert a <codeph id="x21">Text</codeph> to our datatype,
+            returning <codeph id="x22">Nothing</codeph> when this conversion is impossible. By using
+            this datatype, we can ensure that our handler function is only ever given natural
+            numbers, allowing us to once again use the type system to battle the boundary issue.</p>
         <note id="x-3">In a real life application, we would also want to ensure we never accidently
             constructed an invalid <codeph id="x-4">Natural</codeph> value internally to our app. To do so,
             we could use an approach like <xref id="x-5" href="http://www.haskell.org/haskellwiki/Smart_constructors" format="html" scope="external">smart constructors</xref>. For the purposes of this example, we've
-            kept the code simple.</note><p id="pieces10">Defining a PathMultiPiece is just as simple. Let's say we want to have a Wiki with at least two levels of hierarchy; we might define a datatype such as:</p><codeblock id="x23" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
+            kept the code simple.</note><p id="pieces10">Defining a <codeph>PathMultiPiece</codeph> is just as simple. Let's say we want to
+            have a Wiki with at least two levels of hierarchy; we might define a datatype such
+            as:</p><codeblock id="x23" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}
 import Yesod
 import Data.Text (Text)
@@ -46,5 +55,4 @@ instance PathMultiPiece Page where
     fromPathMultiPiece (x:y:z) = Just $ Page x y z
     fromPathMultiPiece _ = Nothing
 -- STOP
-main = return ()
-</codeblock></conbody></concept>
+main = return ()</codeblock></conbody></concept>

@@ -15,12 +15,11 @@
                     is a working page, just that it is is a potentially valid
                     URL. As an example, that value <codeph id="x4">PersonR
                         "Michael"</codeph> may not resolve to a valid page if
-                    there is no Michael in the database.</p></note><p id="rn4">Let's get some real examples going here. If you had the resource
-                patterns <codeph id="x5">/person/#String</codeph> named
-                <codeph id="x6">PersonR</codeph>, <codeph id="x7">/year/#Int</codeph> named
-                <codeph id="x8">YearR</codeph> and <codeph id="x9">/page/faq</codeph> named
-                <codeph id="x10">FaqR</codeph>, you would end up with a route data type
-                roughly looking like:</p><codeblock id="x11" outputclass="haskell">data MyRoute = PersonR String
+                    there is no Michael in the database.</p></note><p id="rn4">Let's get some real examples going here. If you had the resource patterns <codeph
+                id="x5">/person/#Text</codeph> named <codeph id="x6">PersonR</codeph>, <codeph
+                id="x7">/year/#Int</codeph> named <codeph id="x8">YearR</codeph> and <codeph id="x9"
+                >/page/faq</codeph> named <codeph id="x10">FaqR</codeph>, you would end up with a
+            route data type roughly looking like:</p><codeblock id="x11" outputclass="haskell">data MyRoute = PersonR Text
              | YearR Int
              | FaqR</codeblock><p id="rn5">If a user requests the relative URL of
                  <codeph id="x12">/year/2009</codeph>, Yesod will convert it into the value
