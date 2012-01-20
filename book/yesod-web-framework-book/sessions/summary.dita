@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="summary"><title id="x-1">Summary</title><conbody id="x-2">
-        <p id="x-3">Sessions are the number one way we bypass the statelessness imposed by HTTP. We shouldn't
-            consider this an escape hatch to perform whatever actions we want: statelessness in web
-            applications is a virtue, and we should respect it whenever possible. However, there are
-            some specific cases where it is vital to retain some state.</p><p id="s1">The session API in Yesod is very simple. It provides a
-            simple key-value store, and a few convenience functions built on
-            top for common use cases. If used properly, with small payloads,
-            sessions should be an unobtrusive part of your web development.</p></conbody></concept>
+        <p id="x-3">Sessions are the number one way we bypass the statelessness imposed by HTTP. We
+            shouldn't consider this an escape hatch to perform whatever actions we want:
+            statelessness in web applications is a virtue, and we should respect it whenever
+            possible. However, there are specific cases where it is vital to retain some state.</p><p id="s1">The session API in Yesod is very simple. It provides a key-value store, and a few
+            convenience functions built on top for common use cases. If used properly, with small
+            payloads, sessions should be an unobtrusive part of your web development.</p></conbody></concept>

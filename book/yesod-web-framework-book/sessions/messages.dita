@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="messages"><title id="x-1">Messages</title><conbody id="x-2"><p id="m1">One usage of sessions previously alluded to is messages.
-            They come to solve a common problem in web development: the user
-            performs a POST request, the web app makes a change, and then the
-            web app wants to <i id="x1">simultaneously</i> redirect the user to a new
-            page and send the user a success message.</p><p id="m2">Yesod provides a pair of functions to make this very easy:
+<concept id="messages"><title id="x-1">Messages</title><conbody id="x-2"><p id="m1">One usage of sessions previously alluded to is messages. They come to solve a common
+            problem in web development: the user performs a <codeph>POST</codeph> request, the web
+            app makes a change, and then the web app wants to <i id="x1">simultaneously</i> redirect
+            the user to a new page and send the user a success message. (This is known as
+            Post/Redirect/Get.)</p><p id="m2">Yesod provides a pair of functions to make this very easy:
             <codeph id="x2">setMessage</codeph> stores a value in the session, and
             <codeph id="x3">getMessage</codeph> both reads the value most recently put into
             the session, and clears the old value so it does not accidently get
-            displayed twice.</p><p id="m3">It is recommended to have a call to getMessage in
-            <codeph id="x4">defaultLayout</codeph> so that any available message is shown
-            to a user immediately, without having to remember to add getMessage
-            calls to every handler.</p>
+            displayed twice.</p><p id="m3">It is recommended to have a call to <codeph>getMessage</codeph> in <codeph id="x4"
+                >defaultLayout</codeph> so that any available message is shown to a user
+            immediately, without having to remember to add <codeph>getMessage</codeph> calls to
+            every handler.</p>
         <codeblock id="x-3" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
              QuasiQuotes, MultiParamTypeClasses #-}
 import Yesod
