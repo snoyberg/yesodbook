@@ -3,11 +3,14 @@
 <concept id="navbar">
  <title id="x-1">Example: Database-driven navbar</title>
  <conbody id="x-2">
-  <p id="x-3">Let's put some of this new knowledge into action. We want to create a widget that generates its
-   output based on the contents of the database. Previously, our approach would have been to load up
-   the data in a Handler, and then pass that data into a widget. Now, we'll do the loading of data
-   in the widget itself. This is a boon for modularity, as this widget can now be used in any
-   handler we want, without any need to pass in the database contents.</p>
+  <p id="x-3">Let's put some of this new knowledge into action. We want to create a
+                <codeph>Widget</codeph> that generates its output based on the contents of the
+            database. Previously, our approach would have been to load up the data in a
+                <codeph>Handler</codeph>, and then pass that data into a <codeph>Widget</codeph>.
+            Now, we'll do the loading of data in the <codeph>Widget</codeph> itself. This is a boon
+            for modularity, as this <codeph>Widget</codeph> can be used in any
+                <codeph>Handler</codeph> we want, without any need to pass in the database
+            contents.</p>
   <codeblock id="x-4" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell, FlexibleContexts,
              QuasiQuotes, TypeFamilies, MultiParamTypeClasses, GADTs #-}
 import Yesod
@@ -78,12 +81,11 @@ main :: IO ()
 main = withSqlitePool "links.db3" 10 $ \pool -&gt; do
     runSqlPool (runMigration migrateAll) pool
     warpDebug 3000 $ Links pool</codeblock>
-  <p id="x-5">Pay attention in particular to the <codeph id="x-6">existingLinks</codeph> function. Notice how all we
-   needed to do was apply <codeph id="x-7">lift</codeph> to a normal database action. And from within
-    <codeph id="x-8">getRootR</codeph>, we treated <codeph id="x-9">existingLinks</codeph> like any ordinary
-    <codeph id="x-10">Widget</codeph>, no special parameters at all.</p>
-  <p id="x-11">You should also pay special attention to the <codeph id="x-12">YesodPersist</codeph> instance. It should
-   make much more sense now that we've explained <codeph id="x-13">liftIOHandler</codeph>.</p>
+  <p id="x-5">Pay attention in particular to the <codeph id="x-6">existingLinks</codeph> function.
+            Notice how all we needed to do was apply <codeph id="x-7">lift</codeph> to a normal
+            database action. And from within <codeph id="x-8">getRootR</codeph>, we treated <codeph
+                id="x-9">existingLinks</codeph> like any ordinary <codeph id="x-10">Widget</codeph>,
+            no special parameters at all. See the figure for the output of this app.</p>
   <fig id="x-14">
       <title>Screenshot of the navbar</title>
    <image id="image_xpd_yzj_zd" href="navbar.png"/>

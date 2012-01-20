@@ -3,14 +3,16 @@
 <concept id="conceptId">
  <title id="x-1">Yesod's Monads</title>
  <conbody id="x-2">
-  <p id="x-3">As you've read through this book, there have been a number of monads which have appeared:
-   Handler, Widget and something to do with Persistent (let's call it YesodDB for now). As with most
-   monads, each one provides some specific functionality: Handler gives access to the request and
-   allows you to send responses, a Widget contains HTML, CSS, and Javascript, and YesodDB let's you
-   make database queries.</p>
-  <p id="x-4">So far, we've presented some very straight-forward ways to use these monads: your main handler
-   will run in Handler, using runDB to execute a YesodDB, and defaultLayout to return a Widget,
-   which is turn was created by calls to toWidget.</p>
+  <p id="x-3">As you've read through this book, there have been a number of monads which have
+   appeared: <codeph>Handler</codeph>, <codeph>Widget</codeph> and something to do with Persistent
+   (let's call it <codeph>YesodDB</codeph> for now). As with most monads, each one provides some
+   specific functionality: <codeph>Handler</codeph> gives access to the request and allows you to
+   send responses, a <codeph>Widget</codeph> contains HTML, CSS, and Javascript, and
+    <codeph>YesodDB</codeph> let's you make database queries.</p>
+  <p id="x-4">So far, we've presented some very straight-forward ways to use these monads: your main
+   handler will run in <codeph>Handler</codeph>, using <codeph>runDB</codeph> to execute a
+    <codeph>YesodDB</codeph>, and <codeph>defaultLayout</codeph> to return a
+   <codeph>Widget</codeph>, which is turn was created by calls to <codeph>toWidget</codeph>.</p>
   <p id="x-5">However, if we have a deeper understanding of these types, we can achieve some fancier
    results.</p>
  </conbody>

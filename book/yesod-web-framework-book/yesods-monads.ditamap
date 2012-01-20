@@ -3,11 +3,10 @@
 <map id="x-1">
     <title id="x-2">Yesod's Monads</title>
     <topicref id="yesods-monads" href="yesods-monads/yesods-monads.dita" chunk="to-content">
-        <topicref id="x-4" href="yesods-monads/transformers.dita">
-            <topicref id="x-5" href="yesods-monads/monad-control.dita"/>
-        </topicref>
+        <topicref id="x-4" href="yesods-monads/transformers.dita"/>
         <topicref id="x-6" href="yesods-monads/the-three-transformers.dita"/>
         <topicref id="x-7" href="yesods-monads/navbar.dita"/>
         <topicref id="x-8" href="yesods-monads/gets.dita"/>
+        <topicref href="yesods-monads/summary.dita"/>
     </topicref>
 </map>
