@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="yesod-typeclass"><title id="x-1">Yesod Typeclass</title><conbody id="x-2"><p id="i1">Every one of our Yesod applications requires an instance of the Yesod typeclass. So far, we've only seen the approot method, with the cryptic definition <codeph id="x1">approot _ = ""</codeph>, and defaultLayout. In this chapter, we'll explore the meaning of the approot method, along with many other methods in the Yesod typeclass.</p><p id="i2">The Yesod typeclass gives us a central place for defining settings for our application. Excluding the approot method, everything else has a default definition which is usually the right thing. But in order to build a powerful, customized application, you'll usually end up overriding at least a few of these methods.</p></conbody></concept>
+<concept id="yesod-typeclass"><title id="x-1">Yesod Typeclass</title><conbody id="x-2"><p id="i1">Every one of our Yesod applications requires an instance of the <codeph>Yesod</codeph>
+            typeclass. So far, we've only seen the approot method, with the cryptic definition
+                <codeph id="x1">approot _ = ""</codeph>, and <codeph>defaultLayout</codeph>. In this
+            chapter, we'll explore the meaning of the <codeph>approot</codeph> method, along with
+            many other methods in the <codeph>Yesod</codeph> typeclass.</p><p id="i2">The <codeph>Yesod</codeph> typeclass gives us a central place for defining settings for
+            our application. Excluding the <codeph>approot</codeph> method, everything else has a
+            default definition which is usually the right thing. But in order to build a powerful,
+            customized application, you'll usually end up wanting to override at least a few of
+            these methods.</p></conbody></concept>

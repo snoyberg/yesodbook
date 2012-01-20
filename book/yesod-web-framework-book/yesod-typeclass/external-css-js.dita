@@ -4,18 +4,19 @@
  <title id="x-1">External CSS and Javascript</title>
  <conbody id="x-2">
   <note id="in-scaffolding">The functionality described here is automatically included in the
-   scaffolded site.</note>
+   scaffolded site, so you don't need to worry about implementing this yourself.</note>
   <p id="x-3">One of the most powerful, and most intimidating, methods in the Yesod typeclass is
-    <codeph id="x-4">addStaticContent</codeph>. Remember that a Widget consists of multiple components,
-   including CSS and Javascript. How exactly does that CSS/JS arrive in the user's browser? By
-   default, they are served in the &lt;head&gt; of the page, inside &lt;style&gt; and &lt;script&gt; tags,
-   respectively.</p>
+    <codeph id="x-4">addStaticContent</codeph>. Remember that a Widget consists of multiple
+   components, including CSS and Javascript. How exactly does that CSS/JS arrive in the user's
+   browser? By default, they are served in the <codeph>&lt;head&gt;</codeph> of the page, inside
+    <codeph>&lt;style&gt;</codeph> and <codeph>&lt;script&gt;</codeph> tags, respectively.</p>
   <p id="x-5">That might be simple, but it's far from efficient. Every page load will now require loading up
    the CSS/JS from scratch, even if nothing changed! What we really want is to store this content in
    an external file and then refer to it from the HTML.</p>
-  <p id="x-6">This is where addStaticContent comes in. It takes three arguments: the filename extension of
-   the content ("css" or "js"), the mime-type of the content ("text/css" or "text/javascript") and
-   the content itself. It will then return one of three possible results:</p>
+  <p id="x-6">This is where <codeph>addStaticContent</codeph> comes in. It takes three arguments:
+   the filename extension of the content (<codeph>css</codeph> or <codeph>js</codeph>), the
+   mime-type of the content (<codeph>text/css</codeph> or <codeph>text/javascript</codeph>) and the
+   content itself. It will then return one of three possible results:</p>
   <dl id="x-7">
    <dlentry id="x-8">
     <dt id="x-9">Nothing</dt>
@@ -32,14 +33,15 @@
     <dd id="x-16">Same, but now use a type-safe URL along with some query string parameters.</dd>
    </dlentry>
   </dl>
-  <p id="x-17">The Left result is useful if you want to store your static files on an external server, such as
-   a CDN or memory-backed server. The Right result is more commonly used, and ties in very well with
-   the static subsite. This is the recommended approach for most applications, and is provided by
-   the scaffolded site by default.</p>
+  <p id="x-17">The <codeph>Left</codeph> result is useful if you want to store your static files on
+   an external server, such as a CDN or memory-backed server. The <codeph>Right</codeph> result is
+   more commonly used, and ties in very well with the static subsite. This is the recommended
+   approach for most applications, and is provided by the scaffolded site by default.</p>
   <note id="x-18">You might be wondering: if this is the recommended approach, why isn't it the default? The
    problem is that it makes a number of assumptions that don't universally hold: your application
    has a static subsite, and the location of your static files.</note>
-  <p id="x-19">The scaffolded addStaticContent does a number of intelligent things to help you out:</p>
+  <p id="x-19">The scaffolded <codeph>addStaticContent</codeph> does a number of intelligent things
+   to help you out:</p>
   <ul id="ul_vlr_nmg_sd">
    <li id="x-20">It automatically minifies your Javascript using the <apiname id="x-21">hjsmin</apiname> package.</li>
    <li id="x-22">It names the output files based on a hash of the file contents. This means you can set your

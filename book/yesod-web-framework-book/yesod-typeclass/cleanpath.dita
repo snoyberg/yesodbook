@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="cleanpath"><title id="x-1">cleanPath</title><conbody id="x-2"><p id="cp1">The flip side to <codeph id="x1">joinPath</codeph> is <codeph id="x2">cleanPath</codeph>. Let's look at how it gets used in the dispatch process:</p><ol id="x3"><li id="x4">The path info requested by the user is split into a series of path pieces.</li><li id="x5">If any prefix of the path pieces matches a subsite, then dispatching is passed off to the subsite.</li><li id="x6">Otherwise, we pass the path pieces to the cleanPath function.</li><li id="x7">If cleanPath indicates a redirect (a Left response), then a 301 response is sent to the client. This is used to force canonical URLs (eg, remove extra slashes).</li><li id="x8">Otherwise, we try to dispatch to our non-subsite routes using the response from cleanPath (a Right). If this works, we return a response. Otherwise, we return a 404.</li></ol><p id="cp2">This combination allows subsites to retain full control of how their URLs appear, yet allows master sites to have modified URLs. As a simple example, let's see how we could modify Yesod to always produce trailing slashes on URLs:</p><codeblock id="x9" outputclass="haskell">-- START
+<concept id="cleanpath"><title id="x-1">cleanPath</title><conbody id="x-2"><p id="cp1">The flip side to <codeph id="x1">joinPath</codeph> is <codeph id="x2">cleanPath</codeph>. Let's look at how it gets used in the dispatch process:</p><ol id="x3"><li id="x4">The path info requested by the user is split into a series of path pieces.</li><li id="x6">We pass the path pieces to the <codeph>cleanPath</codeph> function.</li><li id="x7">If <codeph>cleanPath</codeph> indicates a redirect (a <codeph>Left</codeph> response),
+                then a 301 response is sent to the client. This is used to force canonical URLs (eg,
+                remove extra slashes).</li><li id="x8">Otherwise, we try to dispatch using the response from <codeph>cleanPath</codeph> (a
+                    <codeph>Right</codeph>). If this works, we return a response. Otherwise, we
+                return a 404.</li></ol><p id="cp2">This combination allows subsites to retain full control of how their URLs appear, yet allows master sites to have modified URLs. As a simple example, let's see how we could modify Yesod to always produce trailing slashes on URLs:</p><codeblock id="x9" outputclass="haskell">-- START
 {-# LANGUAGE TypeFamilies, QuasiQuotes, MultiParamTypeClasses, TemplateHaskell, OverloadedStrings #-}
 import Yesod
 import Network.HTTP.Types (encodePath)
@@ -48,8 +52,14 @@ getRootR = defaultLayout [whamlet|
 
 getFooR = getRootR
 
-main = warpDebug 3000 Slash
-</codeblock><p id="cp3">First, let's look at our joinPath implementation. This is copied almost verbatim from
-            the default Yesod implementation, with one difference: we append an extra empty string
-            to the end. When dealing with path pieces, an empty string will simply append another
-            slash. So adding an extra empty string will force a trailing slash.</p><p id="cp4">cleanPath is a little bit trickier. First, we check for the empty path like before, and if so pass it through as-is. We use Right to indicate that a redirect is not necessary. The next clause is actually checking for two different possible URL issues:</p><ul id="x11"><li id="x12">There is a double slash, which would show up as an empty string in the middle of our paths.</li><li id="x13">There is a missing trailing slash, which would show up as the last piece not being an empty string.</li></ul><p id="cp5">Assuming neither of those conditions hold, then only the last piece is empty, and we should dispatch based on all but the last piece. However, if this is not the case, we want to redirect to a canonical URL. In this case, we strip out all empty pieces and do not bother appending a trailing slash, since joinPath will do that for us.</p></conbody></concept>
+main = warpDebug 3000 Slash</codeblock><p id="cp3">First, let's look at our <codeph>joinPath</codeph> implementation. This is copied almost
+            verbatim from the default Yesod implementation, with one difference: we append an extra
+            empty string to the end. When dealing with path pieces, an empty string will append
+            another slash. So adding an extra empty string will force a trailing slash.</p><p id="cp4"><codeph>cleanPath</codeph> is a little bit trickier. First, we check for the empty path
+            like before, and if so pass it through as-is. We use Right to indicate that a redirect
+            is not necessary. The next clause is actually checking for two different possible URL
+            issues:</p><ul id="x11"><li id="x12">There is a double slash, which would show up as an empty string in the middle of our paths.</li><li id="x13">There is a missing trailing slash, which would show up as the last piece not being an empty string.</li></ul><p id="cp5">Assuming neither of those conditions hold, then only the last piece is empty, and we
+            should dispatch based on all but the last piece. However, if this is not the case, we
+            want to redirect to a canonical URL. In this case, we strip out all empty pieces and do
+            not bother appending a trailing slash, since <codeph>joinPath</codeph> will do that for
+            us.</p></conbody></concept>

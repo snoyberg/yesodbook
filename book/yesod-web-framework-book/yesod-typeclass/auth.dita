@@ -6,32 +6,38 @@
   <p id="x-4">For simple applications, checking permissions inside each handler function can be a
    simple, convenient approach. However, it doesn't scale well. Eventually, you're going to want to
    have a more declarative approach. Many systems out there define ACLs, special config files, and a
-   lot of other hocus-pocus. In Yesod, it's just plain old Haskell. There are three very simple
-   methods involved:</p>
+   lot of other hocus-pocus. In Yesod, it's just plain old Haskell. There are three methods
+   involved:</p>
   <dl id="x-5">
    <dlentry id="x-6">
     <dt id="x-7">isWriteRequest</dt>
-    <dd id="x-8">Determine if the current request is a "read" or "write" operations. By default, Yesod
-     follows RESTful principles, and assumes GET, HEAD, OPTIONS, and TRACE requests are read-only,
-     while all others are can write.</dd>
+    <dd id="x-8">Determine if the current request is a "read" or "write" operations. By default,
+     Yesod follows RESTful principles, and assumes <codeph>GET</codeph>, <codeph>HEAD</codeph>,
+      <codeph>OPTIONS</codeph>, and <codeph>TRACE</codeph> requests are read-only, while all others
+     are can write.</dd>
    </dlentry>
    <dlentry id="x-9">
     <dt id="x-10">isAuthorized</dt>
-    <dd id="x-11">Takes a route (i.e., type-safe URL) and a boolean indicating whether or not the request is a
-     write request. It returns an AuthResult, which can have one of three values:<ul id="ul_tsw_jog_sd">
-      <li id="x-12">Authorized</li>
-      <li id="x-13">AuthenticationRequired</li>
-      <li id="x-14">Unauthorized</li>
-     </ul>By default, this returns Authorized for all requests.</dd>
+    <dd id="x-11">Takes a route (i.e., type-safe URL) and a boolean indicating whether or not the
+     request is a write request. It returns an <codeph>AuthResult</codeph>, which can have one of
+     three values:<ul id="ul_tsw_jog_sd">
+      <li id="x-12"><codeph>Authorized</codeph></li>
+      <li id="x-13"><codeph>AuthenticationRequired</codeph></li>
+      <li id="x-14"><codeph>Unauthorized</codeph></li>
+     </ul>By default, it returns <codeph>Authorized</codeph> for all requests.</dd>
    </dlentry>
    <dlentry id="x-15">
     <dt id="x-16">authRoute</dt>
-    <dd id="x-17">If isAuthorized returns AuthenticationRequired, then redirect to the given route. If no
-     route is provided (the default), return a 403 "Permission Denied" message.</dd>
+    <dd id="x-17">If <codeph>isAuthorized</codeph> returns <codeph>AuthenticationRequired</codeph>,
+     then redirect to the given route. If no route is provided (the default), return a 403
+     "Permission Denied" message.</dd>
    </dlentry>
   </dl>
-  <p id="x-18">These methods tie in very well with the <apiname id="x-19">yesod-auth</apiname> package, which is used by
-   the scaffolded site to provide a number of authentication options, such as OpenID, BrowserID,
-   email, username and Twitter. We'll cover more concrete exampels in the <xref id="x-20" href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization" format="dita">auth chapter</xref>.</p>
+  <p id="x-18">These methods tie in nicely with the <apiname id="x-19">yesod-auth</apiname> package,
+   which is used by the scaffolded site to provide a number of authentication options, such as
+   OpenID, BrowserID, email, username and Twitter. We'll cover more concrete exampels in the <xref
+    id="x-20"
+    href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization"
+    format="dita">auth chapter</xref>.</p>
  </conbody>
 </concept>

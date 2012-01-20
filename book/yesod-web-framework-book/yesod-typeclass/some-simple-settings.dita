@@ -3,7 +3,7 @@
 <concept id="some-simple-settings">
  <title id="x-1">Some Simple Settings</title>
  <conbody id="x-2">
-  <p id="x-3">Not everything in the Yesod typeclass is complicated. Some methods are really very simple
+  <p id="x-3">Not everything in the Yesod typeclass is complicated. Some methods are simple
    functions. Let's just go through the list:</p>
   <dl id="x-4">
    <dlentry id="x-5">
@@ -34,6 +34,12 @@
     <dd id="x-20">To prevent Denial of Server (DoS) attacks, Yesod will limit the size of request bodies. Some
      of the time, you'll want to bump that limit for some routes (e.g., a file upload page). This is
      where you'd do that.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>yepnopeJs</dt>
+    <dd>You can specify the location of the <xref href="http://yepnopejs.com/" format="html"
+      scope="external">yepnope</xref> Javascript library. If this is given, then yepnope will be
+     used to asynchronously load all of the Javascript on your page.</dd>
    </dlentry>
   </dl>
  </conbody>
