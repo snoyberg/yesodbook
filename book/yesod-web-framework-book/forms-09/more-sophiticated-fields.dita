@@ -81,10 +81,10 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x5">selectFieldList takes a list of pairs. The first item in the pair is the text displayed to the user
-   in the drop-down list, and the second item is the actual Haskell value. Of course, the code above
-   looks really repetitive; we can get the same result using the Enum and Bounded instance GHC
-   automatically derives for us.</p>
+  <p id="x5"><codeph>selectFieldList</codeph> takes a list of pairs. The first item in the pair is
+            the text displayed to the user in the drop-down list, and the second item is the actual
+            Haskell value. Of course, the code above looks really repetitive; we can get the same
+            result using the Enum and Bounded instance GHC automatically derives for us.</p>
   <fig id="x6">
    <title id="x7">Uses Enum and Bounded</title>
    <codeblock id="x8" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
@@ -164,10 +164,12 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x9">[minBound..maxBound] gives us a list of all the different Color values. We then apply a map and
-   &amp;&amp;&amp; to turn that into a list of pairs.</p>
-  <p id="x10">Of course, some people prefer radio buttons to drop-down lists. Fortunately, this is just a
-   one-word change.</p>
+  <p id="x9"><codeph>[minBound..maxBound]</codeph> gives us a list of all the different
+                <codeph>Color</codeph> values. We then apply a <codeph>map</codeph> and
+                <codeph>&amp;&amp;&amp;</codeph> (a.k.a, the fan-out operator) to turn that into a
+            list of pairs.</p>
+  <p id="x10">Some people prefer radio buttons to drop-down lists. Fortunately, this is just a
+            one-word change.</p>
   <fig id="x11">
    <title id="x12">Radio buttons</title>
    <codeblock id="x13" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,

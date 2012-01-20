@@ -55,22 +55,27 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In carAForm, we use the
-            &lt;$&gt; and &lt;*&gt; operators. This should not be surprising; these are almost
-            always used in applicative-style code. (For more information on applicative code, see
-                <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor"
+  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In
+                <codeph>carAForm</codeph>, we use the <codeph>&lt;$&gt;</codeph> and
+                <codeph>&lt;*&gt;</codeph> operators. This should not be surprising; these are
+            almost always used in applicative-style code. (For more information on applicative code,
+            see <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor"
                 format="html" scope="external">the Haskell wiki</xref>.) And we have one line for
-            each record in our Car datatype. Perhaps unsurprisingly, we have a textField for the
-            Text record, and an intField for the Int record.</p>
-  <p id="x5">Let's look a bit more closely at the areq function. Its (simplified) type signature is
-    <codeph id="x6">Field a -&gt; FieldSettings -&gt; Maybe a -&gt; AForm a</codeph>. So that first argument is going
-   to determine the datatype of this field, how to parse it, and how to render it. The next
-   argument, FieldSettings, tells us the label, tooltip, name and ID of the field. In this case,
-   we're using the previously-mentioned IsString instance of FieldSettings.</p>
-  <p id="x7">And what's up with that Maybe a? It provides the optional default value. So let's say we want
-   our form to fill in "2007" as the default car year, we would use <codeph id="x8">areq intField "Year"
-    (Just 2007)</codeph>. We can even take this to the next level, and have a form that takes an
-   optional parameter giving the default values.</p>
+            each record in our <codeph>Car</codeph> datatype. Perhaps unsurprisingly, we have a
+                <codeph>textField</codeph> for the <codeph>Text</codeph> record, and an
+                <codeph>intField</codeph> for the <codeph>Int</codeph> record.</p>
+  <p id="x5">Let's look a bit more closely at the <codeph>areq</codeph> function. Its (simplified)
+            type signature is <codeph id="x6">Field a -&gt; FieldSettings -&gt; Maybe a -&gt; AForm
+                a</codeph>. So that first argument is going to determine the datatype of this field,
+            how to parse it, and how to render it. The next argument,
+            <codeph>FieldSettings</codeph>, tells us the label, tooltip, name and ID of the field.
+            In this case, we're using the previously-mentioned <codeph>IsString</codeph> instance of
+                <codeph>FieldSettings</codeph>.</p>
+  <p id="x7">And what's up with that <codeph>Maybe a</codeph>? It provides the optional default
+            value. For example, if we want our form to fill in "2007" as the default car year, we
+            would use <codeph id="x8">areq intField "Year" (Just 2007)</codeph>. We can even take
+            this to the next level, and have a form that takes an optional parameter giving the
+            default values.</p>
   <fig id="x9">
    <title id="x10">Form with default values</title>
    <codeblock id="x11" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,

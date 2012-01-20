@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Summary</title>
+ <conbody>
+  <p>Forms in Yesod are broken up into three groups. Applicative is the most common, as it provides
+   a nice user interface with an easy-to-use API. Monadic forms give you more power, but are harder
+   to use. Input forms are intended when you just want to read data from the user, not generate the
+   input widgets.</p>
+  <p>There are a number of different <codeph>Field</codeph>s provided by Yesod out-of-the-box. In
+   order to use these in your forms, you need to indicate the kind of form and whether the field is
+   required or optional. The result is six helper functions: <codeph>areq</codeph>,
+    <codeph>aopt</codeph>, <codeph>mreq</codeph>, <codeph>mopt</codeph>, <codeph>ireq</codeph>, and
+    <codeph>iopt</codeph>.</p>
+  <p>Forms have significant power available. They can automatically insert Javascript to help you
+   leverage nicer UI controls, such as a jQuery UI date picker. Forms are also fully i18n-ready, so
+   you can support a global community of users. And when you have more specific needs, you can slap
+   on some valdiation functions to an existing field, or write a new one from scratch.</p>
+ </conbody>
+</concept>

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="i18n"><title id="x-1">i18n</title><conbody id="x-2">
-  <p id="x1">There have been a few references to i18n in this chapter. The topic will get more thorough
-   coverage in its own chapter, but since it has such a profound effect on yesod-form, I wanted to
-   give a brief overview. The idea behind i18n in Yesod is to have data types represent messages.
-   Each site can have an instance of RenderMessage for a given datatype which will translate that
-   message based on a list of languages the user accepts. As a result of all this, there are a few
-   things you should be aware of:</p>
+  <p id="x1">There have been a few references to i18n in this chapter. The topic will get more
+   thorough coverage in <xref
+    href="../internationalization/internationalization.dita#internationalization" format="dita">its
+    own chapter</xref>, but since it has such a profound effect on <codeph>yesod-form</codeph>, I
+   wanted to give a brief overview. The idea behind i18n in Yesod is to have data types represent
+   messages. Each site can have an instance of <codeph>RenderMessage</codeph> for a given datatype
+   which will translate that message based on a list of languages the user accepts. As a result of
+   all this, there are a few things you should be aware of:</p>
   <ul id="ul_pgx_iyg_md">
-   <li id="x2">There is an automatic instance of RenderMessage for Text in every site, so you can just use
-    plain strings if you don't care about i18n support. However, you may need to use explicit type
-    signatures occassionally.</li>
-   <li id="x3">yesod-form expresses all of its messages in terms of the FormMessage datatype. Therefore, to
-    use yesod-form, you'll need to have an appropriate RenderMessage instance. A simple one that
-    uses the default English translations would
+   <li id="x2">There is an automatic instance of <codeph>RenderMessage</codeph> for
+     <codeph>Text</codeph> in every site, so you can just use plain strings if you don't care about
+    i18n support. However, you may need to use explicit type signatures occassionally.</li>
+   <li id="x3"><codeph>yesod-form</codeph> expresses all of its messages in terms of the
+     <codeph>FormMessage</codeph> datatype. Therefore, to use <codeph>yesod-form</codeph>, you'll
+    need to have an appropriate <codeph>RenderMessage</codeph> instance. A simple one that uses the
+    default English translations would
     be:<codeblock id="x4" outputclass="haskell">instance RenderMessage MyApp FormMessage where
     renderMessage _ _ = defaultFormMessage</codeblock>This
     is provided automatically by the scaffolded site.</li>
-   <li id="x5">In order to allow multiple different message types to co-exist, we use an existential type
-    called SomeMessage. You will occassionally need to wrap your values inside of it, though this is
-    not common in normal library use.</li>
+   <li id="x5">In order to allow multiple different message types to co-exist, we use an existential
+    type called <codeph>SomeMessage</codeph>. You will occassionally need to wrap your values inside
+    of it, though this is not common in normal library use.</li>
   </ul>
  </conbody></concept>

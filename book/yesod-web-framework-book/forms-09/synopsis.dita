@@ -49,6 +49,13 @@ data Person = Person
 -- FormFailure (invalid data) and FormSuccess
 --
 -- * The Widget is the viewable form to place into the web page.
+--
+-- Note that the scaffolded site provides a convenient Form type synonym,
+-- so that our signature could be written as:
+--
+-- > personForm :: Form Person
+--
+-- For our purposes, it's good to see the long version.
 personForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Person, Widget)
 personForm = renderDivs $ Person
     &lt;$&gt; areq textField "Name" Nothing

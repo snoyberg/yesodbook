@@ -12,9 +12,9 @@
    </dlentry>
    <dlentry id="x6">
     <dt id="x7">Monadic</dt>
-    <dd id="x8">A more powerful alternative to applicative. While this allows you more flexibility, at the
-     cost of being more verbose. Useful if you want to create forms that don't fit into the standard
-     two-column look.</dd>
+    <dd id="x8">A more powerful alternative to applicative. While this allows you more flexibility,
+     it does so at the cost of being more verbose. Useful if you want to create forms that don't fit
+     into the standard two-column look.</dd>
    </dlentry>
    <dlentry id="x9">
     <dt id="x10">Input</dt>
@@ -29,14 +29,15 @@
    <li id="x14">Should it be submitted with GET or POST?</li>
    <li id="x15">Does it have a default value, or not?</li>
   </ul>
-  <p id="x16">An overriding goal is to minimize the number of field definitions and let them work in as many
-   contexts as possible. One result of this is that we end up with a few extra words for each field.
-   In the synopsis, you may have noticed things like areq and that extra Nothing parameter. We'll
-   cover why all of those exist in the course of this chapter, but for now realize that by making
-   these parameters explicit, we are able to reuse the individuals fields (like
-    <apiname id="x17">yesod-form:Yesod.Form.Fields:intField</apiname>) in many different ways.</p>
+  <p id="x16">An overriding goal is to minimize the number of field definitions and let them work in
+   as many contexts as possible. One result of this is that we end up with a few extra words for
+   each field. In the synopsis, you may have noticed things like <codeph>areq</codeph> and that
+   extra <codeph>Nothing</codeph> parameter. We'll cover why all of those exist in the course of
+   this chapter, but for now realize that by making these parameters explicit, we are able to reuse
+   the individuals fields (like <apiname id="x17">yesod-form:Yesod.Form.Fields:intField</apiname>)
+   in many different ways.</p>
   <p>A quick note on naming conventions. Each form type has a one-letter prefix (A, M and I) which
    is used in a few places, such as saying MForm. We also use req and opt to mean required and
-   optional. Combining these, we create a required applicative field with areq, or an optional input
-   field with iopt.</p>
+   optional. Combining these, we create a required applicative field with <codeph>areq</codeph>, or
+   an optional input field with <codeph>iopt</codeph>.</p>
  </conbody></concept>

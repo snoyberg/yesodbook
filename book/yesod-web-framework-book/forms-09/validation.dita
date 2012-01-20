@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="validation"><title id="x-1">Validation</title><conbody id="x-2">
-  <p id="x1">Let's say we only want to accept cars created after 1990. How would we go about limiting
-   things? If you remember, we said above that the Field itself contained the information on what is
-   a valid entry. So all we need to do is write a new Field, right? Well, that would be a bit
-   tedious. Instead, let's just modify an existing one:</p>
+  <p id="x1">How would we make our form only accept cars created after 1990? If you remember, we
+            said above that the <codeph>Field</codeph> itself contained the information on what is a
+            valid entry. So all we need to do is write a new <codeph>Field</codeph>, right? Well,
+            that would be a bit tedious. Instead, let's just modify an existing one:</p>
   <codeblock id="x2" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
 import Yesod
@@ -39,9 +39,9 @@ data Car = Car
 -- START
 carAForm :: Maybe Car -&gt; AForm Synopsis Synopsis Car
 carAForm mcar = Car
-    &lt;$&gt; areq textField "Model" (carModel &lt;$&gt; mcar)
-    &lt;*&gt; areq carYearField "Year" (carYear &lt;$&gt; mcar)
-    &lt;*&gt; aopt textField "Color" (carColor &lt;$&gt; mcar)
+    &lt;$&gt; areq textField    "Model" (carModel &lt;$&gt; mcar)
+    &lt;*&gt; areq carYearField "Year"  (carYear  &lt;$&gt; mcar)
+    &lt;*&gt; aopt textField    "Color" (carColor &lt;$&gt; mcar)
   where
     errorMessage :: Text
     errorMessage = "Your car is too old, get a new one!"
@@ -67,10 +67,10 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x3">The trick here is the check function. It takes a function (validateYear) that returns either an
-   error message or a modified field value. In this example, we haven't modified the value at all.
-   That is usually going to be the case. Of course, this kind of checking is very common, so we have
-   a shortcut:</p>
+  <p id="x3">The trick here is the <codeph>check</codeph> function. It takes a function
+                (<codeph>validateYear</codeph>) that returns either an error message or a modified
+            field value. In this example, we haven't modified the value at all. That is usually
+            going to be the case. This kind of checking is very common, so we have a shortcut:</p>
   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
 import Yesod
@@ -129,15 +129,17 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x5">checkBool takes two parameters: a condition that must be fulfilled, and an error message to be
-   displayed if it was not.</p>
-  <note id="x6">You may have noticed the explicit Text type signature on errorMessage. In the presence of
-   OverloadedStrings, this is necessary. In order to support i18n, messages can have many different
-   datatypes, and GHC has no way of determining which instance of IsString you intended to
-   use.</note>
-  <p id="x7">This is great to make sure the car isn't too old. But what if we want to make sure that the
-   year specified is not from the future? In order to look up the year, we'll need to run some IO.
-   For such circumstances, we'll need checkM:</p>
+  <p id="x5"><codeph>checkBool</codeph> takes two parameters: a condition that must be fulfilled,
+            and an error message to be displayed if it was not.</p>
+  <note id="x6">You may have noticed the explicit <codeph>Text</codeph> type signature on
+                <codeph>errorMessage</codeph>. In the presence of
+            <codeph>OverloadedStrings</codeph>, this is necessary. In order to support i18n,
+            messages can have many different datatypes, and GHC has no way of determining which
+            instance of <codeph>IsString</codeph> you intended to use.</note>
+  <p id="x7">It's great to make sure the car isn't too old. But what if we want to make sure that
+            the year specified is not from the future? In order to look up the current year, we'll
+            need to run some <codeph>IO</codeph>. For such circumstances, we'll need
+                <codeph>checkM</codeph>:</p>
   <codeblock id="x8" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
 import Yesod
@@ -209,11 +211,13 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x9">inPast is a simple function that will return an Either result. However, it uses a Handler
-   monad. We use <codeph id="x10">liftIO getCurrentYear</codeph> to get the current year and then compare it
-   against the user-supplied year. Also, notice how we can easily chain together multiple
-   validators.</p>
-  <note id="x11">Since the checkM validator runs in the Handler monad, it has access to a lot of the stuff
-   you can normally do in Yesod. This is especially useful for running database actions, which we'll
-   cover in the Persistent chapter.</note>
+  <p id="x9"><codeph>inPast</codeph> is a function that will return an <codeph>Either</codeph>
+            result. However, it uses a <codeph>Handler</codeph> monad. We use <codeph id="x10"
+                >liftIO getCurrentYear</codeph> to get the current year and then compare it against
+            the user-supplied year. Also, notice how we can chain together multiple validators.</p>
+  <note id="x11">Since the <codeph>checkM</codeph> validator runs in the <codeph>Handler</codeph>
+            monad, it has access to a lot of the stuff you can normally do in Yesod. This is
+            especially useful for running database actions, which we'll cover in the <xref
+                href="../persistent-060/persistent.dita#persistent" format="dita">Persistent
+                chapter</xref>.</note>
  </conbody></concept>

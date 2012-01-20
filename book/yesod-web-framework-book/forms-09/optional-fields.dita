@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="optional-fields"><title id="x-1">Optional fields</title><conbody id="x-2">  <p id="x1">Now let's say that we wanted to have an optional field (like the car color). All we do instead
-   is use the aopt function.</p>
+<concept id="optional-fields"><title id="x-1">Optional fields</title><conbody id="x-2">  <p id="x1">Suppose we wanted to have an optional field (like the car color). All we do instead is
+            use the <codeph>aopt</codeph> function.</p>
   <fig id="x2">
    <title id="x3">Optional fields</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
@@ -58,9 +58,10 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x5">And like required fields, the last argument is the optional default value. However, this has
-   two layers of Maybe wrapping. This may seem redundant (and it is), but it makes it much easier to
-   write code that takes an optional default form parameter.</p>
+  <p id="x5">And like required fields, the last argument is the optional default value. However,
+            this has two layers of Maybe wrapping. This may seem redundant (and it is), but it makes
+            it much easier to write code that takes an optional default form parameter, such as in
+            the next example.</p>
   <fig id="x6">
    <title id="x7">Default optional fields</title>
    <codeblock id="x8" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
@@ -98,7 +99,7 @@ data Car = Car
 carAForm :: Maybe Car -&gt; AForm Synopsis Synopsis Car
 carAForm mcar = Car
     &lt;$&gt; areq textField "Model" (carModel &lt;$&gt; mcar)
-    &lt;*&gt; areq intField "Year" (carYear &lt;$&gt; mcar)
+    &lt;*&gt; areq intField  "Year"  (carYear  &lt;$&gt; mcar)
     &lt;*&gt; aopt textField "Color" (carColor &lt;$&gt; mcar)
 
 carForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Car, Widget)

@@ -69,29 +69,36 @@ getRootR = do
 
 main :: IO ()
 main = warpDebug 3000 Monadic</codeblock>
-        <p id="x-8">Similar to the applicative <codeph id="x-9">areq</codeph>, we use <codeph id="x-10">mreq</codeph> for monadic forms. (And yes, there's also mopt for optional
-            fields.) But there's a big difference: mreq gives us back a pair of values. Instead of
-            hiding away the <apiname id="x-11">yesod-form:Yesod.Form.Types:FieldView</apiname> value
-            and automatically inserting it into a widget, we get the control to insert it as we see
+        <p id="x-8">Similar to the applicative <codeph id="x-9">areq</codeph>, we use <codeph
+                id="x-10">mreq</codeph> for monadic forms. (And yes, there's also
+                <codeph>mopt</codeph> for optional fields.) But there's a big difference:
+                <codeph>mreq</codeph> gives us back a pair of values. Instead of hiding away the
+                <apiname id="x-11">yesod-form:Yesod.Form.Types:FieldView</apiname> value and
+            automatically inserting it into a widget, we get the control to insert it as we see
             fit.</p>
-        <p id="x-12">FieldView has a number of pieces of information. The most important is fvInput,
-            which is the actual form field. In this example, we also use fvId, which gives us back
-            the HTML id attribute of the input tag. In our example, we use that to specify the width
-            of the field.</p>
+        <p id="x-12"><codeph>FieldView</codeph> has a number of pieces of information. The most
+            important is <codeph>fvInput</codeph>, which is the actual form field. In this example,
+            we also use <codeph>fvId</codeph>, which gives us back the HTML <codeph>id</codeph>
+            attribute of the input tag. In our example, we use that to specify the width of the
+            field.</p>
         <p id="x-13">You might be wondering what the story is with the "this is not used" and
-            "neither is this" values. mreq takes a FieldSettings as its second argument, which
-            allows you to specify an id or name attribute, as well as give a label and tooltip. The
-            label and tooltip are then passed into the FieldView value. These records are used in
-            applicative forms, but don't really serve much of a purpose in monadic forms. By giving
-            a dummy string value, you're essentially passing in a default FieldSettings which says
-            "automatically generate the id and name."</p>
-        <p id="x-14">The other interesting bit is the <codeph id="x-15">extra</codeph> value. GET
-            forms include an extra field to indicate that they have been submitted, and POST forms
-            include a nonce to prevent CSRF attacks. If you don't include this extra hidden field in
-            your form, Yesod will not accept it.</p>
-        <p id="x-16">Other than that, things are pretty straight-forward. We create our personRes
-            value by combining together the nameRes and ageRes values, and then return a tuple of
-            the person and the widget. And in the getRootR function, everything looks just like an
+            "neither is this" values. <codeph>mreq</codeph> takes a <codeph>FieldSettings</codeph>
+            as its second argument, which allows you to specify an <codeph>id</codeph> or
+                <codeph>name</codeph> attribute, as well as give a label and tooltip. The label and
+            tooltip are then passed into the <codeph>FieldView</codeph> value. These records are
+            used in applicative forms, but don't really serve much of a purpose in monadic forms. By
+            giving a dummy string value, you're essentially passing in a default
+                <codeph>FieldSettings</codeph> which says "automatically generate the
+                <codeph>id</codeph> and <codeph>name</codeph>."</p>
+        <p id="x-14">The other interesting bit is the <codeph id="x-15">extra</codeph> value.
+                <codeph>GET</codeph> forms include an extra field to indicate that they have been
+            submitted, and <codeph>POST</codeph> forms include a security tokens to prevent CSRF
+            attacks. If you don't include this extra hidden field in your form, Yesod will not
+            accept it.</p>
+        <p id="x-16">Other than that, things are pretty straight-forward. We create our
+                <codeph>personRes</codeph> value by combining together the <codeph>nameRes</codeph>
+            and <codeph>ageRes</codeph> values, and then return a tuple of the person and the
+            widget. And in the <codeph>getRootR</codeph> function, everything looks just like an
             applicative form. In fact, you could swap out our monadic form with an applicative one
             and the code would still work.</p>
         <note id="x-17">Well, that's not <b id="x-18">exactly</b> true. It would compile and build,

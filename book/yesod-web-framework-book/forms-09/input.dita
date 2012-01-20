@@ -9,17 +9,19 @@
    case, you'll want input forms.</p>
   <p id="x-4">These work mostly the same as applicative and monadic forms, with some differences:</p>
   <ul id="ul_e3c4dff2-c3cd-4ba1-b146-3841e6018b14">
-   <li id="x-5">You use runInputPost and runInputGet.</li>
-   <li id="x-6">You use ireq and iopt. These functions now only take two arguments: the field type and the
-    name (i.e., HTML name attribute) of the field in question.</li>
+   <li id="x-5">You use <codeph>runInputPost</codeph> and <codeph>runInputGet</codeph>.</li>
+   <li id="x-6">You use <codeph>ireq</codeph> and <codeph>iopt</codeph>. These functions now only
+    take two arguments: the field type and the name (i.e., HTML <codeph>name</codeph> attribute) of
+    the field in question.</li>
    <li id="x-7">After running a form, it returns the value. It doesn't return a widget or an
                 encoding type.</li>
    <li id="x-8">If there are any validation errors, the page returns an "invalid arguments" error page.</li>
   </ul>
-  <p id="x-9">It's very easy to use input forms to recreate the previous example. Note, however, that the
+  <p id="x-9">You can use input forms to recreate the previous example. Note, however, that the
    input version is less user friendly. If you make a mistake in an applicative or monadic form, you
    will be brought back to the same page, with your previously entered values in the form, and an
-   error message explaning what you need to correct.</p>
+   error message explaning what you need to correct. With input forms, the user simply gets an error
+   message.</p>
   <codeblock id="x-10" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
              TemplateHaskell, MultiParamTypeClasses #-}
 import Yesod
