@@ -17,7 +17,11 @@ http {
     listen 80;
     server_name myserver.com;
     rewrite ^/(.*) http://www.myserver.com/$1 permanent;
-}</codeblock><p id="config3">A highly recommended optimization is to server static files from a separate domain name, therefore bypassing the cookie transfer overhead. Assuming that our static files are stored in the <codeph id="x3">static</codeph> folder within our site folder, and the site folder is located at <codeph id="x4">/home/michael/sites/mysite</codeph>, this would look like:</p><codeblock outputclass="nginx-conf" id="x5">server {
+}</codeblock><p id="config3">A highly recommended optimization is to serve static files from a separate domain
+            name, therefore bypassing the cookie transfer overhead. Assuming that our static files
+            are stored in the <codeph id="x3">static</codeph> folder within our site folder, and the
+            site folder is located at <codeph id="x4">/home/michael/sites/mysite</codeph>, this
+            would look like:</p><codeblock outputclass="nginx-conf" id="x5">server {
     listen 80;
     server_name static.myserver.com;
     root /home/michael/sites/mysite/static;
@@ -25,7 +29,12 @@ http {
     # we are free to set expiration dates far in the future without
     # concerns of stale content.
     expires max;
-}</codeblock><p id="config4">In order for this to work, your site must properly rewrite static URLs to this alternate domain name. The scaffolded site is set up to make this fairly simple via the Settings.staticroot function and the definition of urlRenderOverride. However, if you just want to get the benefit of nginx's faster static file serving without dealing with separate domain names, you can instead modify your original server block like so:</p><codeblock outputclass="nginx-conf" id="x6">server {
+}</codeblock><p id="config4">In order for this to work, your site must properly rewrite static URLs to this
+            alternate domain name. The scaffolded site is set up to make this fairly simple via the
+                <codeph>Settings.staticRoot</codeph> function and the definition of
+                <codeph>urlRenderOverride</codeph>. However, if you just want to get the benefit of
+            nginx's faster static file serving without dealing with separate domain names, you can
+            instead modify your original server block like so:</p><codeblock outputclass="nginx-conf" id="x6">server {
     listen 80; # Incoming port for Nginx
     server_name www.myserver.com;
     location / {
