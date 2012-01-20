@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="fetching-by-unique-constraint"><title id="x-1">Fetching by unique constraint</title><conbody id="x-2">
-  <p id="x1">getBy is almost identical to get, except it takes a uniqueness constraint instead of an ID it
-   takes a Unique value.</p>
+  <p id="x1"><codeph>getBy</codeph> is almost identical to <codeph>get</codeph>, except it takes a
+            uniqueness constraint instead of an ID it takes a Unique value.</p>
   <fig id="x2">
    <title id="x3">Using getBy</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
@@ -31,4 +31,5 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
         Just person -&gt; liftIO $ print person
 -- STOP</codeblock>
   </fig>
+        <p>Like <codeph>get404</codeph>, there is also a <codeph>getBy404</codeph> function.</p>
  </conbody></concept>

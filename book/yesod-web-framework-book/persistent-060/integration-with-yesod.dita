@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="integration-with-yesod"><title id="x-1">Integration with Yesod</title><conbody id="x-2">
-  <p id="x1">So you've been convinced of the power of Persistent. How do you integrate it with your Yesod
-   application? Well, if you use the scaffolding, most of the work is done for you already. But as
-   we normally do, we'll build up everything manually here to point out how it works under the
-   surface.</p>
-  <p id="x2">The <apiname id="x3">yesod-persistent</apiname> package provides the meeting point between Persistent
-   and Yesod. It provides the YesodPersist typeclass, to standardize access to the database via the
-   runDB method. Let's see this in action.</p>
+  <p id="x1">So you've been convinced of the power of Persistent. How do you integrate it with your
+            Yesod application? If you use the scaffolding, most of the work is done for you already.
+            But as we normally do, we'll build up everything manually here to point out how it works
+            under the surface.</p>
+  <p id="x2">The <apiname id="x3">yesod-persistent</apiname> package provides the meeting point
+            between Persistent and Yesod. It provides the <codeph>YesodPersist</codeph> typeclass,
+            which standardizes access to the database via the <codeph>runDB</codeph> method. Let's
+            see this in action.</p>
   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
 {-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
 import Yesod
@@ -60,11 +61,13 @@ main = withSqlitePool "test.db3" openConnectionCount $ \pool -&gt; do
     runSqlPool (runMigration migrateAll) pool
     runSqlPool (insert $ Person "Michael" "Snoyman" 26) pool
     warpDebug 3000 $ PersistTest pool</codeblock>
-  <p id="x5">There are two important pieces here for general use. runDB is used to run a DB action from
-   within a Handler. Within the runDB, you can
-   use any of the functions we've spoken about so far, such as insert and selectList.</p>
-  <p id="x6">The other new feature is get404. It works just like get, but instead of returning a Nothing
-   when a result can't be found, it returns a 404 message page. The getPersonR function is a very
-   common approach used in real-world Yesod applications: get404 a value and then return a response
-   based on it.</p>
+  <p id="x5">There are two important pieces here for general use. <codeph>runDB</codeph> is used to
+            run a DB action from within a <codeph>Handler</codeph>. Within the
+                <codeph>runDB</codeph>, you can use any of the functions we've spoken about so far,
+            such as <codeph>insert</codeph> and <codeph>selectList</codeph>.</p>
+  <p id="x6">The other new feature is <codeph>get404</codeph>. It works just like
+                <codeph>get</codeph>, but instead of returning a <codeph>Nothing</codeph> when a
+            result can't be found, it returns a 404 message page. The <codeph>getPersonR</codeph>
+            function is a very common approach used in real-world Yesod applications:
+                <codeph>get404</codeph> a value and then return a response based on it.</p>
  </conbody></concept>

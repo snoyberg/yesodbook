@@ -8,9 +8,9 @@
    used in the past is full text search. In this case, we'll use the SQL "LIKE" operator, which is
    not modeled in Persistent. We'll get all people with the last name "Snoyman" and print the
    records out.</p>
-        <note id="x4">Actually, you <i id="x5">can</i> express a LIKE operator directly in the normal syntax due to a
-            new feature in Persistent 0.6, which allows backend-specific operators. But this is
-            still a good example, so let's roll with it.</note>
+        <note id="x4">Actually, you <i id="x5">can</i> express a LIKE operator directly in the
+            normal syntax due to a feature added in Persistent 0.6, which allows backend-specific
+            operators. But this is still a good example, so let's roll with it.</note>
   <codeblock id="x3" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE QuasiQuotes #-}
@@ -48,4 +48,6 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     let sql = "SELECT name FROM Person WHERE name LIKE '%Snoyman'"
     C.runResourceT $ withStmt sql []
                 C.$$ CL.mapM_ $ liftIO . print</codeblock>
+        <p>There is also higher-level support that allows for automated data marshaling. Please see
+            the Haddock API docs for more details.</p>
  </conbody></concept>

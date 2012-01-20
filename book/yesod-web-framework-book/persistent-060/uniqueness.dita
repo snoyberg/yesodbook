@@ -31,9 +31,16 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     insert $ Person "Michael" "Snoyman" 26
     michael &lt;- getBy $ PersonName "Michael" "Snoyman"
     liftIO $ print michael
--- STOP</codeblock><p id="u2">To declare a unique combination of fields, we add an extra line to our declaration. Persistent knows that it is defining a unique constructor, since the line begins with a capital letter. Each following word must be a field in this entity.</p><p id="u3">The main restriction on uniqueness is that it can only be applied non-null fields. The reason for this is that the SQL standard is ambiguous on how uniqueness should be applied to NULL (eg, is NULL=NULL true or false?). Besides that ambiguity, most SQL engines in fact implement rules which would be <i id="x3">contrary</i> to what the Haskell datatypes anticipate (eg, PostgreSQL says that NULL=NULL is false, whereas Haskell says Nothing == Nothing is True).</p>
-        <p id="x7">In addition to providing nice guarantees at the database level about consistency of your
-            data, uniqueness constraints can also be used to perfect some specific queries within
-            your Haskell code, like the getBy demonstrated above. This happens via the Unique
-            associated type. In the example above, we end up with a new constructor:</p>
+-- STOP</codeblock><p id="u2">To declare a unique combination of fields, we add an extra line to our declaration. Persistent knows that it is defining a unique constructor, since the line begins with a capital letter. Each following word must be a field in this entity.</p><p id="u3">The main restriction on uniqueness is that it can only be applied non-null fields. The
+            reason for this is that the SQL standard is ambiguous on how uniqueness should be
+            applied to <codeph>NULL</codeph> (e.g., is <codeph>NULL=NULL</codeph> true or false?).
+            Besides that ambiguity, most SQL engines in fact implement rules which would be <i
+                id="x3">contrary</i> to what the Haskell datatypes anticipate (e.g., PostgreSQL says
+            that <codeph>NULL=NULL</codeph> is false, whereas Haskell says <codeph>Nothing ==
+                Nothing</codeph> is <codeph>True</codeph>).</p>
+        <p id="x7">In addition to providing nice guarantees at the database level about consistency
+            of your data, uniqueness constraints can also be used to perfect some specific queries
+            within your Haskell code, like the <codeph>getBy</codeph> demonstrated above. This
+            happens via the <codeph>Unique</codeph> associated type. In the example above, we end up
+            with a new constructor:</p>
         <codeblock outputclass="haskell" id="x8">PersonName :: String -&gt; String -&gt; Unique Person</codeblock></conbody></concept>

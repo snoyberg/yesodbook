@@ -28,7 +28,11 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     cars &lt;- selectList [CarOwnerId ==. bruce] []
     liftIO $ print cars
 -- STOP
-</codeblock><p id="r4">Using this technique, it's very easy to define one-to-many relationships. To define many-to-many relationships, we need a join entity, which has a one-to-many relationship with each of the original tables. It is also a good idea to use uniqueness constraints on these. For example, to model a situation where we want to track which people have shopped in which stores:</p><codeblock id="x2" outputclass="haskell">-- START
+</codeblock><p id="r4">Using this technique, you can define one-to-many relationships. To define many-to-many
+            relationships, we need a join entity, which has a one-to-many relationship with each of
+            the original tables. It is also a good idea to use uniqueness constraints on these. For
+            example, to model a situation where we want to track which people have shopped in which
+            stores:</p><codeblock id="x2" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist

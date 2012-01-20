@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="update"><title id="x-1">Update</title><conbody id="x-2">  <p id="x1">Now, in the context of that discussion, let's think about updating. The simplest way to update
-   is:<codeblock id="x2" outputclass="haskell">let michael = Person "Michael" 26
+<concept id="update"><title id="x-1">Update</title><conbody id="x-2">  <p id="x1">Now, in the context of that discussion, let's think about updating. The simplest way to
+            update
+            is:<codeblock id="x2" outputclass="haskell">let michael = Person "Michael" 26
     michaelAfterBirthday = michael { personAge = 27 }</codeblock>But
-   that's not actually updating anything, it's just creating a new person value based on the old
-   one. When we say update, we're <i id="x3">not</i> talking about modifications to the values in Haskell.
-   (We better not be of course, since Haskell data types are immutable.)</p>
-  <p id="x4">Instead, we're looking at ways of modifying rows in a table. And the simplest way to do that is
-   with the update function.</p>
+            that's not actually updating anything, it's just creating a new <codeph>Person</codeph>
+            value based on the old one. When we say update, we're <i id="x3">not</i> talking about
+            modifications to the values in Haskell. (We better not be of course, since Haskell data
+            types are immutable.)</p>
+  <p id="x4">Instead, we're looking at ways of modifying rows in a table. And the simplest way to do
+            that is with the <codeph>update</codeph> function.</p>
   <codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
@@ -43,9 +45,10 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     update personId [PersonAge =. 27]
 -- STOP
     resultsForPage 1 &gt;&gt;= liftIO . print</codeblock>
-  <p id="x6">update simply takes two arguments: an ID, and a list of Updates. The simplest update is
-   assignment, but it's not always the best. What if you want to increase someones age by 1, but you
-   don't have their current age? Persistent has you covered:</p>
+  <p id="x6"><codeph>update</codeph> takes two arguments: an ID, and a list of
+                <codeph>Update</codeph>s. The simplest update is assignment, but it's not always the
+            best. What if you want to increase someones age by 1, but you don't have their current
+            age? Persistent has you covered:</p>
   <codeblock id="x7" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
@@ -84,14 +87,16 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     update personId [PersonAge =. 27]
     haveBirthday personId
     resultsForPage 1 &gt;&gt;= liftIO . print</codeblock>
-  <p id="x8">And as you might expect, we have all the basic mathematical operators: +=., -=., *=., and /=.
-   (full stop). These can be convenient for updating a single record, but they are also essential
-   for proper ACID guarantees. Imagine the alternative: pull out a Person, increment the age, and
-   update the new value. If you have two threads/processes working on this database at the same
-   time, you're in for a world of hurt (hint: race conditions).</p>
-  <p id="x9">Sometimes you'll want to update many fields at once (give all your employees a 5% pay increase,
-   for example). updateWhere takes two parameters: a list of filters, and a list of updates to
-   apply.</p>
+  <p id="x8">And as you might expect, we have all the basic mathematical operators:
+                <codeph>+=.</codeph>, <codeph>-=.</codeph>, <codeph>*=.</codeph>, and
+                <codeph>/=.</codeph> (full stop). These can be convenient for updating a single
+            record, but they are also essential for proper ACID guarantees. Imagine the alternative:
+            pull out a <codeph>Person</codeph>, increment the age, and update the new value. If you
+            have two threads/processes working on this database at the same time, you're in for a
+            world of hurt (hint: race conditions).</p>
+  <p id="x9">Sometimes you'll want to update many fields at once (give all your employees a 5% pay
+            increase, for example). <codeph>updateWhere</codeph> takes two parameters: a list of
+            filters, and a list of updates to apply.</p>
   <codeblock id="x10" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist
@@ -131,8 +136,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
 -- START
     updateWhere [PersonFirstName ==. "Michael"] [PersonAge *=. 2] -- it's been a long day
 -- STOP</codeblock>
-  <p id="x11">Occassionally, you'll just want to completely replace the value in a database with a different
-   value. For that, you use (surprise) the replace function.</p>
+  <p id="x11">Occassionally, you'll just want to completely replace the value in a database with a
+            different value. For that, you use (surprise) the <codeph>replace</codeph> function.</p>
   <codeblock id="x12" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist

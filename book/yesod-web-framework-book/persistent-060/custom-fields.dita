@@ -23,4 +23,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     insert $ Person "Bruce Wayne" Retired
     insert $ Person "Peter Parker" Unemployed
     insert $ Person "Michael" Employed
--- STOP</codeblock><p id="cf2">derivePersistField stores the data in the database using a string field, and performs marshaling using the Show and Read instances of the datatype. This may not be as efficient as storing via an integer, but it is much more future proof: even if you add extra constructors in the future, your data will still be valid.</p></conbody></concept>
+-- STOP</codeblock><p id="cf2"><codeph>derivePersistField</codeph> stores the data in the database using a string
+            field, and performs marshaling using the <codeph>Show</codeph> and <codeph>Read</codeph>
+            instances of the datatype. This may not be as efficient as storing via an integer, but
+            it is much more future proof: even if you add extra constructors in the future, your
+            data will still be valid.</p></conbody></concept>
