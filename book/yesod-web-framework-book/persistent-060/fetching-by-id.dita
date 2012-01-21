@@ -33,6 +33,6 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
   <p id="x5">This can be very useful for sites that provide URLs like <filepath id="x6"
     >/person/5</filepath>. However, in such a case, we don't usually care about the
     <codeph>Maybe</codeph> wrapper, and just want the value, returning a 404 message if it is not
-   found. Fortunately, the <apiname id="x7">yesod-persist:Yesod.Persist:get404</apiname> function
+   found. Fortunately, the <apiname id="x7">yesod-persistent:Yesod.Persist:get404</apiname> function
    helps us out here. We'll go into more details when we see integration with Yesod.</p>
  </conbody></concept>
