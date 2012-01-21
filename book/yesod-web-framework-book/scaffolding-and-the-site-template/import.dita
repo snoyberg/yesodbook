@@ -3,20 +3,23 @@
 <concept id="conceptId">
  <title id="x-1">Import</title>
  <conbody id="x-2">
-  <p id="x-3">The Import module was born out of a few commonly recurring patterns.</p>
+  <p id="x-3">The <codeph>Import</codeph> module was born out of a few commonly recurring
+   patterns.</p>
   <ul id="ul_skn_hbh_oe">
    <li id="x-4">I want to define some helper functions (maybe the <codeph id="x-5">&lt;&gt; = mappend</codeph> opterator)
     to be used by all handlers.</li>
-   <li id="x-6">I'm always adding the same five import statements (Data.Text, Control.Applicative, etc) to
-    every handler module.</li>
-   <li id="x-7">I want to make sure I never use some evil function (head, readFile, ...) from
-     Prelude.<note id="x-8">Yes, evil is hyperbole. If you're wondering why I listed those functions are bad:
-      <codeph id="x-9">head</codeph> is partial, and throws exceptions on an empty list, and
-      <codeph id="x-10">readFile</codeph> uses lazy I/O, which doesn't close file handles quickly enough.
-     Also, readFile uses String instead of Text.</note></li>
+   <li id="x-6">I'm always adding the same five import statements (<codeph>Data.Text</codeph>,
+     <codeph>Control.Applicative</codeph>, etc) to every handler module.</li>
+   <li id="x-7">I want to make sure I never use some evil function (<codeph>head</codeph>,
+     <codeph>readFile</codeph>, ...) from <codeph>Prelude</codeph>.<note id="x-8">Yes, evil is
+     hyperbole. If you're wondering why I listed those functions are bad: <codeph id="x-9"
+      >head</codeph> is partial, and throws exceptions on an empty list, and <codeph id="x-10"
+      >readFile</codeph> uses lazy I/O, which doesn't close file handles quickly enough. Also,
+      <codeph>readFile</codeph> uses <codeph>String</codeph> instead of
+     <codeph>Text</codeph>.</note></li>
   </ul>
-  <p id="x-11">The solution is to turn on the NoImplicitPrelude language extension, re-export the parts of
-   Prelude we want, add in all the other stuff we want, define our own functions as well, and then
-   import this file in all handlers.</p>
+  <p id="x-11">The solution is to turn on the <codeph>NoImplicitPrelude</codeph> language extension,
+   re-export the parts of <codeph>Prelude</codeph> we want, add in all the other stuff we want,
+   define our own functions as well, and then import this file in all handlers.</p>
  </conbody>
 </concept>

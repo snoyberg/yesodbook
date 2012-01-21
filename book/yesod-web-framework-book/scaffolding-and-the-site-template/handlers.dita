@@ -3,21 +3,24 @@
 <concept id="conceptId">
  <title id="x-1">Handler modules</title>
  <conbody id="x-2">
-  <p id="x-3">Handler modules should go inside the Handler folder. The site template includes one:
-   Handler/Root.hs. How you split up your handler functions into individual modules is your
-   decision, but a good rule of thumb is:</p>
+  <p id="x-3">Handler modules should go inside the <filepath>Handler</filepath> folder. The site
+   template includes one module: <filepath>Handler/Root.hs</filepath>. How you split up your handler
+   functions into individual modules is your decision, but a good rule of thumb is:</p>
   <ul id="ul_esf_zbh_oe">
-   <li id="x-4">Different methods for the same route should go in the same file, e.g. getBlogR and
-    postBlogR.</li>
-   <li id="x-5">Related routes can also usually go in the same file, e.g., getPeopleR and getPersonR.</li>
+   <li id="x-4">Different methods for the same route should go in the same file, e.g.
+     <codeph>getBlogR</codeph> and <codeph>postBlogR</codeph>.</li>
+   <li id="x-5">Related routes can also usually go in the same file, e.g.,
+     <codeph>getPeopleR</codeph> and <codeph>getPersonR</codeph>.</li>
   </ul>
   <p id="x-6">Of course, it's entirely up to you. When you add a new handler file, make sure you do the
    following:</p>
   <ul id="ul_qml_dch_oe">
    <li id="x-7">Add it to version control (you <i id="x-8">are</i> using version control, right?).</li>
    <li id="x-9">Add it to the cabal file.</li>
-   <li id="x-10">Add it to the Application.hs file.</li>
+   <li id="x-10">Add it to the <filepath>Application.hs</filepath> file.</li>
    <li id="x-11">Put a module statement at the top, and an <codeph id="x-12">import Import</codeph> line below it.</li>
   </ul>
+  <note>One of the planned improvements to the <cmdname>yesod</cmdname> executable is to automate
+   these four steps.</note>
  </conbody>
 </concept>

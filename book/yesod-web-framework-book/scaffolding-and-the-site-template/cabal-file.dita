@@ -3,27 +3,30 @@
 <concept id="conceptId">
  <title id="x-1">Cabal file</title>
  <conbody id="x-2">
-  <p id="x-3">Whether directly using <cmdname id="x-4">cabal</cmdname>, or indirectly using <cmdname id="x-5">yesod
-    devel</cmdname>, building your code will always go through the cabal file. If you open the file,
-   you'll see that there is both a library and an executable block. Only one of these is built at a
-   time, depending on the value of the <codeph id="x-6">devel</codeph> flag. If <codeph id="x-7">devel</codeph> is
-   turned on, then the library is built, which is how <cmdname id="x-8">yesod devel</cmdname> calls your app.
-   Otherwise, the executable is built.</p>
-    <p id="x-9">The <codeph id="x-10">devel</codeph> flag should only be used by yesod devel; you should never be
-      explicitly passing it into cabal. There is an additional flag, <codeph id="x-11">debug</codeph>, that
+  <p id="x-3">Whether directly using <cmdname id="x-4">cabal</cmdname>, or indirectly using <cmdname
+        id="x-5">yesod devel</cmdname>, building your code will always go through the cabal file. If
+      you open the file, you'll see that there are both library and executable blocks. Only one of
+      these is built at a time, depending on the value of the <codeph id="x-6">library-only</codeph>
+      flag. If <codeph id="x-7">library-only</codeph> is turned on, then the library is built, which
+      is how <cmdname id="x-8">yesod devel</cmdname> calls your app. Otherwise, the executable is
+      built.</p>
+    <p id="x-9">The <codeph id="x-10">library-only</codeph> flag should only be used by
+        <cmdname>yesod devel</cmdname>; you should never be explicitly passing it into
+        <cmdname>cabal</cmdname>. There is an additional flag, <codeph id="x-11">dev</codeph>, that
       allows cabal to continue to building an executable, but turns on some of the same features as
-      the devel flag, i.e., no optimizations and debug versions of the Shakespearean template
-      functions.</p>
+      the library-only flag, i.e., no optimizations and reload versions of the Shakespearean
+      template functions.</p>
   <p id="x-12">In general, you will build as follows:</p>
     <ul id="ul_4wr_4wg_42">
-      <li id="x-13">When developing, use yesod devel exclusively.</li>
-      <li id="x-14">When building a production build, perform <cmdname id="x-15">cabal clean &amp;&amp; cabal configure
-          -fproduction &amp;&amp; cabal build</cmdname>. This will produce an optimized executable
-        in your dist folder.<note id="x-16">The -fproduction flag is going away, but is still present in many
-          existing sites. Using it won't hurt if you have a newer site.</note></li>
+      <li id="x-13">When developing, use <cmdname>yesod devel</cmdname> exclusively.</li>
+      <li id="x-14">When building a production build, perform <cmdname id="x-15">cabal clean
+          &amp;&amp; cabal configure &amp;&amp; cabal build</cmdname>. This will produce an
+        optimized executable in your <filepath>dist</filepath> folder.<note id="x-16">In the past we
+          had a <codeph>-fproduction</codeph> flag. If you produced a scaffolded site in the past,
+          you may have to use this flag to get a production build.</note></li>
     </ul>
-    <p id="x-17">You'll also notice that we specify all language extensions in the cabal file. Also notice
-      that the extensions are specified <i id="x-18">twice</i>: once for the executable, and once for the
+    <p id="x-17">You'll also notice that we specify all language extensions in the cabal file. The
+      extensions are specified <i id="x-18">twice</i>: once for the executable, and once for the
       library. If you add any extensions to the list, add it to both places.</p>
     <p id="x-19">You might be surprised to see the <codeph id="x-20">NoImplicitPrelude</codeph> extension. We turn this
       on since the site includes its own module, <codeph id="x-21">Import</codeph>, with a few changes to the
@@ -31,8 +34,8 @@
     <p id="x-22">The last thing to note is the exported-modules list. If you add any modules to your
       application, you <b id="x-23">must</b> update this list to get yesod devel to work correctly.
       Unfortunately, neither Cabal nor GHC will give you a warning if you forgot to make this
-      update, and instead you'll get a very scary-looking error message from yesod devel.<note id="x-24">One
-        of our planned improvements to yesod devel is to check if there are any missing
-        modules.</note></p>
+      update, and instead you'll get a very scary-looking error message from yesod devel.<note
+        id="x-24">One of our planned improvements to <cmdname>yesod devel</cmdname> is to check if
+        there are any missing modules.</note></p>
  </conbody>
 </concept>
