@@ -3,15 +3,15 @@
 <concept id="interpolation">
  <title id="x-1">Interpolation</title>
  <conbody id="x-2">
-  <p id="x-3">One way to use your new RenderMessage instance would be to directly call the
-    <codeph id="x-4">renderMessage</codeph> function. This would work, but it's a bit tedious: you need to
-   pass in the foundation value and the language list manually. Instead, Hamlet provides a
-   specialized i18n interpolation, which looks like <codeph id="x-5">_{...}</codeph>.</p>
+  <p id="x-3">One way to use your new <codeph>RenderMessage</codeph> instance would be to directly
+   call the <codeph id="x-4">renderMessage</codeph> function. This would work, but it's a bit
+   tedious: you need to pass in the foundation value and the language list manually. Instead, Hamlet
+   provides a specialized i18n interpolation, which looks like <codeph id="x-5">_{...}</codeph>.</p>
   <note id="x-6">Why the underscore? Underscore is already a well-established character for i18n, as it is
    used in the gettext library.</note>
-  <p id="x-7">Hamlet will then automatically translate that to a call to <codeph id="x-8">renderMessage</codeph>. Once
-   Hamlet gets the output Text value, it uses the <codeph id="x-9">toHtml</codeph> function to produce an
-    <codeph id="x-10">Html</codeph> value, meaning that any special characters (&lt;, &amp;, &gt;) will be
-   automatically escaped.</p>
+  <p id="x-7">Hamlet will then automatically translate that to a call to <codeph id="x-8"
+    >renderMessage</codeph>. Once Hamlet gets the output <codeph>Text</codeph> value, it uses the
+    <codeph id="x-9">toHtml</codeph> function to produce an <codeph id="x-10">Html</codeph> value,
+   meaning that any special characters (&lt;, &amp;, &gt;) will be automatically escaped.</p>
  </conbody>
 </concept>

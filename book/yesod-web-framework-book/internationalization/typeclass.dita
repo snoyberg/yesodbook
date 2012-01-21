@@ -3,29 +3,30 @@
 <concept id="concept_srz_1mc_22">
  <title id="x-1">RenderMessage typeclass</title>
  <conbody id="x-2">
-  <p id="x-3">Your call to <codeph id="x-4">mkMessage</codeph> creates an instance of the RenderMessage typeclass,
-   which is the core of Yesod's i18n. It is defined as:</p>
+  <p id="x-3">Your call to <codeph id="x-4">mkMessage</codeph> creates an instance of the
+    <codeph>RenderMessage</codeph> typeclass, which is the core of Yesod's i18n. It is defined
+   as:</p>
   <codeblock id="x-5" outputclass="haskell">class RenderMessage master message where
     renderMessage :: master
                   -&gt; [Text] -- ^ languages
                   -&gt; message
                   -&gt; Text </codeblock>
-  <p id="x-6">Notice that there are two parameters to the RenderMessage class: the master site and the
-   message type. In theory, we could skip the master type here, but that would mean that every site
-   would need to have the same set of translations for each message type. When it comes to shared
-   libraries like forms, that would not be a workable solution.</p>
-  <p id="x-7">So as with mostmethods within a typeclass, the renderMessage function takes a parameter for
-   each of the classes type parameters: master and message. The extra parameter is a list of
-   languages the user will accept, in descending order of priority. The method then returns a
-   user-ready Text that can be displayed.</p>
-  <p id="x-8">A simple instance of RenderMessage may involve no actual translation of strings; instead, it
-   will just display the same value for every language. For example:</p>
+  <p id="x-6">Notice that there are two parameters to the <codeph>RenderMessage</codeph> class: the
+   master site and the message type. In theory, we could skip the master type here, but that would
+   mean that every site would need to have the same set of translations for each message type. When
+   it comes to shared libraries like forms, that would not be a workable solution.</p>
+  <p id="x-7">The <codeph>renderMessage</codeph> function takes a parameter for each of the class's
+   type parameters: master and message. The extra parameter is a list of languages the user will
+   accept, in descending order of priority. The method then returns a user-ready
+    <codeph>Text</codeph> that can be displayed.</p>
+  <p id="x-8">A simple instance of <codeph>RenderMessage</codeph> may involve no actual translation
+   of strings; instead, it will just display the same value for every language. For example:</p>
   <codeblock id="x-9" outputclass="haskell">data MyMessage = Hello | Greet Text
 instance RenderMessage MyApp MyMessage where
     renderMessage _ _ Hello = "Hello"
     renderMessage _ _ (Greet name) = "Welcome, " &lt;&gt; name &lt;&gt; "!"</codeblock>
-  <p id="x-10">Notice how we ignore the first two parameters to renderMessage. We can now easily extend this
-   to support multiple languages:</p>
+  <p id="x-10">Notice how we ignore the first two parameters to <codeph>renderMessage</codeph>. We
+   can now extend this to support multiple languages:</p>
   <codeblock id="x-11" outputclass="haskell">renderEn Hello = "Hello"
 renderEn (Greet name) = "Welcome, " &lt;&gt; name &lt;&gt; "!"
 renderHe Hello = "שלום"

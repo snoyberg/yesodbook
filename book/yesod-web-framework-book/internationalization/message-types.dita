@@ -3,8 +3,8 @@
 <concept id="concept_zkq_kjd_d2">
  <title id="x-1">Specifying types</title>
  <conbody id="x-2">
-  <p id="x-3">Since we will be creating a datatype out of our message specifications, each parameter to a
-   data constructor must be given a data type. We use a simple @-syntax for this. For example, to
+  <p id="x-3">Since we will be creating a datatype out of our message specifications, each parameter
+   to a data constructor must be given a data type. We use a @-syntax for this. For example, to
    create the datatype <codeph id="x-4">data MyMessage = MsgHello | MsgSayAge Int</codeph>, we would
    write:</p>
   <codeblock id="x-5" outputclass="messages">Hello: Hi there!
@@ -13,7 +13,7 @@ SayAge age@Int: Your age is: #{show age}</codeblock>
   <ol id="ol_cvd_tjd_d2">
    <li id="x-7">It's not very DRY (don't repeat yourself) to have to specify this datatype in every
     file.</li>
-   <li id="x-8">Translators will be very confused having to specify these datatypes.</li>
+   <li id="x-8">Translators will be confused having to specify these datatypes.</li>
   </ol>
   <p id="x-9">So instead, the type specification is only required in the main language file. This is
    specified as the third argument in the <codeph id="x-10">mkMessage</codeph> function. This also specifies

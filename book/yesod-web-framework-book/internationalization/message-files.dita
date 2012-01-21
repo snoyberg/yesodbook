@@ -3,23 +3,30 @@
 <concept id="concept_jtl_d3d_d2">
  <title id="x-1">Message files</title>
  <conbody id="x-2">
-  <p id="x-3">The simplest approach to creating translations is via <term id="x-4">message files</term>. The setup is
-   very simple: there is a single folder containing all of your translation files, with a single
-   file for each language. Each file is named based on its language code, e.g.
-    <filepath id="x-5">en.msg</filepath>. And each line in a file handles one phrase, which correlates to a
-   single constructor in your message data type.</p>
+  <p id="x-3">The simplest approach to creating translations is via <term id="x-4">message
+    files</term>. The setup is simple: there is a single folder containing all of your translation
+   files, with a single file for each language. Each file is named based on its language code, e.g.
+    <filepath id="x-5">en.msg</filepath>. And each line in a file handles one phrase, which
+   correlates to a single constructor in your message data type.</p>
+  <note>The scaffolded site already includes a fully configured message folder.</note>
   <p id="x-6">So firstly, a word about language codes. There are really two choices available: using a
    two-letter language code, or a language-LOCALE code. For example, when I load up a page in my web
    browser, it sends two languages codes: en-US and en. What my browser is saying is "if you have
    American English, I like that the most. If you have English, I'll take that instead."</p>
-  <p id="x-7">So which format should you use in your application? Most likely two-letter codes, unless you
-   are actually creating separate translations by locale. This ensures that someone asking for
-   Canadian English will still see your English.</p>
-  <p id="x-8">Now what about these message files? The syntax should be very familiar after your work with
-   Hamlet and Persistent. The line starts off with the name of the message. Since this is a data
-   constructor, it must start with a capital letter. Next, you can have individual parameters, which
-   must be given as lower case. (You can also omit the parameters entirely if you want a simple
-   message.) These will be arguments to the data constructor.</p>
+  <p id="x-7">So which format should you use in your application? Most likely two-letter codes,
+   unless you are actually creating separate translations by locale. This ensures that someone
+   asking for Canadian English will still see your English. Behind the scenes, Yesod will add the
+   two-letter codes where relevant. For example, suppose a user has the following language
+   list:<codeblock>pt-BR, es, he</codeblock>What this means is "I like Brazilian Porteguese, then
+   Spanish, and then Hebrew." Suppose your application provides the languages pt (general
+   Porteguese) and English, with English as the default. Strictly following the user's language list
+   would result in the user being served English. Instead, Yesod translates that list
+   into:<codeblock>pt-BR, es, he, pt</codeblock>In other words: unless you're giving different
+   translations based on locale, just stick to the two-letter language codes.</p>
+  <p id="x-8">Now what about these message files? The syntax should be very familiar after your work
+   with Hamlet and Persistent. The line starts off with the name of the message. Since this is a
+   data constructor, it must start with a capital letter. Next, you can have individual parameters,
+   which must be given as lower case. These will be arguments to the data constructor.</p>
   <p id="x-9">The argument list is terminated by a colon, and then followed by the translated string, which
    allows usage of our typical variable interpolation syntax <codeph id="x-10">#{myVar}</codeph>. By referring
    to the parameters defined before the colon, and using translation helper functions to deal with
