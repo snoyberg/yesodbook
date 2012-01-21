@@ -12,8 +12,9 @@
             ensures simplicity for users (no new passwords to remember) and implementors (no need to
             deal with an entire security architecture), while the latter gives the developer more
             control.</p>
-        <p id="x-5">On the authorization side, we are able to take advantage of REST and type-safe URLs to
-            create simple, declarative systems. Since all authorization code is written in Haskell,
-            you have the full flexibility of the language at your disposal.</p>
+        <p id="x-5">On the authorization side, we are able to take advantage of REST and type-safe
+            URLs to create simple, declarative systems. Additionally, since all authorization code
+            is written in Haskell, you have the full flexibility of the language at your
+            disposal.</p>
         <p id="x-6">This chapter will cover how to set up an "auth" solution in Yesod and discuss some
-            trade-offs in the different authentication options.</p><p id="outline">This chapter is just an outline. It will contain the sections:</p><ul id="x1"><li id="x2">Authentication</li><li id="x3">Authorization</li><li id="x4">Auth stuff (isAuthorized, isWriteRequest, authRoute)</li></ul><note id="x5">Logout does not invalidate session.</note></conbody></concept>
+            trade-offs in the different authentication options.</p><p id="outline">This chapter is just an outline. It will contain the sections:</p></conbody></concept>

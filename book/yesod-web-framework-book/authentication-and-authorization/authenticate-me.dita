@@ -77,32 +77,41 @@ main = do
     not use a typeclass for all subsites? It comes with a downside: you can then only have a single
     instance per site, disallowing serving different sets of static files from different routes.
     Also, the subsite value works better when we want to load data at app initialization.</p></note>
-  <p id="x-15">So what exactly goes in this YesodAuth instance? There are five required declarations:</p>
+  <p id="x-15">So what exactly goes in this YesodAuth instance? There are six required
+   declarations:</p>
   <ul id="ul_mgj_phf_p2">
-   <li id="x-16">AuthId is an associated type. This is the value yesod-auth will give you when you ask if a
-    user is logged in (via maybeAuthId or requireAuthId). In our case, we're simply using Text, to
-    store the raw identifier- email address in our case, as we'll soon see.</li>
-   <li id="x-17">getAuthId gets the actual AuthId from the <codeph id="x-18">Creds</codeph> (credentials) data type.
-    This type has three pieces of information: the authentication backend used (browserid or
-    googleemail in our case), the actual identifier, and an associated list of arbitrary extra
-    information. Each backend provides different extra information, see their docs for more
-    information.</li>
-   <li id="x-19">loginDest gives the route to redirect to after a successful login.</li>
-   <li id="x-20">Likewise, logoutDest gives the route to redirect to after a logout.</li>
-   <li id="x-21">Finally, authPlugins is a list of individual authentication backends to use. In our example,
-    we're using BrowserID, which logs in via Mozilla's BrowserID system, and Google Email, which
-    authenticates a user's email address using their Google account. The nice thing about these two
-    backends is:<ul id="ul_xwj_f3f_p2">
+   <li id="x-16"><codeph>AuthId</codeph> is an associated type. This is the value
+     <codeph>yesod-auth</codeph> will give you when you ask if a user is logged in (via
+     <codeph>maybeAuthId</codeph> or <codeph>requireAuthId</codeph>). In our case, we're simply
+    using <codeph>Text</codeph>, to store the raw identifier- email address in our case, as we'll
+    soon see.</li>
+   <li id="x-17"><codeph>getAuthId</codeph> gets the actual <codeph>AuthId</codeph> from the <codeph
+     id="x-18">Creds</codeph> (credentials) data type. This type has three pieces of information:
+    the authentication backend used (browserid or googleemail in our case), the actual identifier,
+    and an associated list of arbitrary extra information. Each backend provides different extra
+    information; see their docs for more information.</li>
+   <li id="x-19"><codeph>loginDest</codeph> gives the route to redirect to after a successful
+    login.</li>
+   <li id="x-20">Likewise, <codeph>logoutDest</codeph> gives the route to redirect to after a
+    logout.</li>
+   <li id="x-21"><codeph>authPlugins</codeph> is a list of individual authentication backends to
+    use. In our example, we're using BrowserID, which logs in via Mozilla's BrowserID system, and
+    Google Email, which authenticates a user's email address using their Google account. The nice
+    thing about these two backends is:<ul id="ul_xwj_f3f_p2">
      <li id="x-22">They require no set up, as opposed to Facebook or OAuth, which require setting up
       credentials.</li>
-     <li id="x-23">They use email addresses as identifiers, which people are comfortable with, as opposed to
-      OpenID, which uses a URL.</li>
+     <li id="x-23">They use email addresses as identifiers, which people are comfortable with, as
+      opposed to OpenID, which uses a URL.</li>
     </ul></li>
+   <li><codeph>authHttpManager</codeph> gets an HTTP connection manager from the foundation type.
+    This allow authentication backends which use HTTP connections (i.e., almost all third-party
+    login systems) to share connections, avoiding the cost of restarting a TCP connection for each
+    request.</li>
   </ul>
-  <p id="x-24">In our RootR handler, we have some simple links to the login and logout pages, depending on
-   whether or not the user is logged in. Notice how we construct these subsite links: first we give
-   the subsite route name (AuthR), followed by the route within the subsite (LoginR and
-   LogoutR).</p>
+  <p id="x-24">In our <codeph>RootR</codeph> handler, we have some simple links to the login and
+   logout pages, depending on whether or not the user is logged in. Notice how we construct these
+   subsite links: first we give the subsite route name (<codeph>AuthR</codeph>), followed by the
+   route within the subsite (<codeph>LoginR</codeph> and <codeph>LogoutR</codeph>).</p>
   <p id="x-25">The figures below show what the login process looks like from a user perspective.</p>
   <fig id="x-26">
    <title id="x-27">Initial page load</title>
