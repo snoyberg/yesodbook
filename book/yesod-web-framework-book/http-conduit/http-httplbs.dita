@@ -13,19 +13,13 @@
   <dl>
    <dlentry>
     <dt>How do I ignore the remainder of a response body without reading it?</dt>
-    <dd>Use <codeph>bsourceClose</codeph> on the <codeph>responseBody</codeph> record.</dd>
+    <dd>Connect it to the <codeph>sinkNull</codeph> sink.</dd>
    </dlentry>
    <dlentry>
     <dt>I want to share a single <codeph>Manager</codeph> across my entire application. How can I do
      this?</dt>
-    <dd>The simplest approach is to simply wrap your <codeph>main</codeph> function with a call to
-      <codeph>withManager</codeph> and <codeph>liftIO</codeph>,
-     e.g.<codeblock outputclass="haskell">main = withManager $ \manager -> liftIO $ do
-     return () -- do something more useful<codeblock>Your
-     manager will exist through the entire lifetech of your application, and individual calls to
-      <codeph>http</codeph> and <codeph>httpLbs</codeph> will live in separate
-      <codeph>ResourceT</codeph>s than the main function's. This ensures that those individual
-     blocks will still have timely deallocation of resources.</dd>
+    <dd>Use the <codeph>newManager</codeph> function at the beginning of your application, and pass
+     it to all functions that need it.</dd>
    </dlentry>
   </dl>
  </conbody>

@@ -20,29 +20,30 @@
     { instructionTarget :: Text
     , instructionData :: Text
     }</codeblock>
-  <p id="x-10">Comments have no special datatype, since they are simple pieces of text. But content is an
+  <p id="x-10">Comments have no special datatype, since they are just text. But content is an
    interesting one: it could contain either plain text or unresolved entities (e.g.,
-   &amp;copyright-statement;). <apiname id="x-11">xml-types</apiname> keeps those unresolved entities in all
-   the data types in order to completely match the spec. However, in practice, it can be very
-   tedious to program against those data types. And in most use cases, an unresolved entity is going
-   to end up as an error anyway.</p>
+    <codeph>&amp;copyright-statement;</codeph>). <apiname id="x-11">xml-types</apiname> keeps those
+   unresolved entities in all the data types in order to completely match the spec. However, in
+   practice, it can be very tedious to program against those data types. And in most use cases, an
+   unresolved entity is going to end up as an error anyway.</p>
   <p id="x-12">So the <apiname id="x-13">xml-conduit:Text.XML</apiname> module defines its own set
    of datatypes for nodes, elements and documents that removes all unresolved entities. If you need
    to deal with unresolved entities instead, you should use the <apiname id="x-14"
     >xml-conduit:Text.XML.Unresolved</apiname> module. From now on, we'll be focusing only on the
-   Text.XML data types, though they are almost identical to the xml-types versions.</p>
-  <p id="x-15">Anyway, after that detour: content is simply a piece of text, and therefore it too does not
-   have a special datatype. The last node type is an element, which contains three pieces of
+    <codeph>Text.XML</codeph> data types, though they are almost identical to the
+    <codeph>xml-types</codeph> versions.</p>
+  <p id="x-15">Anyway, after that detour: content is just a piece of text, and therefore it too does
+   not have a special datatype. The last node type is an element, which contains three pieces of
    information: a name, a list of attributes and a list of children nodes. An attribute has two
-   pieces of information: a name and a value. (In xml-types, this value could contain unresolved
-   entities as well.) So our Element is defined as:</p>
+   pieces of information: a name and a value. (In <codeph>xml-types</codeph>, this value could
+   contain unresolved entities as well.) So our <codeph>Element</codeph> is defined as:</p>
   <codeblock id="x-16" outputclass="haskell">data Element = Element
     { elementName :: Name
     , elementAttributes :: [(Name, Text)]
     , elementNodes :: [Node]
     }</codeblock>
-  <p id="x-17">Which of course begs the question: what does a Node look like? This is where Haskell really
-   shines: its sum types model the XML data model perfectly.</p>
+  <p id="x-17">Which of course begs the question: what does a <codeph>Node</codeph> look like? This
+   is where Haskell really shines: its sum types model the XML data model perfectly.</p>
   <codeblock id="x-18" outputclass="haskell">data Node
     = NodeElement Element
     | NodeInstruction Instruction

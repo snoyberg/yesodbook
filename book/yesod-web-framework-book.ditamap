@@ -34,7 +34,6 @@
         <mapref id="x-23" href="yesod-web-framework-book/web-application-interface.ditamap"/>
         <topicref href="../blogs/2011/10/settings-types.dita"/>
         <mapref href="yesod-web-framework-book/http-conduit/http-conduit.ditamap"/>
-        <topicref href="../blogs/2011/10/settings-types.dita"/>
         <mapref id="x-14" href="yesod-web-framework-book/xml-enumerator.ditamap"/>
         <mapref id="x-22" href="yesod-web-framework-book/enumerator-package.ditamap" print="no"/>
     </topichead>

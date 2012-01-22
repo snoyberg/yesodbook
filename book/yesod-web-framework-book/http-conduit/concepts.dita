@@ -3,10 +3,10 @@
 <concept id="conceptId">
  <title>Concepts</title>
  <conbody>
-  <p>The simplest way to make a request in http-conduit is with the <codeph>simpleHttp</codeph>
-   function. This function takes a <codeph>String</codeph> giving a URL and returns a
-    <codeph>ByteString</codeph> with the contents of that URL. But under the surface, there are a
-   few more steps:</p>
+  <p>The simplest way to make a request in <codeph>http-conduit</codeph> is with the
+    <codeph>simpleHttp</codeph> function. This function takes a <codeph>String</codeph> giving a URL
+   and returns a <codeph>ByteString</codeph> with the contents of that URL. But under the surface,
+   there are a few more steps:</p>
   <ul id="ul_jap_okc_we">
    <li>A new connection <codeph>Manager</codeph> is allocated.</li>
    <li>The URL is parsed to a <codeph>Request</codeph>. If the URL is invalid, then an exception is
@@ -18,7 +18,7 @@
     socket to the server).</li>
   </ul>
   <p>If you want more control of what's going on, then you can configure any of the steps above
-   (plus a few more) by explicit creating a <codeph>Request</codeph> value, allocating your
+   (plus a few more) by explicitly creating a <codeph>Request</codeph> value, allocating your
     <codeph>Manager</codeph> manually, and using the <codeph>http</codeph> and
     <codeph>httpLbs</codeph> functions.</p>
  </conbody>

@@ -20,8 +20,9 @@ writeFile :: RenderSettings -&gt; FilePath -&gt; Document -&gt; IO ()</codeblock
    bytestring-based API. The bytestring-powered functions all perform intelligent encoding
    detections, and support UTF-8, UTF-16 and UTF-32, in either big or little endian, with and
    without a Byte-Order Marker (BOM). All output is generated in UTF-8.</p>
-  <p id="x-15">For complex data lookups, we recommend using the higher-level cursors API. The standard
-   Text.XML API not only forms the basis for that higher level, but is also a great API for simple
-   XML transformations and for XML generation. See the synopsis for an example.</p>
+  <p id="x-15">For complex data lookups, we recommend using the higher-level cursors API. The
+   standard <codeph>Text.XML</codeph> API not only forms the basis for that higher level, but is
+   also a great API for simple XML transformations and for XML generation. See the synopsis for an
+   example.</p>
  </conbody>
 </concept>

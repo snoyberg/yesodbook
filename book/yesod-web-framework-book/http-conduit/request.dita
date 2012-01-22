@@ -26,10 +26,10 @@ main = do
         _ -> putStrLn "Sorry, please provide example one URL"</codeblock>
   <p>The <codeph>Request</codeph> type is abstract so that <codeph>http-conduit</codeph> can add new
    settings in the future without breaking the API (see the <xref
-    href="http://www.yesodweb.com/blog/2011/10/settings-types" format="html" scope="external"
-    >Settings Type</xref> blog post for more information). In order to make changes to individual
-   records, you use record notation. For example, a modification to our program that issues
-    <codeph>HEAD</codeph> requests and prints the response headers would be:</p>
+    href="../../../blogs/2011/10/settings-types.dita#conceptId" format="dita">Settings Type</xref>
+   chapter for more information). In order to make changes to individual records, you use record
+   notation. For example, a modification to our program that issues <codeph>HEAD</codeph> requests
+   and prints the response headers would be:</p>
   <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 import Network.HTTP.Conduit
 import System.Environment (getArgs)

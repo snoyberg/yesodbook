@@ -8,12 +8,12 @@
    body.</p>
   <p>The <codeph>Response</codeph> type has a type variable to allow the response body to be of
    multiple types. If you want to use <codeph>http-conduit</codeph>'s streaming interface, you want
-   this to be a <codeph>BufferedSource</codeph>. For the simple interface, it will be a lazy
+   this to be a <codeph>Source</codeph>. For the simple interface, it will be a lazy
     <codeph>ByteString</codeph>. One thing to note is that, even though we use a lazy
     <codeph>ByteString</codeph>, <i>the entire response is held in memory</i>. In other words, we
    perform no lazy I/O in this package.</p>
-  <note>The conduit package does provide a lazy module which would allow you to read this value in
-   lazily, but like any lazy I/O, it's a bit unsafe, and definitely non-deterministic. If you need
-   it though, you can use it.</note>
+  <note>The <codeph>conduit</codeph> package does provide a lazy module which would allow you to
+   read this value in lazily, but like any lazy I/O, it's a bit unsafe, and definitely
+   non-deterministic. If you need it though, you can use it.</note>
  </conbody>
 </concept>

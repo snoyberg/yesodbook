@@ -3,23 +3,24 @@
 <concept id="xml2html">
  <title id="x-1">xml2html</title>
  <conbody id="x-2">
-  <p id="x-3">So far in this chapter, our examples have revolved around XHTML. I've done that so far simply
-   because it is likely to be the most familiar form of XML for most of our readers. But there's an
-   ugly side to all this that we must acknowledge: not all XHTML will work correct as HTML. The
-   following discrepancies exist:</p>
+  <p id="x-3">So far in this chapter, our examples have revolved around XHTML. I've done that so far
+   simply because it is likely to be the most familiar form of XML for most of our readers. But
+   there's an ugly side to all this that we must acknowledge: not all XHTML will be correct HTML.
+   The following discrepancies exist:</p>
   <ul id="ul_5c05f060-0943-46e4-96f3-b7c06feaf381">
-   <li id="x-4">There are some void tags (e.g., img, br) in HTML which do not need to have close tags, and in
-    fact are not allowed to.</li>
+   <li id="x-4">There are some void tags (e.g., <codeph>img</codeph>, <codeph>br</codeph>) in HTML
+    which do not need to have close tags, and in fact are not allowed to.</li>
    <li id="x-5">HTML does not understand self-closing tags, so <codeph id="x-6">&lt;script&gt;&lt;/script&gt;</codeph> and
      <codeph id="x-7">&lt;script/&gt;</codeph> mean very different things.</li>
    <li id="x-8">Combining the previous two points: you are free to self-close void tags, though to a browser
     it won't mean anything.</li>
-   <li id="x-9">In order to avoid quirks mode, you should start your HTML documents with a DOCTYPE
-    statement.</li>
+   <li id="x-9">In order to avoid quirks mode, you should start your HTML documents with a
+     <codeph>DOCTYPE</codeph> statement.</li>
    <li id="x-10">We do not want the XML declaration <codeph id="x-11">&lt;?xml ...?&gt;</codeph> at the top of an HTML
     page</li>
    <li id="x-12">We do not want any namespaces used in HTML, while XHTML is fully namespaced.</li>
-   <li id="x-13">The contents of &lt;style&gt; and &lt;script&gt; tags should not be escaped.</li>
+   <li id="x-13">The contents of <codeph>&lt;style&gt;</codeph> and <codeph>&lt;script&gt;</codeph>
+    tags should not be escaped.</li>
   </ul>
   <p id="x-14">That's where the <apiname id="x-15">xml2html</apiname> package comes into play. It provides a
     <apiname id="x-16">blaze-html:Text.Blaze:ToHtml</apiname> instance for <codeph id="x-17">Node</codeph>s,
