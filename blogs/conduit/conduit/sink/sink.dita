@@ -59,7 +59,7 @@ main = do
   <msgblock>This is the first line.
 Here's the second.</msgblock>
   <p><codeph>sinkLine</codeph> demonstrates usage of the <codeph>sinkState</codeph> function, which
-   is very similar to the <codeph>sourceState</codeph> function we saw last time. It takes three
+   is very similar to the <codeph>sourceState</codeph> function we just saw. It takes three
    arguments: an initial state, a push function (takes the current state and next input, and returns
    a new state and result) and a close function (takes the current state and returns an output).
    While <codeph>sourceState</codeph> doesn't need a close function, a sink is required to always
@@ -70,9 +70,9 @@ Here's the second.</msgblock>
    later). It also gives an output of all the characters it has received. The second clause simply
    appends the new character to the existing state and indicates that we are still
     <codeph>Processing</codeph>. The close function returns all characters.</p>
-  <p><codeph>sinkLines</codeph> shows how we can use the monadic interface to sinks to produce new
-   sinks. If you replace <codeph>sinkLine</codeph> with <codeph>getLine</codeph>, this would look
-   like simple code to pull lines from standard input. This familiar interface should make it easy
-   to get up and running quickly.</p>
+  <p><codeph>sinkLines</codeph> shows how we can use the monadic interface to produce new sinks. If
+   you replace <codeph>sinkLine</codeph> with <codeph>getLine</codeph>, this would look like
+   standard code to pull lines from standard input. This familiar interface should make it easy to
+   get up and running quickly.</p>
  </conbody>
 </concept>

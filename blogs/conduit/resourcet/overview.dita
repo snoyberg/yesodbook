@@ -4,9 +4,9 @@
  <title>The Resource monad transformer</title>
  <conbody>
   <p>The Resource transformer (<codeph>ResourceT</codeph>) plays a vital role in proper resource
-   management in the conduit project. It is included within the conduit package itself. We'll
-   explaining <codeph>ResourceT</codeph> as its own entity. While some of the design decisions
-   clearly are biased towards conduits, <codeph>ResourceT</codeph> should remain a usable tool in
-   its own right.</p>
+   management in the conduit project. It is included within the <codeph>conduit</codeph> package
+   itself. We'll explaining <codeph>ResourceT</codeph> as its own entity. While some of the design
+   decisions clearly are biased towards conduits, <codeph>ResourceT</codeph> should remain a usable
+   tool in its own right.</p>
  </conbody>
 </concept>

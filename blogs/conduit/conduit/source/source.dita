@@ -9,11 +9,11 @@ data PreparedSource m a = PreparedSource
     { sourcePull :: ResourceT m (SourceResult a)
     , sourceClose :: ResourceT m ()
     }</codeblock>
-  <p>We'll see later why this is called a PreparedSource. For now, what's important is that a source
-            has just two operations on it: you can pull data from it, and you can close it (think of
-            closing a file handle). When you pull, you either get some data (the source is still
-            open), or nothing (the source is closed). Let's look at some of the simplest
-            sources:</p>
+  <p>We'll see later why this is called a <codeph>PreparedSource</codeph>. For now, what's important
+      is that a source has just two operations on it: you can pull data from it, and you can close
+      it (think of closing a file handle). When you pull, you either get some data (the source is
+      still open), or nothing (the source is closed). Let's look at some of the simplest
+      sources:</p>
   <codeblock outputclass="haskell">import Prelude hiding (repeat)
 import Data.Conduit
 
@@ -31,9 +31,9 @@ repeat a = PreparedSource
     , sourceClose = return ()
     }</codeblock>
   <p>These sources are very straight-forward, since they always return the same results.
-            Additionally, their close records don't do anything. You might think that this is a bug:
-            should a call to <codeph>sourcePull</codeph> return <codeph>Closed</codeph> after it's
-            been closed? This isn't required, due to the invariants of a source:</p>
+      Additionally, their close records don't do anything. You might think that this is a bug:
+      shouldn't a call to <codeph>sourcePull</codeph> return <codeph>Closed</codeph> after it's been
+      closed? This isn't required, due to the invariants of a source:</p>
   <ol id="ol_vpl_mvx_re">
    <li>It is illegal to call <codeph>sourcePull</codeph> after a previous call returns
           <codeph>Closed</codeph>, or after a call to <codeph>sourceClose</codeph>.</li>
@@ -43,9 +43,10 @@ repeat a = PreparedSource
           <codeph>sourceClose</codeph> is called or a <codeph>Closed</codeph> is returned. However,
         based on the usage of <codeph>ResourceT</codeph>, this is simply an optimization. </li>
   </ol>
-  <p>Don't worry too much about these invariants. In practice, you will almost never call sourcePull
-            or sourceClose yourself. In fact, you hardly even write them yourself either (that's
-            what sourceState and sourceIO are for). The point is that we can make some assumptions
-            when we implement our sources.</p>
+  <p>Don't worry too much about these invariants. In practice, you will almost never call
+        <codeph>sourcePull</codeph> or <codeph>sourceClose</codeph> yourself. In fact, you hardly
+      even write them yourself either (that's what <codeph>sourceState</codeph> and
+        <codeph>sourceIO</codeph> are for). The point is that we can make some assumptions when we
+      implement our sources.</p>
  </conbody>
 </concept>

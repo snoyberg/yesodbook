@@ -17,12 +17,13 @@ newtype ResourceT m a =
   <p>We see that <codeph>ReleaseKey</codeph> is simply an <codeph>Int</codeph>. If you skip a few
    lines down, this will make sense, since we're using an <codeph>IntMap</codeph> to keep track of
    the registered actions. We also define two type synonyms: <codeph>RefCount</codeph> and
-    <codeph>NextKey</codeph>. NextKey keeps track of the most recently assigned value for a key, and
-   is incremented each time <codeph>register</codeph> is called. We'll touch on
+    <codeph>NextKey</codeph>. <codeph>NextKey</codeph> keeps track of the most recently assigned
+   value for a key, and is incremented each time <codeph>register</codeph> is called. We'll touch on
     <codeph>RefCount</codeph> later.</p>
   <p>The <codeph>ReleaseMap</codeph> is three pieces of information: the next key and the reference
-   count, and then the map of all registered actions. Notice that ReleaseMap takes a type parameter
-    <codeph>base</codeph>, which states which monad release actions must live in.</p>
+   count, and then the map of all registered actions. Notice that <codeph>ReleaseMap</codeph> takes
+   a type parameter <codeph>base</codeph>, which states which monad release actions must live
+   in.</p>
   <p>Finally, a <codeph>ResourceT</codeph> is essentially a <codeph>ReaderT</codeph> that keeps a
    mutable reference to a <codeph>ReleaseMap</codeph>. The reference type is determined by the base
    of the monad in question, as is the cleanup monad. This is why we need to use associated

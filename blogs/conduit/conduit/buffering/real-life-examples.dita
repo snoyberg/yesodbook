@@ -23,7 +23,7 @@ handleConn :: Application -> Socket -> IO ()</codeblock>
      <codeph>Response</codeph></li>
    <li>Send the <codeph>Response</codeph> over the <codeph>Socket</codeph></li>
   </ol>
-  <p>We status off by writing steps 1 and 2 manually, without using conduits. We'll do this very
+  <p>We start off by writing steps 1 and 2 manually, without using conduits. We'll do this very
    simply and just assume three space-separated strings. We end up with something that looks
    like:</p>
   <codeblock outputclass="haskell">data RequestLine = RequestLine ByteString ByteString ByteString
@@ -58,9 +58,9 @@ parseRequestLine = do
     version &lt;- getWord
     return $ RequestLine method path version</codeblock>
   <p>This means that our code will automatically be supplied with more data as it comes in, and any
-   extra data will automatically be buffered in the Source, ready for the next time it's used. Now
-   we can easily structure our program together, demonstrating the pwoer of the conduits
-   approach:</p>
+   extra data will automatically be buffered in the <codeph>Source</codeph>, ready for the next time
+   it's used. Now we can easily structure our program together, demonstrating the pwoer of the
+   conduits approach:</p>
   <codeblock outputclass="haskell">import Data.ByteString (ByteString)
 import Data.Conduit
 import Data.Conduit.Network (sourceSocket)

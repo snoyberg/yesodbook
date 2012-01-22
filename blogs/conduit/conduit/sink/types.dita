@@ -15,7 +15,7 @@ data PreparedSink input m output =
 newtype Sink input m output = Sink { prepareSink :: ResourceT m (PreparedSink input m output) }</codeblock>
   <p>We saw the <codeph>SinkResult</codeph> constructors in the previous example. Whenever a sink is
    pushed to, it can either say it needs more data (<codeph>Processing</codeph>) or say it's all
-   done, in which case it returns any leftover data and the output. Fairly-straight-forward. Also
+   done, in which case it returns any leftover data and the output. Fairly straight-forward. Also
    straight-forward is the <codeph>Sink</codeph> newtype wrapper around
     <codeph>PreparedSink</codeph>, which follows the same logic as the
     <codeph>Source</codeph>/<codeph>PreparedSource</codeph> breakdown from the last post.</p>

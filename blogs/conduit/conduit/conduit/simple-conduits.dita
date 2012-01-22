@@ -18,10 +18,7 @@ passThroughPrepared = PreparedConduit
 
 -- Wrapped up in the Conduit newtype
 passThrough :: Monad m => Conduit input m input
-passThrough = Conduit $ return $ PreparedConduit
-    { conduitPush = \input -> return $ Producing [input]
-    , conduitClose = return []
-    }
+passThrough = Conduit $ return $ passThroughPrepared
 
 -- map values in a stream
 map :: Monad m => (input -> output) -> Conduit input m output

@@ -42,7 +42,7 @@ sum5 = sequenceSink () $ \() -> do
    the stream. We then emit that value, and start all over again.</p>
   <p>Let's say we want to modify this slightly. We want to get the first 8 sums, and then pass
    through the remaining values, multiplied by 2. We can keep track of how many values we've
-   returned in our state, and then use the <codeph>Startconduit</codeph> constructor to pass control
+   returned in our state, and then use the <codeph>StartConduit</codeph> constructor to pass control
    to the multiply-by-2 conduit next.</p>
   <codeblock outputclass="haskell">sum5Pass :: Resource m => Conduit Int m Int
 sum5Pass = sequenceSink 0 $ \count -> do

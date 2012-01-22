@@ -11,12 +11,12 @@
     <codeph>IO</codeph> monad, but you could use the <codeph>fork</codeph> function from
     <apiname>lifted-base</apiname>. In fact, due to this issue, the <apiname>regions</apiname>
    package does not provide a <codeph>MonadBaseControl</codeph> instance for its transformer (which
-   is very similar to ResourceT). However, our goal in ResourceT is not to make it impossible for
-   programmers to mess up, simply to make it simpler to do the right thing. Therefore, we still
-   provide the instance, even though it could be abused.</note>
-  <p>In order to solve this, ResourceT includes reference counting. When you fork a new thread via
-    <codeph>resourceForkIO</codeph>, the RefCount value of the ReleaseMap is incremented. Every time
-   runResourceT is called, the value is decremented. Only when the value hits 0 are all the release
-   actions called.</p>
+   is very similar to <codeph>ResourceT</codeph>). However, our goal in <codeph>ResourceT</codeph>
+   is not to make it impossible for programmers to mess up, only to make it easier to do the right
+   thing. Therefore, we still provide the instance, even though it could be abused.</note>
+  <p>In order to solve this, <codeph>ResourceT</codeph> includes reference counting. When you fork a
+   new thread via <codeph>resourceForkIO</codeph>, the <codeph>RefCount</codeph> value of the
+    <codeph>ReleaseMap</codeph> is incremented. Every time <codeph>runResourceT</codeph> is called,
+   the value is decremented. Only when the value hits 0 are all the release actions called.</p>
  </conbody>
 </concept>

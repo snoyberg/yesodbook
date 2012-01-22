@@ -3,9 +3,9 @@
 <concept id="conceptId">
  <title>Inversion of Control</title>
  <conbody>
-  <p>Buffering was actually one of the main motivations in the creation of the conduit package. To
-   see its importance, we need to consider the approach we've seen so far, which we'll call
-   inversion of control, or IoC.</p>
+  <p>Buffering was actually one of the main motivations in the creation of the
+    <codeph>conduit</codeph> package. To see its importance, we need to consider the approach we've
+   seen so far, which we'll call inversion of control, or IoC.</p>
   <note>Inversion of control can mean different things in different circles. If you object to its
    usage here, go ahead replace it with some other phrase like "warm, fuzzy thing." I won't be
    offended.</note>

@@ -43,22 +43,23 @@
     mask = E.mask
     mask_ = E.mask_
     try = E.try</codeblock>
-  <p>However, we have a problem when it comes to implementing the ST instance: there is no way to
-   deal with exceptions in the ST monad. As a result, <codeph>mask</codeph>, <codeph>mask_</codeph>
-   and <codeph>try</codeph> are given default implementations that do no exception checking. This
-   gives rise to the first word of warning: <b>operations in the ST monad are not exception
-   safe</b>. You should not be allocating scarce resources in ST when using
-    <codeph>ResourceT</codeph>. You might be wondering why bother with ResourceT at all then for ST.
-   The answer is that there is a lot you can do with conduits without allocating scarce resources,
-   and ST is a great way to do this in a pure way. But more on this in later blog posts.</p>
+  <p>However, we have a problem when it comes to implementing the <codeph>ST</codeph> instance:
+   there is no way to deal with exceptions in the <codeph>ST</codeph> monad. As a result,
+    <codeph>mask</codeph>, <codeph>mask_</codeph> and <codeph>try</codeph> are given default
+   implementations that do no exception checking. This gives rise to the first word of warning:
+    <b>operations in the ST monad are not exception safe</b>. You should not be allocating scarce
+   resources in ST when using <codeph>ResourceT</codeph>. You might be wondering why bother with
+    <codeph>ResourceT</codeph> at all then for <codeph>ST</codeph>. The answer is that there is a
+   lot you can do with conduits without allocating scarce resources, and <codeph>ST</codeph> is a
+   great way to do this in a pure way. But more on this later.</p>
   <p>Now onto point 2: we need some way to deal with this base monad concept. Again, we use an
    associated type (again explained in the next section). Our solution looks something like:</p>
   <codeblock outputclass="haskell">class (HasRef (Base m), Monad m) => Resource m where
     type Base m :: * -> *
 
     resourceLiftBase :: Base m a -> m a</codeblock>
-  <p>But we forgot about point 3: some bracket-like function. So we need one more method in this
-   typeclass:</p>
+  <p>But we forgot about point 3: some <codeph>bracket</codeph>-like function. So we need one more
+   method in this typeclass:</p>
   <codeblock outputclass="haskell">    resourceBracket_ :: Base m a -> Base m b -> m c -> m c</codeblock>
   <p>The reason the first two arguments to <codeph>resourceBracket_</codeph> (allocation and
    cleanup) live in <codeph>Base m</codeph> instead of <codeph>m</codeph> is that, in
@@ -69,11 +70,11 @@
     type Base IO = IO
     resourceLiftBase = id
     resourceBracket_ = E.bracket_</codeblock>
-  <p>We have similar ST instances, with <codeph>bracket</codeph> having no exception safety. That
-   final step is dealing with monad transformers. We don't need to provide a <codeph>HasRef</codeph>
-   instance, but we do need a <codeph>Resource</codeph> instance. The tricky part is providing a
-   valid implementation of <codeph>resourceBracket_</codeph>. For this, we use some functions from
-    <apiname>monad-control</apiname>:</p>
+  <p>We have similar <codeph>ST</codeph> instances, with <codeph>resourceBracket_</codeph> having no
+   exception safety. The final step is dealing with monad transformers. We don't need to provide a
+    <codeph>HasRef</codeph> instance, but we do need a <codeph>Resource</codeph> instance. The
+   tricky part is providing a valid implementation of <codeph>resourceBracket_</codeph>. For this,
+   we use some functions from <apiname>monad-control</apiname>:</p>
   <codeblock outputclass="haskell">instance (MonadTransControl t, Resource m, Monad (t m))
         => Resource (t m) where
     type Base (t m) = Base m

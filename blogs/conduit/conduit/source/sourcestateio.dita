@@ -40,7 +40,7 @@ sourceFile fp = sourceIO
         if eof
             then return Closed
             else fmap Open $ hGetChar h)</codeblock>
-  <p>sourceIO does a number of things for us:</p>
+  <p><codeph>sourceIO</codeph> does a number of things for us:</p>
   <ul id="ul_rwv_vbu_se">
    <li>It registers the cleanup function with the <codeph>ResourceT</codeph> transformer, ensuring
     it gets called even in the presence of exceptions.</li>

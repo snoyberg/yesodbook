@@ -4,48 +4,14 @@
  <title>BufferedSource</title>
  <conbody>
   <p>And so we finally get to introduce the last data type in conduits:
-    <codeph>BufferedSource</codeph>. It actually looks incredibly similar to
-    <codeph>PreparedSource</codeph>:</p>
-  <codeblock outputclass="haskell">data BufferedSource m a = BufferedSource
-    { bsourcePull :: ResourceT m (SourceResult a)
-    , bsourceUnpull :: a -> ResourceT m ()
-    , bsourceClose :: ResourceT m ()
-    }</codeblock>
-  <p>The only actual change (besides names) is the addition of <codeph>bsourceUnpull</codeph>. This
-   is how leftover data is put into the buffer. When you next call <codeph>bsourcePull</codeph>,
-   that data will be available to you. For example, the following code:</p>
-  <codeblock>import Data.Conduit
-import qualified Data.Conduit.List as CL
-import Control.Monad (replicateM_)
-import Control.Monad.IO.Class (liftIO)
-
-main :: IO ()
-main = runResourceT $ do
-    bsrc &lt;- bufferSource $ CL.sourceList [1..10]
-    replicateM_ 6 (pullAndPrint bsrc)
-    bsourceUnpull bsrc 20
-    replicateM_ 6 (pullAndPrint bsrc)
-
-pullAndPrint bsrc = do
-    res &lt;- bsourcePull bsrc
-    liftIO $ print res</codeblock>
-  <p>generates:</p>
-  <msgblock>Open 1
-Open 2
-Open 3
-Open 4
-Open 5
-Open 6
-Open 20
-Open 7
-Open 8
-Open 9
-Open 10
-Closed</msgblock>
+    <codeph>BufferedSource</codeph>. This is an abstract data type, but all it really does is keep a
+   mutable reference to a buffer, and an underlying <codeph>PreparedSource</codeph>. In order to
+   create one of these, you use the <codeph>bufferSource</codeph> function.</p>
+  <codeblock outputclass="haskell"><ph id="v:bufferSource">bufferSource</ph> ::Resource m => Source m a -&gt; ResourceT m (BufferedSource m a)</codeblock>
   <p>This one little change is what allows us to easily solve our web server dilemna. Instead of
    connecting a <codeph>Source</codeph> to our parsing <codeph>Sink</codeph>s, we use a
     <codeph>BufferedSource</codeph>. At the end of each connection, any leftover data is put back on
-   the buffer. For our web server case, we can now created a <codeph>BufferedSource</codeph>, use
+   the buffer. For our web server case, we can now create a <codeph>BufferedSource</codeph>, use
    that to read the request line and headers, and then pass that same
     <codeph>BufferedSource</codeph> to the application for reading the request body.</p>
  </conbody>

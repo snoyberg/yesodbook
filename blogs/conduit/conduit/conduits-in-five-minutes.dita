@@ -57,11 +57,11 @@ import Control.Monad.ST (runST)
 -- Let's start with the basics: connecting a source to a sink. We'll use the
 -- built in file functions to implementing efficient, constant-memory,
 -- resource-friendly file copying.
-copyFile :: FilePath -> FilePath -> IO ()
+--
+-- Two things to note: we use $$ to connect our source to our sink, and then
+-- use runResourceT.copyFile :: FilePath -> FilePath -> IO ()
 copyFile src dest = runResourceT $ CB.sourceFile src $$ CB.sinkFile dest
 
--- Two things to note: we use $$ to connect our source to our sink, and then
--- use runResourceT.
 
 -- The Data.Conduit.List module provides a number of helper functions for
 -- creating sources, sinks, and conduits. Let's look at a typical fold: summing

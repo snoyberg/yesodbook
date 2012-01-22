@@ -8,7 +8,7 @@
    fused with another conduit to produce a new conduit. It's best to just look at the fusion
    operators.</p>
   <codeblock outputclass="haskell">-- Left fusion: source + conduit = source
-($=) :: (Resource m, BufferSource bsrc) => bsrc m a -> Conduit a m b -> Source m b
+($=) :: (Resource m, IsSource src) => src m a -> Conduit a m b -> Source m b
 
 -- Right fusion: conduit + sink = sink
 (=$) :: Resource m => Conduit a m b -> Sink b m c -> Sink a m c

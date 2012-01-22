@@ -6,8 +6,7 @@
   <p>As easy as it is to write your own sinks, you'll likely want to take advantage of the built-in
    sinks available in the <apiname>conduit:Data.Conduit.List</apiname> module. These provide
    analogues to common list functions, like folding. (The module also has some Conduits, like
-    <apiname>conduit:Data.Conduit.List:map</apiname>, but we'll need to wait till the next post for
-   that.)</p>
+    <apiname>conduit:Data.Conduit.List:map</apiname>.)</p>
   <p>If you're looking for some way to practice with conduits, reimplementing the functions in the
    List module- both with and without the helper functions- would be a good start.</p>
   <p>Let's look at some simple things we can make out of the built-in sinks.</p>

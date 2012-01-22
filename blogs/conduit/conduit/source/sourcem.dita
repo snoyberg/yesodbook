@@ -7,8 +7,9 @@
    type:</p>
   <codeblock outputclass="haskell">newtype Source m a = Source { prepareSource :: ResourceT m (PreparedSource m a) }</codeblock>
   <p>In fact, this is precisely why we refer to the original data type as a
-    <codeph>PreparedSource</codeph>. We'll see later that the whole conduit package follows this
-   naming pattern. We can easily wrap up our previous function with this newtype wrapper:</p>
+    <codeph>PreparedSource</codeph>. We'll see later that the whole <codeph>conduit</codeph> package
+   follows this naming pattern. We can easily wrap up our previous function with this newtype
+   wrapper:</p>
   <codeblock outputclass="haskell">sourceList2 :: Resource m => [a] -> Source m a
 sourceList2 = Source . sourceList
 
@@ -25,7 +26,5 @@ sourceStrings = fmap show sourceInts</codeblock>
    have a source that opens a file, reads its contents, and closes the file, and you
     <codeph>mconcat</codeph> five of those together, each file will be closed before the next one is
    open.</p>
-  <p>There's one more important instance- BufferSource. But that will have to wait until we cover
-   resumable sources.</p>
  </conbody>
 </concept>

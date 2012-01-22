@@ -12,11 +12,11 @@
   <ul id="ul_6cdf43df-026f-4a2b-9806-baf8013379ff">
    <li>People find it confusing. What people <i>expect</i> is that the <codeph>Request</codeph>
     value would have a <codeph>requestBody</codeph> value of type <codeph>Source</codeph>.</li>
-   <li>This makes certain kinds of usage incredibly difficult. For example, trying to write an HTTP proxy
-    combining WAI and http-enumerator proved to be almost impossible.</li>
+   <li>This makes certain kinds of usage incredibly difficult. For example, trying to write an HTTP
+    proxy combining WAI and <codeph>http-enumerator</codeph> proved to be almost impossible.</li>
   </ul>
   <p>This is the downside of inversion of control. Our code wants to be in control. It wants to be
-   given soemthing to pull from, something to push to, and run with it. We need some solution to the
+   given something to pull from, something to push to, and run with it. We need some solution to the
    problem.</p>
   <note>If you think that the situation I described with the proxy isn't so bad, it's because I've
    gone easy on the details. We also need to take into account streaming the response body, and the
@@ -25,7 +25,7 @@
    the <codeph>Application</codeph>. Unfortunately, this will cause problems with our buffering. You
    see, when we connect our source to the <codeph>parseRequestLine</codeph> and
     <codeph>parseRequestHeaders</codeph> sinks, it made a call to <codeph>recv</codeph>. If the data
-   is received was not enough to cover all of the headers, it would issue another call. When it had
+   it received was not enough to cover all of the headers, it would issue another call. When it had
    enough data, it would stop. However, odds are that it didn't stop <i>exactly</i> at the end of
    the headers. It likely consumed a bit of the request body as well.</p>
   <p>If we just create a new source and pass that to the request, it will be missing the beginning

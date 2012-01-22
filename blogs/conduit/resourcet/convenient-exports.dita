@@ -6,9 +6,9 @@
   <p>In addition to what's been listed so far, there are a few extra functions exported (mostly) for
    convenience.</p>
   <ul id="ul_hsd_yex_re">
-   <li><codeph>newRef</codeph>, <codeph>writeRef</codeph>, <codeph>readRef</codeph> and
-     <codeph>modifyRef</codeph> wrap up the <codeph>HasRef</codeph> versions of the functions and
-    allow them to run in any <codeph>ResourceT</codeph>.</li>
+   <li><codeph>newRef</codeph>, <codeph>writeRef</codeph>, and <codeph>readRef</codeph> wrap up the
+     <codeph>HasRef</codeph> versions of the functions and allow them to run in any
+     <codeph>ResourceT</codeph>.</li>
    <li><codeph>withIO</codeph> is essentially a type-restricted version of <codeph>with</codeph>,
     but working around some of the nastiness with types you would otherwise run into. In general:
     you'll want to use <codeph>withIO</codeph> when writing <codeph>IO</codeph> code.</li>

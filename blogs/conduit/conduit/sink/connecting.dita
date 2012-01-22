@@ -4,7 +4,7 @@
  <title>Connecting</title>
  <conbody>
   <p>At the end of the day, we're actually going to want to use our sinks. While we could manually
-   call sinkPush and sinkClose, it's tedious. For example:</p>
+   call <codeph>sinkPush</codeph> and <codeph>sinkClose</codeph>, it's tedious. For example:</p>
   <codeblock outputclass="haskell">main :: IO ()
 main = runResourceT $ do
     sink &lt;- prepareSink printSum
@@ -37,8 +37,8 @@ main = runResourceT $ do
    drama: <codeph>Conduit</codeph>s (the type, not the package).</p>
   <p>But as a quick note here, the leftover value from the <codeph>Done</codeph> constructor is not
    always ignored. The <codeph>Monad</codeph> instance, for example, uses it to pass data from one
-   sink to the next in a binding. And in fact, the real connect operator <i>doesn't</i> throw away
-   the leftovers. When we cover resumable sources later, we'll see that the leftover value is put
-   back on the buffer to allow later sinks reusing an existing source to pull the value.</p>
+   sink to the next in a binding. And in fact, the real connect operator <i>doesn't</i> always throw
+   away the leftovers. When we cover resumable sources later, we'll see that the leftover value is
+   put back on the buffer to allow later sinks reusing an existing source to pull the value.</p>
  </conbody>
 </concept>

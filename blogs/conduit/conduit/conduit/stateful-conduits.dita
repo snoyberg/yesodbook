@@ -37,8 +37,9 @@ sort = Conduit $ do
             list &lt;- readRef stateRef
             return $ Data.List.sort list
         }</codeblock>
-  <p>But who wants to deal directly with mutable variables? Just like sourceState and sinkState, we
-   have conduitState to help you keep your sanity.</p>
+  <p>But who wants to deal directly with mutable variables? Just like <codeph>sourceState</codeph>
+            and <codeph>sinkState</codeph>, we have <codeph>conduitState</codeph> to help you keep
+            your sanity.</p>
   <codeblock outputclass="haskell">import Prelude hiding (reverse)
 import qualified Data.List
 import Data.Conduit
