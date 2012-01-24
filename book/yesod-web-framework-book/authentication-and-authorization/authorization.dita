@@ -52,7 +52,7 @@ instance YesodAuth MyAuthSite where
     loginDest _ = RootR
     logoutDest _ = RootR
 
-    authPlugins = [authDummy]
+    authPlugins _ = [authDummy]
 
     authHttpManager = httpManager
 

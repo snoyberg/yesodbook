@@ -280,7 +280,7 @@ using email addresses as your identifier. This makes it easy to switch to other
 systems in the future, locally authenticated email addresses (also included
 with yesod-auth).
 
->     authPlugins = [authBrowserId]
+>     authPlugins _ = [authBrowserId]
 
 This function takes someone's login credentials (i.e., his/her email address)
 and gives back a UserId.

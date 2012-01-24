@@ -17,11 +17,11 @@
    unless you are actually creating separate translations by locale. This ensures that someone
    asking for Canadian English will still see your English. Behind the scenes, Yesod will add the
    two-letter codes where relevant. For example, suppose a user has the following language
-   list:<codeblock>pt-BR, es, he</codeblock>What this means is "I like Brazilian Porteguese, then
+   list:<codeblock outputclass="langlist">pt-BR, es, he</codeblock>What this means is "I like Brazilian Porteguese, then
    Spanish, and then Hebrew." Suppose your application provides the languages pt (general
    Porteguese) and English, with English as the default. Strictly following the user's language list
    would result in the user being served English. Instead, Yesod translates that list
-   into:<codeblock>pt-BR, es, he, pt</codeblock>In other words: unless you're giving different
+   into:<codeblock outputclass="langlist">pt-BR, es, he, pt</codeblock>In other words: unless you're giving different
    translations based on locale, just stick to the two-letter language codes.</p>
   <p id="x-8">Now what about these message files? The syntax should be very familiar after your work
    with Hamlet and Persistent. The line starts off with the name of the message. Since this is a

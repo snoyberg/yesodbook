@@ -34,7 +34,7 @@ instance YesodAuth MyAuthSite where
     loginDest _ = RootR
     logoutDest _ = RootR
 
-    authPlugins =
+    authPlugins _ =
         [ authBrowserId
         , authGoogleEmail
         ]

@@ -34,7 +34,7 @@ main = putStrLn $ renderHtml [shamlet|
 &lt;p&gt;
     Let's do some funny stuff with my name: #
     &lt;b&gt;#{sort $ map toLower (name person)}
-&lt;p&gt;Oh, and in 5 years I'll be #{show $ age person + 5} years old.
+&lt;p&gt;Oh, and in 5 years I'll be #{show ((+) (age person) 5)} years old.
 |]
   where
     person = Person "Michael" 26</codeblock>

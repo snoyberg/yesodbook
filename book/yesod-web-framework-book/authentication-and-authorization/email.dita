@@ -79,7 +79,7 @@ instance YesodAuth MyEmailApp where
 
     loginDest _ = RootR
     logoutDest _ = RootR
-    authPlugins = [authEmail]
+    authPlugins _ = [authEmail]
 
     -- Need to find the UserId for the given email address.
     getAuthId creds = runDB $ do
