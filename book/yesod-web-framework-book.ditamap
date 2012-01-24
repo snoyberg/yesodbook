@@ -24,6 +24,7 @@
     </topichead>
     <topichead id="examples" navtitle="Examples">
         <topicref id="example-blog" href="yesod-web-framework-book/blog-example-advanced.dita"/>
+        <topicref id="example-wiki-chat" href="yesod-web-framework-book/wiki-chat-example.dita"/>
         <mapref id="example-json-service"
             href="yesod-web-framework-book/example-json-service.ditamap"/>
         <mapref id="case-study-sphinx" href="yesod-web-framework-book/case-study-sphinx.ditamap"/>
