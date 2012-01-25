@@ -7,7 +7,7 @@
     <codeph>BufferedSource</codeph>. This is an abstract data type, but all it really does is keep a
    mutable reference to a buffer, and an underlying <codeph>PreparedSource</codeph>. In order to
    create one of these, you use the <codeph>bufferSource</codeph> function.</p>
-  <codeblock outputclass="haskell"><ph id="v:bufferSource">bufferSource</ph> ::Resource m => Source m a -&gt; ResourceT m (BufferedSource m a)</codeblock>
+  <codeblock outputclass="haskell">bufferSource ::Resource m => Source m a -&gt; ResourceT m (BufferedSource m a)</codeblock>
   <p>This one little change is what allows us to easily solve our web server dilemna. Instead of
    connecting a <codeph>Source</codeph> to our parsing <codeph>Sink</codeph>s, we use a
     <codeph>BufferedSource</codeph>. At the end of each connection, any leftover data is put back on

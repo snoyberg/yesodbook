@@ -6,8 +6,8 @@ import DITA.Parse
 import qualified DITA.Types as D
 import qualified DITA.Util as DU
 import Data.DTD.Cache
-import Network.URI.Enumerator
-import Network.URI.Enumerator.File
+import Network.URI.Conduit
+import Network.URI.Conduit.File
 import Text.XML
 import qualified Text.XML as X
 import Text.Hamlet.XML
@@ -113,6 +113,10 @@ render e =
             case D.elementChildren e of
                 [D.NodeContent t] -> [xml|<programlisting>#{removeStartStop t}|]
                 _ -> to "programlisting"
+        "msgblock" ->
+            case D.elementChildren e of
+                [D.NodeContent t] -> [xml|<programlisting>#{removeStartStop t}|]
+                _ -> to "msgblock"
         "varname" -> to "varname"
         "filepath" -> to "filename"
         "ol" -> to "orderedlist"
