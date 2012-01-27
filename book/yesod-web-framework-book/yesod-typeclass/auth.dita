@@ -35,7 +35,7 @@
   </dl>
   <p id="x-18">These methods tie in nicely with the <apiname id="x-19">yesod-auth</apiname> package,
    which is used by the scaffolded site to provide a number of authentication options, such as
-   OpenID, BrowserID, email, username and Twitter. We'll cover more concrete exampels in the <xref
+   OpenID, BrowserID, email, username and Twitter. We'll cover more concrete examples in the <xref
     id="x-20"
     href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization"
     format="dita">auth chapter</xref>.</p>
