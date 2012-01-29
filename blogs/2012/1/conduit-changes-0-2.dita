@@ -12,7 +12,7 @@
    <li><codeph>BufferedSource</codeph> doesn't feel quite right. One complaint was the name
      <codeph>bsourceUnpull</codeph>, but overall people thought it didn't fit in well with the rest
     of the package.</li>
-   <li>Usage of mutable variables for storing state can't be a good idea.</li>
+   <li>Usage of mutable variables for storing state is suboptimal.</li>
    <li>The split between <codeph>Source</codeph> and <codeph>PreparedSource</codeph> isn't very
     nice.</li>
   </ol>
@@ -25,15 +25,15 @@
    use <codeph>BufferedSource</codeph> to parse the request headers, but then convert it back to a
     <codeph>Source</codeph> to pass to the application for request body reading.</p>
   <p>I've been opposed to making any changes for the second issue (mutable variables). My belief was
-   that one of the sources of conduits simplicity relative to enumerators was its usage of mutable
+   that one of the sources of conduits' simplicity relative to enumerators was its usage of mutable
    state. And in general, I don't believe in changing something until there's hard evidence that
    it's actually causing problems.</p>
   <p>Last week, however, Felipe Lessa found one such concrete problem: using
     <codeph>SequencedSink</codeph> was very slow. Upon investigation, I determined that the problem
-   came from <codeph>Sink</codeph>'s monadic bind implementation. This issue is that for each bind,
-   a new mutable variable was being allocated, and it needed to be checked to determine its state.
+   came from <codeph>Sink</codeph>'s monadic bind implementation. The issue is that for each bind, a
+   new mutable variable was being allocated, and it needed to be checked to determine its state.
    Unfortunately, having a long chain of binds resulted in exponential complexity, having to check
-    <codeph>N</codeph> variables for each actions. This clearly needed to be fixed, but there was no
+    <codeph>N</codeph> variables for each action. This clearly needed to be fixed, but there was no
    way to do so (that I could see) with the previous types.</p>
   <p>So I was presented with a dilemna: either continue in the mutable variable path and try to
    solve the problem, or go in the pure/CPS direction, where I knew a simpler solution existed. The
@@ -52,7 +52,7 @@
   <p>So I took the plunge and tried out CPS... and I really like the result! The first change is to
     <codeph>SourceResult</codeph>'s <codeph>Open</codeph> constructor: instead of just returning a
    new value, it returns a new value <b>and</b> a new <codeph>Source</codeph>. This allows us to
-   pass our state in that new <codeph>Source</codeph>. There is a similar change to
+   pass our state in that new <codeph>Source</codeph>. There are similar changes to
     <codeph>SinkResult</codeph> and <codeph>ConduitResult</codeph>. After this, I benchmarked the
    old and new version, comparing both a monadic-bind-intensive <codeph>Sink</codeph> and a
     <codeph>Sink</codeph> without any binds. The former had a ten-fold speedup (not surprising due
@@ -79,8 +79,8 @@
    over the whole package: never reuse a <codeph>Source</codeph>, <codeph>Sink</codeph>, or
     <codeph>Conduit</codeph>. After you pull from a <codeph>Source</codeph>, it will give you a new
     <codeph>Source</codeph>. Do <i>not</i> reuse the original <codeph>Source</codeph>. If you get a
-    <codeph>Closed</codeph> result, there is no new <codeph>Source</codeph>, and therefore your
-   processing is ended.</p>
+    <codeph>Closed</codeph> result, there is no new <codeph>Source</codeph>, and therefore you
+   cannot pull again or close the <codeph>Source</codeph>.</p>
   <p>I encourage everyone to have a look at the <xref
     href="http://www.snoyman.com/haddocks/conduit-0.2.0/index.html">Haddocks</xref> and give me your
    feedback.</p>
@@ -90,8 +90,8 @@
   <section>
    <title>How this affects users</title>
    <p>Anyone programming against the high-level conduit API exclusively will have no breakage. If
-    you're using functions like <codeph>sourceIO</codeph> or <codeph>conduitState</codeph>, you'll
-    have minimal changes to use the modified datatypes (essentially changing a few constructors and
+    you're using functions like <codeph>sourceIO</codeph> or <codeph>sinkState</codeph>, you'll have
+    minimal changes to use the modified datatypes (essentially changing a few constructors and
     reordering your arguments). If you're coding directly against the low-level types, you'll need
     to restructure things a bit to pass around continuations.</p>
    <p>Please email me (or preferably the Haskell cafe) if you want some help on converting old
