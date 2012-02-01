@@ -22,13 +22,11 @@ sinkLine = sinkState
   where
     -- On a new line, return the contents up until here
     push front '\n' =
-        return ( id -- state value won't be used, since we're returning Done
-               , Done Nothing $ front []
-               )
+        return $ StateDone Nothing $ front []
 
     -- Just another character, add it to the front and keep going
     push front char =
-        return (front . (char:), Processing)
+        return $ StateProcessing $ front . (char:)
 
     -- Got an EOF before hitting a newline, just give what we have so far
     close front = return $ front []
@@ -61,15 +59,15 @@ Here's the second.</msgblock>
   <p><codeph>sinkLine</codeph> demonstrates usage of the <codeph>sinkState</codeph> function, which
    is very similar to the <codeph>sourceState</codeph> function we just saw. It takes three
    arguments: an initial state, a push function (takes the current state and next input, and returns
-   a new state and result) and a close function (takes the current state and returns an output).
-   While <codeph>sourceState</codeph> doesn't need a close function, a sink is required to always
-   return a result.</p>
-  <p>Our push function has two clauses. When it gets a newline character, it returns a dummy state-
-   since the state will not be used again- and indicates that processing is <codeph>Done</codeph>.
-   The <codeph>Nothing</codeph> indicates that there is no leftover input (we'll discuss that
-   later). It also gives an output of all the characters it has received. The second clause simply
-   appends the new character to the existing state and indicates that we are still
-    <codeph>Processing</codeph>. The close function returns all characters.</p>
+   a new state and result) and a close function (takes the current state and returns an output). As
+   opposed to <codeph>sourceState</codeph>- which doesn't need a close function- a sink is required
+   to always return a result.</p>
+  <p>Our push function has two clauses. When it gets a newline character, it indicates that
+   processing is complete via <codeph>StateDone</codeph>. The <codeph>Nothing</codeph> indicates
+   that there is no leftover input (we'll discuss that later). It also gives an output of all the
+   characters it has received. The second clause simply appends the new character to the existing
+   state and indicates that we are still working via <codeph>StateProcessing</codeph>. The close
+   function returns all characters.</p>
   <p><codeph>sinkLines</codeph> shows how we can use the monadic interface to produce new sinks. If
    you replace <codeph>sinkLine</codeph> with <codeph>getLine</codeph>, this would look like
    standard code to pull lines from standard input. This familiar interface should make it easy to

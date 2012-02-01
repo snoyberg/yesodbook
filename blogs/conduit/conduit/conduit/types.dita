@@ -3,17 +3,15 @@
 <concept id="conceptId">
  <title>Types</title>
  <conbody>
-  <p>As previously, let's start off by looking at the types involved.</p>
-  <codeblock outputclass="haskell">data ConduitResult input output = Producing [output]
-                                | Finished (Maybe input) [output]
+  <p>As we did previously, let's start off by looking at the types involved.</p>
+  <codeblock outputclass="haskell">data ConduitResult input m output =
+    Producing (Conduit input m output) [output]
+  | Finished (Maybe input) [output]
 
-data PreparedConduit input m output = PreparedConduit
-    { conduitPush :: input -> ResourceT m (ConduitResult input output)
+data Conduit input m output = Conduit
+    { conduitPush :: input -> ResourceT m (ConduitResult input m output)
     , conduitClose :: ResourceT m [output]
-    }
-
-newtype Conduit input m output =
-    Conduit { prepareConduit :: ResourceT m (PreparedConduit input m output) }</codeblock>
+    }</codeblock>
   <p>This should look very similar to what we've seen with sinks. A conduit can be pushed to, in
    which case it returns a result. A result either indicates that it is still producing data, or
    that it is finished. When a conduit is closed, it returns some more output. And as previously, we

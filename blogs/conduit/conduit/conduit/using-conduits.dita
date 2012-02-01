@@ -3,10 +3,10 @@
 <concept id="conceptId">
  <title>Using conduits</title>
  <conbody>
-  <p>The way Conduits interact with the rest of the package is via <term>fusing</term>. A conduit
-   can be fused into a source, producing a new source, fused into a sink to produce a new sink, or
-   fused with another conduit to produce a new conduit. It's best to just look at the fusion
-   operators.</p>
+  <p>The way <codeph>Conduit</codeph>s interact with the rest of the package is via
+    <term>fusing</term>. A conduit can be fused into a source, producing a new source, fused into a
+   sink to produce a new sink, or fused with another conduit to produce a new conduit. It's best to
+   just look at the fusion operators.</p>
   <codeblock outputclass="haskell">-- Left fusion: source + conduit = source
 ($=) :: (Resource m, IsSource src) => src m a -> Conduit a m b -> Source m b
 

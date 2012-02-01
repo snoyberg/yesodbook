@@ -3,8 +3,8 @@
 <concept id="conceptId">
  <title>sourceState and sourceIO</title>
  <conbody>
-  <p>With our new <codeph>Source</codeph> datatype, we also get a few convenience functions that
-   allow us to create most sources without dealing directly with mutable state.
+  <p>In addition to being able to manually create <codeph>Source</codeph>s, we also have a few
+   convenience functions that allow us to create most sources in a more high-level fashion.
     <codeph>sourceState</codeph> let's you write code similar to how you would use the
     <codeph>State</codeph> monad. You provide an initial state, your pull function is provided with
    the current state, and it returns a new state and a return value. Let's use this to reimplement
@@ -18,13 +18,19 @@ sourceList state0 = sourceState
     state0
     pull
   where
-    pull :: Resource m => [a] -> ResourceT m ([a], SourceResult a)
-    pull [] = return ([], Closed)
-    pull (x:xs) = return (xs, Open x)</codeblock>
+    pull [] = return StateClosed
+    pull (x:xs) = return $ StateOpen xs x
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
+  <p>Notice the usage of the <codeph>StateClosed</codeph> and <codeph>StateOpen</codeph>
+   constructors. These are very similar to <codeph>Closed</codeph> and <codeph>Open</codeph>, except
+   that instead of specifying the next <codeph>Source</codeph> to be used, you provide the next
+   state (here, the remainder of the list).</p>
   <p>The other common activity is to perform some I/O allocation (like opening a file), registering
    some cleanup action (closing that file), and having a function for pulling data from that
    resource. <codeph>conduit</codeph> comes built-in with a <codeph>sourceFile</codeph> function
-   that gives a stream of <codeph>ByteString</codeph>s. Let's write a widely inefficient alternative
+   that gives a stream of <codeph>ByteString</codeph>s. Let's write a wildly inefficient alternative
    that returns a stream of characters.</p>
   <codeblock outputclass="haskell">import Data.Conduit
 import Control.Monad.Trans.Resource
@@ -38,14 +44,19 @@ sourceFile fp = sourceIO
     (\h -> liftIO $ do
         eof &lt;- hIsEOF h
         if eof
-            then return Closed
-            else fmap Open $ hGetChar h)</codeblock>
-  <p><codeph>sourceIO</codeph> does a number of things for us:</p>
+            then return IOClosed
+            else fmap IOOpen $ hGetChar h)
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
+  <p>Like <codeph>sourceState</codeph>, it uses a variant on the <codeph>Open</codeph> and
+    <codeph>Closed</codeph> constructors. <codeph>sourceIO</codeph> does a number of things for
+   us:</p>
   <ul id="ul_rwv_vbu_se">
    <li>It registers the cleanup function with the <codeph>ResourceT</codeph> transformer, ensuring
     it gets called even in the presence of exceptions.</li>
    <li>It sets up the <codeph>sourceClose</codeph> record to release the resource immediately.</li>
-   <li>As soon as you return <codeph>Closed</codeph>, it will release the resource.</li>
+   <li>As soon as you return <codeph>IOClosed</codeph>, it will release the resource.</li>
   </ul>
  </conbody>
 </concept>

@@ -4,7 +4,8 @@
  <title>Recapping the web server</title>
  <conbody>
   <p>So what exactly does our web server look like now?</p>
-  <codeblock outputclass="haskell">import Data.ByteString (ByteString)
+  <codeblock outputclass="haskell">-- START
+import Data.ByteString (ByteString)
 import Data.Conduit
 import Data.Conduit.Network (sourceSocket)
 import Control.Monad.IO.Class (liftIO)
@@ -32,7 +33,9 @@ handleConn app socket = runResourceT $ do
     headers &lt;- bsrc $$ parseRequestHeaders
     let req = Request requestLine headers bsrc
     res &lt;- app req
-    liftIO $ sendResponse socket res</codeblock>
+    liftIO $ sendResponse socket res
+-- STOP
+main = return ()</codeblock>
   <p>We've made a few minor changes. Firstly, the <codeph>Application</codeph> now lives in the
     <codeph>ResourceT IO</codeph> monad. This isn't strictly necessary, but it's very convenient:
    the application can now register cleanup actions that will only take place after the response has

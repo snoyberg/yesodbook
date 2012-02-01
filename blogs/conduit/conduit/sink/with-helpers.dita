@@ -10,8 +10,8 @@ import System.IO
 import Control.Monad.IO.Class (liftIO)
 
 -- We never have to touch the release key directly, sinkIO automatically
--- releases our resource as soon as we return Done from sinkPush or sinkClose
--- is called.
+-- releases our resource as soon as we return IODone from our push function,
+-- or sinkClose is called.
 sinkFile :: ResourceIO m => FilePath -> Sink Char m ()
 sinkFile fp = sinkIO
     (openFile fp WriteMode)
@@ -19,21 +19,23 @@ sinkFile fp = sinkIO
     -- push: notice that we are given the handle and the input
     (\handle char -> do
         liftIO $ hPutChar handle char
-        return Processing)
+        return IOProcessing)
     -- close: we're also given the handle, but we don't use it
     (\_handle -> return ())
 
--- And we'll count how many values were in the stream. Like sources, we use
--- mutable references.
+-- And we'll count how many values were in the stream.
 count :: Resource m => Sink a m Int
 count = sinkState
     0
     -- The push function gets both the current state and the next input...
     (\state _ignored ->
-        -- and it returns the new state and result.
-        return (state + 1, Processing))
+        -- and it returns the new state
+        return $ StateProcessing $ state + 1)
     -- The close function gets the final state and returns the output.
-    (\state -> return state)</codeblock>
+    (\state -> return state)
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
   <p>Nothing dramatic, just slightly shorter, less error-prone code. Using these two helper
    functions is highly recommended, as it ensures proper resource management and state updating.</p>
  </conbody>

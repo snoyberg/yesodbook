@@ -23,11 +23,11 @@ bsrc $$ sinkFile output2</codeblock>
   <p>So instead, <codeph>$$</codeph> does <i>not</i> close the file. As a result, you can pass a
    buffered source to as many actions as you want, without concerns that the file handle has been
    closed out from under you.</p>
-  <note>If you remember from earlier, one of the invariants of a source is that it cannot be pulled
-   from after it returns a <codeph>Closed</codeph> response. In order to allow you to work more
-   easily with a <codeph>BufferedSource</codeph>, this invariant is relaxed. It is the
-   responsibility of the <codeph>BufferSource</codeph> implementation to ensure that after the
-   underlying <codeph>PreparedSource</codeph> is closed, it is never used again.</note>
+  <note>If you remember from earlier, the invariant of a source is that it cannot be pulled from
+   after it returns a <codeph>Closed</codeph> response. In order to allow you to work more easily
+   with a <codeph>BufferedSource</codeph>, this invariant is relaxed. It is the responsibility of
+   the <codeph>BufferSource</codeph> implementation to ensure that after the underlying
+    <codeph>Source</codeph> is closed, it is never used again.</note>
   <p>This presents one caveat: when you're finished with a buffered source, you should manually call
     <codeph>bsourceClose</codeph> on it. However, as usual, this is merely an optimization, as the
    source will automatically be closed when <codeph>runResourceT</codeph> is called.</p>

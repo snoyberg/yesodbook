@@ -5,31 +5,47 @@
  <conbody>
   <p>At the end of the day, we're actually going to want to use our sinks. While we could manually
    call <codeph>sinkPush</codeph> and <codeph>sinkClose</codeph>, it's tedious. For example:</p>
-  <codeblock outputclass="haskell">main :: IO ()
+  <codeblock outputclass="haskell">import Data.Conduit
+import Control.Monad.IO.Class (liftIO)
+
+printSum :: Sink Int m Int
+printSum = undefined
+-- START
+main :: IO ()
 main = runResourceT $ do
-    sink &lt;- prepareSink printSum
     res &lt;-
-        case sink of
+        case printSum of
             SinkData push close -> loop [1..10] push close
             SinkNoData res -> return res
     liftIO $ putStrLn $ "Got a result: " ++ show res
   where
+    start (SinkData push close) = loop [1..10] push close
+    start (SinkNoData res) = return res
+    start (SinkLift msink) = msink >>= start
+
     loop [] _push close = close
     loop (x:xs) push close = do
         mres &lt;- push x
         case mres of
             Done _leftover res -> return res
-            Processing -> loop xs push close</codeblock>
+            Processing push' close' -> loop xs push' close'</codeblock>
   <p>Instead, the recommended approach is to connect your sink to a source. Not only is this
    simpler, it's less error prone, and means you have a lot of flexibility in where your data is
    coming from. To rewrite the example above:</p>
-  <codeblock outputclass="haskell">main :: IO ()
+  <codeblock outputclass="haskell">import Data.Conduit
+import qualified Data.Conduit.List as CL
+import Control.Monad.IO.Class (liftIO)
+
+printSum :: Sink Int m Int
+printSum = undefined
+-- START
+main :: IO ()
 main = runResourceT $ do
     res &lt;- CL.sourceList [1..10] $$ printSum
     liftIO $ putStrLn $ "Got a result: " ++ show res</codeblock>
-  <p>Connecting takes care of preparing both the source and the sink, testing for the sink
-   constructor (<codeph>SinkData</codeph> versus <codeph>SinkNoData</codeph>), pulling from the
-   sink, and pushing to/closing the sink.</p>
+  <p>Connecting takes care of testing for the sink constructor (<codeph>SinkData</codeph> versus
+    <codeph>SinkNoData</codeph> versus <codeph>SinkLift</codeph>), pulling from the source, and
+   pushing to/closing the sink.</p>
   <p>However, there is one thing I wanted to point out from the long-winded example. On the second
    to last line, we ignore the leftover value of <codeph>Done</codeph>. This brings up the issue of
     <term>data loss</term>. This is an important topic that has had a lot of thought put into it.

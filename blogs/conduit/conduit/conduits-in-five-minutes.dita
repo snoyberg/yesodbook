@@ -75,10 +75,10 @@ sumSink = CL.fold (+) 0
 sumSink2 :: Resource m => Sink Int m Int
 sumSink2 = sinkState
     0 -- initial value
-    (\accum i -> return
-        ( accum + i -- update the state with the new input
-        , Processing -- indicate that we want more input
-        ))
+
+    -- update the state with the new input and
+    -- indicate that we want more input
+    (\accum i -> return $ StateProcessing (accum + i))
     (\accum -> return accum) -- return the current accum value on close
 
 -- Another common helper function is sourceList. Let's see how we can combine
@@ -93,7 +93,7 @@ sum' input = runST $ runResourceT $ CL.sourceList input $$ sumSink
 fibs :: Resource m => Source m Int
 fibs = sourceState
     (0, 1) -- initial state
-    (\(x, y) -> return ((y, x + y), Open x))
+    (\(x, y) -> return $ StateOpen (y, x + y) x)
 
 -- Suppose we want to get the sum of the first 10 Fibonacci numbers. We can use
 -- the isolate conduit to make sure the sum sink only consumes 10 values.
@@ -129,7 +129,7 @@ textify = CL.map intToText
 textify2 :: Resource m => Conduit Int m Text
 textify2 = conduitState
     ()
-    (\() input -> return ((), Producing [intToText input]))
+    (\() input -> return $ StateProducing () [intToText input])
     (\() -> return [])
 
 -- Let's make the unlines conduit, that puts a newline on the end of each piece

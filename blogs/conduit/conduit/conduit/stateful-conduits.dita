@@ -14,32 +14,26 @@ import Control.Monad.Trans.Resource
 -- the standard reverse function: you have to read the entire stream into
 -- memory before producing any output.
 reverse :: Resource m => Conduit input m input
-reverse = Conduit $ do
-    stateRef &lt;- newRef []
-    return $ PreparedConduit
-        { conduitPush = \input -> do
-            state &lt;- readRef stateRef
-            writeRef stateRef $ input : state
-            return $ Producing []
-        , conduitClose = readRef stateRef
-        }
+reverse =
+    mkConduit []
+  where
+    mkConduit state = Conduit (push state) (close state)
+    push state input = return $ Producing (mkConduit $ input : state) []
+    close state = return state
 
 -- Same thing with sort: it will pull everything into memory
 sort :: (Ord input, Resource m) => Conduit input m input
-sort = Conduit $ do
-    stateRef &lt;- newRef []
-    return $ PreparedConduit
-        { conduitPush = \input -> do
-            state &lt;- readRef stateRef
-            writeRef stateRef $ input : state
-            return $ Producing []
-        , conduitClose = do
-            list &lt;- readRef stateRef
-            return $ Data.List.sort list
-        }</codeblock>
-  <p>But who wants to deal directly with mutable variables? Just like <codeph>sourceState</codeph>
-            and <codeph>sinkState</codeph>, we have <codeph>conduitState</codeph> to help you keep
-            your sanity.</p>
+sort =
+    mkConduit []
+  where
+    mkConduit state = Conduit (push state) (close state)
+    push state input = return $ Producing (mkConduit $ input : state) []
+    close state = return $ Data.List.sort state
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
+  <p>But we can do better. Just like <codeph>sourceState</codeph> and <codeph>sinkState</codeph>, we
+            have <codeph>conduitState</codeph> to simplify things.</p>
   <codeblock outputclass="haskell">import Prelude hiding (reverse)
 import qualified Data.List
 import Data.Conduit
@@ -51,7 +45,7 @@ reverse :: Resource m => Conduit input m input
 reverse =
     conduitState [] push close
   where
-    push state input = return (input : state, Producing [])
+    push state input = return $ StateProducing (input : state) []
     close state = return state
 
 -- Same thing with sort: it will pull everything into memory
@@ -59,7 +53,10 @@ sort :: (Ord input, Resource m) => Conduit input m input
 sort =
     conduitState [] push close
   where
-    push state input = return (input : state, Producing [])
-    close state = return $ Data.List.sort state</codeblock>
+    push state input = return $ StateProducing (input : state) []
+    close state = return $ Data.List.sort state
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
  </conbody>
 </concept>

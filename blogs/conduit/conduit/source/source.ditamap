@@ -4,7 +4,6 @@
     <title>Source</title>
     <topicref id="top" href="source.dita">
         <topicref href="state.dita"/>
-        <topicref href="sourcem.dita"/>
         <topicref href="sourcestateio.dita"/>
     </topicref>
 </map>

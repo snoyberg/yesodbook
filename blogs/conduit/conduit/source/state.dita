@@ -9,61 +9,29 @@
   <note>The state might actually be defined outside of our program. For example, if we write a
    source that reads data from a <codeph>Handle</codeph>, we don't need to manually specify any
    state, since the <codeph>Handle</codeph> itself already has.</note>
-  <p>Here's one of those times where we'll compare to enumerators. Enumerators also have some state
-   associated with them, but this state is captured in closures. Conduits have elected <i>not</i> to
-   take this approach, because of two considerations:</p>
-  <ol id="ol_apj_swx_re">
-   <li>In my experience, encoding state in this way is one of the aspects of enumerators that has
-    made them complicated to understand.</li>
-   <li>Doing so would prevent one of the most powerful features of conduit: the resumable source.
-    We'll cover that aspect of sources later.</li>
-  </ol>
-  <p>So instead, sources- and conduits in general- rely on mutable state. Before you bring out the
-   pitchforks, let me clarify:</p>
-  <ul id="ul_dyr_zwx_re">
-   <li>Due to the abstractions put in place in <codeph>ResourceT</codeph>, we are not tied to the
-     <codeph>IO</codeph> monad. Our mutable state can be stored in either <codeph>IORef</codeph>s or
-     <codeph>STRef</codeph>s, meaning you can still use conduits in pure code.</li>
-   <li>As we'll see later, there are convenience functions provided which hide the details of the
-    mutable variables themselves. Unless you want to code at a low level with sources, you'll never
-    deal directly with the references.</li>
-  </ul>
-  <p>That said, let's give some examples of how to write a stateful source.</p>
+  <p>The way we store state in a source is by updating the returned <codeph>Source</codeph> value in
+   the <codeph>Open</codeph> constructor. This is best seen with an example.</p>
   <codeblock outputclass="haskell">import Data.Conduit
 import Control.Monad.Trans.Resource
 
 -- | Provide data from the list, one element at a time.
-sourceList :: Resource m => [a] -> ResourceT m (PreparedSource m a)
-sourceList state0 = do
-    stateRef &lt;- newRef state0
-    return PreparedSource
-        { sourcePull = do
-            state &lt;- readRef stateRef
-            case state of
-                x:xs -> do
-                    writeRef stateRef xs
-                    return $ Open x
-                [] -> do
-                    -- We could write some dummy value to
-                    -- stateRef, but since we're returning
-                    -- a Closed, we know that sourcePull
-                    -- cannot legally be called again.
-                    return Closed
-        , sourceClose = do
-            -- Likewise, we could write something to stateRef
-            -- to indicate the source has been closed, but the
-            -- invariants of sources mean we don't have to.
-            return ()
-        }</codeblock>
-  <p>Our algorithm is simple: store the initial state (the input list) in a mutable reference, and
-   then read the value in the reference on each pull. If there is more data, then pop one value from
-   the front of the list and update the state. If the list is empty, return a
-    <codeph>Closed</codeph>.</p>
-  <p>Note, however, that instead of returning a <codeph>PreparedSource</codeph>, we get a monadic
-   value. In order to use this <codeph>PreparedSource</codeph>, we will need to extract that value
-   first. Doing so will turn out to be a tedious activity (trust me, that's how I first wrote
-   conduits). We need a better approach. And since we use <codeph>ResourceT</codeph>'s
-    <codeph>newRef</codeph> and related functions, we now need to put <codeph>Resource m</codeph> in
-   the context.</p>
+sourceList :: Resource m => [a] -> Source m a
+sourceList list = Source
+    { sourcePull =
+        case list of
+            [] -> return Closed -- no more data
+
+            -- This is where we store our state: by return a new
+            -- Source with the rest of the list
+            x:xs -> return $ Open (sourceList xs) x
+        , sourceClose = return ()
+        }
+-- STOP
+main :: IO ()
+main = return ()</codeblock>
+  <p>Each time we pull from the source, it checks the input list. If the list is empty, pulling
+   returns <codeph>Closed</codeph>, which makes sense. If the list is not empty, pulling returns
+    <codeph>Open</codeph> with both the next value in the list, and a new <codeph>Source</codeph>
+   value containing the rest of the input list.</p>
  </conbody>
 </concept>
