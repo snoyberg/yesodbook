@@ -88,17 +88,17 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
 
     liftIO $ printResults results
 
-printResults :: [(Entity SqlPersist Person, [Entity SqlPersist Car])] -&gt; IO ()
+printResults :: [(Entity Person, [Entity Car])] -&gt; IO ()
 printResults =
     mapM_ goPerson
   where
-    goPerson :: (Entity SqlPersist Person, [Entity SqlPersist Car]) -&gt; IO ()
+    goPerson :: (Entity Person, [Entity Car]) -&gt; IO ()
     goPerson ((Entity _personid person), cars) = do
         putStrLn $ personName person
         mapM_ goCar cars
         putStrLn ""
 
-    goCar :: (Entity SqlPersist Car) -&gt; IO ()
+    goCar :: (Entity Car) -&gt; IO ()
     goCar (Entity _carid car) = putStrLn $ "    " ++ carName car</codeblock>
  </conbody>
 </concept>

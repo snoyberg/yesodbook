@@ -162,7 +162,7 @@ First, we'll authorize requests to add a new entry.
 >         mauth &lt;- maybeAuth
 >         case mauth of
 >             Nothing -> return AuthenticationRequired
->             Just (_, user)
+>             Just (Entity _ user)
 >                 | isAdmin user -> return Authorized
 >                 | otherwise    -> unauthorizedI MsgNotAnAdmin
 
@@ -337,7 +337,7 @@ logged in and is not an admin, and the user is not logged in. In the first
 case, we should display the entry form. In the second, we'll do nothing. In the
 third, we'll provide a login link.
 
-> $maybe (_, user) &lt;- muser
+> $maybe Entity _ user &lt;- muser
 >     $if isAdmin user
 >         &lt;form method=post enctype=#{enctype}>
 >             ^{entryWidget}

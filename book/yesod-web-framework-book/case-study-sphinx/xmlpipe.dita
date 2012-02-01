@@ -80,7 +80,7 @@ endEvents =
     ]</codeblock>
   <p id="x-25">Now that we have the shell of our document, we need to get the <codeph id="x-26"
     >Event</codeph>s for each individual document. This is actually a fairly simple function:</p>
-  <codeblock id="x-27" outputclass="haskell">entityToEvents :: (Entity SqlPersist Doc) -&gt; [X.Event]
+  <codeblock id="x-27" outputclass="haskell">entityToEvents :: (Entity Doc) -&gt; [X.Event]
 entityToEvents (Entity docid doc) =
     [ X.EventBeginElement document [("id", [X.ContentText $ toPathPiece docid])]
     , X.EventBeginElement content []

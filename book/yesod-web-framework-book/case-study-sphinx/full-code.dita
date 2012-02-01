@@ -203,9 +203,10 @@ getXmlpipeR = do
     let conn = mrValue managedConn
     lift $ mrReuse managedConn True
     let source = fullDocSource conn C.$= renderBuilder def
-    sendWaiResponse $ ResponseSource status200 headers source
+        flushSource = fmap C.Chunk source
+    sendWaiResponse $ ResponseSource status200 headers flushSource
 
-entityToEvents :: (Entity SqlPersist Doc) -> [X.Event]
+entityToEvents :: (Entity Doc) -> [X.Event]
 entityToEvents (Entity docid doc) =
     [ X.EventBeginElement document [("id", [X.ContentText $ toPathPiece docid])]
     , X.EventBeginElement content []

@@ -46,6 +46,7 @@ carAForm mcar = Car
     &lt;*&gt; areq carYearField "Year" (carYear &lt;$&gt; mcar)
     &lt;*&gt; aopt (selectFieldList colors) "Color" (carColor &lt;$&gt; mcar)
   where
+    colors :: [(Text, Color)]
     colors = [("Red", Red), ("Blue", Blue), ("Gray", Gray), ("Black", Black)]
 -- STOP
     errorMessage :: Text
