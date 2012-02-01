@@ -11,8 +11,8 @@
     <codeph>YesodDB</codeph> let's you make database queries.</p>
   <p id="x-4">So far, we've presented some very straight-forward ways to use these monads: your main
    handler will run in <codeph>Handler</codeph>, using <codeph>runDB</codeph> to execute a
-    <codeph>YesodDB</codeph>, and <codeph>defaultLayout</codeph> to return a
-   <codeph>Widget</codeph>, which is turn was created by calls to <codeph>toWidget</codeph>.</p>
+    <codeph>YesodDB</codeph> query, and <codeph>defaultLayout</codeph> to return a
+   <codeph>Widget</codeph>, which in turn was created by calls to <codeph>toWidget</codeph>.</p>
   <p id="x-5">However, if we have a deeper understanding of these types, we can achieve some fancier
    results.</p>
  </conbody>
