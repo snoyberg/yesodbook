@@ -9,7 +9,8 @@
     <codeph>State</codeph> monad. You provide an initial state, your pull function is provided with
    the current state, and it returns a new state and a return value. Let's use this to reimplement
    sourceList.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import Control.Monad.Trans.Resource
 
 -- | Provide data from the list, one element at a time.
@@ -32,7 +33,8 @@ main = return ()</codeblock>
    resource. <codeph>conduit</codeph> comes built-in with a <codeph>sourceFile</codeph> function
    that gives a stream of <codeph>ByteString</codeph>s. Let's write a wildly inefficient alternative
    that returns a stream of characters.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import Control.Monad.Trans.Resource
 import System.IO
 import Control.Monad.IO.Class (liftIO)

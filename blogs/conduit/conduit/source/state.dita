@@ -11,7 +11,8 @@
    state, since the <codeph>Handle</codeph> itself already has.</note>
   <p>The way we store state in a source is by updating the returned <codeph>Source</codeph> value in
    the <codeph>Open</codeph> constructor. This is best seen with an example.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import Control.Monad.Trans.Resource
 
 -- | Provide data from the list, one element at a time.

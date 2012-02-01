@@ -5,7 +5,8 @@
  <conbody>
   <p>Of course, not all conduits can be declared without state. Doing so on the bare metal is not
    too difficult.</p>
-  <codeblock outputclass="haskell">import Prelude hiding (reverse)
+  <codeblock outputclass="haskell">-- START
+import Prelude hiding (reverse)
 import qualified Data.List
 import Data.Conduit
 import Control.Monad.Trans.Resource
@@ -34,7 +35,8 @@ main :: IO ()
 main = return ()</codeblock>
   <p>But we can do better. Just like <codeph>sourceState</codeph> and <codeph>sinkState</codeph>, we
             have <codeph>conduitState</codeph> to simplify things.</p>
-  <codeblock outputclass="haskell">import Prelude hiding (reverse)
+  <codeblock outputclass="haskell">-- START
+import Prelude hiding (reverse)
 import qualified Data.List
 import Data.Conduit
 

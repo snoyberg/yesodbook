@@ -13,7 +13,8 @@ data Source m a = Source
       of closing a file handle). When you pull, you either get some data and the a new
         <codeph>Source</codeph> (the source is still open), or nothing (the source is closed). Let's
       look at some of the simplest sources:</p>
-  <codeblock outputclass="haskell">import Prelude hiding (repeat)
+  <codeblock outputclass="haskell">-- START
+import Prelude hiding (repeat)
 import Data.Conduit
 
 -- | Never give any data

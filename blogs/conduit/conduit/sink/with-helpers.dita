@@ -5,7 +5,8 @@
  <conbody>
   <p>Let's rewrite <codeph>sinkFile</codeph> and <codeph>count</codeph> to take advantage of the
    helper functions <codeph>sinkIO</codeph> and <codeph>sinkState</codeph>, respectively.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import System.IO
 import Control.Monad.IO.Class (liftIO)
 

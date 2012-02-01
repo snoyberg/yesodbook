@@ -11,7 +11,8 @@
     <codeph>List</codeph> module- both with and without the helper functions- would be a good
    start.</p>
   <p>Let's look at some simple things we can make out of the built-in sinks.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import qualified Data.Conduit.List as CL
 import Control.Monad.IO.Class (liftIO)
 

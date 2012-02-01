@@ -4,7 +4,8 @@
  <title>Simple conduits</title>
  <conbody>
   <p>We'll start off by defining some simple conduits that don't have any state.</p>
-  <codeblock outputclass="haskell">import Prelude hiding (map, concatMap)
+  <codeblock outputclass="haskell">-- START
+import Prelude hiding (map, concatMap)
 import Data.Conduit
 
 -- A simple conduit that just passes on the data as-is.

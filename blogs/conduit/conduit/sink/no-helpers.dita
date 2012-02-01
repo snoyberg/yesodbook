@@ -4,7 +4,8 @@
  <title>Sinks: no helpers</title>
  <conbody>
   <p>Let's try to implement some sinks on the "bare metal", without any helper functions.</p>
-  <codeblock outputclass="haskell">import Data.Conduit
+  <codeblock outputclass="haskell">-- START
+import Data.Conduit
 import System.IO
 import Control.Monad.Trans.Resource
 import Control.Monad.IO.Class (liftIO)
