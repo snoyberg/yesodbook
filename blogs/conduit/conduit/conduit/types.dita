@@ -14,8 +14,7 @@ data Conduit input m output = Conduit
     }</codeblock>
   <p>This should look very similar to what we've seen with sinks. A conduit can be pushed to, in
    which case it returns a result. A result either indicates that it is still producing data, or
-   that it is finished. When a conduit is closed, it returns some more output. And as previously, we
-   have to prepare a conduit before using it.</p>
+   that it is finished. When a conduit is closed, it returns some more output.</p>
   <p>But let's examine the idiosyncracies a bit. Like sinks, we can only push one piece of input at
    a time, and leftover data may be 0 or 1 pieces. However, there are a few changes:</p>
   <ul id="ul_5aaf20d0-ba07-4960-9fbc-c9dd5241843b">
