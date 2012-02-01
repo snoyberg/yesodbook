@@ -59,7 +59,8 @@ import Control.Monad.ST (runST)
 -- resource-friendly file copying.
 --
 -- Two things to note: we use $$ to connect our source to our sink, and then
--- use runResourceT.copyFile :: FilePath -> FilePath -> IO ()
+-- use runResourceT.
+copyFile :: FilePath -> FilePath -> IO ()
 copyFile src dest = runResourceT $ CB.sourceFile src $$ CB.sinkFile dest
 
 
