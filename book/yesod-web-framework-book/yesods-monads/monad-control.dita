@@ -21,7 +21,7 @@
   <note id="x-18">Don't worry too much about the details here. If you're really interested, there's a <xref id="x-19" href="../monad-control-wrapper/monad-control.dita#monad-control" format="dita">whole chapter
     devoted to monad-control</xref>.</note>
   <p id="x-20">monad-control has built in support for a number of the standard monad transformers out there,
-   like ReaderT, WriterT, and StateT. However, there are some transformers for it is impossible to
+   like ReaderT, WriterT, and StateT. However, there are some transformers for which it is impossible to
    provide such support. One example is ContT, for continuations. At some point in the past, Yesod
    used the ContT monad transformers in defining Handler, and switched over to ErrorT for
    specifically this reason.</p>
