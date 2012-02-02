@@ -31,7 +31,7 @@ sum5Raw =
    transfer control to a new conduit. (See the Haddocks for more information.) Then we can turn this
    into a <codeph>Conduit</codeph> using the <codeph>sequenceSink</codeph> function. This function
    also takes some state value that gets passed through to the sink.</p>
-  <p>So we can rewrite <codeph>sum5Raw</codeph> in a much more high-level manor.</p>
+  <p>So we can rewrite <codeph>sum5Raw</codeph> in a much more high-level manner.</p>
   <codeblock outputclass="haskell">sum5 :: Resource m => Conduit Int m Int
 sum5 = sequenceSink () $ \() -> do
     nextSum &lt;- CL.isolate 5 =$ CL.fold (+) 0
