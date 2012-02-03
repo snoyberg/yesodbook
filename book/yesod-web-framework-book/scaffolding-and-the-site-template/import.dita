@@ -12,7 +12,7 @@
      <codeph>Control.Applicative</codeph>, etc) to every handler module.</li>
    <li id="x-7">I want to make sure I never use some evil function (<codeph>head</codeph>,
      <codeph>readFile</codeph>, ...) from <codeph>Prelude</codeph>.<note id="x-8">Yes, evil is
-     hyperbole. If you're wondering why I listed those functions are bad: <codeph id="x-9"
+     hyperbole. If you're wondering why I listed those functions as bad: <codeph id="x-9"
       >head</codeph> is partial, and throws exceptions on an empty list, and <codeph id="x-10"
       >readFile</codeph> uses lazy I/O, which doesn't close file handles quickly enough. Also,
       <codeph>readFile</codeph> uses <codeph>String</codeph> instead of

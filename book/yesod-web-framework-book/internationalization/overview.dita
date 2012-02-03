@@ -24,7 +24,7 @@ toEnglish (MsgUsersLoggedIn i) = "There are " ++ show i ++ " users logged in."</
    Russian, for example, has six different forms, and you need to use some modulus logic to
    determine which one to use.</note>
   <p id="x-10">The downside, however, is that you have to write all of this inside of Haskell, which won't be
-   very translator friendly. To solve this, Yesod introduces the concept of message files. We'll
+   very translator-friendly. To solve this, Yesod introduces the concept of message files. We'll
    cover that in a little bit.</p>
   <p id="x-11">Assuming we have this full set of translation functions, how do we go about using
    them? What we need is a new function to wrap them all up together, and then choose the

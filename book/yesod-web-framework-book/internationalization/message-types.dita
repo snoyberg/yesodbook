@@ -17,7 +17,7 @@ SayAge age@Int: Your age is: #{show age}</codeblock>
   </ol>
   <p id="x-9">So instead, the type specification is only required in the main language file. This is
    specified as the third argument in the <codeph id="x-10">mkMessage</codeph> function. This also specifies
-   what will be the backup language, to be used when none of the languages provided by your
+   what the backup language will be, to be used when none of the languages provided by your
    application match the user's language list.</p>
  </conbody>
 </concept>

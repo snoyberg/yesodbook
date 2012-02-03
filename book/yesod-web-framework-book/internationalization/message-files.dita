@@ -11,7 +11,7 @@
   <note>The scaffolded site already includes a fully configured message folder.</note>
   <p id="x-6">So firstly, a word about language codes. There are really two choices available: using a
    two-letter language code, or a language-LOCALE code. For example, when I load up a page in my web
-   browser, it sends two languages codes: en-US and en. What my browser is saying is "if you have
+   browser, it sends two language codes: en-US and en. What my browser is saying is "if you have
    American English, I like that the most. If you have English, I'll take that instead."</p>
   <p id="x-7">So which format should you use in your application? Most likely two-letter codes,
    unless you are actually creating separate translations by locale. This ensures that someone
