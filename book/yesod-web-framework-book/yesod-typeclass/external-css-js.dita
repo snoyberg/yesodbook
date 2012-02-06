@@ -48,7 +48,7 @@
     cache headers to far in the future without fears of stale content.</li>
    <li id="x-23">Also, since filenames are based on hashes, you can be guaranteed that a file doesn't need to
     be written if a file with the same name already exists. The scaffold code automatically checks
-    for the existance of that file, and avoids the costly disk I/O of a write if it's not
+    for the existence of that file, and avoids the costly disk I/O of a write if it's not
     necessary.</li>
   </ul>
  </conbody>

@@ -15,7 +15,7 @@ instance Yesod Layout where
         setTitle "Request page not located"
         toWidget [hamlet|
 &lt;h1&gt;Not Found
-&lt;p&gt;We appologize for the inconvenience, but the requested page could not be located.
+&lt;p&gt;We apologize for the inconvenience, but the requested page could not be located.
 |]
     errorHandler other = defaultErrorHandler other
 -- STOP
