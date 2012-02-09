@@ -15,6 +15,6 @@
   <p>Forms have significant power available. They can automatically insert Javascript to help you
    leverage nicer UI controls, such as a jQuery UI date picker. Forms are also fully i18n-ready, so
    you can support a global community of users. And when you have more specific needs, you can slap
-   on some valdiation functions to an existing field, or write a new one from scratch.</p>
+   on some validation functions to an existing field, or write a new one from scratch.</p>
  </conbody>
 </concept>

@@ -13,7 +13,7 @@
                 discuss this type at length in the <xref href="../conduit/conduits.dita#conceptId"
                     format="dita">conduits appendix</xref>, but for now, we'll just say it let's you
                 safely allocate resources.</li>
-            <li>By "fake", I mean you can't used the standard <codeph>lift</codeph> function
+            <li>By "fake", I mean you can't use the standard <codeph>lift</codeph> function
                 provided by the <apiname>transformers</apiname> package, you must use the
                 Yesod-supplied one (just like with widgets).</li>
             <li id="x9"><codeph>Handler</codeph> is just a type synonym around

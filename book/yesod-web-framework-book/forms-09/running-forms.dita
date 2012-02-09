@@ -36,6 +36,6 @@
    </dlentry>
   </dl>
   <p id="x19">The return type from the first three is <codeph id="x20">((FormResult a, Widget),
-    Enctype)</codeph>. The <codeph>Widget</codeph> will already have any valdiation errors and
+    Enctype)</codeph>. The <codeph>Widget</codeph> will already have any validation errors and
    previously submitted values.</p>
  </conbody></concept>
