@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Exciting changes coming to conduit 0.2</title>
+ <conbody>
+  <p><b>tl;dr</b>: The new Haddocks are available at: <xref href="http://www.snoyman.com/haddocks/conduit-0.2.0/index.html">http://www.snoyman.com/haddocks/conduit-0.2.0/index.html</xref></p>
+  <p>Even though it's relatively young, <apiname>conduit</apiname> has gotten a lot of real-world
+   usage, and a fair bit of scrutiny. I think we achieved all of our main objectives with the first
+   release, but that doesn't mean we're going to avoid improvements. I asked the community to give
+   their feedback, and here were the main criticisms I've heard:</p>
+  <ol id="ol_yax_pem_cf">
+   <li><codeph>BufferedSource</codeph> doesn't feel quite right. One complaint was the name
+     <codeph>bsourceUnpull</codeph>, but overall people thought it didn't fit in well with the rest
+    of the package.</li>
+   <li>Usage of mutable variables for storing state is suboptimal.</li>
+   <li>The split between <codeph>Source</codeph> and <codeph>PreparedSource</codeph> isn't very
+    nice.</li>
+  </ol>
+  <p>While I won't call the first issue fully resolved, I would say that conduit 0.1 was a big step
+   in the right direction. Instead of exposing all the internals of <codeph>BufferedSource</codeph>,
+   it's now an abstract type. (This <i>does</i> solve the <codeph>bsourceUnpull</codeph> name
+   dislike, though that's obviously a minor point.) Overall, we had a move in dependent packages
+   away from using <codeph>BufferedSource</codeph> in any external APIs. In other words,
+    <codeph>BufferedSource</codeph> is intended purely as an internal tool. For example, in Warp, we
+   use <codeph>BufferedSource</codeph> to parse the request headers, but then convert it back to a
+    <codeph>Source</codeph> to pass to the application for request body reading.</p>
+  <p>I've been opposed to making any changes for the second issue (mutable variables). My belief was
+   that one of the sources of conduits' simplicity relative to enumerators was its usage of mutable
+   state. And in general, I don't believe in changing something until there's hard evidence that
+   it's actually causing problems.</p>
+  <p>Last week, however, Felipe Lessa found one such concrete problem: using
+    <codeph>SequencedSink</codeph> was very slow. Upon investigation, I determined that the problem
+   came from <codeph>Sink</codeph>'s monadic bind implementation. The issue is that for each bind, a
+   new mutable variable was being allocated, and it needed to be checked to determine its state.
+   Unfortunately, having a long chain of binds resulted in exponential complexity, having to check
+    <codeph>N</codeph> variables for each action. This clearly needed to be fixed, but there was no
+   way to do so (that I could see) with the previous types.</p>
+  <p>So I was presented with a dilemna: either continue in the mutable variable path and try to
+   solve the problem, or go in the pure/CPS direction, where I knew a simpler solution existed. The
+   choice was actually pretty easy: go for the pure approach. I had the following reasons:</p>
+  <ul id="ul_jae_fgm_cf">
+   <li>The main motivation to avoid the change to CPS was to keep the simplicity of the current
+    approach. However, I was about to lose that simplicity anyway.</li>
+   <li>Like most Haskellers, I do have an innate dislike for mutable variables.</li>
+   <li>After more work comparing conduits to enumerators, I've come to believe that the main source
+    of confusion in enumerators is that the data producer (<codeph>Enumerator</codeph>) is just a
+    consumer-transformer. Since the essence of <codeph>Source</codeph> would stay the same in CPS, I
+    think that this change does not hinder our simplicity.</li>
+   <li>There was strong reason to believe that GHC would be able to optimize CPS code better than
+    mutable variable code.</li>
+  </ul>
+  <p>So I took the plunge and tried out CPS... and I really like the result! The first change is to
+    <codeph>SourceResult</codeph>'s <codeph>Open</codeph> constructor: instead of just returning a
+   new value, it returns a new value <b>and</b> a new <codeph>Source</codeph>. This allows us to
+   pass our state in that new <codeph>Source</codeph>. There are similar changes to
+    <codeph>SinkResult</codeph> and <codeph>ConduitResult</codeph>. After this, I benchmarked the
+   old and new version, comparing both a monadic-bind-intensive <codeph>Sink</codeph> and a
+    <codeph>Sink</codeph> without any binds. The former had a ten-fold speedup (not surprising due
+   to the decrease in algorithmic complexity), and the latter had a 20% speedup.</p>
+  <p>But that wasn't the end of it. This new approach allows us to get rid of the
+    <codeph>Prepared</codeph> family of types. Let's take the <codeph>sourceFile</codeph> function
+   as an example, which opens a <codeph>Handle</codeph> and reads data from a file. In the old
+   approach, we needed to provide the <codeph>PreparedSource</codeph> with the
+    <codeph>Handle</codeph> in order for the <codeph>PreparedSource</codeph> to read from it.
+   Therefore, we had a <codeph>Source</codeph> which opened the <codeph>Handle</codeph> and passed
+   it to the <codeph>PreparedSource</codeph>. In the new approach, we have a <codeph>Source</codeph>
+   that opens a handle, reads some data, and returns a new <codeph>Source</codeph> that reads from
+   the <codeph>Handle</codeph>.</p>
+  <p>So contrary to my original belief, I think this CPS move actually <i>simplifies</i> conduit
+   greatly.</p>
+  <p>Another, orthogonal change that I put in was better data types in a few places. Previously, if
+   you wanted to use the <codeph>sourceState</codeph> function, and had a pull function that
+   returned <codeph>Closed</codeph>, you needed to provide a dummy state value. (If you look through
+   current <codeph>conduit</codeph> code bases, you'll see a lot of <codeph>error</codeph> calls.)
+   Instead, we now have a specialized data type (<codeph>ConduitStateResult</codeph>, name
+   suggestions welcome) that avoids this need. Internally, I also cleaned up a number of the types
+   to enforce invariants at the type level.</p>
+  <p>Speaking of invariants, the final simplification is that we now have just one invariant ruling
+   over the whole package: never reuse a <codeph>Source</codeph>, <codeph>Sink</codeph>, or
+    <codeph>Conduit</codeph>. After you pull from a <codeph>Source</codeph>, it will give you a new
+    <codeph>Source</codeph>. Do <i>not</i> reuse the original <codeph>Source</codeph>. If you get a
+    <codeph>Closed</codeph> result, there is no new <codeph>Source</codeph>, and therefore you
+   cannot pull again or close the <codeph>Source</codeph>.</p>
+  <p>I encourage everyone to have a look at the <xref
+    href="http://www.snoyman.com/haddocks/conduit-0.2.0/index.html">Haddocks</xref> and give me your
+   feedback.</p>
+  <section><title>When will this be released?</title>Likely some time this week. I don't have any
+   specific changes in mind right now, outside of name adjustments that are suggested by the
+   community.</section>
+  <section>
+   <title>How this affects users</title>
+   <p>Anyone programming against the high-level conduit API exclusively will have no breakage. If
+    you're using functions like <codeph>sourceIO</codeph> or <codeph>sinkState</codeph>, you'll have
+    minimal changes to use the modified datatypes (essentially changing a few constructors and
+    reordering your arguments). If you're coding directly against the low-level types, you'll need
+    to restructure things a bit to pass around continuations.</p>
+   <p>Please email me (or preferably the Haskell cafe) if you want some help on converting old
+    conduit code to this new set of types. For the most part, it's a mechanical process, and I can
+    give lots of examples from the code I've already migrated.</p>
+  </section>
+  <section>
+   <title>How this affects Yesod</title>
+   <p>Yesod 0.10 will be built off of this new-and-improved conduit. In fact, the code is already
+    updated for it. This likely means that the Yesod release will be about a week later than
+    originally anticipated, maybe in the second week of February.</p>
+  </section>
+ </conbody>
+</concept>

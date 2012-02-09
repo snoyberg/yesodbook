@@ -62,7 +62,7 @@ parseRequestLine = do
 main = return ()</codeblock>
   <p>This means that our code will automatically be supplied with more data as it comes in, and any
    extra data will automatically be buffered in the <codeph>Source</codeph>, ready for the next time
-   it's used. Now we can easily structure our program together, demonstrating the pwoer of the
+   it's used. Now we can easily structure our program together, demonstrating the power of the
    conduits approach:</p>
   <codeblock outputclass="haskell">-- START
 import Data.ByteString (ByteString)
