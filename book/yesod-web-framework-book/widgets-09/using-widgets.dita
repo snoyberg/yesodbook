@@ -59,7 +59,6 @@ myLayout widget = do
 |]
 
 instance Yesod MyApp where
-    approot _ = ""
     defaultLayout = myLayout
 -- STOP
 
@@ -122,7 +121,6 @@ myLayout widget = do
 -- STOP
 
 instance Yesod MyApp where
-    approot _ = ""
     defaultLayout = myLayout
 
 main = warpDebug 3000 MyApp</codeblock>

@@ -143,7 +143,7 @@ we configure various settings.
 The base of our application. Note that in order to make BrowserID work
 properly, this must be a valid URL.
 
->     approot _ = "http://localhost:3000"
+>     approot = ApprootStatic "http://localhost:3000"
 
 Our authorization scheme. We want to have the following rules:
 

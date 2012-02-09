@@ -22,8 +22,6 @@ mkYesod "Slash" [parseRoutes|
 |]
 
 instance Yesod Slash where
-    approot _ = ""
-
     joinPath _ ar pieces' qs' =
         fromText ar `mappend` encodePath pieces qs
       where

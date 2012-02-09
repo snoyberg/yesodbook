@@ -28,6 +28,6 @@ handleDateR year month day =
 getWikiR :: [Text] -&gt; Handler RepPlain
 getWikiR = return . RepPlain . toContent . T.unwords
 -- STOP
-instance Yesod Args where approot _ = ""
+instance Yesod Args
 main = warpDebug 3000 Args
 </codeblock><p id="arguments2">The arguments have the types of the dynamic pieces for each route, in the order specified. Also, notice how we are able to use both <codeph id="x2">RepHtml</codeph> and <codeph id="x3">RepPlain</codeph>.</p></conbody></concept>

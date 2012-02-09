@@ -51,8 +51,7 @@ mkYesod "Searcher" [parseRoutes|
 /search/xmlpipe XmlpipeR GET
 |]
 
-instance Yesod Searcher where
-    approot _ = ""
+instance Yesod Searcher
 
 instance YesodPersist Searcher where
     type YesodPersistBackend Searcher = SqlPersist
@@ -303,8 +302,7 @@ mkYesod "Searcher" [parseRoutes|
 /search/xmlpipe XmlpipeR GET
 |]
 
-instance Yesod Searcher where
-    approot _ = ""
+instance Yesod Searcher
 
 instance YesodPersist Searcher where
     type YesodPersistBackend Searcher = SqlPersist
@@ -556,8 +554,7 @@ mkYesod "Searcher" [parseRoutes|
 /search/xmlpipe XmlpipeR GET
 |]
 
-instance Yesod Searcher where
-    approot _ = ""
+instance Yesod Searcher
 
 instance YesodPersist Searcher where
     type YesodPersistBackend Searcher = SqlPersist

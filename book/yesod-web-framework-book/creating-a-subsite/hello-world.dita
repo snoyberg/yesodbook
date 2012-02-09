@@ -28,8 +28,7 @@ mkYesod "Master" [parseRoutes|
 /subsite SubsiteR HelloSub getHelloSub
 |]
 
-instance Yesod Master where
-    approot _ = ""
+instance Yesod Master
 
 -- Spelling out type signature again.
 getRootR :: GHandler sub Master RepHtml -- could also replace sub with Master

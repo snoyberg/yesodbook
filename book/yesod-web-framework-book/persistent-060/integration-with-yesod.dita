@@ -34,8 +34,7 @@ mkYesod "PersistTest" [parseRoutes|
 |]
 
 -- Nothing special here
-instance Yesod PersistTest where
-    approot _ = ""
+instance Yesod PersistTest
 
 -- Now we need to define a YesodPersist instance, which will keep track of
 -- which backend we're using and how to run an action.

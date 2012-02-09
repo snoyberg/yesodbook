@@ -14,7 +14,7 @@ getHomeR :: Handler RepHtml
 getHomeR = defaultLayout [whamlet|&lt;h1&gt;This is simple
 |]
 -- STOP
-instance Yesod Simple where approot _ = ""
+instance Yesod Simple
 main = warpDebug 3000 Simple
 </codeblock><p id="dispatch3">Look at the type signature of <codeph>getHomeR</codeph>. The first component is
                 <codeph id="x-3">Handler</codeph>. <codeph>Handler</codeph> is a special monad that

@@ -35,8 +35,7 @@ mkYesod "Input" [parseRoutes|
 /input InputR GET
 |]
 
-instance Yesod Input where
-    approot _ = ""
+instance Yesod Input
 
 instance RenderMessage Input FormMessage where
     renderMessage _ _ = defaultFormMessage

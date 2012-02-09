@@ -46,8 +46,7 @@ mkYesod "Password" [parseRoutes|
 / RootR GET
 |]
 
-instance Yesod Password where
-    approot _ = ""
+instance Yesod Password
 
 instance RenderMessage Password FormMessage where
     renderMessage _ _ = defaultFormMessage

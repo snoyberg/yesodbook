@@ -24,7 +24,7 @@ instance PathPiece Natural where
 mkYesod "Fibs" [parseRoutes|
 /fibs/#Natural FibsR GET
 |]
-instance Yesod Fibs where approot _ = ""
+instance Yesod Fibs
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 getFibsR :: Natural -&gt; GHandler Fibs Fibs RepPlain
 getFibsR (Natural i) = return $ RepPlain $ toContent $ show $ fibs !! (i - 1)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="summary"><title id="x-1">Summary</title><conbody id="x-2"><p id="s1">The Yesod typeclass has a number of overrideable methods that allow you to configure your
-            application. Besides <codeph>approot</codeph>, they are all optional, and provide
+            application. They are all optional, and provide
             sensible defaults. By using built-in Yesod constructs like
                 <codeph>defaultLayout</codeph> and <codeph>getMessage</codeph>, you'll get a
             consistent look-and-feel throughout your site, including pages automatically generated

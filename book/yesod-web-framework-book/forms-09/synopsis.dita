@@ -15,8 +15,7 @@ mkYesod "Synopsis" [parseRoutes|
 /person PersonR POST
 |]
 
-instance Yesod Synopsis where
-    approot _ = ""
+instance Yesod Synopsis
 
 -- Tells our application to use the standard English messages.
 -- If you want i18n, then you can supply a translating function instead.

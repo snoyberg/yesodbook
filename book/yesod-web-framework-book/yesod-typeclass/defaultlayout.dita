@@ -16,7 +16,6 @@ import Yesod
 data Layout = Layout
 mkYesod "Layout" [parseRoutes|/ RootR GET|]
 instance Yesod Layout where
-    approot _ = ""
 -- START
     defaultLayout contents = do
         PageContent title headTags bodyTags &lt;- widgetToPageContent $ do

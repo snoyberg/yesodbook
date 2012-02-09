@@ -24,7 +24,6 @@ mkYesod "Messages" [parseRoutes|
 |]
 
 instance Yesod Messages where
-    approot _ = ""
     defaultLayout widget = do
         pc &lt;- widgetToPageContent widget
         mmsg &lt;- getMessage

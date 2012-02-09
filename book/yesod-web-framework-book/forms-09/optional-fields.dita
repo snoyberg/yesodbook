@@ -18,8 +18,7 @@ mkYesod "Synopsis" [parseRoutes|
 /car CarR GET
 |]
 
-instance Yesod Synopsis where
-    approot _ = ""
+instance Yesod Synopsis
 
 -- Necessary for i18n. The default function uses English.
 instance RenderMessage Synopsis FormMessage where
@@ -78,8 +77,7 @@ mkYesod "Synopsis" [parseRoutes|
 /car CarR GET
 |]
 
-instance Yesod Synopsis where
-    approot _ = ""
+instance Yesod Synopsis
 
 -- Necessary for i18n. The default function uses English.
 instance RenderMessage Synopsis FormMessage where

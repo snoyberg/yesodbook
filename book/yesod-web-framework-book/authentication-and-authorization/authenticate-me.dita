@@ -25,7 +25,7 @@ mkYesod "MyAuthSite" [parseRoutes|
 instance Yesod MyAuthSite where
     -- Note: In order to log in with BrowserID, you must correctly
     -- set your hostname here.
-    approot _ = "http://localhost:3000"
+    approot = ApprootStatic "http://localhost:3000"
 
 instance YesodAuth MyAuthSite where
     type AuthId MyAuthSite = Text

@@ -21,7 +21,6 @@ mkYesod "Layout" [parseRoutes|
 /msg MsgR GET
 |]
 instance Yesod Layout where
-    approot _ = ""
 -- START
     defaultLayout contents = do
         PageContent title headTags bodyTags &lt;- widgetToPageContent contents

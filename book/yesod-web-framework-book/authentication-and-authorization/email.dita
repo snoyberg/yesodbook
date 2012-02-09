@@ -62,7 +62,7 @@ mkYesod "MyEmailApp" [parseRoutes|
 instance Yesod MyEmailApp where
     -- Emails will include links, so be sure to include an approot so that
     -- the links are valid!
-    approot _ = "http://localhost:3000"
+    approot = ApprootStatic "http://localhost:3000"
 
 instance RenderMessage MyEmailApp FormMessage where
     renderMessage _ _ = defaultFormMessage

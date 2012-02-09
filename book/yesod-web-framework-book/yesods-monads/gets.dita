@@ -31,8 +31,7 @@ mkYesod "People" [parseRoutes|
 / RootR GET
 |]
 
-instance Yesod People where
-    approot _ = ""
+instance Yesod People
 
 instance RenderMessage People FormMessage where
     renderMessage _ _ = defaultFormMessage

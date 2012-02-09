@@ -26,8 +26,7 @@ mkYesod "Monadic" [parseRoutes|
 / RootR GET
 |]
 
-instance Yesod Monadic where
-    approot _ = ""
+instance Yesod Monadic
 
 instance RenderMessage Monadic FormMessage where
     renderMessage _ _ = defaultFormMessage

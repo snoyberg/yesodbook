@@ -9,7 +9,6 @@ import Yesod
 data Layout = Layout
 mkYesod "Layout" [parseRoutes|/ RootR GET|]
 instance Yesod Layout where
-    approot _ = ""
 -- START
     errorHandler NotFound = fmap chooseRep $ defaultLayout $ do
         setTitle "Request page not located"
@@ -30,7 +29,6 @@ import Yesod
 data Layout = Layout
 mkYesod "Layout" [parseRoutes|/ RootR GET|]
 instance Yesod Layout where
-    approot _ = ""
 -- START
     errorHandler NotFound = redirect RootR
     errorHandler other = defaultErrorHandler other

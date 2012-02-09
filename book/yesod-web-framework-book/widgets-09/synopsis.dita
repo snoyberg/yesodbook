@@ -10,8 +10,7 @@ import Yesod
 
 data W = W
 
-instance Yesod W where
-    approot _ = ""
+instance Yesod W
 
 mkYesod "W" [parseRoutes|
 / RootR GET

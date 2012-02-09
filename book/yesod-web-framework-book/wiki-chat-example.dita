@@ -213,7 +213,6 @@ mkYesod "Wiki" [parseRoutes|
 |]
 
 instance Yesod Wiki where
-    approot _ = ""
     authRoute _ = Just $ AuthR LoginR -- get a working login link
 
     -- Our custom defaultLayout will add the chat widget to every page.

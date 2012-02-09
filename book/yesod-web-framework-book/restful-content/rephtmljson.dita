@@ -12,8 +12,7 @@ mkYesod "R" [parseRoutes|
 / RootR GET
 /#String NameR GET
 |]
-instance Yesod R where
-    approot _ = ""
+instance Yesod R
 
 getRootR = defaultLayout $ do
     setTitle "Homepage"

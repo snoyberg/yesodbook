@@ -27,8 +27,6 @@ mkYesod "MyAuthSite" [parseRoutes|
 |]
 
 instance Yesod MyAuthSite where
-    approot _ = ""
-
     authRoute _ = Just $ AuthR LoginR
 
     -- route name, then a boolean indicating if it's a write request

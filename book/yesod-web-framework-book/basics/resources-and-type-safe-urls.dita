@@ -14,8 +14,7 @@ mkYesod "Links" [parseRoutes|
 /page2 Page2R GET
 |]
 
-instance Yesod Links where
-    approot _ = ""
+instance Yesod Links
 
 getHomeR  = defaultLayout [whamlet|&lt;a href=@{Page1R}&gt;Go to page 1!|]
 getPage1R = defaultLayout [whamlet|&lt;a href=@{Page2R}&gt;Go to page 2!|]

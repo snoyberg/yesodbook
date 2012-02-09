@@ -32,8 +32,7 @@ mkYesod "Links" [parseRoutes|
 /add-link AddLinkR POST
 |]
 
-instance Yesod Links where
-    approot _ = ""
+instance Yesod Links
 
 instance RenderMessage Links FormMessage where
     renderMessage _ _ = defaultFormMessage

@@ -11,8 +11,7 @@ mkYesod "HelloWorld" [parseRoutes|
 / HomeR GET
 |]
 
-instance Yesod HelloWorld where
-    approot _ = ""
+instance Yesod HelloWorld
 
 getHomeR :: Handler RepHtml
 getHomeR = defaultLayout [whamlet|Hello World!|]

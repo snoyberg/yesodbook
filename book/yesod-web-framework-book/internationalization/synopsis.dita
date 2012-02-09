@@ -32,8 +32,7 @@ plural _ _ y = y
 showInt :: Int -&gt; String
 showInt = show
 
-instance Yesod I18N where
-    approot _ = ""
+instance Yesod I18N
 
 instance RenderMessage I18N FormMessage where
     renderMessage _ _ = defaultFormMessage

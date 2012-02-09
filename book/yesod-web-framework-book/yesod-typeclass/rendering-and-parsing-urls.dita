@@ -12,15 +12,15 @@
             break one of our RESTful principles: depending on how the user submitted a request would
             generate different URLs. For example, we would generate different URLs depending if the
             user connected to "example.com" or "www.example.com".</p><p id="rpu4">And finally, Yesod doesn't make any assumption about <i id="x4">where</i> you host your application. For example, I may have a mostly static site (http://static.example.com/), but I'd like to stick a Yesod-powered Wiki at /wiki/. There is no reliable way for an application to determine what subpath it is being hosted from. So instead of doing all of this guesswork, Yesod needs you to tell it the <term id="x5">application root</term>.</p><p id="rpu5">Using the wiki example, you would write your <codeph>Yesod</codeph> instance as:</p><codeblock outputclass="haskell" id="x6">instance Yesod MyWiki where
-    approot _ = "http://static.example.com/wiki"</codeblock><p id="rpu6">Notice that there is no trailing slash there. Next, when Yesod wants to construct a URL
+    approot _ = "http://static.example.com/wiki" -- FIXME this is out-of-date</codeblock><p id="rpu6">Notice that there is no trailing slash there. Next, when Yesod wants to construct a URL
             for <codeph>SomePathR</codeph>, it determines that the relative path for
                 <codeph>SomePathR</codeph> is <codeph>/some/path</codeph>, appends that to your
-            approot and creates <codeph>http://static.example.com/wiki/some/path</codeph>.</p><p id="rpu7">This also explains our cryptic <codeph id="x7">approot _ = ""</codeph>: for our
+            approot and creates <codeph>http://static.example.com/wiki/some/path</codeph>.</p><p id="rpu7">This also explains our cryptic <codeph id="x7">approot _ = ""</codeph> FIXME: for our
             examples in the book, we're always serving from the root of the domain (in our case,
                 <codeph>localhost</codeph>). By using an empty string, <codeph>SomePathR</codeph>
             renders to <codeph>/some/path</codeph>, which works just fine. In real life
             applications, however, you should use a real application root.</p>
-<note id="x13">The first argument to <codeph>approot</codeph> is the site foundation. This means
+<note id="x13">The first argument to <codeph>approot</codeph> FIXME is the site foundation. This means
             that you could load your approot at program initialization, store it in the foundation,
             and then retrieve it. This is in fact what the scaffolded site does, using a YAML config
             file.</note>

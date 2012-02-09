@@ -34,7 +34,6 @@ postRoot = do
     redirect Root
 
 instance Yesod Session where
-    approot _ = ""
     clientSessionDuration _ = 1
 
 instance RenderMessage Session FormMessage where
