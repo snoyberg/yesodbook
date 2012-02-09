@@ -29,7 +29,7 @@ renderEnglish (Apples 0) = "You did not buy any apples."
 renderEnglish (Apples 1) = "You bought 1 apple."
 renderEnglish (Apples i) = T.concat ["You bought ", T.pack $ show i, " apples."]</codeblock>Now
    we want to interpolate those Msg values directly in the template. For that, we use underscore
-   interpolation.<codeblock outputclass="hamlet" id="x15">!!!
+   interpolation.<codeblock outputclass="hamlet" id="x15">$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;i18n
@@ -71,7 +71,7 @@ renderEnglish (Apples i) = T.concat ["You bought ", T.pack $ show i, " apples."]
 
 template :: Int -&gt; HtmlUrlI18n Msg MyRoute
 template count = [ihamlet|
-!!!
+$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;i18n

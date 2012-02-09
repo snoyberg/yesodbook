@@ -46,7 +46,7 @@ myLayout :: GWidget s MyApp () -&gt; GHandler s MyApp RepHtml
 myLayout widget = do
     pc &lt;- widgetToPageContent widget
     hamletToRepHtml [hamlet|
-!!!
+$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;#{pageTitle pc}
@@ -108,7 +108,7 @@ myLayout widget = do
         widget
         toWidget [lucius| body { font-family: verdana } |]
     hamletToRepHtml [hamlet|
-!!!
+$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;#{pageTitle pc}

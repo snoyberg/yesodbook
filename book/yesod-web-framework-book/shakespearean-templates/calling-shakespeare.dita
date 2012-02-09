@@ -52,7 +52,7 @@ render Stylesheet _ = "/style.css"
 
 template :: Text -&gt; HtmlUrl MyRoute
 template title = [hamlet|
-!!!
+$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;#{title}

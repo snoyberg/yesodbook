@@ -28,7 +28,7 @@ instance Yesod Messages where
         pc &lt;- widgetToPageContent widget
         mmsg &lt;- getMessage
         hamletToRepHtml [hamlet|
-!!!
+$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;#{pageTitle pc}
