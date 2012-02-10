@@ -10,8 +10,9 @@
             example, we create a response using the <codeph id="x-6">defaultLayout</codeph>
             function. This function wraps up the content it's given in your site's template. By
             default, it produces an HTML file with a doctype and <codeph id="x-16">html</codeph>,
-                <codeph id="x-17">head</codeph> and <codeph id="x-18">body</codeph> tags. <xref id="x1" href="../yesod-typeclass/yesod-typeclass.dita">As we'll see later</xref>, this
-            function can be overridden to do much more.</p><p id="handler2">In our example, we pass <codeph id="x2">[whamlet|Hello World!|]</codeph> to
+                <codeph id="x-17">head</codeph> and <codeph id="x-18">body</codeph> tags. As we'll
+            see in the <xref id="x1" href="../yesod-typeclass/yesod-typeclass.dita">Yesod typeclass
+                chapter</xref>, this function can be overridden to do much more.</p><p id="handler2">In our example, we pass <codeph id="x2">[whamlet|Hello World!|]</codeph> to
                 <codeph id="x-7">defaultLayout</codeph>. <codeph id="x-8">whamlet</codeph> is another quasi-quoter. In
             this case, it converts Hamlet syntax into a Widget. Hamlet is the default HTML
             templating engine in Yesod. Together with its siblings Cassius, Lucius and Julius, you
