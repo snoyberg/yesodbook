@@ -12,9 +12,9 @@
    more straight-forward solution in <apiname id="x6">monad-peel</apiname>. And for efficiency, in
     <apiname id="x7">monad-control</apiname>, Bas van Dijk uses CPS (continuation passing style) and
    existential types.</p>
-  <note>The code taken from monad-control actually applies to version 0.2. 0.3 changed things just a
+  <note id="x-3">The code taken from monad-control actually applies to version 0.2. 0.3 changed things just a
    bit, by making the state explicit with an associated type, and generalizing
-    <codeph>MonadControlIO</codeph> to <codeph>MonadBaseControl</codeph>, but the concepts are still
+    <codeph id="x-4">MonadControlIO</codeph> to <codeph id="x-5">MonadBaseControl</codeph>, but the concepts are still
    the same.</note>
   <p id="x8">The first type we're going to look at
    is:<codeblock id="x9" outputclass="haskell">type Run t = forall n o b. (Monad n, Monad o, Monad (t o)) =&gt; t n b -&gt; n (t o b)</codeblock>That's

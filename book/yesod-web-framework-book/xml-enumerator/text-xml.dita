@@ -3,14 +3,12 @@
 <concept id="conceptId">
  <title id="x-1">Text.XML</title>
  <conbody id="x-2">
-  <p id="x-3">The recommended entry point to xml-conduit is the <apiname id="x-4"
-    >xml-conduit:Text.XML</apiname> module. This module exports all of the datatypes you'll need to
+  <p id="x-3">The recommended entry point to xml-conduit is the <apiname id="x-4">xml-conduit:Text.XML</apiname> module. This module exports all of the datatypes you'll need to
    manipulate XML in a DOM fashion, as well as a number of different approaches for parsing and
    rendering XML content. Let's start with the simple
    ones:<codeblock id="x-5" outputclass="haskell">readFile  :: ParseSettings  -&gt; FilePath -&gt; IO Document
 writeFile :: RenderSettings -&gt; FilePath -&gt; Document -&gt; IO ()</codeblock>This
-   introduces the <codeph id="x-6">ParseSettings</codeph> and <codeph id="x-7"
-    >RenderSettings</codeph> datatypes. You can use these to modify the behavior of the parser and
+   introduces the <codeph id="x-6">ParseSettings</codeph> and <codeph id="x-7">RenderSettings</codeph> datatypes. You can use these to modify the behavior of the parser and
    renderer, such as adding character entities and turning on pretty (i.e., indented) output. Both
    these types are instances of the <apiname id="x-8">data-default:Data.Default:Default</apiname>
    typeclass, so you can simply use <codeph id="x-9">def</codeph> when these need to be supplied.
@@ -21,7 +19,7 @@ writeFile :: RenderSettings -&gt; FilePath -&gt; Document -&gt; IO ()</codeblock
    detections, and support UTF-8, UTF-16 and UTF-32, in either big or little endian, with and
    without a Byte-Order Marker (BOM). All output is generated in UTF-8.</p>
   <p id="x-15">For complex data lookups, we recommend using the higher-level cursors API. The
-   standard <codeph>Text.XML</codeph> API not only forms the basis for that higher level, but is
+   standard <codeph id="x-10">Text.XML</codeph> API not only forms the basis for that higher level, but is
    also a great API for simple XML transformations and for XML generation. See the synopsis for an
    example.</p>
  </conbody>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Case</title>
- <conbody>
-  <p>Pattern matching is one of the great strengths of Haskell. Sum types let you cleanly model many
-   real-world types, and <codeph>case</codeph> statements let you safely match, letting the compiler
+ <title id="x-1">Case</title>
+ <conbody id="x-2">
+  <p id="x-3">Pattern matching is one of the great strengths of Haskell. Sum types let you cleanly model many
+   real-world types, and <codeph id="x-4">case</codeph> statements let you safely match, letting the compiler
    warn you if you missed a case. Hamlet gives you the same power.</p>
-  <codeblock outputclass="hamlet">$case foo
+  <codeblock id="x-5" outputclass="hamlet">$case foo
     $of Left bar
-        &lt;p>It was left: #{bar}
+        &lt;p&gt;It was left: #{bar}
     $of Right baz
-        &lt;p>It was right: #{baz}</codeblock>
+        &lt;p&gt;It was right: #{baz}</codeblock>
  </conbody>
 </concept>

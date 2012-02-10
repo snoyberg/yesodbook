@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="optional-fields"><title id="x-1">Optional fields</title><conbody id="x-2">  <p id="x1">Suppose we wanted to have an optional field (like the car color). All we do instead is
-            use the <codeph>aopt</codeph> function.</p>
+            use the <codeph id="x-3">aopt</codeph> function.</p>
   <fig id="x2">
    <title id="x3">Optional fields</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,

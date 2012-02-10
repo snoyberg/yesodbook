@@ -9,9 +9,9 @@
    case, you'll want input forms.</p>
   <p id="x-4">These work mostly the same as applicative and monadic forms, with some differences:</p>
   <ul id="ul_e3c4dff2-c3cd-4ba1-b146-3841e6018b14">
-   <li id="x-5">You use <codeph>runInputPost</codeph> and <codeph>runInputGet</codeph>.</li>
-   <li id="x-6">You use <codeph>ireq</codeph> and <codeph>iopt</codeph>. These functions now only
-    take two arguments: the field type and the name (i.e., HTML <codeph>name</codeph> attribute) of
+   <li id="x-5">You use <codeph id="x-11">runInputPost</codeph> and <codeph id="x-12">runInputGet</codeph>.</li>
+   <li id="x-6">You use <codeph id="x-13">ireq</codeph> and <codeph id="x-14">iopt</codeph>. These functions now only
+    take two arguments: the field type and the name (i.e., HTML <codeph id="x-15">name</codeph> attribute) of
     the field in question.</li>
    <li id="x-7">After running a form, it returns the value. It doesn't return a widget or an
                 encoding type.</li>

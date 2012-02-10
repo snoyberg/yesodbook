@@ -17,6 +17,6 @@
         <topicref id="monadic" href="forms-09/monadic.dita"/>
         <topicref id="input" href="forms-09/input.dita"/>
         <topicref id="custom" href="forms-09/custom.dita"/>
-        <topicref href="forms-09/summary.dita"/>
+        <topicref id="x-2" href="forms-09/summary.dita"/>
     </topicref>
 </map>

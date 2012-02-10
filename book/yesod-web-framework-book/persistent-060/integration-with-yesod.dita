@@ -6,8 +6,8 @@
             But as we normally do, we'll build up everything manually here to point out how it works
             under the surface.</p>
   <p id="x2">The <apiname id="x3">yesod-persistent</apiname> package provides the meeting point
-            between Persistent and Yesod. It provides the <codeph>YesodPersist</codeph> typeclass,
-            which standardizes access to the database via the <codeph>runDB</codeph> method. Let's
+            between Persistent and Yesod. It provides the <codeph id="x-3">YesodPersist</codeph> typeclass,
+            which standardizes access to the database via the <codeph id="x-4">runDB</codeph> method. Let's
             see this in action.</p>
   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, FlexibleContexts #-}
 {-# LANGUAGE TemplateHaskell, OverloadedStrings, GADTs, MultiParamTypeClasses #-}
@@ -60,13 +60,13 @@ main = withSqlitePool "test.db3" openConnectionCount $ \pool -&gt; do
     runSqlPool (runMigration migrateAll) pool
     runSqlPool (insert $ Person "Michael" "Snoyman" 26) pool
     warpDebug 3000 $ PersistTest pool</codeblock>
-  <p id="x5">There are two important pieces here for general use. <codeph>runDB</codeph> is used to
-            run a DB action from within a <codeph>Handler</codeph>. Within the
-                <codeph>runDB</codeph>, you can use any of the functions we've spoken about so far,
-            such as <codeph>insert</codeph> and <codeph>selectList</codeph>.</p>
-  <p id="x6">The other new feature is <codeph>get404</codeph>. It works just like
-                <codeph>get</codeph>, but instead of returning a <codeph>Nothing</codeph> when a
-            result can't be found, it returns a 404 message page. The <codeph>getPersonR</codeph>
+  <p id="x5">There are two important pieces here for general use. <codeph id="x-5">runDB</codeph> is used to
+            run a DB action from within a <codeph id="x-6">Handler</codeph>. Within the
+                <codeph id="x-7">runDB</codeph>, you can use any of the functions we've spoken about so far,
+            such as <codeph id="x-8">insert</codeph> and <codeph id="x-9">selectList</codeph>.</p>
+  <p id="x6">The other new feature is <codeph id="x-10">get404</codeph>. It works just like
+                <codeph id="x-11">get</codeph>, but instead of returning a <codeph id="x-12">Nothing</codeph> when a
+            result can't be found, it returns a 404 message page. The <codeph id="x-13">getPersonR</codeph>
             function is a very common approach used in real-world Yesod applications:
-                <codeph>get404</codeph> a value and then return a response based on it.</p>
+                <codeph id="x-14">get404</codeph> a value and then return a response based on it.</p>
  </conbody></concept>

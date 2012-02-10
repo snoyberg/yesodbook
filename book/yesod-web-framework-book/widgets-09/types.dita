@@ -3,12 +3,12 @@
 <concept id="types"><title id="x-1">Types</title><conbody id="x-2">
   <p id="x1">You may have noticed that I've been avoiding type signatures so far. That's because
    there's a little bit of a complication involved here. At the most basic level, all you need to
-   know is that there's a type synonym called <codeph>Widget</codeph> which you will almost always
+   know is that there's a type synonym called <codeph id="x-3">Widget</codeph> which you will almost always
    use. The technical details follow, but don't worry if it's a little hazy.</p>
-  <p>There isn't actually a <codeph>Widget</codeph> type defined in the Yesod libraries, since the
-   exact meaning of it changes between sites. Instead, we have a more general type <codeph>GWidget
+  <p id="x-4">There isn't actually a <codeph id="x-5">Widget</codeph> type defined in the Yesod libraries, since the
+   exact meaning of it changes between sites. Instead, we have a more general type <codeph id="x-6">GWidget
     sub master a</codeph>. The first two parameters give the sub and master foundation types,
-   respectively. The final parameter is the contained value, just like any <codeph>Monad</codeph>
+   respectively. The final parameter is the contained value, just like any <codeph id="x-7">Monad</codeph>
    has.</p>
   <p id="x7">So what's the deal with that sub/master stuff? Well, when you're writing some reusable code,
    such as a CRUD application, you can write it as a subsite that can be embedded within any other
@@ -36,19 +36,19 @@ page = [whamlet|
 ^{footer}
 |]</codeblock>
   <p id="x11">If you've been paying close attention, you might be confused. We used
-    <codeph>lift</codeph> before on <codeph>Widget</codeph>, but <codeph>GWidget</codeph> isn't
+    <codeph id="x-8">lift</codeph> before on <codeph id="x-9">Widget</codeph>, but <codeph id="x-10">GWidget</codeph> isn't
    actually a monad transformer. What's going on here? Well, in older versions of Yesod, it
-    <i>was</i> a transformer around the <codeph>Handler</codeph> type. Unfortunately, this led to
-   difficult-to-parse error messages. As a result, <codeph>GWidget</codeph> is now a
-    <codeph>newtype</codeph> wrapper that hides away its monad-transformer essence. But we still
-   want to be able to <codeph>lift</codeph> functions from the inner <codeph>Handler</codeph>
+    <i id="x-11">was</i> a transformer around the <codeph id="x-12">Handler</codeph> type. Unfortunately, this led to
+   difficult-to-parse error messages. As a result, <codeph id="x-13">GWidget</codeph> is now a
+    <codeph id="x-14">newtype</codeph> wrapper that hides away its monad-transformer essence. But we still
+   want to be able to <codeph id="x-15">lift</codeph> functions from the inner <codeph id="x-16">Handler</codeph>
    monad.</p>
-  <p>To solve this, Yesod provides an alternate, more general <codeph>lift</codeph> function that
-   works for both standard <codeph>MonadTrans</codeph> instances, and special
-    <codeph>newtype</codeph> wrappers like <codeph>GWidget</codeph>. As a result, you can pretend
-   like <codeph>GWidget</codeph> is a standard transformer, while still getting to keep your nice
+  <p id="x-17">To solve this, Yesod provides an alternate, more general <codeph id="x-18">lift</codeph> function that
+   works for both standard <codeph id="x-19">MonadTrans</codeph> instances, and special
+    <codeph id="x-20">newtype</codeph> wrappers like <codeph id="x-21">GWidget</codeph>. As a result, you can pretend
+   like <codeph id="x-22">GWidget</codeph> is a standard transformer, while still getting to keep your nice
    error message.</p>
-  <p>One last point: just like we have the breakdown between <codeph>Widget</codeph> and
-    <codeph>GWidget</codeph>, we have a similar breakdown between <codeph>Handler</codeph> and
-    <codeph>GHandler</codeph>.</p>
+  <p id="x-23">One last point: just like we have the breakdown between <codeph id="x-24">Widget</codeph> and
+    <codeph id="x-25">GWidget</codeph>, we have a similar breakdown between <codeph id="x-26">Handler</codeph> and
+    <codeph id="x-27">GHandler</codeph>.</p>
  </conbody></concept>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="queries"><title id="x-1">Queries</title><conbody id="x-2">
-        <p>Depending on what your goal is, there are different approaches to querying the database.
+        <p id="x-3">Depending on what your goal is, there are different approaches to querying the database.
             Some commands query based on a numeric ID, while others will filter. Queries also differ
             in the number of results they return: some lookups should return no more than one result
             (if the lookup key is unique) while others can return many results.</p>
-        <p>Persistent therefore provides a few different query functions. As usual, we try to encode
+        <p id="x-4">Persistent therefore provides a few different query functions. As usual, we try to encode
             as many invariants in the types as possible. For example, a query that can return only 0
-            or 1 results will use a <codeph>Maybe</codeph> wrapper, whereas a query returning many
+            or 1 results will use a <codeph id="x-5">Maybe</codeph> wrapper, whereas a query returning many
             results will return a list.</p>
     </conbody></concept>

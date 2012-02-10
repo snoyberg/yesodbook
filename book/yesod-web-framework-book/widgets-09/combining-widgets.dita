@@ -4,7 +4,7 @@
   <p id="x1">The whole idea of widgets is to increase composability. You can take these individual
    pieces of HTML, CSS and Javascript, combine them together into something more complicated, and
    then combine these larger entities into complete pages. This all works naturally through the
-    <codeph>Monad</codeph> instance of <codeph>Widget</codeph>, meaning you can use do-notation to
+    <codeph id="x-3">Monad</codeph> instance of <codeph id="x-4">Widget</codeph>, meaning you can use do-notation to
    compose pieces together.</p>
   <fig id="x2">
    <title id="x3">Combining Widgets</title>
@@ -23,8 +23,8 @@ myWidget = do
 -- or, if you want
 myWidget' = myWidget1 &gt;&gt; myWidget2</codeblock>
   </fig>
-  <note id="x5">If you're so inclined, there's also a <codeph>Monoid</codeph> instance of
-    <codeph>Widget</codeph>, meaning you can use <codeph>mconcat</codeph> or a
-    <codeph>Writer</codeph> monad to build things up. In my experience, it's easiest and most
+  <note id="x5">If you're so inclined, there's also a <codeph id="x-5">Monoid</codeph> instance of
+    <codeph id="x-6">Widget</codeph>, meaning you can use <codeph id="x-7">mconcat</codeph> or a
+    <codeph id="x-8">Writer</codeph> monad to build things up. In my experience, it's easiest and most
    natural to just use do-notation.</note>
  </conbody></concept>

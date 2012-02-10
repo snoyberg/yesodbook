@@ -16,10 +16,10 @@
    <li id="x-14"><filepath id="x-15">templates/homepage.julius</filepath></li>
   </ul>
   <p id="x-16">If any of those files are present, they will be automatically included in the output.</p>
-  <note id="x-17">Due to the nature of how this works, if you launch your app with <cmdname>yesod
+  <note id="x-17">Due to the nature of how this works, if you launch your app with <cmdname id="x-19">yesod
     devel</cmdname>, and then create a new file (e.g.,
-    <filepath>templates/homepage.julius</filepath>), the contents will <i id="x-18">not</i> be
-   included until the file calling <codeph>widgetFile</codeph> is recompiled. In such a case, you
-   may need to force a save of that file to get <cmdname>yesod devel</cmdname> to recompile.</note>
+    <filepath id="x-20">templates/homepage.julius</filepath>), the contents will <i id="x-18">not</i> be
+   included until the file calling <codeph id="x-21">widgetFile</codeph> is recompiled. In such a case, you
+   may need to force a save of that file to get <cmdname id="x-22">yesod devel</cmdname> to recompile.</note>
  </conbody>
 </concept>

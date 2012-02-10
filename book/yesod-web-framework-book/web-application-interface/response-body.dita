@@ -5,15 +5,13 @@
             When serving thousands of small files a second, the limiting factor is not memory, but
             file handles. Using lazy I/O, file handles may not be freed immediately, leading to
             resource exhaustion. To deal with this, WAI uses <term id="x1">conduits</term>.</p>
-        <note>Versions of WAI before 1.0 used enumerators in place of conduits. While both conduits
+        <note id="x-3">Versions of WAI before 1.0 used enumerators in place of conduits. While both conduits
             and enumerators solve the same basic problem, experience showed that enumerators were
             too constricting in their inversion of control approach, making it difficult to
             structure more complicated systems like a streaming proxy server. Conduits were designed
             with the express purpose of making a better WAI.</note>
-        <p>The data type relevant to us now is a <term>source</term>. A source produces a stream of
+        <p id="x-4">The data type relevant to us now is a <term id="x-5">source</term>. A source produces a stream of
             data, producing a single chunk at a time. In the case of WAI, the request body would be
             a source passed to the application, and the response body would be a source returned
             from the application.</p><p id="resbod4">There are two further optimizations: many systems provide a sendfile system call, which sends a file directly to a socket, bypassing a lot of the memory copying inherent in more general I/O system calls. Additionally, there is a datatype in Haskell called <codeph id="x5">Builder</codeph> which allows efficient copying of bytes into buffers.</p><p id="resbod5">The WAI response body therefore has three constructors: one for pure builders
-                (<codeph id="x6">ResponseBuilder</codeph>), one for a source of builders (<codeph
-                id="x7">ResponseSource</codeph>) and one for files (<codeph id="x8"
-                >ResponseFile</codeph>).</p></conbody></concept>
+                (<codeph id="x6">ResponseBuilder</codeph>), one for a source of builders (<codeph id="x7">ResponseSource</codeph>) and one for files (<codeph id="x8">ResponseFile</codeph>).</p></conbody></concept>

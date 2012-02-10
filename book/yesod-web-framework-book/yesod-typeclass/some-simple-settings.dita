@@ -35,10 +35,9 @@
      of the time, you'll want to bump that limit for some routes (e.g., a file upload page). This is
      where you'd do that.</dd>
    </dlentry>
-   <dlentry>
-    <dt>yepnopeJs</dt>
-    <dd>You can specify the location of the <xref href="http://yepnopejs.com/" format="html"
-      scope="external">yepnope</xref> Javascript library. If this is given, then yepnope will be
+   <dlentry id="x-21">
+    <dt id="x-22">yepnopeJs</dt>
+    <dd id="x-23">You can specify the location of the <xref id="x-24" href="http://yepnopejs.com/" format="html" scope="external">yepnope</xref> Javascript library. If this is given, then yepnope will be
      used to asynchronously load all of the Javascript on your page.</dd>
    </dlentry>
   </dl>

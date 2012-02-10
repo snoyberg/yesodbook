@@ -8,18 +8,16 @@
    scaffolding uses such an external file.</p>
   <p id="x-4">Routes are defined in <filepath id="x-5">config/routes</filepath>, and entities in
     <filepath id="x-6">config/models</filepath>. They have the exact same syntax as the quasiquoting
-   you've seen throughout the book, and <cmdname>yesod devel</cmdname> knows to automatically
+   you've seen throughout the book, and <cmdname id="x-15">yesod devel</cmdname> knows to automatically
    recompile the appropriate modules when these files change.</p>
-  <p id="x-7">The <filepath>models</filepath> files is referenced by <codeph id="x-8"
-    >Model.hs</codeph>. You are free to declare whatever you like in this file, but here are some
+  <p id="x-7">The <filepath id="x-16">models</filepath> files is referenced by <codeph id="x-8">Model.hs</codeph>. You are free to declare whatever you like in this file, but here are some
    guidelines:</p>
   <ul id="ul_gui_tyg_oe">
-   <li id="x-9">Any data types used in <filepath>entities</filepath>
-    <b id="x-10">must</b> be imported/declared in <filepath>Model.hs</filepath>, above the <codeph
-     id="x-11">persistFile</codeph> call.</li>
+   <li id="x-9">Any data types used in <filepath id="x-17">entities</filepath>
+    <b id="x-10">must</b> be imported/declared in <filepath id="x-18">Model.hs</filepath>, above the <codeph id="x-11">persistFile</codeph> call.</li>
    <li id="x-12">Helper utilities should either be declared in <codeph id="x-13">Import.hs</codeph>
     or, if very model-centric, in a file within the <codeph id="x-14">Model</codeph> folder and
-    imported into <filepath>Import.hs</filepath>.</li>
+    imported into <filepath id="x-19">Import.hs</filepath>.</li>
   </ul>
  </conbody>
 </concept>

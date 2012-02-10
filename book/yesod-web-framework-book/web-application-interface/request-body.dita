@@ -2,8 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="request-body"><title id="x-1">Request Body</title><conbody id="x-2"><p id="reqbod1">In order to avoid the need to load the entire request body into memory, we use
             sources here as well. Since the purpose of these values are for reading (not writing),
-            we use <codeph id="x1">ByteString</codeph>s in place of <codeph id="x2"
-            >Builder</codeph>s. There is a record inside <codeph>Request</codeph> called
-                <codeph>requestBody</codeph>, with type <codeph>BufferedSource IO
+            we use <codeph id="x1">ByteString</codeph>s in place of <codeph id="x2">Builder</codeph>s. There is a record inside <codeph id="x-3">Request</codeph> called
+                <codeph id="x-4">requestBody</codeph>, with type <codeph id="x-5">BufferedSource IO
                 ByteString</codeph>. We can use all of the standard conduit functions to interact
             with this source.</p><p id="reqbod3">The request body could in theory contain any type of data, but the most common are URL encoded and multipart form data. The <apiname id="x8">wai-extra</apiname> package contains built-in support for parsing these in a memory-efficient manner.</p></conbody></concept>

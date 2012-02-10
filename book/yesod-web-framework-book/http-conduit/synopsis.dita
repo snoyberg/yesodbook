@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Synopsis</title>
- <conbody>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+ <title id="x-1">Synopsis</title>
+ <conbody id="x-2">
+  <codeblock id="x-3" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 import Network.HTTP.Conduit -- the main module
 
 -- The streaming interface uses conduits
@@ -17,7 +17,7 @@ main :: IO ()
 main = do
     -- Simplest query: just download the information from the given URL as a
     -- lazy ByteString.
-    simpleHttp "http://www.example.com/foo.txt" >>= L.writeFile "foo.txt"
+    simpleHttp "http://www.example.com/foo.txt" &gt;&gt;= L.writeFile "foo.txt"
 
     -- Use the streaming interface instead. We need to run all of this inside a
     -- ResourceT, to ensure that all our connections get properly cleaned up in
@@ -43,7 +43,7 @@ main = do
         let req2 = req
                 { method = "POST"
                 , redirectCount = 0
-                , checkStatus = \_ _ -> Nothing
+                , checkStatus = \_ _ -&gt; Nothing
                 }
         res2 &lt;- http req2 manager
         responseBody res2 $$ sinkFile "post-foo.txt"</codeblock>

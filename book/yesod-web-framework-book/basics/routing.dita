@@ -9,23 +9,20 @@
         <codeblock id="x-4" outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
 / HomeR GET
 |]</codeblock>
-        <note><codeph>mkYesod</codeph> is a Template Haskell function, and
-                <codeph>parseRoutes</codeph> is a QuasiQuoter.</note>
+        <note id="x-10"><codeph id="x-11">mkYesod</codeph> is a Template Haskell function, and
+                <codeph id="x-12">parseRoutes</codeph> is a QuasiQuoter.</note>
         <p id="x-5">In English, all this means is: <q id="x-6">In the HelloWorld application, create
-                one route. I'd like to call it <codeph>HomeR</codeph>, it should listen for requests
+                one route. I'd like to call it <codeph id="x-13">HomeR</codeph>, it should listen for requests
                 to <codeph id="x-7">/</codeph> (the root of the application), and should answer
-                    <codeph>GET</codeph> requests</q>. We call <codeph>HomeR</codeph> a <term
-                id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9"
-                >The R suffix on resource names is simply convention, but it's a fairly universally
+                    <codeph id="x-14">GET</codeph> requests</q>. We call <codeph id="x-15">HomeR</codeph> a <term id="x-8">resource</term>, which is where the "R" suffix comes from.<note id="x-9">The R suffix on resource names is simply convention, but it's a fairly universally
                 followed convention. It makes it just a bit easier to read and understand
                 code.</note></p>
-        <p>The <codeph>mkYesod</codeph> TH function generates quite a bit of code here: a route data
+        <p id="x-16">The <codeph id="x-17">mkYesod</codeph> TH function generates quite a bit of code here: a route data
             type, a dispatch function, and a render function. We'll look at this in more detail in
-                <xref href="../routing-and-handlers/routing-and-handlers.dita#routing-and-handlers"
-                format="dita">the routing chapter</xref>. But by using the
-                <codeph>-ddump-splices</codeph> GHC option, we can get an immediate look at the
+                <xref id="x-18" href="../routing-and-handlers/routing-and-handlers.dita#routing-and-handlers" format="dita">the routing chapter</xref>. But by using the
+                <codeph id="x-19">-ddump-splices</codeph> GHC option, we can get an immediate look at the
             generated code. A much cleaned up version of it is:</p>
-        <codeblock outputclass="haskell">{-# LANGUAGE TypeFamilies, MultiParamTypeClasses, OverloadedStrings #-}
+        <codeblock id="x-20" outputclass="haskell">{-# LANGUAGE TypeFamilies, MultiParamTypeClasses, OverloadedStrings #-}
 import Yesod.Routes.Dispatch
 import Yesod.Routes.Class
 import Yesod.Core
@@ -41,35 +38,35 @@ instance RenderRoute HelloWorld where
 instance YesodDispatch HelloWorld HelloWorld where
     yesodDispatch master sub toMaster app404 app405 method pieces =
         case dispatch pieces of
-            Just f -> f
+            Just f -&gt; f
                 master
                 sub
                 toMaster
                 app404
                 app405
                 method
-            Nothing -> app404
+            Nothing -&gt; app404
       where
         dispatch = Yesod.Routes.Dispatch.toDispatch
             [ Yesod.Routes.Dispatch.Route [] False onHome
             ]
-        onHome [] = Just $ \master sub toMaster _app404 app405 method ->
+        onHome [] = Just $ \master sub toMaster _app404 app405 method -&gt;
             case method of
-                "GET" -> yesodRunner
+                "GET" -&gt; yesodRunner
                     (fmap chooseRep getHomeR)
                     master
                     sub
                     (Just HomeR)
                     toMaster
-                _ -> app405 HomeR
+                _ -&gt; app405 HomeR
 -- STOP
 
 getHomeR = return ()
 
 main :: IO ()
 main = return ()</codeblock>
-        <p>Some of that will likely not make sense yet. In particular, the implementation of
-                <codeph>yesodDispatch</codeph> is a bit hairy to accomodate different dispatch
+        <p id="x-21">Some of that will likely not make sense yet. In particular, the implementation of
+                <codeph id="x-22">yesodDispatch</codeph> is a bit hairy to accomodate different dispatch
             approaches and fit the model necessary for our high-performance routing structures.
-            However, the <codeph>RenderRoute</codeph> implementation with its associated data type
+            However, the <codeph id="x-23">RenderRoute</codeph> implementation with its associated data type
             should already give you a good feel for what's going on under the surface.</p></conbody></concept>

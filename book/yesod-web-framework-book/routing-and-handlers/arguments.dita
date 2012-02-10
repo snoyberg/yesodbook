@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="arguments"><title id="x-1">Arguments</title><conbody id="x-2"><p id="arguments1">Not every route is as simple as the <codeph>HomeR</codeph> we just defined. Take
-            for instance our <codeph>PersonR</codeph> route from earlier. The name of the person
+<concept id="arguments"><title id="x-1">Arguments</title><conbody id="x-2"><p id="arguments1">Not every route is as simple as the <codeph id="x-3">HomeR</codeph> we just defined. Take
+            for instance our <codeph id="x-4">PersonR</codeph> route from earlier. The name of the person
             needs to be passed to the handler function. This translation is very straight-forward,
             and hopefully intuitive. For example:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}

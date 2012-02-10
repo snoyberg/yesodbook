@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Summary</title>
- <conbody>
-  <p>You don't need to be an expert in Haskell to use Yesod, a basic familiarity will suffice. This
+ <title id="x-1">Summary</title>
+ <conbody id="x-2">
+  <p id="x-3">You don't need to be an expert in Haskell to use Yesod, a basic familiarity will suffice. This
    chapter hopefully gave you just enough extra information to feel more comfortable following the
    rest of the book.</p>
  </conbody>

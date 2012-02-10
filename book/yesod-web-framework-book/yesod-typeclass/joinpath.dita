@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="joinpath"><title id="x-1">joinPath</title><conbody id="x-2"><p id="jp1">In order to convert a type-safe URL into a text value, Yesod uses two helper functions.
-            The first is the <codeph id="x1">renderRoute</codeph> method of the <codeph id="x2"
-                >RenderRoute</codeph> typeclass. Every type-safe URL is an instance of this
+            The first is the <codeph id="x1">renderRoute</codeph> method of the <codeph id="x2">RenderRoute</codeph> typeclass. Every type-safe URL is an instance of this
             typeclass. <codeph id="x3">renderRoute</codeph> converts a value into a list of path
             pieces. For example, our <codeph id="x4">SomePathR</codeph> from above would be
-            converted into <codeph>["some", "path"]</codeph>.</p><note id="x5" type="other" othertype="advanced"><p id="jp2">Actually, <codeph>renderRoute</codeph> produces both the path pieces and a list of
-                query-string parameters. The default instances of <codeph>renderRoute</codeph>
+            converted into <codeph id="x-3">["some", "path"]</codeph>.</p><note id="x5" type="other" othertype="advanced"><p id="jp2">Actually, <codeph id="x-4">renderRoute</codeph> produces both the path pieces and a list of
+                query-string parameters. The default instances of <codeph id="x-5">renderRoute</codeph>
                 always provide an empty list of query string parameters. However, it is possible to
                 override this. One notable case is the static subsite, which puts a hash of the file
                 contents in the query string for caching purposes.</p></note><p id="jp3">The other function is the <codeph id="x6">joinPath</codeph> method of the Yesod

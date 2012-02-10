@@ -3,13 +3,11 @@
 <concept id="conceptId">
  <title id="x-1">Events</title>
  <conbody id="x-2">
-  <p id="x-3">In addition to the document API, <codeph>xml-types</codeph> defines an <apiname
-    id="x-4">xml-types:Data.XML.Types:Event</apiname> datatype. This can be used for constructing
+  <p id="x-3">In addition to the document API, <codeph id="x-5">xml-types</codeph> defines an <apiname id="x-4">xml-types:Data.XML.Types:Event</apiname> datatype. This can be used for constructing
    streaming tools, which can be much more memory efficient for certain kinds of processing (eg,
    adding an extra attribute to all elements). We will not be covering the streaming API currently,
    though it should look very familiar after analyzing the document API.</p>
-  <note>You can see an example of the streaming API in the <xref
-    href="../case-study-sphinx/case-study-sphinx.dita#conceptId" format="dita">Sphinx case
+  <note id="x-6">You can see an example of the streaming API in the <xref id="x-7" href="../case-study-sphinx/case-study-sphinx.dita#conceptId" format="dita">Sphinx case
     study</xref>.</note>
  </conbody>
 </concept>

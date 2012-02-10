@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="defaultlayout"><title id="x-1">defaultLayout</title><conbody id="x-2"><p id="dl1">Most websites like to apply some general template to all of their pages.
-                <codeph>defaultLayout</codeph> is the recommended approach for this. While you could
+                <codeph id="x-3">defaultLayout</codeph> is the recommended approach for this. While you could
             just as easily define your own function and call that instead, when you override
-                <codeph>defaultLayout</codeph> all of the Yesod-generated pages (error pages,
+                <codeph id="x-4">defaultLayout</codeph> all of the Yesod-generated pages (error pages,
             authentication pages) automatically get this style.</p><p id="dl2">Overriding is very straight-forward: we use <codeph id="x1">widgetToPageContent</codeph>
-            to convert a <codeph>Widget</codeph> to a title, head tags and body tags, and then use
-                <codeph>hamletToRepHtml</codeph> to convert a Hamlet template into a
-                <codeph>RepHtml</codeph>. We can even add extra widget components, like a Lucius
-            template. from within <codeph>defaultLayout</codeph>. An example should make this all
+            to convert a <codeph id="x-5">Widget</codeph> to a title, head tags and body tags, and then use
+                <codeph id="x-6">hamletToRepHtml</codeph> to convert a Hamlet template into a
+                <codeph id="x-7">RepHtml</codeph>. We can even add extra widget components, like a Lucius
+            template. from within <codeph id="x-8">defaultLayout</codeph>. An example should make this all
             clear:</p><codeblock id="x2" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}

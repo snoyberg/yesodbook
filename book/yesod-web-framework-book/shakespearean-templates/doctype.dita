@@ -2,16 +2,16 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="doctype"><title id="x-1">Doctype</title><conbody id="x-2">
   <p id="x1">Last bit of syntactic sugar: the doctype statement. We have support for a number of
-            different versions of a <codeph>doctype</codeph>, though we recommend <codeph>$doctype
+            different versions of a <codeph id="x-3">doctype</codeph>, though we recommend <codeph id="x-4">$doctype
                 5</codeph> for modern web applications, which generates <codeph id="x2">&lt;!DOCTYPE
                 html&gt;</codeph>.<codeblock outputclass="hamlet" id="x3">$doctype 5
 &lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;Hamlet is Awesome
     &lt;body&gt;
-        &lt;p&gt;All done.</codeblock><note>There
+        &lt;p&gt;All done.</codeblock><note id="x-5">There
                 is an older and still supported syntax: three exclamation points
-                    (<codeph>!!!</codeph>). You may still see this in code out there. We have no
-                plans to remove support for this, but in general find the <codeph>$doctype</codeph>
+                    (<codeph id="x-6">!!!</codeph>). You may still see this in code out there. We have no
+                plans to remove support for this, but in general find the <codeph id="x-7">$doctype</codeph>
                 approach easier to read.</note></p>
  </conbody></concept>

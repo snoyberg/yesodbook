@@ -14,8 +14,7 @@
     deployment practices.</li>
    <li id="x-6">You need to have a working system for sending email. Many web servers these days are
                 not equipped to deal with all of the spam protection measures used by mail
-                    servers.<note id="x-7">The example below will use the system's built-in <cmdname
-                        id="x-8">sendmail</cmdname> executable. If you would like to avoid the
+                    servers.<note id="x-7">The example below will use the system's built-in <cmdname id="x-8">sendmail</cmdname> executable. If you would like to avoid the
                     hassle of dealing with an email server yourself, you can use Amazon SES. There
                     is a package called <apiname id="x-9">mime-mail-ses</apiname> which provides a
                     drop-in replacement for the sendmail code used below. This is the approach we

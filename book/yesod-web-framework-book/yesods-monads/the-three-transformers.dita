@@ -3,52 +3,50 @@
 <concept id="the-three-transformers">
  <title id="x-1">The Three Transformers</title>
  <conbody id="x-2">
-  <p>We've already discussed two of our transformers previously: <codeph>Handler</codeph> and
-    <codeph>Widget</codeph>. Just to recap, there are two special things about these
+  <p id="x-6">We've already discussed two of our transformers previously: <codeph id="x-15">Handler</codeph> and
+    <codeph id="x-16">Widget</codeph>. Just to recap, there are two special things about these
    transformers:</p>
   <ol id="ol_izz_wma_af">
-   <li>In order to simplify error messages, they are not actual transformers. Instead, they are
-    newtypes that hard-code their inner monads.<note>Remember, this is why Yesod provides a
-     specialized <codeph>lift</codeph> function, which works for <codeph>Handler</codeph> and
-      <codeph>Widget</codeph>.</note></li>
-   <li>In reality they have extra type parameters for the sub and master site. As a result, the
-    Yesod libraries provide <codeph>GHandler sub master a</codeph> and <codeph>GWidget sub master
-     a</codeph>, and each site gets a pair of type synonyms <codeph>type Handler = GHandler MyApp
-     MyApp</codeph> and <codeph>type Widget = GWidget MyApp My App ()</codeph>.</li>
+   <li id="x-22">In order to simplify error messages, they are not actual transformers. Instead, they are
+    newtypes that hard-code their inner monads.<note id="x-23">Remember, this is why Yesod provides a
+     specialized <codeph id="x-24">lift</codeph> function, which works for <codeph id="x-25">Handler</codeph> and
+      <codeph id="x-26">Widget</codeph>.</note></li>
+   <li id="x-27">In reality they have extra type parameters for the sub and master site. As a result, the
+    Yesod libraries provide <codeph id="x-28">GHandler sub master a</codeph> and <codeph id="x-29">GWidget sub master
+     a</codeph>, and each site gets a pair of type synonyms <codeph id="x-30">type Handler = GHandler MyApp
+     MyApp</codeph> and <codeph id="x-31">type Widget = GWidget MyApp My App ()</codeph>.</li>
   </ol>
   <p id="x-3">In <apiname id="x-4">persistent</apiname>, we have a typeclass called
-    <codeph>PersistStore</codeph>. This typeclass defines all of the primitive operations you can
+    <codeph id="x-32">PersistStore</codeph>. This typeclass defines all of the primitive operations you can
    perform on a database, like <codeph id="x-5">get</codeph>. This typeclass essentially looks like
-    <codeph id="x-7">class (Monad (b m)) =&gt; PersistStore b m</codeph>. <codeph id="x-8"
-    >b</codeph> is the backend itself, and is in fact a monad transformer, while <codeph id="x-9"
-    >m</codeph> is the inner monad that <codeph id="x-10">b</codeph> wraps around. Both SQL and
+    <codeph id="x-7">class (Monad (b m)) =&gt; PersistStore b m</codeph>. <codeph id="x-8">b</codeph> is the backend itself, and is in fact a monad transformer, while <codeph id="x-9">m</codeph> is the inner monad that <codeph id="x-10">b</codeph> wraps around. Both SQL and
    MongoDB have their own instances; in the case of SQL, it looks like:</p>
   <codeblock id="x-11" outputclass="haskell">instance MonadBaseControl IO m =&gt; PersistBackend SqlPersist m</codeblock>
   <p id="x-12">This means that you can run a SQL database with any underlying monad, so long as that
    underlying monad supports <codeph id="x-13">MonadBaseControl IO</codeph>, which allows you to
    properly deal with exceptions in a monad stack. That basically means any transformer stack built
-   around <codeph id="x-14">IO</codeph> (besides exceptional cases like <codeph>ContT</codeph>).
-   Fortunately for us, that includes both <codeph>Handler</codeph> and <codeph>Widget</codeph>. The
-   takeaway here is that we can layer our Persistent transformer on top of <codeph>Handler</codeph>
-   or <codeph>Widget</codeph>.</p>
-  <note>This wasn't always the case. Before Yesod 0.10, Yesod was built on top of enumerators, which
-   do not support <codeph>MonadBaseControl</codeph>. In Yesod 0.10, we moved over to
-    <apiname>conduit</apiname>, which greatly simplified everything we're discussing here.</note>
+   around <codeph id="x-14">IO</codeph> (besides exceptional cases like <codeph id="x-33">ContT</codeph>).
+   Fortunately for us, that includes both <codeph id="x-34">Handler</codeph> and <codeph id="x-35">Widget</codeph>. The
+   takeaway here is that we can layer our Persistent transformer on top of <codeph id="x-36">Handler</codeph>
+   or <codeph id="x-37">Widget</codeph>.</p>
+  <note id="x-38">This wasn't always the case. Before Yesod 0.10, Yesod was built on top of enumerators, which
+   do not support <codeph id="x-39">MonadBaseControl</codeph>. In Yesod 0.10, we moved over to
+    <apiname id="x-41">conduit</apiname>, which greatly simplified everything we're discussing here.</note>
   <p id="x-17">In order to make it simpler to refer to the relevant Persistent transformer, the
     <apiname id="x-18">yesod-persistent</apiname> package defines the <codeph id="x-19">YesodPersistBackend</codeph>
    associated type. For example, if I have a site called <codeph id="x-20">MyApp</codeph> and it uses SQL, I
    would define something like <codeph id="x-21">type instance YesodPersistBackend MyApp =
    SqlPersist</codeph>.</p>
-  <p id="x-40">When we want to run our database actions, we'll have a <codeph>SqlPersist</codeph>
-   wrapped around a <codeph>Handler</codeph> or <codeph>Widget</codeph>. We can then use the
-   standard Persistent unwrap functions (like <codeph>runSqlPool</codeph>) to run the action and get
-   back a normal <codeph>Handler</codeph>/<codeph>Widget</codeph>. To automate this, we provide the
-    <codeph>runDB</codeph> function. Putting it all together, we can now run database actions inside
+  <p id="x-40">When we want to run our database actions, we'll have a <codeph id="x-42">SqlPersist</codeph>
+   wrapped around a <codeph id="x-43">Handler</codeph> or <codeph id="x-44">Widget</codeph>. We can then use the
+   standard Persistent unwrap functions (like <codeph id="x-45">runSqlPool</codeph>) to run the action and get
+   back a normal <codeph id="x-46">Handler</codeph>/<codeph id="x-47">Widget</codeph>. To automate this, we provide the
+    <codeph id="x-48">runDB</codeph> function. Putting it all together, we can now run database actions inside
    our handlers and widgets.</p>
   <p id="x-68">Most of the time in Yesod code, and especially thus far in this book, widgets have
    been treated as actionless containers that simply combine together HTML, CSS and Javascript. But
    if you look at that last paragraph again, you'll realize that's not the way things have to be.
    Since a widget is a transformer on top of a handler, anything you do in a handler can be done in
-   a widget, including database actions. All you have to do is <codeph>lift</codeph>.</p>
+   a widget, including database actions. All you have to do is <codeph id="x-49">lift</codeph>.</p>
  </conbody>
 </concept>

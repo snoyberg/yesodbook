@@ -8,7 +8,7 @@
 <li id="x6">You should almost always start Hamlet tags on their own line instead of embedding
                                                   start/end tags after an existing tag. The only
                                                   exception to this is the occasional
-                                                  <codeph>&lt;i&gt;</codeph> or
-                                                  <codeph>&lt;b&gt;</codeph> tag inside a large
+                                                  <codeph id="x-3">&lt;i&gt;</codeph> or
+                                                  <codeph id="x-4">&lt;b&gt;</codeph> tag inside a large
                                                   block of text.</li>
 </ul></conbody></concept>

@@ -16,20 +16,19 @@ getHomeR = defaultLayout [whamlet|&lt;h1&gt;This is simple
 -- STOP
 instance Yesod Simple
 main = warpDebug 3000 Simple
-</codeblock><p id="dispatch3">Look at the type signature of <codeph>getHomeR</codeph>. The first component is
-                <codeph id="x-3">Handler</codeph>. <codeph>Handler</codeph> is a special monad that
+</codeblock><p id="dispatch3">Look at the type signature of <codeph id="x-13">getHomeR</codeph>. The first component is
+                <codeph id="x-3">Handler</codeph>. <codeph id="x-14">Handler</codeph> is a special monad that
             all handler functions live in. It provides access to request information, let's you send
-            redirects, and lots of other stuff we'll <xref id="x-4"
-                href="the-ghandler-monad.dita#the-ghandler-monad" format="dita">get to
+            redirects, and lots of other stuff we'll <xref id="x-4" href="the-ghandler-monad.dita#the-ghandler-monad" format="dita">get to
             soon</xref>.</p>
         <p id="x-5">Next we have <codeph id="x-6">RepHtml</codeph>. When we <xref id="x-7" href="../restful-content/representations.dita">discuss
                 representations</xref> we will explore the <i id="x-8">why</i> of things more; for now, we
             are just interested in the <i id="x-9">how</i>.</p>
-        <p id="x-10">As you might guess, <codeph>RepHtml</codeph> is a datatype for HTML responses.
+        <p id="x-10">As you might guess, <codeph id="x-15">RepHtml</codeph> is a datatype for HTML responses.
             And as you also may guess, web sites need to return responses besides HTML. CSS,
             Javascript, images, XML are all necessities of a website. Therefore, the return value of
             a handler function can be any instance of <codeph id="x-11">HasReps</codeph>.</p>
-        <p id="x-12"><codeph>HasReps</codeph> is a powerful concept that allows Yesod to
+        <p id="x-12"><codeph id="x-16">HasReps</codeph> is a powerful concept that allows Yesod to
             automatically choose the correct representation of your data based on the client
             request. For now, we will focus just on simple instances such as
-                <codeph>RepHtml</codeph>, which only provide one representation.</p></conbody></concept>
+                <codeph id="x-17">RepHtml</codeph>, which only provide one representation.</p></conbody></concept>

@@ -4,8 +4,7 @@
     <title id="x-1">Persistent 0.6.0</title>
     <topicref chunk="to-content" id="persistent" href="persistent-060/persistent.dita">
         <topicref id="synopsis" href="persistent-060/synopsis.dita"/>
-        <topicref id="solving-the-boundary-issue"
-            href="persistent-060/solving-the-boundary-issue.dita">
+        <topicref id="solving-the-boundary-issue" href="persistent-060/solving-the-boundary-issue.dita">
             <topicref id="types" href="persistent-060/types.dita"/>
             <topicref id="code-generation" href="persistent-060/code-generation.dita"/>
             <topicref id="persistbackend" href="persistent-060/persistbackend.dita"/>
@@ -14,8 +13,7 @@
         <topicref id="uniqueness" href="persistent-060/uniqueness.dita"/>
         <topicref id="queries" href="persistent-060/queries.dita">
             <topicref id="fetching-by-id" href="persistent-060/fetching-by-id.dita"/>
-            <topicref id="fetching-by-unique-constraint"
-                href="persistent-060/fetching-by-unique-constraint.dita"/>
+            <topicref id="fetching-by-unique-constraint" href="persistent-060/fetching-by-unique-constraint.dita"/>
             <topicref id="select-functions" href="persistent-060/select-functions.dita">
                 <topicref id="selectopt" href="persistent-060/selectopt.dita"/>
             </topicref>
@@ -31,6 +29,6 @@
         <topicref id="custom-fields" href="persistent-060/custom-fields.dita"/>
         <topicref id="persistent-raw-sql" href="persistent-060/persistent-raw-sql.dita"/>
         <topicref id="integration-with-yesod" href="persistent-060/integration-with-yesod.dita"/>
-        <topicref href="persistent-060/summary.dita"/>
+        <topicref id="x-2" href="persistent-060/summary.dita"/>
     </topicref>
 </map>

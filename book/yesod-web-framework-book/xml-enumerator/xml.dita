@@ -17,11 +17,10 @@
    performance: <apiname id="x-8">blaze-builder</apiname>, <apiname id="x-9">text</apiname>,
     <apiname id="x-10">conduit</apiname> and <apiname id="x-11">attoparsec</apiname>. But from a
    user perspective, it provides everything from the simplest APIs
-    (<codeph>readFile</codeph>/<codeph>writeFile</codeph>) through full control of XML event
+    (<codeph id="x-15">readFile</codeph>/<codeph id="x-16">writeFile</codeph>) through full control of XML event
    streams.</p>
-  <p id="x-12">In addition to <codeph>xml-conduit</codeph>, there are a few related packages that
-   come into play, like <apiname id="x-13">xml-hamlet</apiname> and <apiname id="x-14"
-    >xml2html</apiname>. We'll cover both how to use all these packages, and when they should be
+  <p id="x-12">In addition to <codeph id="x-17">xml-conduit</codeph>, there are a few related packages that
+   come into play, like <apiname id="x-13">xml-hamlet</apiname> and <apiname id="x-14">xml2html</apiname>. We'll cover both how to use all these packages, and when they should be
    used.</p>
  </conbody>
 </concept>

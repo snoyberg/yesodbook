@@ -2,8 +2,8 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="validation"><title id="x-1">Validation</title><conbody id="x-2">
   <p id="x1">How would we make our form only accept cars created after 1990? If you remember, we
-            said above that the <codeph>Field</codeph> itself contained the information on what is a
-            valid entry. So all we need to do is write a new <codeph>Field</codeph>, right? Well,
+            said above that the <codeph id="x-3">Field</codeph> itself contained the information on what is a
+            valid entry. So all we need to do is write a new <codeph id="x-4">Field</codeph>, right? Well,
             that would be a bit tedious. Instead, let's just modify an existing one:</p>
   <codeblock id="x2" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
@@ -66,8 +66,8 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x3">The trick here is the <codeph>check</codeph> function. It takes a function
-                (<codeph>validateYear</codeph>) that returns either an error message or a modified
+  <p id="x3">The trick here is the <codeph id="x-5">check</codeph> function. It takes a function
+                (<codeph id="x-6">validateYear</codeph>) that returns either an error message or a modified
             field value. In this example, we haven't modified the value at all. That is usually
             going to be the case. This kind of checking is very common, so we have a shortcut:</p>
   <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
@@ -127,17 +127,17 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x5"><codeph>checkBool</codeph> takes two parameters: a condition that must be fulfilled,
+  <p id="x5"><codeph id="x-7">checkBool</codeph> takes two parameters: a condition that must be fulfilled,
             and an error message to be displayed if it was not.</p>
-  <note id="x6">You may have noticed the explicit <codeph>Text</codeph> type signature on
-                <codeph>errorMessage</codeph>. In the presence of
-            <codeph>OverloadedStrings</codeph>, this is necessary. In order to support i18n,
+  <note id="x6">You may have noticed the explicit <codeph id="x-8">Text</codeph> type signature on
+                <codeph id="x-9">errorMessage</codeph>. In the presence of
+            <codeph id="x-10">OverloadedStrings</codeph>, this is necessary. In order to support i18n,
             messages can have many different datatypes, and GHC has no way of determining which
-            instance of <codeph>IsString</codeph> you intended to use.</note>
+            instance of <codeph id="x-11">IsString</codeph> you intended to use.</note>
   <p id="x7">It's great to make sure the car isn't too old. But what if we want to make sure that
             the year specified is not from the future? In order to look up the current year, we'll
-            need to run some <codeph>IO</codeph>. For such circumstances, we'll need
-                <codeph>checkM</codeph>:</p>
+            need to run some <codeph id="x-12">IO</codeph>. For such circumstances, we'll need
+                <codeph id="x-13">checkM</codeph>:</p>
   <codeblock id="x8" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
 import Yesod
@@ -208,13 +208,11 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x9"><codeph>inPast</codeph> is a function that will return an <codeph>Either</codeph>
-            result. However, it uses a <codeph>Handler</codeph> monad. We use <codeph id="x10"
-                >liftIO getCurrentYear</codeph> to get the current year and then compare it against
+  <p id="x9"><codeph id="x-14">inPast</codeph> is a function that will return an <codeph id="x-15">Either</codeph>
+            result. However, it uses a <codeph id="x-16">Handler</codeph> monad. We use <codeph id="x10">liftIO getCurrentYear</codeph> to get the current year and then compare it against
             the user-supplied year. Also, notice how we can chain together multiple validators.</p>
-  <note id="x11">Since the <codeph>checkM</codeph> validator runs in the <codeph>Handler</codeph>
+  <note id="x11">Since the <codeph id="x-17">checkM</codeph> validator runs in the <codeph id="x-18">Handler</codeph>
             monad, it has access to a lot of the stuff you can normally do in Yesod. This is
-            especially useful for running database actions, which we'll cover in the <xref
-                href="../persistent-060/persistent.dita#persistent" format="dita">Persistent
+            especially useful for running database actions, which we'll cover in the <xref id="x-19" href="../persistent-060/persistent.dita#persistent" format="dita">Persistent
                 chapter</xref>.</note>
  </conbody></concept>

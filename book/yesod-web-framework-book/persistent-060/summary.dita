@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Summary</title>
- <conbody>
-  <p>Persistent brings the type safety of Haskell to your data access layer. Instead of writing
+ <title id="x-1">Summary</title>
+ <conbody id="x-2">
+  <p id="x-3">Persistent brings the type safety of Haskell to your data access layer. Instead of writing
    error-prone, untyped data access, or manually writing boilerplate marshal code, you can rely on
    Persistent to automate the process for you.</p>
-  <p>The goal is to provide everything you need, <i>most</i> of the time. For the times when you
+  <p id="x-4">The goal is to provide everything you need, <i id="x-5">most</i> of the time. For the times when you
    need something a bit more powerful, Persistent gives you direct access to the underlying data
    store, so you can write whatever 5-way joins you want.</p>
-  <p>Persistent integrates directly into the general Yesod workflow. Not only do helper packages
-   like <codeph>yesod-persistent</codeph> provide a nice layer, but packages like
-    <codeph>yesod-form</codeph> and <codeph>yesod-auth</codeph> also leverage Persistent's features
+  <p id="x-6">Persistent integrates directly into the general Yesod workflow. Not only do helper packages
+   like <codeph id="x-7">yesod-persistent</codeph> provide a nice layer, but packages like
+    <codeph id="x-8">yesod-form</codeph> and <codeph id="x-9">yesod-auth</codeph> also leverage Persistent's features
    as well.</p>
  </conbody>
 </concept>

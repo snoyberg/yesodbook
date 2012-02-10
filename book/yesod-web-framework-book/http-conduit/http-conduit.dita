@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>http-conduit</title>
- <conbody>
-  <p>Most of Yesod is about serving content over HTTP. But that's only half the story: someone has
+ <title id="x-1">http-conduit</title>
+ <conbody id="x-2">
+  <p id="x-3">Most of Yesod is about serving content over HTTP. But that's only half the story: someone has
    to receive it. And even when you're writing a web app, sometimes that someone will be you. If you
    want to consume content from other services or interact with RESTful APIs, you'll need to write
-   client code. And the recommended approach for that is <apiname>http-conduit</apiname>.</p>
-  <p>This chapter is not directly connected to Yesod, and will be generally useful for anyone
+   client code. And the recommended approach for that is <apiname id="x-4">http-conduit</apiname>.</p>
+  <p id="x-5">This chapter is not directly connected to Yesod, and will be generally useful for anyone
    wanting to make HTTP requests.</p>
  </conbody>
 </concept>

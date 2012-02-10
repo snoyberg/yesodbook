@@ -13,7 +13,7 @@
     page. You <b id="x-8">must</b> remember to include the <codeph id="x-9">widget</codeph> value in the page, as that
     contains the per-page contents. This file is interpretted as a Widget.</li>
   </ul>
-  <p id="x-10">Also, since default-layout is included via the <codeph>widgetFile</codeph> function,
+  <p id="x-10">Also, since default-layout is included via the <codeph id="x-12">widgetFile</codeph> function,
    any Lucius, Cassius, or Julius files named <filepath id="x-11">default-layout.*</filepath> will
    automatically be included as well.</p>
  </conbody>

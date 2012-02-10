@@ -2,10 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="server"><title id="x-1">Server</title><conbody id="x-2">
   <p id="x1">WAI uses the <apiname id="x2">conduit</apiname> package to handle streaming request
-            bodies, and efficiently generates responses using <apiname id="x3"
-                >blaze-builder</apiname>. <apiname id="x4">aeson</apiname> uses <apiname id="x5"
-                >attoparsec</apiname> for parsing; by using <apiname id="x6"
-                >attoparsec-conduit</apiname> we get easy interoperability with WAI. This plays out
+            bodies, and efficiently generates responses using <apiname id="x3">blaze-builder</apiname>. <apiname id="x4">aeson</apiname> uses <apiname id="x5">attoparsec</apiname> for parsing; by using <apiname id="x6">attoparsec-conduit</apiname> we get easy interoperability with WAI. This plays out
             as:</p>
   <codeblock outputclass="haskell" id="x7">{-# LANGUAGE OverloadedStrings #-}
 import Network.Wai (Response, responseLBS, Application, requestBody)

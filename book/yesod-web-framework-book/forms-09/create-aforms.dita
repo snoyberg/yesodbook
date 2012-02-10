@@ -55,22 +55,21 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   <p id="x3">Here, we've explicitly split up applicative and monadic forms. In
-                <codeph>carAForm</codeph>, we use the <codeph>&lt;$&gt;</codeph> and
-                <codeph>&lt;*&gt;</codeph> operators. This should not be surprising; these are
+                <codeph id="x-3">carAForm</codeph>, we use the <codeph id="x-4">&lt;$&gt;</codeph> and
+                <codeph id="x-5">&lt;*&gt;</codeph> operators. This should not be surprising; these are
             almost always used in applicative-style code. (For more information on applicative code,
-            see <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor"
-                format="html" scope="external">the Haskell wiki</xref>.) And we have one line for
-            each record in our <codeph>Car</codeph> datatype. Perhaps unsurprisingly, we have a
-                <codeph>textField</codeph> for the <codeph>Text</codeph> record, and an
-                <codeph>intField</codeph> for the <codeph>Int</codeph> record.</p>
-  <p id="x5">Let's look a bit more closely at the <codeph>areq</codeph> function. Its (simplified)
+            see <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor" format="html" scope="external">the Haskell wiki</xref>.) And we have one line for
+            each record in our <codeph id="x-6">Car</codeph> datatype. Perhaps unsurprisingly, we have a
+                <codeph id="x-7">textField</codeph> for the <codeph id="x-8">Text</codeph> record, and an
+                <codeph id="x-9">intField</codeph> for the <codeph id="x-10">Int</codeph> record.</p>
+  <p id="x5">Let's look a bit more closely at the <codeph id="x-11">areq</codeph> function. Its (simplified)
             type signature is <codeph id="x6">Field a -&gt; FieldSettings -&gt; Maybe a -&gt; AForm
                 a</codeph>. So that first argument is going to determine the datatype of this field,
             how to parse it, and how to render it. The next argument,
-            <codeph>FieldSettings</codeph>, tells us the label, tooltip, name and ID of the field.
-            In this case, we're using the previously-mentioned <codeph>IsString</codeph> instance of
-                <codeph>FieldSettings</codeph>.</p>
-  <p id="x7">And what's up with that <codeph>Maybe a</codeph>? It provides the optional default
+            <codeph id="x-12">FieldSettings</codeph>, tells us the label, tooltip, name and ID of the field.
+            In this case, we're using the previously-mentioned <codeph id="x-13">IsString</codeph> instance of
+                <codeph id="x-14">FieldSettings</codeph>.</p>
+  <p id="x7">And what's up with that <codeph id="x-15">Maybe a</codeph>? It provides the optional default
             value. For example, if we want our form to fill in "2007" as the default car year, we
             would use <codeph id="x8">areq intField "Year" (Just 2007)</codeph>. We can even take
             this to the next level, and have a form that takes an optional parameter giving the

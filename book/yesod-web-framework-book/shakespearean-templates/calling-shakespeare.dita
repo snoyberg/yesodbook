@@ -103,26 +103,26 @@ foo { bar: baz }</codeblock>
    <strow id="x29">
     <stentry id="x30">Hamlet</stentry>
     <stentry id="x31"><apiname id="x50">hamlet:Text.Hamlet:hamlet</apiname></stentry>
-    <stentry id="x32"><codeph>hamletFile</codeph></stentry>
+    <stentry id="x32"><codeph id="x-3">hamletFile</codeph></stentry>
     <stentry id="x33"><i id="x34">N/A</i></stentry>
    </strow>
    <strow id="x35">
     <stentry id="x36">Cassius</stentry>
-    <stentry id="x37"><codeph>cassius</codeph></stentry>
-    <stentry id="x38"><codeph>cassiusFile</codeph></stentry>
-    <stentry id="x39"><codeph>cassiusFileReload</codeph></stentry>
+    <stentry id="x37"><codeph id="x-4">cassius</codeph></stentry>
+    <stentry id="x38"><codeph id="x-5">cassiusFile</codeph></stentry>
+    <stentry id="x39"><codeph id="x-6">cassiusFileReload</codeph></stentry>
    </strow>
    <strow id="x40">
     <stentry id="x41">Lucius</stentry>
-    <stentry id="x42"><codeph>lucius</codeph></stentry>
-    <stentry id="x43"><codeph>luciusFile</codeph></stentry>
-    <stentry id="x44"><codeph>luciusFileReload</codeph></stentry>
+    <stentry id="x42"><codeph id="x-7">lucius</codeph></stentry>
+    <stentry id="x43"><codeph id="x-8">luciusFile</codeph></stentry>
+    <stentry id="x44"><codeph id="x-9">luciusFileReload</codeph></stentry>
    </strow>
    <strow id="x45">
     <stentry id="x46">Julius</stentry>
-    <stentry id="x47"><codeph>julius</codeph></stentry>
-    <stentry id="x48"><codeph>juliusFile</codeph></stentry>
-    <stentry id="x49"><codeph>juliusFileReload</codeph></stentry>
+    <stentry id="x47"><codeph id="x-10">julius</codeph></stentry>
+    <stentry id="x48"><codeph id="x-11">juliusFile</codeph></stentry>
+    <stentry id="x49"><codeph id="x-12">juliusFileReload</codeph></stentry>
    </strow>
   </simpletable>
  </conbody></concept>

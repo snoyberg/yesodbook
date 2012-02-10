@@ -3,9 +3,9 @@
 <concept id="conditionals"><title id="x-1">Conditionals</title><conbody id="x-2">
   <p id="x1">Eventually, you'll want to put in some logic in your page. The goal of Hamlet is to
             make the logic as minimalistic as possible, pushing the heavy lifting into Haskell. As
-            such, our logical statements are very basic... so basic, that it's <codeph>if</codeph>,
-                <codeph>elseif</codeph>, and
-            <codeph>else</codeph>.<codeblock outputclass="hamlet" id="x2">$if isAdmin
+            such, our logical statements are very basic... so basic, that it's <codeph id="x-3">if</codeph>,
+                <codeph id="x-4">elseif</codeph>, and
+            <codeph id="x-5">else</codeph>.<codeblock outputclass="hamlet" id="x2">$if isAdmin
     &lt;p&gt;Welcome to the admin section.
 $elseif isLoggedIn
     &lt;p&gt;You are not the administrator.

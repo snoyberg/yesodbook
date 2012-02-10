@@ -22,12 +22,10 @@
                   | PersistMap [(T.Text, PersistValue)]
                   | PersistForeignKey ByteString -- ^ intended especially for MongoDB backend</codeblock><p id="ba4">Each Persistent backend needs to know how to translate the relevant values into
             something the database can understand. However, it would be awkward do have to express
-            all of our data simply in terms of these basic types. The next layer is the <codeph
-                id="x5">PersistField</codeph> typeclass, which defines how an arbitrary Haskell
+            all of our data simply in terms of these basic types. The next layer is the <codeph id="x5">PersistField</codeph> typeclass, which defines how an arbitrary Haskell
             datatype can be marshaled to and from a <codeph id="x6">PersistValue</codeph>. A
-                <codeph>PersistField</codeph> correlates to a column in a SQL database. In our
-            person example above, name and age would be our <codeph id="x7"
-            >PersistField</codeph>s.</p><p id="ba5">To tie up the user side of the code, our last typeclass is <codeph id="x8">PersistEntity</codeph>. An instance of PersistEntity correlates with a table in a
+                <codeph id="x-3">PersistField</codeph> correlates to a column in a SQL database. In our
+            person example above, name and age would be our <codeph id="x7">PersistField</codeph>s.</p><p id="ba5">To tie up the user side of the code, our last typeclass is <codeph id="x8">PersistEntity</codeph>. An instance of PersistEntity correlates with a table in a
             SQL database. This typeclass defines a number of functions and some associated types. To
             review, we have the following correspondence between Persistent and SQL:</p>
         <simpletable id="simpletable_hmz_kck_kd">

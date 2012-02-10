@@ -4,15 +4,15 @@
  <title id="x-1">Yesod's Monads</title>
  <conbody id="x-2">
   <p id="x-3">As you've read through this book, there have been a number of monads which have
-   appeared: <codeph>Handler</codeph>, <codeph>Widget</codeph> and something to do with Persistent
-   (let's call it <codeph>YesodDB</codeph> for now). As with most monads, each one provides some
-   specific functionality: <codeph>Handler</codeph> gives access to the request and allows you to
-   send responses, a <codeph>Widget</codeph> contains HTML, CSS, and Javascript, and
-    <codeph>YesodDB</codeph> let's you make database queries.</p>
+   appeared: <codeph id="x-6">Handler</codeph>, <codeph id="x-7">Widget</codeph> and something to do with Persistent
+   (let's call it <codeph id="x-8">YesodDB</codeph> for now). As with most monads, each one provides some
+   specific functionality: <codeph id="x-9">Handler</codeph> gives access to the request and allows you to
+   send responses, a <codeph id="x-10">Widget</codeph> contains HTML, CSS, and Javascript, and
+    <codeph id="x-11">YesodDB</codeph> let's you make database queries.</p>
   <p id="x-4">So far, we've presented some very straight-forward ways to use these monads: your main
-   handler will run in <codeph>Handler</codeph>, using <codeph>runDB</codeph> to execute a
-    <codeph>YesodDB</codeph> query, and <codeph>defaultLayout</codeph> to return a
-   <codeph>Widget</codeph>, which in turn was created by calls to <codeph>toWidget</codeph>.</p>
+   handler will run in <codeph id="x-12">Handler</codeph>, using <codeph id="x-13">runDB</codeph> to execute a
+    <codeph id="x-14">YesodDB</codeph> query, and <codeph id="x-15">defaultLayout</codeph> to return a
+   <codeph id="x-16">Widget</codeph>, which in turn was created by calls to <codeph id="x-17">toWidget</codeph>.</p>
   <p id="x-5">However, if we have a deeper understanding of these types, we can achieve some fancier
    results.</p>
  </conbody>

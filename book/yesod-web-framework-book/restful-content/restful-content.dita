@@ -2,11 +2,11 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="restful-content"><title id="x-1">RESTful Content</title><conbody id="x-2"><p id="i1">One of the stories from the early days of the web is how search engines wiped out entire
             websites. When dynamic web sites were still a new concept, developers didn't appreciate
-            the difference between a <codeph>GET</codeph> and <codeph>POST</codeph> request. As a
-            result, they created pages- accessed with the <codeph>GET</codeph> method- that would
+            the difference between a <codeph id="x-3">GET</codeph> and <codeph id="x-4">POST</codeph> request. As a
+            result, they created pages- accessed with the <codeph id="x-5">GET</codeph> method- that would
             delete pages. When search engines started crawling these sites, they could wipe out all
             the content.</p><p id="i2">If these web developers had followed the HTTP spec properly, this would not have
-            happened. A <codeph>GET</codeph> request is supposed to cause no side effects (you know,
+            happened. A <codeph id="x-6">GET</codeph> request is supposed to cause no side effects (you know,
             like wiping out a site). Recently, there has been a move in web development called
             Representational State Transfer, also known as REST. This chapter describes the RESTful
             features in Yesod and how you can use them to create more robust web applications.</p></conbody></concept>

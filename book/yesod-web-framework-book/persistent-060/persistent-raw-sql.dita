@@ -48,6 +48,6 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     let sql = "SELECT name FROM Person WHERE name LIKE '%Snoyman'"
     C.runResourceT $ withStmt sql []
                 C.$$ CL.mapM_ $ liftIO . print</codeblock>
-        <p>There is also higher-level support that allows for automated data marshaling. Please see
+        <p id="x-3">There is also higher-level support that allows for automated data marshaling. Please see
             the Haddock API docs for more details.</p>
  </conbody></concept>

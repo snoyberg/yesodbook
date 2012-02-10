@@ -10,7 +10,7 @@
             <topicref id="x-8" href="xml-enumerator/events.dita"/>
         </topicref>
         <topicref id="x-9" href="xml-enumerator/text-xml.dita">
-            <topicref href="xml-enumerator/filepath.dita"/>
+            <topicref id="x-3" href="xml-enumerator/filepath.dita"/>
         </topicref>
         <topicref id="x-10" href="xml-enumerator/cursor.dita"/>
         <topicref id="x-11" href="xml-enumerator/xml-hamlet.dita"/>

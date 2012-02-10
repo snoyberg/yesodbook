@@ -3,36 +3,35 @@
 <concept id="types"><title id="x-1">Types</title><conbody id="x-2">  <p id="x1">Before we jump into syntax, let's take a look at the various types involved. We
    mentioned in the introduction that types help protect us from XSS attacks. For example, let's say
    that we have an HTML template that should display someone's name; it might look like
-    this:<codeblock outputclass="hamlet" id="x2">&lt;p&gt;Hello, my name is #{name}</codeblock><note
-    id="x3">Yes, <codeph>#{...}</codeph> is how we do variable interpolation in
+    this:<codeblock outputclass="hamlet" id="x2">&lt;p&gt;Hello, my name is #{name}</codeblock><note id="x3">Yes, <codeph id="x-3">#{...}</codeph> is how we do variable interpolation in
    Shakespeare.</note></p>
   <p id="x4">What should happen to <varname id="x5">name</varname>, and what should its datatype be?
-   A naive approach would be to use a <codeph>Text</codeph> value, and insert it verbatim. But that
+   A naive approach would be to use a <codeph id="x-4">Text</codeph> value, and insert it verbatim. But that
    would give us quite a problem when <codeph id="x6">name="&lt;script
     src='http://nefarious.com/evil.js'&gt;&lt;/script&gt;"</codeph>. What we want is to be able to
-   entity-encode the name, so that <codeph>&lt;</codeph> becomes <codeph>&amp;lt;</codeph>.</p>
+   entity-encode the name, so that <codeph id="x-5">&lt;</codeph> becomes <codeph id="x-6">&amp;lt;</codeph>.</p>
   <p id="x7">An equally naive approach is to simply entity-encode <b id="x8">every</b> piece of text
    that gets embedded. What happens when you have some preexisting HTML generated from another
    process? For example, in this book, all Haskell code snippets are run through a colorizing
    function that wraps up words in appropriate <codeph id="x9">span</codeph> tags. If we entity
    escaped everything, code snippets would be completely unreadable!</p>
-  <p id="x10">Instead, we have an <codeph>Html</codeph> datatype. In order to generate an
-    <codeph>Html</codeph> value, we have two options for APIs: the <codeph>ToHtml</codeph> typeclass
-   provides a way to convert <codeph>String</codeph> and <codeph>Text</codeph> values into
-    <codeph>Html</codeph>, via its <codeph>toHtml</codeph> function, automatically escaping entities
+  <p id="x10">Instead, we have an <codeph id="x-7">Html</codeph> datatype. In order to generate an
+    <codeph id="x-8">Html</codeph> value, we have two options for APIs: the <codeph id="x-9">ToHtml</codeph> typeclass
+   provides a way to convert <codeph id="x-10">String</codeph> and <codeph id="x-11">Text</codeph> values into
+    <codeph id="x-12">Html</codeph>, via its <codeph id="x-13">toHtml</codeph> function, automatically escaping entities
    along the way. This would be the approach we'd want for the name above. For the code snippet
    example, we would use the preEscaped family of functions.</p>
   <p id="x11">When you use variable interpolation in Hamlet (the HTML Shakespeare language), it
-   automatically applies a <codeph>toHtml</codeph> call to the value inside. So if you interpolate a
-    <codeph>String</codeph>, it will be entity-escaped. But if you provide an <codeph>Html</codeph>
+   automatically applies a <codeph id="x-14">toHtml</codeph> call to the value inside. So if you interpolate a
+    <codeph id="x-15">String</codeph>, it will be entity-escaped. But if you provide an <codeph id="x-16">Html</codeph>
    value, it will appear unmodified. In the code snippet example, we might interpolate with
    something like <codeph id="x12">#{preEscapedText myHaskellHtml}</codeph>.</p>
-  <note id="x13">The <codeph>Html</codeph> datatype, as well as the functions mentioned, are all
+  <note id="x13">The <codeph id="x-17">Html</codeph> datatype, as well as the functions mentioned, are all
    provided by the <apiname id="x14">blaze-html</apiname> package. This allows Hamlet to interact
    with all other blaze-html packages, and lets Hamlet provide a general solution for producing
    blaze-html values. Also, we get to take advantage of blaze-html's amazing performance.</note>
-  <p id="x15">Similarly, we have <codeph>Css</codeph>/<codeph>ToCss</codeph>, as well as
-    <codeph>Javascript</codeph>/<codeph>ToJavascript</codeph>. In those cases, the goal is not
+  <p id="x15">Similarly, we have <codeph id="x-18">Css</codeph>/<codeph id="x-19">ToCss</codeph>, as well as
+    <codeph id="x-20">Javascript</codeph>/<codeph id="x-21">ToJavascript</codeph>. In those cases, the goal is not
    really security, as it is very uncommon to be interpolating user input to CSS and Javascript.
    Instead, it provides some compile-time sanity checks that we haven't accidently stuck some HTML
    in our CSS.</p>

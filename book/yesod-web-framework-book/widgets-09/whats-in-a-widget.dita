@@ -8,12 +8,12 @@
             simply call the function at the right time, and the navbar is
             inserted at the correct point in the hierarchy.</p><p id="ww2">This is where our superficial HTML generation breaks down. Our navbar likely consists of
             some CSS and JavaScript in addition to HTML. By the time we call the navbar function, we
-            have already rendered the <codeph>&lt;head&gt;</codeph> tag, so it is too late to add a
-            new <codeph>&lt;style&gt;</codeph> tag for our CSS declarations. Under normal
+            have already rendered the <codeph id="x-3">&lt;head&gt;</codeph> tag, so it is too late to add a
+            new <codeph id="x-4">&lt;style&gt;</codeph> tag for our CSS declarations. Under normal
             strategies, we would need to break up our navbar function into three parts: HTML, CSS
             and JavaScript, and make sure that we always call all three pieces.</p><p id="ww3">Widgets take a different approach. Instead of viewing an
             HTML document as a monolithic tree of tags, widgets see a number of
-            distinct components in the page. In particular:</p><ul id="x1"><li id="x2">The title</li><li id="x3">External stylesheets</li><li id="x4">External Javascript</li><li id="x5">CSS declarations</li><li id="x6">Javascript code</li><li id="x7">Arbitrary <codeph>&lt;head&gt;</codeph> content</li><li id="x8">Arbitrary <codeph>&lt;body&gt;</codeph> content</li></ul><p id="ww4">Different components have different semantics. For example,
+            distinct components in the page. In particular:</p><ul id="x1"><li id="x2">The title</li><li id="x3">External stylesheets</li><li id="x4">External Javascript</li><li id="x5">CSS declarations</li><li id="x6">Javascript code</li><li id="x7">Arbitrary <codeph id="x-5">&lt;head&gt;</codeph> content</li><li id="x8">Arbitrary <codeph id="x-6">&lt;body&gt;</codeph> content</li></ul><p id="ww4">Different components have different semantics. For example,
             there can only be one title, but there can be multiple external
             scripts and stylesheets. However, those external scripts and
             stylesheets should only be included once. Arbitrary head and body

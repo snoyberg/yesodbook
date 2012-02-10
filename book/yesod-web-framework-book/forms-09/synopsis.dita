@@ -52,7 +52,7 @@ data Person = Person
 -- Note that the scaffolded site provides a convenient Form type synonym,
 -- so that our signature could be written as:
 --
--- > personForm :: Form Person
+-- &gt; personForm :: Form Person
 --
 -- For our purposes, it's good to see the long version.
 personForm :: Html -&gt; MForm Synopsis Synopsis (FormResult Person, Widget)

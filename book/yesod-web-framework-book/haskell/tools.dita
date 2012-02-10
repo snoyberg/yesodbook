@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Tools</title>
- <conbody>
-  <p>There are two main tools you'll need to Haskell development. The Glasgow Haskell Compiler (GHC)
+ <title id="x-1">Tools</title>
+ <conbody id="x-2">
+  <p id="x-3">There are two main tools you'll need to Haskell development. The Glasgow Haskell Compiler (GHC)
    is the standard Haskell compiler, and the only one officially supported by Yesod. You'll also
    need Cabal, which is the standard Haskell build tool. Not only do we use Cabal for building our
    local code, but it can automatically download and install dependencies from Hackage, the Haskell
    package repository.</p>
-  <p>If you're on Windows or Mac, it is strongly recommended to download the <xref
-    href="http://hackage.haskell.org/platform/" format="html" scope="external">Haskell
+  <p id="x-4">If you're on Windows or Mac, it is strongly recommended to download the <xref id="x-5" href="http://hackage.haskell.org/platform/" format="html" scope="external">Haskell
     Platform</xref>. On Linux, many distributions include GHC and Cabal in their package
-   repositories. On Debian-based systems, you can get a good start by running <codeph>sudo apt-get
+   repositories. On Debian-based systems, you can get a good start by running <codeph id="x-6">sudo apt-get
     install cabal-install</codeph>. There are, however, a few caveats with this approach:</p>
   <ul id="ul_dst_upw_ff">
-   <li>There are some additional build tools (<cmdname>alex</cmdname> and <cmdname>happy</cmdname>
+   <li id="x-7">There are some additional build tools (<cmdname id="x-8">alex</cmdname> and <cmdname id="x-9">happy</cmdname>
     in particular) that are needed by some packages. This are installed automatically by the Haskell
     Platform, but won't necessarily be installed by using you package manager.</li>
-   <li>The version of GHC available in your repositories may be significantly dated, meaning some
+   <li id="x-10">The version of GHC available in your repositories may be significantly dated, meaning some
     newer features will not be available to you. In the most extreme case, you may have a version of
     GHC too old for Yesod.</li>
   </ul>
-  <p>For now, my recommendation is to stick with a Haskell Platform install on Linux. Before
-   installing the package from the Haskell Platform website, make sure you have installed the <xref
-    href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml" format="html"
-    scope="external">required C libraries</xref>. On Debian-based systems, you would need to
+  <p id="x-11">For now, my recommendation is to stick with a Haskell Platform install on Linux. Before
+   installing the package from the Haskell Platform website, make sure you have installed the <xref id="x-12" href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml" format="html" scope="external">required C libraries</xref>. On Debian-based systems, you would need to
    run:</p>
-  <codeblock outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
-  <p>Regardless of how you've installed your tools, you should sure to put <codeph>cabal</codeph>'s
-   bin folder in your <codeph>PATH</codeph> variable. On Mac and Linux, this will be
-    <codeph>$HOME/.cabal/bin</codeph> and on Windows it will be
-   <codeph>%APPDATA%\cabal\bin</codeph>.</p>
-  <p><codeph>cabal</codeph> has lots of different options available, but for now, just try out two
+  <codeblock id="x-13" outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
+  <p id="x-14">Regardless of how you've installed your tools, you should sure to put <codeph id="x-15">cabal</codeph>'s
+   bin folder in your <codeph id="x-16">PATH</codeph> variable. On Mac and Linux, this will be
+    <codeph id="x-17">$HOME/.cabal/bin</codeph> and on Windows it will be
+   <codeph id="x-18">%APPDATA%\cabal\bin</codeph>.</p>
+  <p id="x-19"><codeph id="x-20">cabal</codeph> has lots of different options available, but for now, just try out two
    commands:</p>
   <ul id="ul_fwo_zrw_ff">
-   <li><cmdname>cabal update</cmdname> will download the most recent list of packages from
+   <li id="x-21"><cmdname id="x-22">cabal update</cmdname> will download the most recent list of packages from
     Hackage.</li>
-   <li><cmdname>cabal install yesod</cmdname> will install Yesod and all its dependencies.</li>
+   <li id="x-23"><cmdname id="x-24">cabal install yesod</cmdname> will install Yesod and all its dependencies.</li>
   </ul>
-  <note>Many people in the community prefer to perform sandboxed builds of their Haskell packages. I
+  <note id="x-25">Many people in the community prefer to perform sandboxed builds of their Haskell packages. I
    won't go into details on how to use these in the book, but the two most commonly used tools are
-    <xref href="http://hackage.haskell.org/package/cabal-dev" format="html" scope="external"
-    >cabal-dev</xref> and <xref href="http://hackage.haskell.org/package/virthualenv" format="html"
-    scope="external">virthualenv</xref>.</note>
+    <xref id="x-26" href="http://hackage.haskell.org/package/cabal-dev" format="html" scope="external">cabal-dev</xref> and <xref id="x-27" href="http://hackage.haskell.org/package/virthualenv" format="html" scope="external">virthualenv</xref>.</note>
  </conbody>
 </concept>

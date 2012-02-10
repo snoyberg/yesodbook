@@ -3,13 +3,11 @@
 <concept id="scaffolded-site">
   <title id="x-1">The scaffolded site</title>
   <conbody id="x-2">
-    <p id="x-3">Installing Yesod will give you both the Yesod library, as well as a <codeph id="x-4"
-        >yesod</codeph> executable. This executable accepts a few commands, but the first one you'll
+    <p id="x-3">Installing Yesod will give you both the Yesod library, as well as a <codeph id="x-4">yesod</codeph> executable. This executable accepts a few commands, but the first one you'll
       want to be acquainted with is <codeph id="x-5">yesod init</codeph>. It will ask you some
       questions, and then generate a folder containing the default <term id="x-6">scaffolded
         site</term>. Inside that folder, you can run <codeph id="x-7">cabal install</codeph> to
-      build any extra dependency, and then <xref id="x-8"
-        href="development-server.dita#development-server" format="dita"><codeph id="x-9">yesod
+      build any extra dependency, and then <xref id="x-8" href="development-server.dita#development-server" format="dita"><codeph id="x-9">yesod
           devel</codeph></xref> to run your site.</p>
     <p id="x-15">The scaffolded site gives you a lot of best practices out of the box, setting up files and
       dependencies in a time-tested approach used by most production Yesod sites. However, all this

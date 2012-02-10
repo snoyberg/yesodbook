@@ -2,21 +2,20 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="constructing-widgets"><title id="x-1">Constructing Widgets</title><conbody id="x-2">
   <p id="x1">In order to use widgets, you'll obviously need to be able to get your hands on them.
-   The most common way will be via the <codeph>ToWidget</codeph> typeclass, and its
-    <codeph>toWidget</codeph> method. This allows you to convert your Shakespearean templates
-   directly to a <codeph>Widget</codeph>: Hamlet code will appear in the body, Julius scripts inside
-   a <codeph>&lt;script&gt;</codeph> tag in the head, and Cassius and Lucius in a
-    <codeph>&lt;style&gt;</codeph> tag.</p>
+   The most common way will be via the <codeph id="x-3">ToWidget</codeph> typeclass, and its
+    <codeph id="x-4">toWidget</codeph> method. This allows you to convert your Shakespearean templates
+   directly to a <codeph id="x-5">Widget</codeph>: Hamlet code will appear in the body, Julius scripts inside
+   a <codeph id="x-6">&lt;script&gt;</codeph> tag in the head, and Cassius and Lucius in a
+    <codeph id="x-7">&lt;style&gt;</codeph> tag.</p>
   <note id="x2">You can actually override the default behavior and have the script and style code
    appear in a separate file. The scaffolded site provides this for you automatically. Additionally,
-   we'll see in the <xref href="../yesod-typeclass/yesod-typeclass.dita#yesod-typeclass"
-    format="dita">Yesod typeclass chapter</xref> how to turn on asynchronous script loading, which
+   we'll see in the <xref id="x-8" href="../yesod-typeclass/yesod-typeclass.dita#yesod-typeclass" format="dita">Yesod typeclass chapter</xref> how to turn on asynchronous script loading, which
    will place your script content at the end of the body.</note>
-  <p id="x3">But what if you want to add some <codeph>&lt;meta&gt;</codeph> tags, which need to
+  <p id="x3">But what if you want to add some <codeph id="x-9">&lt;meta&gt;</codeph> tags, which need to
    appear in the head? Or if you want some Javascript to appear in the body instead of the head? For
-   these purposes, Yesod provides two additional type classes: <codeph>ToWidgetHead</codeph> and
-    <codeph>ToWidgetBody</codeph>. These work exactly as they seem they should.</p>
-  <note id="x4">There is no <codeph>ToWidgetBody</codeph> instance for Lucius and Cassius, since you
+   these purposes, Yesod provides two additional type classes: <codeph id="x-10">ToWidgetHead</codeph> and
+    <codeph id="x-11">ToWidgetBody</codeph>. These work exactly as they seem they should.</p>
+  <note id="x4">There is no <codeph id="x-12">ToWidgetBody</codeph> instance for Lucius and Cassius, since you
    can't put a style tag in the body.</note>
   <p id="x5">In addition, there are a number of other functions for creating specific kinds of Widgets:</p>
   <dl id="x6">
@@ -31,22 +30,22 @@
    </dlentry>
    <dlentry id="x13">
     <dt id="x14">addStylesheet</dt>
-    <dd id="x15">Adds a reference, via a <codeph>&lt;link&gt;</codeph> tag, to an external
+    <dd id="x15">Adds a reference, via a <codeph id="x-13">&lt;link&gt;</codeph> tag, to an external
      stylesheet. Takes a type-safe URL.</dd>
    </dlentry>
    <dlentry id="x16">
     <dt id="x17">addStylesheetRemote</dt>
-    <dd id="x18">Same as <codeph>addStylesheet</codeph>, but takes a normal URL. Useful for
+    <dd id="x18">Same as <codeph id="x-14">addStylesheet</codeph>, but takes a normal URL. Useful for
      referring to files hosted on a CDN, like Google's jQuery UI CSS files.</dd>
    </dlentry>
    <dlentry id="x19">
     <dt id="x20">addScript</dt>
-    <dd id="x21">Adds a reference, via a <codeph>&lt;script&gt;</codeph> tag, to an external script.
+    <dd id="x21">Adds a reference, via a <codeph id="x-15">&lt;script&gt;</codeph> tag, to an external script.
      Takes a type-safe URL.</dd>
    </dlentry>
    <dlentry id="x22">
     <dt id="x23">addScriptRemote</dt>
-    <dd id="x24">Same as <codeph>addScript</codeph>, but takes a normal URL. Useful for referring to
+    <dd id="x24">Same as <codeph id="x-16">addScript</codeph>, but takes a normal URL. Useful for referring to
      files hosted on a CDN, like Google's jQuery.</dd>
    </dlentry>
   </dl>

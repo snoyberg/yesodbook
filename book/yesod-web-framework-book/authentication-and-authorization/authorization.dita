@@ -3,10 +3,9 @@
 <concept id="conceptId">
  <title id="x-1">Authorization</title>
  <conbody id="x-2">
-  <p id="x-3">Once you can authenticate your users, you can use their credentials to <i id="x-4"
-                >authorize</i> requests. Authorization in Yesod is simple and declarative: most of
-            the time, you just need to add the <codeph>authRoute</codeph> and
-                <codeph>isAuthorized</codeph> methods to your Yesod typeclass instance. Let's see an
+  <p id="x-3">Once you can authenticate your users, you can use their credentials to <i id="x-4">authorize</i> requests. Authorization in Yesod is simple and declarative: most of
+            the time, you just need to add the <codeph id="x-12">authRoute</codeph> and
+                <codeph id="x-13">isAuthorized</codeph> methods to your Yesod typeclass instance. Let's see an
             example.</p>
   <codeblock id="x-5" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TemplateHaskell, TypeFamilies,
              MultiParamTypeClasses, QuasiQuotes #-}
@@ -90,16 +89,16 @@ main :: IO ()
 main = do
     manager &lt;- newManager def
     warpDebug 3000 $ MyAuthSite manager</codeblock>
-  <p id="x-6"><codeph>authRoute</codeph> should be your login page, almost always
-                <codeph>AuthR</codeph>
-            <codeph>LoginR</codeph>. <codeph>isAuthorized</codeph> is a function that takes two
+  <p id="x-6"><codeph id="x-14">authRoute</codeph> should be your login page, almost always
+                <codeph id="x-15">AuthR</codeph>
+            <codeph id="x-16">LoginR</codeph>. <codeph id="x-17">isAuthorized</codeph> is a function that takes two
             parameters: the requested route, and whether or not the request was a "write" request.
             You can actually change the meaning of what a write request is using the
-                <codeph>isWriteRequest</codeph> method, but the out-of-the-box version follows
-            RESTful principles: anything but a <codeph>GET</codeph>, <codeph>HEAD</codeph>,
-                <codeph>OPTIONS</codeph> or <codeph>TRACE</codeph> request is a write request.</p>
-  <p id="x-7">What's convenient about the body of <codeph>isAuthorized</codeph> is that you can run
-            any <codeph>Handler</codeph> code you want. This means you can:</p>
+                <codeph id="x-18">isWriteRequest</codeph> method, but the out-of-the-box version follows
+            RESTful principles: anything but a <codeph id="x-19">GET</codeph>, <codeph id="x-20">HEAD</codeph>,
+                <codeph id="x-21">OPTIONS</codeph> or <codeph id="x-22">TRACE</codeph> request is a write request.</p>
+  <p id="x-7">What's convenient about the body of <codeph id="x-23">isAuthorized</codeph> is that you can run
+            any <codeph id="x-24">Handler</codeph> code you want. This means you can:</p>
   <ul id="ul_tew_ill_pe">
    <li id="x-8">Access the filesystem (normal IO)</li>
    <li id="x-9">Lookup values in the database</li>

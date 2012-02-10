@@ -23,7 +23,7 @@
   #-}
 import Yesod
 import Data.Text (Text, unpack)
-import Control.Applicative ((&lt;$>), (&lt;*>))
+import Control.Applicative ((&lt;$&gt;), (&lt;*&gt;))
 import Database.Persist.Sqlite
 import Database.Persist.Query.GenericSql (selectSourceConn)
 import Database.Persist.Store (PersistValue (PersistInt64))
@@ -74,12 +74,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -> MForm Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
-    &lt;$> areq textField "Title" Nothing
-    &lt;*> areq textareaField "Contents" Nothing
+    &lt;$&gt; areq textField "Title" Nothing
+    &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -> MForm Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml
@@ -91,42 +91,42 @@ getRootR = do
                 then "There is currently 1 document."
                 else "There are currently " ++ show docCount ++ " documents."
     defaultLayout [whamlet|
-&lt;p>Welcome to the search application. #{docs}
-&lt;form method=post action=@{AddDocR}>
-    &lt;table>
+&lt;p&gt;Welcome to the search application. #{docs}
+&lt;form method=post action=@{AddDocR}&gt;
+    &lt;table&gt;
         ^{docWidget}
-        &lt;tr>
-            &lt;td colspan=3>
-                &lt;input type=submit value="Add document">
-&lt;form method=get action=@{SearchR}>
+        &lt;tr&gt;
+            &lt;td colspan=3&gt;
+                &lt;input type=submit value="Add document"&gt;
+&lt;form method=get action=@{SearchR}&gt;
     ^{searchWidget}
-    &lt;input type=submit value=Search>
+    &lt;input type=submit value=Search&gt;
 |]
 
 postAddDocR :: Handler RepHtml
 postAddDocR = do
     ((res, docWidget), _) &lt;- runFormPost addDocForm
     case res of
-        FormSuccess doc -> do
+        FormSuccess doc -&gt; do
             docid &lt;- runDB $ insert doc
             setMessage "Document added"
             redirect $ DocR docid
-        _ -> defaultLayout [whamlet|
-&lt;form method=post action=@{AddDocR}>
-    &lt;table>
+        _ -&gt; defaultLayout [whamlet|
+&lt;form method=post action=@{AddDocR}&gt;
+    &lt;table&gt;
         ^{docWidget}
-        &lt;tr>
-            &lt;td colspan=3>
-                &lt;input type=submit value="Add document">
+        &lt;tr&gt;
+            &lt;td colspan=3&gt;
+                &lt;input type=submit value="Add document"&gt;
 |]
 
-getDocR :: DocId -> Handler RepHtml
+getDocR :: DocId -&gt; Handler RepHtml
 getDocR docid = do
     doc &lt;- runDB $ get404 docid
     defaultLayout $
         [whamlet|
-&lt;h1>#{docTitle doc}
-&lt;div .content>#{docContent doc}
+&lt;h1&gt;#{docTitle doc}
+&lt;div .content&gt;#{docContent doc}
 |]
 
 data Result = Result
@@ -135,7 +135,7 @@ data Result = Result
     , resultExcerpt :: Html
     }
 
-getResult :: DocId -> Doc -> Text -> IO Result
+getResult :: DocId -&gt; Doc -&gt; Text -&gt; IO Result
 getResult docid doc qstring = do
     excerpt' &lt;- S.buildExcerpts
         excerptConfig
@@ -144,8 +144,8 @@ getResult docid doc qstring = do
         (unpack qstring)
     let excerpt =
             case excerpt' of
-                ST.Ok bss -> preEscapedLazyText $ decodeUtf8With ignore $ L.concat bss
-                _ -> return ()
+                ST.Ok bss -&gt; preEscapedLazyText $ decodeUtf8With ignore $ L.concat bss
+                _ -&gt; return ()
     return Result
         { resultId = docid
         , resultTitle = docTitle doc
@@ -154,27 +154,27 @@ getResult docid doc qstring = do
   where
     excerptConfig = E.altConfig { E.port = 9312 }
 
-escape :: Textarea -> Text
+escape :: Textarea -&gt; Text
 escape =
     T.concatMap escapeChar . unTextarea
   where
     escapeChar '&lt;' = "&amp;lt;"
-    escapeChar '>' = "&amp;gt;"
+    escapeChar '&gt;' = "&amp;gt;"
     escapeChar '&amp;' = "&amp;amp;"
     escapeChar c   = T.singleton c
 
-getResults :: Text -> Handler [Result]
+getResults :: Text -&gt; Handler [Result]
 getResults qstring = do
     sphinxRes' &lt;- liftIO $ S.query config "searcher" (unpack qstring)
     case sphinxRes' of
-        ST.Ok sphinxRes -> do
+        ST.Ok sphinxRes -&gt; do
             let docids = map (Key . PersistInt64 . ST.documentId) $ ST.matches sphinxRes
-            fmap catMaybes $ runDB $ forM docids $ \docid -> do
+            fmap catMaybes $ runDB $ forM docids $ \docid -&gt; do
                 mdoc &lt;- get docid
                 case mdoc of
-                    Nothing -> return Nothing
-                    Just doc -> liftIO $ Just &lt;$> getResult docid doc qstring
-        _ -> error $ show sphinxRes'
+                    Nothing -&gt; return Nothing
+                    Just doc -&gt; liftIO $ Just &lt;$&gt; getResult docid doc qstring
+        _ -&gt; error $ show sphinxRes'
   where
     config = S.defaultConfig
         { S.port = 9312
@@ -187,8 +187,8 @@ getSearchR = do
     ((formRes, searchWidget), _) &lt;- runFormGet searchForm
     searchResults &lt;-
         case formRes of
-            FormSuccess qstring -> getResults qstring
-            _ -> return []
+            FormSuccess qstring -&gt; getResults qstring
+            _ -&gt; return []
     defaultLayout $ do
         addLucius [lucius|
 .excerpt {
@@ -199,15 +199,15 @@ getSearchR = do
 }
 |]
         [whamlet|
-&lt;form method=get action=@{SearchR}>
+&lt;form method=get action=@{SearchR}&gt;
     ^{searchWidget}
-    &lt;input type=submit value=Search>
+    &lt;input type=submit value=Search&gt;
 $if not $ null searchResults
-    &lt;h1>Results
+    &lt;h1&gt;Results
     $forall result &lt;- searchResults
-        &lt;div .result>
-            &lt;a href=@{DocR $ resultId result}>#{resultTitle result}
-            &lt;div .excerpt>#{resultExcerpt result}
+        &lt;div .result&gt;
+            &lt;a href=@{DocR $ resultId result}&gt;#{resultTitle result}
+            &lt;div .excerpt&gt;#{resultExcerpt result}
 |]
 -- STOP
 
@@ -222,7 +222,7 @@ getXmlpipeR = do
         flushSource = fmap C.Chunk source
     sendWaiResponse $ ResponseSource status200 headers flushSource
 
-entityToEvents :: (Entity Doc) -> [X.Event]
+entityToEvents :: (Entity Doc) -&gt; [X.Event]
 entityToEvents (Entity docid doc) =
     [ X.EventBeginElement document [("id", [X.ContentText $ toPathPiece docid])]
     , X.EventBeginElement content []
@@ -231,17 +231,17 @@ entityToEvents (Entity docid doc) =
     , X.EventEndElement document
     ]
 
-fullDocSource :: Connection -> C.Source IO X.Event
+fullDocSource :: Connection -&gt; C.Source IO X.Event
 fullDocSource conn = mconcat
     [ CL.sourceList startEvents
     , docSource conn
     , CL.sourceList endEvents
     ]
 
-docSource :: Connection -> C.Source IO X.Event
+docSource :: Connection -&gt; C.Source IO X.Event
 docSource conn = selectSourceConn conn [] [] C.$= CL.concatMap entityToEvents
 
-toName :: Text -> X.Name
+toName :: Text -&gt; X.Name
 toName x = X.Name x (Just "http://sphinxsearch.com/") (Just "sphinx")
 
 docset, schema, field, document, content :: X.Name
@@ -266,21 +266,21 @@ endEvents =
     ]
 
 main :: IO ()
-main = withSqlitePool "searcher.db3" 10 $ \pool -> do
+main = withSqlitePool "searcher.db3" 10 $ \pool -&gt; do
     runSqlPool (runMigration migrateAll) pool
     warpDebug 3000 $ Searcher pool</codeblock>
-  <p id="x-11">Nothing magical here, we're just relying on the <codeph>searchForm</codeph> defined
-            above, and the <codeph>getResults</codeph> function which hasn't been defined yet. This
+  <p id="x-11">Nothing magical here, we're just relying on the <codeph id="x-27">searchForm</codeph> defined
+            above, and the <codeph id="x-28">getResults</codeph> function which hasn't been defined yet. This
             function just takes a search string, and returns a list of results. This is where we
-            first interact with the Sphinx API. We'll be using two functions: <codeph>query</codeph>
-            will return a list of matches, and <codeph>buildExcerpts</codeph> will return the
-            highlighted excerpts. Let's first look at <codeph>query</codeph>:</p>
+            first interact with the Sphinx API. We'll be using two functions: <codeph id="x-29">query</codeph>
+            will return a list of matches, and <codeph id="x-30">buildExcerpts</codeph> will return the
+            highlighted excerpts. Let's first look at <codeph id="x-31">query</codeph>:</p>
   <codeblock id="x-12" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
     QuasiQuotes, MultiParamTypeClasses, GADTs, FlexibleContexts
   #-}
 import Yesod
 import Data.Text (Text, unpack)
-import Control.Applicative ((&lt;$>), (&lt;*>))
+import Control.Applicative ((&lt;$&gt;), (&lt;*&gt;))
 import Database.Persist.Sqlite
 import Database.Persist.Query.GenericSql (selectSourceConn)
 import Database.Persist.Store (PersistValue (PersistInt64))
@@ -331,12 +331,12 @@ instance YesodPersist Searcher where
 instance RenderMessage Searcher FormMessage where
     renderMessage _ _ = defaultFormMessage
 
-addDocForm :: Html -> MForm Searcher Searcher (FormResult Doc, Widget)
+addDocForm :: Html -&gt; MForm Searcher Searcher (FormResult Doc, Widget)
 addDocForm = renderTable $ Doc
-    &lt;$> areq textField "Title" Nothing
-    &lt;*> areq textareaField "Contents" Nothing
+    &lt;$&gt; areq textField "Title" Nothing
+    &lt;*&gt; areq textareaField "Contents" Nothing
 
-searchForm :: Html -> MForm Searcher Searcher (FormResult Text, Widget)
+searchForm :: Html -&gt; MForm Searcher Searcher (FormResult Text, Widget)
 searchForm = renderDivs $ areq (searchField True) "Query" Nothing
 
 getRootR :: Handler RepHtml
@@ -348,42 +348,42 @@ getRootR = do
                 then "There is currently 1 document."
                 else "There are currently " ++ show docCount ++ " documents."
     defaultLayout [whamlet|
-&lt;p>Welcome to the search application. #{docs}
-&lt;form method=post action=@{AddDocR}>
-    &lt;table>
+&lt;p&gt;Welcome to the search application. #{docs}
+&lt;form method=post action=@{AddDocR}&gt;
+    &lt;table&gt;
         ^{docWidget}
-        &lt;tr>
-            &lt;td colspan=3>
-                &lt;input type=submit value="Add document">
-&lt;form method=get action=@{SearchR}>
+        &lt;tr&gt;
+            &lt;td colspan=3&gt;
+                &lt;input type=submit value="Add document"&gt;
+&lt;form method=get action=@{SearchR}&gt;
     ^{searchWidget}
-    &lt;input type=submit value=Search>
+    &lt;input type=submit value=Search&gt;
 |]
 
 postAddDocR :: Handler RepHtml
 postAddDocR = do
     ((res, docWidget), _) &lt;- runFormPost addDocForm
     case res of
-        FormSuccess doc -> do
+        FormSuccess doc -&gt; do
             docid &lt;- runDB $ insert doc
             setMessage "Document added"
             redirect $ DocR docid
-        _ -> defaultLayout [whamlet|
-&lt;form method=post action=@{AddDocR}>
-    &lt;table>
+        _ -&gt; defaultLayout [whamlet|
+&lt;form method=post action=@{AddDocR}&gt;
+    &lt;table&gt;
         ^{docWidget}
-        &lt;tr>
-            &lt;td colspan=3>
-                &lt;input type=submit value="Add document">
+        &lt;tr&gt;
+            &lt;td colspan=3&gt;
+                &lt;input type=submit value="Add document"&gt;
 |]
 
-getDocR :: DocId -> Handler RepHtml
+getDocR :: DocId -&gt; Handler RepHtml
 getDocR docid = do
     doc &lt;- runDB $ get404 docid
     defaultLayout $
         [whamlet|
-&lt;h1>#{docTitle doc}
-&lt;div .content>#{docContent doc}
+&lt;h1&gt;#{docTitle doc}
+&lt;div .content&gt;#{docContent doc}
 |]
 
 data Result = Result
@@ -392,7 +392,7 @@ data Result = Result
     , resultExcerpt :: Html
     }
 
-getResult :: DocId -> Doc -> Text -> IO Result
+getResult :: DocId -&gt; Doc -&gt; Text -&gt; IO Result
 getResult docid doc qstring = do
     excerpt' &lt;- S.buildExcerpts
         excerptConfig
@@ -401,8 +401,8 @@ getResult docid doc qstring = do
         (unpack qstring)
     let excerpt =
             case excerpt' of
-                ST.Ok bss -> preEscapedLazyText $ decodeUtf8With ignore $ L.concat bss
-                _ -> return ()
+                ST.Ok bss -&gt; preEscapedLazyText $ decodeUtf8With ignore $ L.concat bss
+                _ -&gt; return ()
     return Result
         { resultId = docid
         , resultTitle = docTitle doc
@@ -411,28 +411,28 @@ getResult docid doc qstring = do
   where
     excerptConfig = E.altConfig { E.port = 9312 }
 
-escape :: Textarea -> Text
+escape :: Textarea -&gt; Text
 escape =
     T.concatMap escapeChar . unTextarea
   where
     escapeChar '&lt;' = "&amp;lt;"
-    escapeChar '>' = "&amp;gt;"
+    escapeChar '&gt;' = "&amp;gt;"
     escapeChar '&amp;' = "&amp;amp;"
     escapeChar c   = T.singleton c
 
 -- START
-getResults :: Text -> Handler [Result]
+getResults :: Text -&gt; Handler [Result]
 getResults qstring = do
     sphinxRes' &lt;- liftIO $ S.query config "searcher" (unpack qstring)
     case sphinxRes' of
-        ST.Ok sphinxRes -> do
+        ST.Ok sphinxRes -&gt; do
             let docids = map (Key . PersistInt64 . ST.documentId) $ ST.matches sphinxRes
-            fmap catMaybes $ runDB $ forM docids $ \docid -> do
+            fmap catMaybes $ runDB $ forM docids $ \docid -&gt; do
                 mdoc &lt;- get docid
                 case mdoc of
-                    Nothing -> return Nothing
-                    Just doc -> liftIO $ Just &lt;$> getResult docid doc qstring
-        _ -> error $ show sphinxRes'
+                    Nothing -&gt; return Nothing
+                    Just doc -&gt; liftIO $ Just &lt;$&gt; getResult docid doc qstring
+        _ -&gt; error $ show sphinxRes'
   where
     config = S.defaultConfig
         { S.port = 9312
@@ -445,8 +445,8 @@ getSearchR = do
     ((formRes, searchWidget), _) &lt;- runFormGet searchForm
     searchResults &lt;-
         case formRes of
-            FormSuccess qstring -> getResults qstring
-            _ -> return []
+            FormSuccess qstring -&gt; getResults qstring
+            _ -&gt; return []
     defaultLayout $ do
         addLucius [lucius|
 .excerpt {
@@ -457,15 +457,15 @@ getSearchR = do
 }
 |]
         [whamlet|
-&lt;form method=get action=@{SearchR}>
+&lt;form method=get action=@{SearchR}&gt;
     ^{searchWidget}
-    &lt;input type=submit value=Search>
+    &lt;input type=submit value=Search&gt;
 $if not $ null searchResults
-    &lt;h1>Results
+    &lt;h1&gt;Results
     $forall result &lt;- searchResults
-        &lt;div .result>
-            &lt;a href=@{DocR $ resultId result}>#{resultTitle result}
-            &lt;div .excerpt>#{resultExcerpt result}
+        &lt;div .result&gt;
+            &lt;a href=@{DocR $ resultId result}&gt;#{resultTitle result}
+            &lt;div .excerpt&gt;#{resultExcerpt result}
 |]
 
 getXmlpipeR :: Handler RepXml
@@ -479,7 +479,7 @@ getXmlpipeR = do
         flushSource = fmap C.Chunk source
     sendWaiResponse $ ResponseSource status200 headers flushSource
 
-entityToEvents :: (Entity Doc) -> [X.Event]
+entityToEvents :: (Entity Doc) -&gt; [X.Event]
 entityToEvents (Entity docid doc) =
     [ X.EventBeginElement document [("id", [X.ContentText $ toPathPiece docid])]
     , X.EventBeginElement content []
@@ -488,17 +488,17 @@ entityToEvents (Entity docid doc) =
     , X.EventEndElement document
     ]
 
-fullDocSource :: Connection -> C.Source IO X.Event
+fullDocSource :: Connection -&gt; C.Source IO X.Event
 fullDocSource conn = mconcat
     [ CL.sourceList startEvents
     , docSource conn
     , CL.sourceList endEvents
     ]
 
-docSource :: Connection -> C.Source IO X.Event
+docSource :: Connection -&gt; C.Source IO X.Event
 docSource conn = selectSourceConn conn [] [] C.$= CL.concatMap entityToEvents
 
-toName :: Text -> X.Name
+toName :: Text -&gt; X.Name
 toName x = X.Name x (Just "http://sphinxsearch.com/") (Just "sphinx")
 
 docset, schema, field, document, content :: X.Name
@@ -523,15 +523,14 @@ endEvents =
     ]
 
 main :: IO ()
-main = withSqlitePool "searcher.db3" 10 $ \pool -> do
+main = withSqlitePool "searcher.db3" 10 $ \pool -&gt; do
     runSqlPool (runMigration migrateAll) pool
     warpDebug 3000 $ Searcher pool</codeblock>
-  <p id="x-13"><codeph>query</codeph> takes three parameters: the configuration options, the index
+  <p id="x-13"><codeph id="x-32">query</codeph> takes three parameters: the configuration options, the index
             to search against (searcher in this case) and the search string. It returns a list of
             document IDs that contain the search string. The tricky bit here is that those documents
-            are returned as <codeph id="x-14">Int64</codeph> values, whereas we need <codeph
-                id="x-15">DocId</codeph>s. We're taking advantage of the fact that the SQL
-            Persistent backends use a <codeph>PersistInt64</codeph> constructor for their IDs, and
+            are returned as <codeph id="x-14">Int64</codeph> values, whereas we need <codeph id="x-15">DocId</codeph>s. We're taking advantage of the fact that the SQL
+            Persistent backends use a <codeph id="x-33">PersistInt64</codeph> constructor for their IDs, and
             simply wrap up the values appropriately.</p>
   <note id="x-16">If you're dealing with a backend that has non-numeric IDs, like MongoDB, you'll need to work
    out something a bit more clever than this.</note>
@@ -539,7 +538,7 @@ main = withSqlitePool "searcher.db3" 10 $ \pool -> do
     <codeph id="x-19">catMaybes</codeph> to turn it into a <codeph id="x-20">[Result]</codeph>. In the where clause, we
    define our local settings, which override the default port and set up the search to work when
     <i id="x-21">any</i> term matches the document.</p>
-  <p id="x-22">Let's finally look at the <codeph>getResult</codeph> function:</p>
+  <p id="x-22">Let's finally look at the <codeph id="x-34">getResult</codeph> function:</p>
   <codeblock id="x-23" outputclass="haskell">getResult :: DocId -&gt; Doc -&gt; Text -&gt; IO Result
 getResult docid doc qstring = do
     excerpt' &lt;- S.buildExcerpts
@@ -567,7 +566,7 @@ escape =
     escapeChar '&gt;' = "&amp;gt;"
     escapeChar '&amp;' = "&amp;amp;"
     escapeChar c   = T.singleton c</codeblock>
-  <p id="x-24"><codeph>buildExcerpts</codeph> takes four parameters: the configuration options, the
+  <p id="x-24"><codeph id="x-35">buildExcerpts</codeph> takes four parameters: the configuration options, the
             textual contents of the document, the search index and the search term. The interesting
             bit is that we entity escape the text content. Sphinx won't automatically escape these
             for us, so we must do it explicitly.</p>

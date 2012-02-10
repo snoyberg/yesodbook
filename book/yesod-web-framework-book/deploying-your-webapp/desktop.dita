@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="desktop"><title id="x-1">Desktop</title><conbody id="x-2"><p id="desktop1">Another nifty backend is <apiname id="x1">wai-handler-webkit</apiname>. This backend combines Warp and QtWebkit to create an executable that a user simply double-clicks. This can be a convenient way to provide an offline version of your application.</p><p id="desktop2">One of the very nice conveniences of Yesod for this is that your templates are all compiled into the executable, and thus do not need to be distributed with your application. Static files do, however.</p><note id="x2">There's actually support for embedding your static files directly in the executable as
-            well, see the <apiname>yesod-static</apiname> docs for more details.</note>
-        <p>A similar approach, without requiring the QtWebkit library, is
-                <apiname>wai-handler-launch</apiname>, which launches a Warp server and then opens
+            well, see the <apiname id="x-3">yesod-static</apiname> docs for more details.</note>
+        <p id="x-4">A similar approach, without requiring the QtWebkit library, is
+                <apiname id="x-5">wai-handler-launch</apiname>, which launches a Warp server and then opens
             up the user's default web browser. There's a little trickery involved here: in order to
-            know that the user is still using the site, <codeph>wai-handler-launch</codeph>  inserts
+            know that the user is still using the site, <codeph id="x-6">wai-handler-launch</codeph>  inserts
             a "ping" Javascript snippet to every HTML page it serves. It
-                <codeph>wai-handler-launch</codeph> doesn't receive a ping for two minutes, it shuts
+                <codeph id="x-7">wai-handler-launch</codeph> doesn't receive a ping for two minutes, it shuts
             down.</p></conbody></concept>

@@ -4,19 +4,15 @@
  <title id="x-1">Cursor</title>
  <conbody id="x-2">
   <p id="x-3">Suppose you want to pull the title out of an XHTML document. You could do so with the
-    <codeph>Text.XML</codeph> interface we just described, using standard pattern matching on the
+    <codeph id="x-49">Text.XML</codeph> interface we just described, using standard pattern matching on the
    children of elements. But that would get very tedious, very quickly. Probably the gold standard
-   for these kinds of lookups is XPath, where you would be able to write <codeph id="x-4"
-    >/html/head/title</codeph>. And that's exactly what inspired the design of the <apiname id="x-5"
-    >xml-conduit:Text.XML.Cursor</apiname> combinators.</p>
+   for these kinds of lookups is XPath, where you would be able to write <codeph id="x-4">/html/head/title</codeph>. And that's exactly what inspired the design of the <apiname id="x-5">xml-conduit:Text.XML.Cursor</apiname> combinators.</p>
   <p id="x-6">A cursor is an XML node that knows its location in the tree; it's able to traverse
-   upwards, sideways, and downwards. (Under the surface, this is achieved by <xref id="x-7"
-    href="http://www.haskell.org/haskellwiki/Tying_the_Knot" format="html" scope="external">tying
+   upwards, sideways, and downwards. (Under the surface, this is achieved by <xref id="x-7" href="http://www.haskell.org/haskellwiki/Tying_the_Knot" format="html" scope="external">tying
     the knot</xref>.) There are two functions available for creating cursors from
-    <codeph>Text.XML</codeph> types: <codeph>fromDocument</codeph> and
-   <codeph>fromNode</codeph>.</p>
-  <p id="x-8">We also have the concept of an <term id="x-9">Axis</term>, defined as <codeph
-    id="x-10">type Axis = Cursor -&gt; [Cursor]</codeph>. It's easiest to get started by looking at
+    <codeph id="x-50">Text.XML</codeph> types: <codeph id="x-51">fromDocument</codeph> and
+   <codeph id="x-52">fromNode</codeph>.</p>
+  <p id="x-8">We also have the concept of an <term id="x-9">Axis</term>, defined as <codeph id="x-10">type Axis = Cursor -&gt; [Cursor]</codeph>. It's easiest to get started by looking at
    example axes: child returns zero or more cursors that are the child of the current one, parent
    returns the single parent cursor of the input, or an empty list if the input is the root element,
    and so on.</p>
@@ -78,9 +74,8 @@ main = do
         cursor $/ element "head" &amp;/ element "title" &amp;// content</codeblock>
   <p id="x-30"><codeph id="x-31">$/</codeph> says to apply the axis on the right to the cursor on
    the left. <codeph id="x-32">&amp;/</codeph> is almost identical, but is instead used to combine
-   two axes together. This is a general rule in <codeph>Text.XML.Cursor</codeph>: operators
-   beginning with $ directly apply an axis, while &amp; will combine two together. <codeph id="x-33"
-    >&amp;//</codeph> is used for applying an axis to all descendants.</p>
+   two axes together. This is a general rule in <codeph id="x-53">Text.XML.Cursor</codeph>: operators
+   beginning with $ directly apply an axis, while &amp; will combine two together. <codeph id="x-33">&amp;//</codeph> is used for applying an axis to all descendants.</p>
   <p id="x-34">Let's go for a more complex, if more contrived, example. We have a document that looks
    like:</p>
   <codeblock id="x-35" outputclass="xml">&lt;html&gt;
@@ -118,13 +113,12 @@ main = do
                &gt;=&gt; element "h1"
                &amp;// content</codeblock>
   <p id="x-41">Let's step through that. First we get all h2 elements in the document.
-    (<codeph>$//</codeph> gets all descendants of the root element.) Then we filter out only those
-   with <codeph>class=bar</codeph>. That <codeph id="x-42">&gt;=&gt;</codeph> operator is actually
+    (<codeph id="x-54">$//</codeph> gets all descendants of the root element.) Then we filter out only those
+   with <codeph id="x-55">class=bar</codeph>. That <codeph id="x-42">&gt;=&gt;</codeph> operator is actually
    the standard operator from <apiname id="x-43">base:Control.Monad</apiname>; yet another advantage
-   of the monad instance of lists. <codeph>precedingSibling</codeph> finds all nodes that come
-   before our node <b id="x-44">and</b> share the same parent. (There is also a <codeph id="x-45"
-    >preceding</codeph> axis which takes all elements earlier in the tree.) We then take just the
-    <codeph>h1</codeph> elements, and then grab their content.</p>
+   of the monad instance of lists. <codeph id="x-56">precedingSibling</codeph> finds all nodes that come
+   before our node <b id="x-44">and</b> share the same parent. (There is also a <codeph id="x-45">preceding</codeph> axis which takes all elements earlier in the tree.) We then take just the
+    <codeph id="x-57">h1</codeph> elements, and then grab their content.</p>
   <note id="x-46">The equivalent XPath, for comparison, would be <codeph id="x-47">//h2[@class =
     'bar']/preceding-sibling::h1//text()</codeph>.</note>
   <p id="x-48">While the cursor API isn't quite as succinct as XPath, it has the advantages of being standard

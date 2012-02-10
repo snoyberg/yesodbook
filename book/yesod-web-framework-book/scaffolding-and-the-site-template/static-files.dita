@@ -8,18 +8,18 @@
    that:</p>
   <ul id="ul_rui_odh_oe">
    <li id="x-4">When your static file identifiers are generated (e.g.,
-     <filepath>static/mylogo.png</filepath> becomes <codeph>mylogo_png</codeph>), a query-string
+     <filepath id="x-13">static/mylogo.png</filepath> becomes <codeph id="x-14">mylogo_png</codeph>), a query-string
     parameter is added to it with a hash of the contents of the file. All of this happens at compile
     time.</li>
-   <li id="x-5">When <codeph>yesod-static</codeph> serves your static files, it sets expiration
+   <li id="x-5">When <codeph id="x-15">yesod-static</codeph> serves your static files, it sets expiration
     headers far in the future, and incldues an etag based on a hash of your content.</li>
-   <li id="x-6">Whenever you embed a link to <codeph>mylogo_png</codeph>, the rendering includes the
+   <li id="x-6">Whenever you embed a link to <codeph id="x-16">mylogo_png</codeph>, the rendering includes the
     query-string parameter. If you change the logo, recompile, and launch your new app, the query
     string will have changed, causing users to ignore the cached copy and download a new
     version.</li>
   </ul>
   <p id="x-7">Additionally, you can set a specific static root in your
-    <filepath>Settings.hs</filepath> file to serve from a different domain name. This has the
+    <filepath id="x-17">Settings.hs</filepath> file to serve from a different domain name. This has the
    advantage of not requiring transmission of cookies for static file requests, and also lets you
    offload static file hosting to a CDN or a service like Amazon S3. See the comments in the file
    for more details.</p>

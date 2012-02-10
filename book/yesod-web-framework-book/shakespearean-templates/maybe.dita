@@ -2,16 +2,16 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="maybe"><title id="x-1">Maybe</title><conbody id="x-2">
   <p id="x1">Similarly, we have a special construct for dealing with Maybe values. This could
-   technically be dealt with using <codeph>if</codeph>, <codeph>isJust</codeph> and
-    <codeph>fromJust</codeph>, but this is more convenient and avoids partial
+   technically be dealt with using <codeph id="x-3">if</codeph>, <codeph id="x-4">isJust</codeph> and
+    <codeph id="x-5">fromJust</codeph>, but this is more convenient and avoids partial
    functions.<codeblock outputclass="hamlet" id="x2">$maybe name &lt;- maybeName
     &lt;p&gt;Your name is #{name}
 $nothing
     &lt;p&gt;I don't know your name.</codeblock>In
    addition to simple identifiers, you can use a few other, more complicated values on the left hand
    side, such as constructors and tuples.</p>
-  <codeblock outputclass="hamlet">$maybe Person firstName lastName &lt;- maybePerson
-    &lt;p>Your name is #{firstName} #{lastName}</codeblock>
-  <p>The right-hand-side follows the same rules as interpolations, allow variables, function
+  <codeblock id="x-6" outputclass="hamlet">$maybe Person firstName lastName &lt;- maybePerson
+    &lt;p&gt;Your name is #{firstName} #{lastName}</codeblock>
+  <p id="x-7">The right-hand-side follows the same rules as interpolations, allow variables, function
    application, and so on.</p>
  </conbody></concept>

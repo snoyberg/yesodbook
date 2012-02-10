@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="rephtmljson"><title id="x-1">RepHtmlJson</title><conbody id="x-2"><p id="rhj1">An example to the contrary is <codeph>RepHtmlJson</codeph>, which provides either an
+<concept id="rephtmljson"><title id="x-1">RepHtmlJson</title><conbody id="x-2"><p id="rhj1">An example to the contrary is <codeph id="x-3">RepHtmlJson</codeph>, which provides either an
             HTML or JSON representation. This instance helps greatly in programming AJAX
             applications that degrade nicely. Here is an example that returns either HTML or JSON
             data, depending on what the client wants.</p><codeblock id="x1" outputclass="haskell">-- START
@@ -46,13 +46,13 @@ getNameR name = do
 
 main = warpDebug 4000 R
 -- STOP
-</codeblock><p id="rhj2">Our <codeph>getRootR</codeph> handler creates a page with three links and some
+</codeblock><p id="rhj2">Our <codeph id="x-4">getRootR</codeph> handler creates a page with three links and some
             Javascript which intercept clicks on the links and performs asynchronous requests. If
             the user has Javascript enabled, clicking on the link will cause a request to be sent
-            with an <codeph>Accept</codeph> header of <codeph>application/json</codeph>. In that
-            case, <codeph>getNameR</codeph> will return the JSON representation defined on line
+            with an <codeph id="x-5">Accept</codeph> header of <codeph id="x-6">application/json</codeph>. In that
+            case, <codeph id="x-7">getNameR</codeph> will return the JSON representation defined on line
             40.</p><p id="rhj3">If the user disables Javascript, clicking on the link will send the user to the appropriate URL. A web browser places priority on an HTML representation of the data, and therefore the page defined on lines 36-38 will be returned.</p><p id="rhj4">We can of course extend this to work with XML, Atom feeds, or even binary
             representations of the data. A fun exercise could be writing a web application that
-            serves data simply using the default <codeph>Show</codeph> instances of datatypes, and
+            serves data simply using the default <codeph id="x-8">Show</codeph> instances of datatypes, and
             then writing a web client that parses the results using the default
-                <codeph>Read</codeph> instances.</p></conbody></concept>
+                <codeph id="x-9">Read</codeph> instances.</p></conbody></concept>

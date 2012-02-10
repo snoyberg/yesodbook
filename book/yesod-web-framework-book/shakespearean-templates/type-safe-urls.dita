@@ -27,7 +27,7 @@
    application, let's model our routes with a sum
    type:<codeblock outputclass="haskell" id="x14">data MyRoute = Home | Time</codeblock></p>
   <p id="x15">Instead of placing a link like /display/time in our template, we can use the
-    <codeph>Time</codeph> constructor. But at the end of the day, HTML is made up of text, not data
+    <codeph id="x-3">Time</codeph> constructor. But at the end of the day, HTML is made up of text, not data
    types, so we need some way to convert these values to text. We call this a <term id="x16">URL
     rendering function</term>, and a simple one
    is:<codeblock outputclass="haskell" id="x17">renderMyRoute :: MyRoute -&gt; Text
@@ -44,8 +44,8 @@ renderMyRoute :: Render MyRoute
 renderMyRoute Home _ = ...
 renderMyRoute Time _ = ...</codeblock></p>
   <p id="x20">OK, we have our render function, and we have type-safe URLs embedded in the templates.
-   How does this fit together exactly? Instead of generating an <codeph>Html</codeph> (or
-    <codeph>Css</codeph> or <codeph>Javascript</codeph>) value directly, Shakespearean templates
+   How does this fit together exactly? Instead of generating an <codeph id="x-4">Html</codeph> (or
+    <codeph id="x-5">Css</codeph> or <codeph id="x-6">Javascript</codeph>) value directly, Shakespearean templates
    actually produce a function, which takes this render function and produces HTML. To see this
    better, let's have a quick (fake) peek at how Hamlet would work under the surface. Supposing we
    had a

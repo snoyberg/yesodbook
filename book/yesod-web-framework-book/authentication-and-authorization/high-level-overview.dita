@@ -10,16 +10,15 @@
    hashed passwords), it's the username.</p>
   <p id="x-5">Each authentication plugin provides its own system for logging in, whether it be via
    passing tokens with an external site or a email/password form. After a successful login, the
-   plugin sets a value in the user's session to indicate his/her <codeph>AuthId</codeph>. This
-    <codeph>AuthId</codeph> is usually a Persistent ID from a table used for keeping track of
+   plugin sets a value in the user's session to indicate his/her <codeph id="x-16">AuthId</codeph>. This
+    <codeph id="x-17">AuthId</codeph> is usually a Persistent ID from a table used for keeping track of
    users.</p>
-  <p id="x-6">There are a few functions available for querying a user's <codeph>AuthId</codeph>,
+  <p id="x-6">There are a few functions available for querying a user's <codeph id="x-18">AuthId</codeph>,
    most commonly <codeph id="x-7">maybeAuthId</codeph>, <codeph id="x-8">requireAuthId</codeph>,
     <codeph id="x-9">maybeAuth</codeph> and <codeph id="x-10">requireAuth</codeph>. The require
    versions will redirect to a login page if the user is not logged in, while the second set of
-   functions (the ones <b id="x-11">not</b> ending in <codeph>Id</codeph>) give both the table ID <i
-    id="x-12">and</i> entity value.</p>
-  <p id="x-13">Since all of the storage of <codeph>AuthId</codeph> is built on top of sessions, all
+   functions (the ones <b id="x-11">not</b> ending in <codeph id="x-19">Id</codeph>) give both the table ID <i id="x-12">and</i> entity value.</p>
+  <p id="x-13">Since all of the storage of <codeph id="x-20">AuthId</codeph> is built on top of sessions, all
    of the rules from there apply. In particular, the data is stored in an encrypted, HMACed client
    cookie, which automatically times out after a certain configurable period of inactivity.
    Additionally, since there is no server-side component to sessions, logging out simply deletes the
@@ -28,10 +27,10 @@
   <note id="x-14">There are plans to add in a server-side component to sessions which would allow forced
    logout. This will almost certainly be implemented before a 1.0 release of Yesod.</note>
   <p id="x-15">On the flip side, authorization is handled by a few methods inside the
-    <codeph>Yesod</codeph> typeclass. For every request, these methods are run to determine if
+    <codeph id="x-21">Yesod</codeph> typeclass. For every request, these methods are run to determine if
    access should be allowed, denied, or if the user needs to be authenticated. By default, these
    methods allow access for every request. Alternatively, you can implement authorization in a more
-   ad-hoc way by adding calls to <codeph>requireAuth</codeph> and the like within individual handler
+   ad-hoc way by adding calls to <codeph id="x-22">requireAuth</codeph> and the like within individual handler
    functions, though this undermines many of the benefits of a declarative authorization system.</p>
  </conbody>
 </concept>

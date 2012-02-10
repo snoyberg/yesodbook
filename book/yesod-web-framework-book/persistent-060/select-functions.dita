@@ -12,12 +12,11 @@
    </sthead>
    <strow id="x6">
     <stentry id="x7">selectSource</stentry>
-    <stentry id="x8">A <codeph>Source</codeph> containing all the IDs and values from the database.
-     This allows you to write streaming code.<note>We cover <codeph>Source</codeph>s in detail in
-      the <xref href="../conduit/conduits.dita#conceptId" format="dita">conduits appendix</xref>.
-      Additionally, there's another function called <codeph>selectSourceConn</codeph> which allows
-      you more control of connection allocation. We use this in the <xref
-       href="../case-study-sphinx/case-study-sphinx.dita#conceptId" format="dita">Sphinx case
+    <stentry id="x8">A <codeph id="x-3">Source</codeph> containing all the IDs and values from the database.
+     This allows you to write streaming code.<note id="x-4">We cover <codeph id="x-5">Source</codeph>s in detail in
+      the <xref id="x-6" href="../conduit/conduits.dita#conceptId" format="dita">conduits appendix</xref>.
+      Additionally, there's another function called <codeph id="x-7">selectSourceConn</codeph> which allows
+      you more control of connection allocation. We use this in the <xref id="x-8" href="../case-study-sphinx/case-study-sphinx.dita#conceptId" format="dita">Sphinx case
        study</xref>.</note></stentry>
    </strow>
    <strow id="x9">
@@ -32,15 +31,15 @@
    <strow id="x15">
     <stentry id="x16">selectKeys</stentry>
     <stentry id="x17">Returns only the keys, without the values, as a
-     <codeph>Source</codeph>.</stentry>
+     <codeph id="x-9">Source</codeph>.</stentry>
    </strow>
   </simpletable>
-  <p id="x18"><codeph>selectList</codeph> is the most commonly used, so we will cover it
+  <p id="x18"><codeph id="x-10">selectList</codeph> is the most commonly used, so we will cover it
    specifically. Understanding the others should be trivial after that.</p>
-  <p id="x19"><codeph>selectList</codeph> takes two arguments: a list of <codeph>Filter</codeph>s,
-   and a list of <codeph>SelectOpt</codeph>s. The former is what limits your results based on
+  <p id="x19"><codeph id="x-11">selectList</codeph> takes two arguments: a list of <codeph id="x-12">Filter</codeph>s,
+   and a list of <codeph id="x-13">SelectOpt</codeph>s. The former is what limits your results based on
    characteristics; it allows for equals, less than, is member of, and such.
-    <codeph>SelectOpt</codeph>s provides for three different features: sorting, limiting output to a
+    <codeph id="x-14">SelectOpt</codeph>s provides for three different features: sorting, limiting output to a
    certain number of rows, and offsetting results by a certain number of rows.</p>
   <note id="x20">The combination of limits and offsets is very important; it allows for efficient
    pagination in your webapps.</note>
@@ -70,9 +69,9 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
 -- STOP</codeblock>
   <p id="x23">As simple as that example is, we really need to cover three points:</p>
   <ol id="ol_zxf_yhw_kd">
-   <li id="x24"><codeph>PersonAge</codeph> is a constructor for an associated phantom type. That
+   <li id="x24"><codeph id="x-15">PersonAge</codeph> is a constructor for an associated phantom type. That
     might sound scary, but what's important is that it uniquely identifies the "age" column of the
-    "person" table, and that it knows that the age field is an <codeph>Int</codeph>. (That's the
+    "person" table, and that it knows that the age field is an <codeph id="x-16">Int</codeph>. (That's the
     phantom part.)</li>
    <li id="x25">We have a bunch of Persistent filtering operators. They're all pretty straight-forward: just
     tack a period to the end of what you'd expect. There are three gotchas here, I'll explain
@@ -81,10 +80,9 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     AND age is less than or equal to 30". We'll describe ORing later.</li>
   </ol>
   <p id="x27">The one operator that's surprisingly named is "not equals." We use
-    <codeph>!=.</codeph>, since <codeph>/=.</codeph> is used for updates (for "divide-and-set",
+    <codeph id="x-17">!=.</codeph>, since <codeph id="x-18">/=.</codeph> is used for updates (for "divide-and-set",
    described later). Don't worry: if you use the wrong one, the compiler will catch you. The other
-   two surprising operators are the "is member" and "is not member". They are, respectively, <codeph
-    id="x28">&lt;-.</codeph> and <codeph id="x29">/&lt;-.</codeph> (both end with a period).</p>
+   two surprising operators are the "is member" and "is not member". They are, respectively, <codeph id="x28">&lt;-.</codeph> and <codeph id="x29">/&lt;-.</codeph> (both end with a period).</p>
   <p id="x30">And regarding ORs, we use the <codeph id="x31">||.</codeph> operator. For example:</p>
   <codeblock id="x32" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}

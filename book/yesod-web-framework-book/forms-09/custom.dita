@@ -5,8 +5,8 @@
  <conbody id="x-2">
   <p id="x-3">The fields that come built-in with Yesod will likely cover the vast majority of your
    form needs. But occassionally, you'll need something more specialized. Fortunately, you can
-   create new forms in Yesod yourself. The <codeph>Field</codeph> datatype has two records:
-    <codeph>fieldParse</codeph> takes a list of values submitted by the user and returns one of
+   create new forms in Yesod yourself. The <codeph id="x-19">Field</codeph> datatype has two records:
+    <codeph id="x-20">fieldParse</codeph> takes a list of values submitted by the user and returns one of
    three results:</p>
   <ul id="ul_d7bb7211-f4dc-4239-a2b0-ae26a58b6290">
    <li id="x-4">An error message saying validation failed.</li>
@@ -16,17 +16,16 @@
   <p id="x-7">That last case might sound surprising: shouldn't Yesod automatically know that no information
    is supplied when the input list is empty? Well, no actually. Checkboxes, for instance, indicate
    an unchecked state by sending in an empty list.</p>
-  <p id="x-8">Also, what's up with the list? Shouldn't it be a <codeph>Maybe</codeph>? Well, that's
+  <p id="x-8">Also, what's up with the list? Shouldn't it be a <codeph id="x-21">Maybe</codeph>? Well, that's
    also not the case. With grouped checkboxes and multi-select lists, you'll have multiple widgets
    with the same name. We also use this trick in our example below.</p>
-  <p id="x-9">The second record is <codeph>fieldView</codeph>, and it renders a widget to display to
-   the user. This function has four arguments: the <codeph>id</codeph> attribute, the
-    <codeph>name</codeph> attribute, the result and a <codeph>Bool</codeph> indicating if the field
+  <p id="x-9">The second record is <codeph id="x-22">fieldView</codeph>, and it renders a widget to display to
+   the user. This function has four arguments: the <codeph id="x-23">id</codeph> attribute, the
+    <codeph id="x-24">name</codeph> attribute, the result and a <codeph id="x-25">Bool</codeph> indicating if the field
    is required.</p>
-  <p id="x-10">What did I mean by result? It's actually an <codeph>Either</codeph>, giving either
+  <p id="x-10">What did I mean by result? It's actually an <codeph id="x-26">Either</codeph>, giving either
    the unparsed input (when parsing failed) or the successfully parsed value.
-    <codeph>intField</codeph> is a great example of how this works. If you type in <userinput
-    id="x-11">42</userinput>, the value of result will be <codeph id="x-12">Right 42</codeph>. But
+    <codeph id="x-27">intField</codeph> is a great example of how this works. If you type in <userinput id="x-11">42</userinput>, the value of result will be <codeph id="x-12">Right 42</codeph>. But
    if you type in <userinput id="x-13">turtle</userinput>, the result will be <codeph id="x-14">Left
     "turtle"</codeph>. This lets you put in a value attribute on your input tag that will give the
    user a consistent experience.</p>

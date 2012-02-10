@@ -6,8 +6,8 @@
   <dl id="x3">
    <dlentry id="x4">
     <dt id="x5">Enctype</dt>
-    <dd id="x6">The encoding type, either <codeph>UrlEncoded</codeph> or <codeph>Multipart</codeph>.
-     This datatype declares an instance of <codeph>ToHtml</codeph>, so you can use the enctype
+    <dd id="x6">The encoding type, either <codeph id="x-3">UrlEncoded</codeph> or <codeph id="x-4">Multipart</codeph>.
+     This datatype declares an instance of <codeph id="x-5">ToHtml</codeph>, so you can use the enctype
      directly in Hamlet.</dd>
    </dlentry>
    <dlentry id="x7">
@@ -20,15 +20,15 @@
    </dlentry>
    <dlentry id="x13">
     <dt id="x14">Ints</dt>
-    <dd id="x15">As mentioned in the introduction, <codeph>yesod-form</codeph> automatically assigns
-     a unique name to each field. <codeph>Ints</codeph> is used to keep track of the next number to
+    <dd id="x15">As mentioned in the introduction, <codeph id="x-6">yesod-form</codeph> automatically assigns
+     a unique name to each field. <codeph id="x-7">Ints</codeph> is used to keep track of the next number to
      assign.</dd>
    </dlentry>
    <dlentry id="x16">
     <dt id="x17">FormResult</dt>
-    <dd id="x18">Has one of three possible states: <codeph>FormMissing</codeph> if no data was
-     submitted, <codeph>FormFailure</codeph> if there was an error parsing the form (e.g., missing a
-     required field, invalid content), or <codeph>FormSuccess</codeph> if everything went
+    <dd id="x18">Has one of three possible states: <codeph id="x-8">FormMissing</codeph> if no data was
+     submitted, <codeph id="x-9">FormFailure</codeph> if there was an error parsing the form (e.g., missing a
+     required field, invalid content), or <codeph id="x-10">FormSuccess</codeph> if everything went
      smoothly.</dd>
    </dlentry>
   </dl>
@@ -40,16 +40,14 @@
     <dt id="x23">Field</dt>
     <dd id="x24">Defines two pieces of functionality: how to parse the text input from a user into a
      Haskell value, and how to create the widget to be displayed to the user.
-      <codeph>yesod-form</codeph> defines a number of individual Fields in <apiname id="x25"
-      >yesod-form:Yesod.Form.Fields</apiname>.</dd>
+      <codeph id="x-11">yesod-form</codeph> defines a number of individual Fields in <apiname id="x25">yesod-form:Yesod.Form.Fields</apiname>.</dd>
    </dlentry>
    <dlentry id="x26">
     <dt id="x27">FieldSettings</dt>
     <dd id="x28">Basic information on how a field should be displayed, such as the display name, an
-     optional tooltip, and possibly hardcoded <codeph>id</codeph> and <codeph>name</codeph>
-     attributes. (If none are provided, they are automatically generated.)<note id="x29"
-       ><codeph>FieldSettings</codeph> provides an <codeph>IsString</codeph> instance, so when you
-      need to provide a <codeph>FieldSettings</codeph> value, you can actually type in a literal
+     optional tooltip, and possibly hardcoded <codeph id="x-12">id</codeph> and <codeph id="x-13">name</codeph>
+     attributes. (If none are provided, they are automatically generated.)<note id="x29"><codeph id="x-14">FieldSettings</codeph> provides an <codeph id="x-15">IsString</codeph> instance, so when you
+      need to provide a <codeph id="x-16">FieldSettings</codeph> value, you can actually type in a literal
       string. That's how we interacted with it in the synopsis.</note></dd>
    </dlentry>
    <dlentry id="x30">
@@ -59,32 +57,31 @@
    </dlentry>
   </dl>
   <p id="x33">And finally, we get to the important stuff: the forms themselves. There are three
-   types for this: <codeph>MForm</codeph> is for monadic forms, <codeph>AForm</codeph> for
-   applicative and <codeph>IForm</codeph> (declared in <apiname id="x34"
-    >yesod-form:Yesod.Form.Input:IForm</apiname>) for input. <codeph>MForm</codeph> is actually a
+   types for this: <codeph id="x-17">MForm</codeph> is for monadic forms, <codeph id="x-18">AForm</codeph> for
+   applicative and <codeph id="x-19">IForm</codeph> (declared in <apiname id="x34">yesod-form:Yesod.Form.Input:IForm</apiname>) for input. <codeph id="x-20">MForm</codeph> is actually a
    type synonym for a monad stack that provides the following features:</p>
   <ul id="ul_cju_elg_md">
-   <li id="x35">A <codeph>Reader</codeph> monad giving us the parameters (<codeph>Env</codeph> and
-     <codeph>FileEnv</codeph>), the master site argument and the list of languages the user
+   <li id="x35">A <codeph id="x-21">Reader</codeph> monad giving us the parameters (<codeph id="x-22">Env</codeph> and
+     <codeph id="x-23">FileEnv</codeph>), the master site argument and the list of languages the user
     supports. The last two are used for i18n (more on this later).</li>
-   <li id="x36">A <codeph>Writer</codeph> monad keeping track of the <codeph>Enctype</codeph>. A
-    form will always be <codeph>UrlEncoded</codeph>, unless there is a file input field, which will
+   <li id="x36">A <codeph id="x-24">Writer</codeph> monad keeping track of the <codeph id="x-25">Enctype</codeph>. A
+    form will always be <codeph id="x-26">UrlEncoded</codeph>, unless there is a file input field, which will
     force us to use multipart instead.</li>
-   <li id="x37">A <codeph>State</codeph> monad holding an <codeph>Ints</codeph> to keep track of the
+   <li id="x37">A <codeph id="x-27">State</codeph> monad holding an <codeph id="x-28">Ints</codeph> to keep track of the
     next unique name to produce.</li>
   </ul>
-  <p id="x38">An <codeph>AForm</codeph> is pretty similar. However, there are a few major
+  <p id="x38">An <codeph id="x-29">AForm</codeph> is pretty similar. However, there are a few major
    differences:</p>
   <ul id="ul_atf_olg_md">
-   <li id="x39">It produces a list of <codeph>FieldViews</codeph>. This allows us to keep an
+   <li id="x39">It produces a list of <codeph id="x-30">FieldViews</codeph>. This allows us to keep an
     abstract idea of the form display, and then at the end of the day choose an appropriate function
-    for laying it out on the page. In the synopsis, we used <codeph>renderDivs</codeph>, which
-    creates a bunch of div tags. Another option would be <codeph>renderTable</codeph>.</li>
-   <li id="x40">It does not provide a <codeph>Monad</codeph> instance. The goal of
-     <codeph>Applicative</codeph> is to allow the entire form to run, grab as much information on
+    for laying it out on the page. In the synopsis, we used <codeph id="x-31">renderDivs</codeph>, which
+    creates a bunch of div tags. Another option would be <codeph id="x-32">renderTable</codeph>.</li>
+   <li id="x40">It does not provide a <codeph id="x-33">Monad</codeph> instance. The goal of
+     <codeph id="x-34">Applicative</codeph> is to allow the entire form to run, grab as much information on
     each field as possible, and then create the final result. This cannot work in the context of
-     <codeph>Monad</codeph>.</li>
+     <codeph id="x-35">Monad</codeph>.</li>
   </ul>
-  <p id="x41">An <codeph>IForm</codeph> is even simpler: it returns either a list of error messages
+  <p id="x41">An <codeph id="x-36">IForm</codeph> is even simpler: it returns either a list of error messages
    or a result.</p>
  </conbody></concept>

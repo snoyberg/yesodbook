@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="enumerators"><title id="x-1">Enumerators</title><conbody id="x-2">
-        <p>Whereas an Iteratee is a consumer, an Enumerator is a producer. At a high level, an
-            Enumerator is in fact an <i>Iteratee transformer</i>, moving an Iteratee from one state
+        <p id="x-3">Whereas an Iteratee is a consumer, an Enumerator is a producer. At a high level, an
+            Enumerator is in fact an <i id="x-4">Iteratee transformer</i>, moving an Iteratee from one state
             to a new one. Let's look at how this works.</p>
     </conbody></concept>

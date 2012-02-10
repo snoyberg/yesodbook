@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="getmessage"><title id="x-1">getMessage</title><conbody id="x-2"><p id="gm1">Even though we haven't covered sessions yet, I'd like to mention
-                <codeph>getMessage</codeph> here. A common pattern in web development is setting a
+                <codeph id="x-3">getMessage</codeph> here. A common pattern in web development is setting a
             message in one handler and displaying it in another. For example, if a user
-                <codeph>POST</codeph>s a form, you may want to redirect him/her to another page
+                <codeph id="x-4">POST</codeph>s a form, you may want to redirect him/her to another page
             along with a "Form submission complete" message.</p>
-        <note>This is commonly known as <xref href="http://en.wikipedia.org/wiki/Post/Redirect/Get"
-                format="html" scope="external">Post/Redirect/Get</xref>.</note><p id="gm2">To facilitate this, Yesod comes built in with a pair of functions:
-                <codeph>setMessage</codeph> sets a message in the user session, and
-                <codeph>getMessage</codeph> retrieves the message (and clears it, so it doesn't
+        <note id="x-5">This is commonly known as <xref id="x-6" href="http://en.wikipedia.org/wiki/Post/Redirect/Get" format="html" scope="external">Post/Redirect/Get</xref>.</note><p id="gm2">To facilitate this, Yesod comes built in with a pair of functions:
+                <codeph id="x-7">setMessage</codeph> sets a message in the user session, and
+                <codeph id="x-8">getMessage</codeph> retrieves the message (and clears it, so it doesn't
             appear a second time). It's recommended that you put the result of
-                <codeph>getMessage</codeph> into your <codeph>defaultLayout</codeph>. For
+                <codeph id="x-9">getMessage</codeph> into your <codeph id="x-10">defaultLayout</codeph>. For
             example:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -41,5 +40,5 @@ $doctype 5
 getRootR = defaultLayout [whamlet|&lt;a href="@{MsgR}"&gt;message|]
 getMsgR = setMessage "foo" &gt;&gt; redirect RootR &gt;&gt; return ()
 main = warpDebug 4000 Layout
-</codeblock><p id="gm3">We'll cover <codeph>getMessage</codeph>/<codeph>setMessage</codeph> in more detail when
+</codeblock><p id="gm3">We'll cover <codeph id="x-11">getMessage</codeph>/<codeph id="x-12">setMessage</codeph> in more detail when
             we <xref id="x2" href="../sessions/sessions.dita">discuss sessions</xref>.</p></conbody></concept>

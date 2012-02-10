@@ -12,32 +12,29 @@
    <dlentry id="x-6">
     <dt id="x-7">isWriteRequest</dt>
     <dd id="x-8">Determine if the current request is a "read" or "write" operations. By default,
-     Yesod follows RESTful principles, and assumes <codeph>GET</codeph>, <codeph>HEAD</codeph>,
-      <codeph>OPTIONS</codeph>, and <codeph>TRACE</codeph> requests are read-only, while all others
+     Yesod follows RESTful principles, and assumes <codeph id="x-3">GET</codeph>, <codeph id="x-21">HEAD</codeph>,
+      <codeph id="x-22">OPTIONS</codeph>, and <codeph id="x-23">TRACE</codeph> requests are read-only, while all others
      are can write.</dd>
    </dlentry>
    <dlentry id="x-9">
     <dt id="x-10">isAuthorized</dt>
     <dd id="x-11">Takes a route (i.e., type-safe URL) and a boolean indicating whether or not the
-     request is a write request. It returns an <codeph>AuthResult</codeph>, which can have one of
+     request is a write request. It returns an <codeph id="x-24">AuthResult</codeph>, which can have one of
      three values:<ul id="ul_tsw_jog_sd">
-      <li id="x-12"><codeph>Authorized</codeph></li>
-      <li id="x-13"><codeph>AuthenticationRequired</codeph></li>
-      <li id="x-14"><codeph>Unauthorized</codeph></li>
-     </ul>By default, it returns <codeph>Authorized</codeph> for all requests.</dd>
+      <li id="x-12"><codeph id="x-25">Authorized</codeph></li>
+      <li id="x-13"><codeph id="x-26">AuthenticationRequired</codeph></li>
+      <li id="x-14"><codeph id="x-27">Unauthorized</codeph></li>
+     </ul>By default, it returns <codeph id="x-28">Authorized</codeph> for all requests.</dd>
    </dlentry>
    <dlentry id="x-15">
     <dt id="x-16">authRoute</dt>
-    <dd id="x-17">If <codeph>isAuthorized</codeph> returns <codeph>AuthenticationRequired</codeph>,
+    <dd id="x-17">If <codeph id="x-29">isAuthorized</codeph> returns <codeph id="x-30">AuthenticationRequired</codeph>,
      then redirect to the given route. If no route is provided (the default), return a 403
      "Permission Denied" message.</dd>
    </dlentry>
   </dl>
   <p id="x-18">These methods tie in nicely with the <apiname id="x-19">yesod-auth</apiname> package,
    which is used by the scaffolded site to provide a number of authentication options, such as
-   OpenID, BrowserID, email, username and Twitter. We'll cover more concrete examples in the <xref
-    id="x-20"
-    href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization"
-    format="dita">auth chapter</xref>.</p>
+   OpenID, BrowserID, email, username and Twitter. We'll cover more concrete examples in the <xref id="x-20" href="../authentication-and-authorization/authentication-and-authorization.dita#authentication-and-authorization" format="dita">auth chapter</xref>.</p>
  </conbody>
 </concept>

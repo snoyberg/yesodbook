@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="custom-error-pages"><title id="x-1">Custom error pages</title><conbody id="x-2"><p id="cep1">One of the marks of a professional web site is a properly designed error page. Yesod
-            gets you a long way there by automatically using your <codeph>defaultLayout</codeph> for
+            gets you a long way there by automatically using your <codeph id="x-3">defaultLayout</codeph> for
             displaying error pages. But sometimes, you'll want to go even further. For this, you'll
-            want to override the <codeph>errorHandler</codeph> method:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings #-}
+            want to override the <codeph id="x-4">errorHandler</codeph> method:</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 import Yesod
 data Layout = Layout
@@ -20,9 +20,9 @@ instance Yesod Layout where
 -- STOP
 getRootR = defaultLayout [whamlet|Hello World|]
 main = warpDebug 4000 Layout</codeblock><p id="cep2">Here we specify a custom 404 error page. We can also use the
-                <codeph>defaultErrorHandler</codeph> when we don't want to write a custom handler
+                <codeph id="x-5">defaultErrorHandler</codeph> when we don't want to write a custom handler
             for each error type. Due to type constraints, we need to start off our methods with
-                <codeph>fmap chooseRep</codeph>, but otherwise you can write a typical handler
+                <codeph id="x-6">fmap chooseRep</codeph>, but otherwise you can write a typical handler
             function.</p><p id="cep3">In fact, you could even use special responses like redirects:</p><codeblock id="x2" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, OverloadedStrings #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 import Yesod

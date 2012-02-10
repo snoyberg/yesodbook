@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="ultimate-destination"><title id="x-1">Ultimate Destination</title><conbody id="x-2"><p id="u1">Not to be confused with a horror film, this concept is used internally in <apiname
-                id="x1">yesod-auth</apiname>. Suppose a user requests a page that requires
+<concept id="ultimate-destination"><title id="x-1">Ultimate Destination</title><conbody id="x-2"><p id="u1">Not to be confused with a horror film, this concept is used internally in <apiname id="x1">yesod-auth</apiname>. Suppose a user requests a page that requires
             authentication. If the user is not yet logged in, you need to send him/her to the login
             page. A well-designed web app will then <i id="x2">send them back to the first page they
                 requested</i>. That's what we call the ultimate destination.</p><p id="u2"><codeph id="x3">redirectUltDest</codeph> sends the user to the ultimate destination set
             in his/her session, clearing that value from the session. It takes a default destination
             as well, in case there is no destination set. For setting the session, there are three
                 options:<ul id="ul_pms_cyz_ze">
-                <li><codeph id="x4">setUltDest</codeph> sets the destination to the given URL</li>
-                <li><codeph id="x6">setUltDestCurrent</codeph> sets the destination to the currently
+                <li id="x-3"><codeph id="x4">setUltDest</codeph> sets the destination to the given URL</li>
+                <li id="x-4"><codeph id="x6">setUltDestCurrent</codeph> sets the destination to the currently
                     requested URL.</li>
-                <li><codeph>setUltDestReferer</codeph> sets the destination based on the
-                        <codeph>Referer</codeph> header (the page that led the user to the current
+                <li id="x-5"><codeph id="x-6">setUltDestReferer</codeph> sets the destination based on the
+                        <codeph id="x-7">Referer</codeph> header (the page that led the user to the current
                     page).</li>
             </ul></p></conbody></concept>

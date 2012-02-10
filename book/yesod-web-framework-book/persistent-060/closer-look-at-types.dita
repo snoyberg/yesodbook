@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="closer-look-at-types"><title id="x-1">Closer look at types</title><conbody id="x-2">
-  <p id="x1">So far, we've spoken about <codeph>Person</codeph> and <codeph>PersonId</codeph>
+  <p id="x1">So far, we've spoken about <codeph id="x-3">Person</codeph> and <codeph id="x-4">PersonId</codeph>
    without really explaining what they are. In the simplest sense, for a SQL-only system, the
-    <codeph>PersonId</codeph> could just be <codeph id="x2">type PersonId = Int64</codeph>. However,
-   that means there is nothing binding a <codeph>PersonId</codeph> at the type level to the
-    <codeph>Person</codeph> entity. As a result, you could accidently use a
-    <codeph>PersonId</codeph> and get a <codeph>Car</codeph>. In order to model this relationship,
+    <codeph id="x-5">PersonId</codeph> could just be <codeph id="x2">type PersonId = Int64</codeph>. However,
+   that means there is nothing binding a <codeph id="x-6">PersonId</codeph> at the type level to the
+    <codeph id="x-7">Person</codeph> entity. As a result, you could accidently use a
+    <codeph id="x-8">PersonId</codeph> and get a <codeph id="x-9">Car</codeph>. In order to model this relationship,
    we use phantom types. So, our next naive step would be:</p>
   <codeblock id="x3" outputclass="haskell">newtype Key entity = Key Int64
 type PersonId = Key Person</codeblock>
   <note id="x4">Prior to Persistent 0.6, we used associated types instead of phantom types. You could solve
    the problem in that direction as well, but phantoms worked out better.</note>
   <p id="x5">And that works out really well, until you get to a backend that doesn't use Int64 for
-   its IDs. And that's not just a theoretical question; MongoDB uses <codeph>ByteString</codeph>s
-   instead. So what we need is a key value that can contain an <codeph>Int</codeph> and a
-    <codeph>ByteString</codeph>. Seems like a great time for a sum type:</p>
+   its IDs. And that's not just a theoretical question; MongoDB uses <codeph id="x-10">ByteString</codeph>s
+   instead. So what we need is a key value that can contain an <codeph id="x-11">Int</codeph> and a
+    <codeph id="x-12">ByteString</codeph>. Seems like a great time for a sum type:</p>
   <codeblock id="x6" outputclass="haskell">data Key entity = KeyInt Int64 | KeyByteString ByteString</codeblock>
   <p id="x7">But that's just asking for trouble. Next we'll have a backend that uses timestamps, so
-   we'll need to add another constructor to <codeph>Key</codeph>. This could go on for a while.
+   we'll need to add another constructor to <codeph id="x-13">Key</codeph>. This could go on for a while.
    Fortunately, we already have a sum type intended for representing arbitrary data:
-    <codeph>PersistValue</codeph>:</p>
+    <codeph id="x-14">PersistValue</codeph>:</p>
   <codeblock outputclass="haskell" id="x8">newtype Key entity = Key PersistValue</codeblock>
   <p id="x9">But this has another problem. Let's say we have a web application that takes an ID as a
-   parameter from the user. It will need to receive that parameter as <codeph>Text</codeph> and then
-   try to convert it to a <codeph>Key</codeph>. Well, that's simple: write a function to convert a
-    <codeph>Text</codeph> to a <codeph>PersistValue</codeph>, and then wrap the result in the
-    <codeph>Key</codeph> constructor, right?</p>
+   parameter from the user. It will need to receive that parameter as <codeph id="x-15">Text</codeph> and then
+   try to convert it to a <codeph id="x-16">Key</codeph>. Well, that's simple: write a function to convert a
+    <codeph id="x-17">Text</codeph> to a <codeph id="x-18">PersistValue</codeph>, and then wrap the result in the
+    <codeph id="x-19">Key</codeph> constructor, right?</p>
   <p id="x10">Wrong. We tried this, and there's a big problem. We end up getting
-    <codeph>Key</codeph>s that could never be. For example, if we're dealing with SQL, a key must be
+    <codeph id="x-20">Key</codeph>s that could never be. For example, if we're dealing with SQL, a key must be
    an integer. But the approach described above would allow arbitrary textual data in. The result
    was a bunch of 500 server errors as the database choked on comparing an integer column to
    text.</p>
-  <p id="x11">So what we need is a way to convert text to a <codeph>Key</codeph>, but have it
+  <p id="x11">So what we need is a way to convert text to a <codeph id="x-21">Key</codeph>, but have it
    dependent on the rules of the backend in question. And once phrased that way, the answer is
-   simple: just add another phantom. The real, actual definition of <codeph>Key</codeph> in
+   simple: just add another phantom. The real, actual definition of <codeph id="x-22">Key</codeph> in
    Persistent is:</p>
   <codeblock id="x12" outputclass="haskell">newtype Key backend entity = Key { unKey :: PersistValue }</codeblock>
   <p id="x13">This works great: we can have a <codeph id="x14">Text -&gt; Key MongoDB entity</codeph> function and a
@@ -46,11 +46,11 @@ type PersonId = Key Person</codeblock>
 Post
     title Text
     blogId BlogId</codeblock>
-  <p id="x17">But what would that look like in terms of our <codeph>Key</codeph> datatype?</p>
+  <p id="x17">But what would that look like in terms of our <codeph id="x-23">Key</codeph> datatype?</p>
   <codeblock id="x18" outputclass="haskell">data Blog = Blog { blogTitle :: Text }
 data Post = Post { postTitle :: Text, postBlogId :: Key &lt;what goes here?&gt; Blog }</codeblock>
   <p id="x19">We need something to fill in as the backend. In theory, we could hardcode this to
-    <codeph>SqlPersist</codeph>, or <codeph>Mongo</codeph>, but then our datatypes will only work
+    <codeph id="x-24">SqlPersist</codeph>, or <codeph id="x-25">Mongo</codeph>, but then our datatypes will only work
    for a single backend. For an individual application, that might be acceptable, but what about
    libraries defining datatypes to be used by multiple applications, using multiple backends?</p>
   <p id="x20">So thinks got a little more complicated. Our types are actually:</p>
@@ -62,13 +62,13 @@ data PostGeneric backend = Post { postTitle :: Text, postBlogId :: Key backend (
 type BlogId = Key SqlPersist Blog
 type Post = PostGeneric SqlPersist
 type PostId = Key SqlPersist Post</codeblock>
-  <p id="x24">And no, <codeph>SqlPersist</codeph> isn't hard-coded into Persistent anywhere. That
-    <codeph>sqlSettings</codeph> parameter you've been passing to <codeph>mkPersist</codeph> is what
-   tells us to use <codeph>SqlPersist</codeph>. Mongo code will use <codeph>mongoSettings</codeph>
+  <p id="x24">And no, <codeph id="x-26">SqlPersist</codeph> isn't hard-coded into Persistent anywhere. That
+    <codeph id="x-27">sqlSettings</codeph> parameter you've been passing to <codeph id="x-28">mkPersist</codeph> is what
+   tells us to use <codeph id="x-29">SqlPersist</codeph>. Mongo code will use <codeph id="x-30">mongoSettings</codeph>
    instead.</p>
   <p id="x25">This might be quite complicated under the surface, but user code hardly ever touches
    this. Look back through this whole chapter: not once did we need to deal with the
-    <codeph>Key</codeph> or <codeph>Generic</codeph> stuff directly. The most common place for it to
+    <codeph id="x-31">Key</codeph> or <codeph id="x-32">Generic</codeph> stuff directly. The most common place for it to
    pop up is in compiler error messages. So it's important to be aware that this exists, but it
    shouldn't affect you on a day-to-day basis.</p>
  </conbody></concept>

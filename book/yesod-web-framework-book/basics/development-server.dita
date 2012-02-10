@@ -2,13 +2,13 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="development-server"><title id="x-1">Development server</title><conbody id="x-2"><p id="wai-handler-devel1">One of the advantages interpreted languages have over compiled languages
             is fast prototyping: you save changes to a file and hit refresh. If we want to make any
-            changes to our Yesod apps above, we'll need to call <cmdname>runhaskell</cmdname> from
+            changes to our Yesod apps above, we'll need to call <cmdname id="x-3">runhaskell</cmdname> from
             scratch, which can be a bit tedious.</p><p id="wai-handler-devel2">Fortunately, there's a solution to this: <codeph id="x-4">yesod
                 devel</codeph> automatically rebuilds and reloads your code for you. This can be a
             great way to develop your Yesod projects, and when you're ready to move to production,
             you still get to compile down to incredibly efficient code. The Yesod scaffolding
             automatically sets things up for you. This gives you the best of both worlds: rapid
             prototyping <b id="x2">and</b> fast production code.</p><p id="wai-handler-devel3">It's a little bit more involved to set up your code to be used by
-                <cmdname>yesod devel</cmdname>, so our examples will just use
-                <codeph>warpDebug</codeph>. But when you're ready to make your real-world
-            applications, <cmdname>yesod devel</cmdname> will be waiting for you.</p></conbody></concept>
+                <cmdname id="x-5">yesod devel</cmdname>, so our examples will just use
+                <codeph id="x-6">warpDebug</codeph>. But when you're ready to make your real-world
+            applications, <cmdname id="x-7">yesod devel</cmdname> will be waiting for you.</p></conbody></concept>

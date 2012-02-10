@@ -2,20 +2,20 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="client"><title id="x-1">Client</title><conbody id="x-2">
   <p id="x1"><apiname id="x2">http-conduit</apiname> was written as a companion to WAI. It too uses
-    <codeph>conduit</codeph> and <codeph>blaze-builder</codeph> pervasively, meaning we once again
-   get easy interop with <codeph>aeson</codeph>. A few extra comments for those not familiar with
-    <codeph>http-conduit</codeph>:</p>
+    <codeph id="x-3">conduit</codeph> and <codeph id="x-4">blaze-builder</codeph> pervasively, meaning we once again
+   get easy interop with <codeph id="x-5">aeson</codeph>. A few extra comments for those not familiar with
+    <codeph id="x-6">http-conduit</codeph>:</p>
   <ul id="ul_4be25b01-52e2-414f-ba22-d6c0b97232c8">
    <li id="x3">A <codeph id="x4">Manager</codeph> is present to keep track of open connections, so
     that multiple requests to the same server use the same connection. You usually want to use the
      <codeph id="x5">withManager</codeph> function to create and clean up this
-     <codeph>Manager</codeph>, since it is exception safe.</li>
+     <codeph id="x-7">Manager</codeph>, since it is exception safe.</li>
    <li id="x6">We need to know the size of our request body, which can't be determined directly from
-    a <codeph>Builder</codeph>. Instead, we convert the <codeph>Builder</codeph> into a lazy
-     <codeph>ByteString</codeph> and take the size from there.</li>
+    a <codeph id="x-8">Builder</codeph>. Instead, we convert the <codeph id="x-9">Builder</codeph> into a lazy
+     <codeph id="x-10">ByteString</codeph> and take the size from there.</li>
    <li id="x7">There are a number of different functions for initiating a request. We use
-     <codeph>http</codeph>, which allows us to directly access the data stream. There are other
-    higher level functions (such as <codeph>httpLbs</codeph>) that let you ignore the issues of
+     <codeph id="x-11">http</codeph>, which allows us to directly access the data stream. There are other
+    higher level functions (such as <codeph id="x-12">httpLbs</codeph>) that let you ignore the issues of
     sources and get the entire body directly.</li>
   </ul>
   <codeblock outputclass="haskell" id="x8">{-# LANGUAGE OverloadedStrings #-}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="news-feeds"><title id="x-1">News Feeds</title><conbody id="x-2"><p id="n1">A great, practical example of multiple representations if the <apiname id="x1">yesod-newsfeed</apiname> package. There are two major formats for news feeds on the web: RSS and Atom. They contain almost exactly the same information, but are just packaged up differently.</p><p id="n2">The <codeph>yesod-newsfeed</codeph> package defines a <codeph id="x2">Feed</codeph>
+<concept id="news-feeds"><title id="x-1">News Feeds</title><conbody id="x-2"><p id="n1">A great, practical example of multiple representations if the <apiname id="x1">yesod-newsfeed</apiname> package. There are two major formats for news feeds on the web: RSS and Atom. They contain almost exactly the same information, but are just packaged up differently.</p><p id="n2">The <codeph id="x-3">yesod-newsfeed</codeph> package defines a <codeph id="x2">Feed</codeph>
             datatype which contains information like title, description, and last updated time. It
             then provides two separate sets of functions for displaying this data: one for RSS, one
             for Atom. They each define their own representation datatypes:</p><codeblock outputclass="haskell" id="x3">newtype RepAtom = RepAtom Content

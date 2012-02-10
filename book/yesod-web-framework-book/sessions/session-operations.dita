@@ -2,8 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="session-operations"><title id="x-1">Session Operations</title><conbody id="x-2"><p id="o1">Like most frameworks, a session in Yesod is a key-value store. The base session API boils
             down to three functions: <codeph id="x1">lookupSession</codeph> gets a value for a key
-            (if available), <codeph id="x2">setSession</codeph> sets a value for a key, and <codeph
-                id="x3">deleteSession</codeph> clears a value for a key.</p><codeblock id="x4" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
+            (if available), <codeph id="x2">setSession</codeph> sets a value for a key, and <codeph id="x3">deleteSession</codeph> clears a value for a key.</p><codeblock id="x4" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
 import Yesod
 import Control.Applicative ((&lt;$&gt;), (&lt;*&gt;))
 

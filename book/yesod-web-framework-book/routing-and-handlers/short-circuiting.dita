@@ -2,14 +2,14 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="short-circuiting"><title id="x-1">Short Circuiting</title><conbody id="x-2"><p id="ghandler7">The following functions immediately end execution of a handler function and return a result to the user.</p><dl id="x1"><dlentry id="x2"><dt id="x3">redirect</dt><dd id="x4">Sends a redirect response to the user (a 303 response). If you want to use a different
                     response code (e.g., a permanent 301 redirect), you can use
-                        <codeph>redirectWith</codeph>.<note>Yesod uses a 303 response for HTTP/1.1
+                        <codeph id="x-3">redirectWith</codeph>.<note id="x-4">Yesod uses a 303 response for HTTP/1.1
                         clients, and a 302 response for HTTP/1.0 clients. You can read up on this
-                        sordid saga in the HTTP spec.</note></dd></dlentry><dlentry id="x7"><dt id="x8">notFound</dt><dd id="x9">Return a 404 response. This can be useful if a user requests a database value that doesn't exist.</dd></dlentry><dlentry id="x10"><dt id="x11">permissionDenied</dt><dd id="x12">Return a 403 response with a specific error message.</dd></dlentry><dlentry id="x13"><dt id="x14">invalidArgs</dt><dd id="x15">A 400 response with a list of invalid arguments.</dd></dlentry><dlentry id="x16"><dt id="x17">sendFile</dt><dd id="x18">Sends a file from the filesystem with a specified content type. This is the preferred way to send static files, since the underlying WAI handler may be able to optimize this to a <codeph id="x19">sendfile</codeph> system call. Using <codeph id="x20">readFile</codeph> for sending static files should not be necessary.</dd></dlentry><dlentry id="x21"><dt id="x22">sendResponse</dt><dd id="x23">Send a normal <codeph>HasReps</codeph> response with a 200 status code. This is really
+                        sordid saga in the HTTP spec.</note></dd></dlentry><dlentry id="x7"><dt id="x8">notFound</dt><dd id="x9">Return a 404 response. This can be useful if a user requests a database value that doesn't exist.</dd></dlentry><dlentry id="x10"><dt id="x11">permissionDenied</dt><dd id="x12">Return a 403 response with a specific error message.</dd></dlentry><dlentry id="x13"><dt id="x14">invalidArgs</dt><dd id="x15">A 400 response with a list of invalid arguments.</dd></dlentry><dlentry id="x16"><dt id="x17">sendFile</dt><dd id="x18">Sends a file from the filesystem with a specified content type. This is the preferred way to send static files, since the underlying WAI handler may be able to optimize this to a <codeph id="x19">sendfile</codeph> system call. Using <codeph id="x20">readFile</codeph> for sending static files should not be necessary.</dd></dlentry><dlentry id="x21"><dt id="x22">sendResponse</dt><dd id="x23">Send a normal <codeph id="x-5">HasReps</codeph> response with a 200 status code. This is really
                     just a convenience for when you need to break out of some deeply nested code
                     with an immediate response.</dd></dlentry>
-            <dlentry>
-                <dt>sendWaiResponse</dt>
-                <dd>When you need to get low-level and send out a raw WAI response. This can be
+            <dlentry id="x-6">
+                <dt id="x-7">sendWaiResponse</dt>
+                <dd id="x-8">When you need to get low-level and send out a raw WAI response. This can be
                     especially useful for creating streaming responses or a technique like
                     server-sent events.</dd>
             </dlentry></dl></conbody></concept>

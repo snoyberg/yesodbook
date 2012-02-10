@@ -4,7 +4,7 @@
  <title id="x-1">Compiling</title>
  <conbody id="x-2">
   <p id="x-3">First things first: how do you build your production application? If you're using the
-   scaffolded site, it's as simple as <codeph>cabal build</codeph>. I also recommend cleaning
+   scaffolded site, it's as simple as <codeph id="x-4">cabal build</codeph>. I also recommend cleaning
    beforehand to make sure there is no cached information, so a simple combination to build your
    executable is:</p>
   <codeblock id="x-5" outputclass="shell">cabal clean &amp;&amp; cabal configure &amp;&amp; cabal build</codeblock>

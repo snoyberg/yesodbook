@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="enumeratees"><title id="x-1">Enumeratees</title><conbody id="x-2">
-        <p>The final piece in the puzzle is the Enumeratee. This is a combination of an Iteratee (it
+        <p id="x-3">The final piece in the puzzle is the Enumeratee. This is a combination of an Iteratee (it
             consumes some data) and an Enumerator (is passes it other data on). It can be thought of
-            as a <i>stream transformer</i>, or as a pipe connecting an Enumerator to an
+            as a <i id="x-4">stream transformer</i>, or as a pipe connecting an Enumerator to an
             Iteratee.</p>
     </conbody></concept>

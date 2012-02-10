@@ -2,7 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="fetching-by-id"><title id="x-1">Fetching by ID</title><conbody id="x-2">
   <p id="x1">The simplest query you can perform in Persistent is getting based on an ID. Since this
-   value may or may not exist, its return type is wrapped in a <codeph>Maybe</codeph>.</p>
+   value may or may not exist, its return type is wrapped in a <codeph id="x-3">Maybe</codeph>.</p>
   <fig id="x2">
    <title id="x3">Using get</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
@@ -30,9 +30,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
         Just person -&gt; liftIO $ print person
 -- STOP</codeblock>
   </fig>
-  <p id="x5">This can be very useful for sites that provide URLs like <filepath id="x6"
-    >/person/5</filepath>. However, in such a case, we don't usually care about the
-    <codeph>Maybe</codeph> wrapper, and just want the value, returning a 404 message if it is not
+  <p id="x5">This can be very useful for sites that provide URLs like <filepath id="x6">/person/5</filepath>. However, in such a case, we don't usually care about the
+    <codeph id="x-4">Maybe</codeph> wrapper, and just want the value, returning a 404 message if it is not
    found. Fortunately, the <apiname id="x7">yesod-persistent:Yesod.Persist:get404</apiname> function
    helps us out here. We'll go into more details when we see integration with Yesod.</p>
  </conbody></concept>

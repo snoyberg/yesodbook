@@ -5,7 +5,7 @@
  <conbody id="x-2">
   <p id="x-3">The <apiname id="x-4">yesod</apiname> package installs both a library and an
    executable (conveniently named <cmdname id="x-5">yesod</cmdname> as well). This executable
-   provides a few commands (run <cmdname>yesod</cmdname> by itself to get a list). In order to
+   provides a few commands (run <cmdname id="x-17">yesod</cmdname> by itself to get a list). In order to
    generate a scaffolding, the command is <cmdname id="x-6">yesod init</cmdname>. This will start a
    question-and-answer process where you get to provide basic details (your name, the project name,
    etc). After answering the questions, you will have a site template in a subfolder with the name
@@ -16,17 +16,17 @@
    giving you a leaner overall site. The remainder of this chapter will focus on the scaffoldings
    for one of the database backends. There will be minor differences for the tiny backend.</p>
   <p id="x-8">After creating your files, the scaffolder will print a message about getting started.
-   It gives two sets of options for commands: one using <cmdname>cabal</cmdname>, and the other
-   using <cmdname>cabal-dev</cmdname>. <cmdname>cabal-dev</cmdname> is basically a wrapper around
+   It gives two sets of options for commands: one using <cmdname id="x-18">cabal</cmdname>, and the other
+   using <cmdname id="x-19">cabal-dev</cmdname>. <cmdname id="x-20">cabal-dev</cmdname> is basically a wrapper around
    cabal which causes all dependencies to be built in a sandbox. Using it is a good way to ensure
    that installing other packages will not break your site setup. It is strongly recommended. If you
-   don't have <cmdname>cabal-dev</cmdname>, you can install it by running <cmdname id="x-9">cabal
+   don't have <cmdname id="x-21">cabal-dev</cmdname>, you can install it by running <cmdname id="x-9">cabal
     install cabal-dev</cmdname>.</p>
   <p id="x-10">Note that you really do need to use the <cmdname id="x-11">cabal install</cmdname>
    (or <cmdname id="x-12">cabal-dev install</cmdname>) command. Most likely, you do not yet have all
    the dependenceis in place needed by your site. For example, none of the database backends, nor
    the Javascript minifier (<apiname id="x-13">hjsmin</apiname>) are installed when installing the
-    <codeph>yesod</codeph> package.</p>
+    <codeph id="x-22">yesod</codeph> package.</p>
   <p id="x-14">Finally, to launch your development site, you would use <cmdname id="x-15">yesod devel</cmdname> (or
     <cmdname id="x-16">yesod --dev devel</cmdname>). This site will automatically reload whenever you change
    your code.</p>

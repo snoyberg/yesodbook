@@ -7,6 +7,6 @@
         <topicref id="x-6" href="yesods-monads/the-three-transformers.dita"/>
         <topicref id="x-7" href="yesods-monads/navbar.dita"/>
         <topicref id="x-8" href="yesods-monads/gets.dita"/>
-        <topicref href="yesods-monads/summary.dita"/>
+        <topicref id="x-3" href="yesods-monads/summary.dita"/>
     </topicref>
 </map>

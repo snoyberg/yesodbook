@@ -10,8 +10,7 @@
                 when dealing with very basic tasks, the overhead can become
                 noticeable. But be careful about disabling sessions: this will
                 also disable such features as 
-                    CSRF (Cross-Site Request Forgery) protection.</p></note><p id="c3">The next function is <apiname id="x-4"
-                >yesod-core:Yesod.Core:clientSessionDuration</apiname>. This function gives the
+                    CSRF (Cross-Site Request Forgery) protection.</p></note><p id="c3">The next function is <apiname id="x-4">yesod-core:Yesod.Core:clientSessionDuration</apiname>. This function gives the
             number of minutes that a session should be active. The default is 120 (2 hours).</p><p id="c4">This value ends up affecting the session cookie in two ways:
             firstly, it determines the expiration date for the cookie itself.
             More importantly, however, the session expiration timestamp is
@@ -21,12 +20,11 @@
                 sends an updated session cookie with a new expire date. This
                 way, even if you do not change the session values themselves, a
                 session will not time out if the user continues to browse your
-                site.</p></note><p id="c6">And this leads very nicely to the last function: <apiname id="x-5"
-                >yesod-core:Yesod.Core:sessionIpAddress</apiname>. By default, Yesod also encodes
+                site.</p></note><p id="c6">And this leads very nicely to the last function: <apiname id="x-5">yesod-core:Yesod.Core:sessionIpAddress</apiname>. By default, Yesod also encodes
             the client's IP address inside the cookie to prevent session hijacking. In general, this
             is a good thing. However, some ISPs are known for putting their users behind proxies
             that rewrite their IP addresses, sometimes changing the source IP in the middle of the
-            session. If this happens, and you have <codeph>sessionIpAddress</codeph> enabled, the
-            user's session will be reset. Turning this setting to <codeph>False</codeph> will allow
+            session. If this happens, and you have <codeph id="x-6">sessionIpAddress</codeph> enabled, the
+            user's session will be reset. Turning this setting to <codeph id="x-7">False</codeph> will allow
             a session to continue under such circumstances, at the cost of exposing a user to
             session hijacking.</p></conbody></concept>

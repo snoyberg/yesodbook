@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>QuasiQuotes</title>
- <conbody>
-  <p>QuasiQuotes (QQ) are a minor extension of Template Haskell that let us embed arbitrary content
+ <title id="x-1">QuasiQuotes</title>
+ <conbody id="x-2">
+  <p id="x-3">QuasiQuotes (QQ) are a minor extension of Template Haskell that let us embed arbitrary content
    within our Haskell source files. For example, we mentioned previously the
-    <codeph>hamletFile</codeph> TH function, which reads the template contents from an external
-   file. We also have a quasi-quoter named <codeph>hamlet</codeph> that takes the content
+    <codeph id="x-4">hamletFile</codeph> TH function, which reads the template contents from an external
+   file. We also have a quasi-quoter named <codeph id="x-5">hamlet</codeph> that takes the content
    inline:</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
+  <codeblock id="x-6" outputclass="haskell">{-# LANGUAGE QuasiQuotes #-}
 
-[hamlet|&lt;p>This is quasi-quoted Hamlet.|]</codeblock>
-  <p>The syntax is set off using square brackets and pipes. The name of the quasi-quoter is given
+[hamlet|&lt;p&gt;This is quasi-quoted Hamlet.|]</codeblock>
+  <p id="x-7">The syntax is set off using square brackets and pipes. The name of the quasi-quoter is given
    between the opening bracket and the first pipe, and the content is given between the pipes.</p>
-  <p>Throughout the book, we will often times use the QQ-approach over a TH-powered external file
+  <p id="x-8">Throughout the book, we will often times use the QQ-approach over a TH-powered external file
    since the former is simpler to copy-and-paste. However, in production, external files are
    recommended for all but the shortest of inputs as it gives a nice separation of the non-Haskell
    syntax from your Haskell code.</p>

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="selectopt"><title id="x-1">SelectOpt</title><conbody id="x-2">
-  <p id="x1">All of our <codeph>selectList</codeph> calls have included an empty list as the second
+  <p id="x1">All of our <codeph id="x-3">selectList</codeph> calls have included an empty list as the second
    parameter. That specifies no options, meaning: sort however the database wants, return all
-   results, and don't skip any results. A <codeph>SelectOpt</codeph> has four constructors that can
+   results, and don't skip any results. A <codeph id="x-4">SelectOpt</codeph> has four constructors that can
    be used to change all that.</p>
   <dl id="x2">
    <dlentry id="x3">
     <dt id="x4">Asc</dt>
     <dd id="x5">Sort by the given column in ascending order. This uses the same phantom type as
-     filtering, such as <codeph>PersonAge</codeph>.</dd>
+     filtering, such as <codeph id="x-5">PersonAge</codeph>.</dd>
    </dlentry>
    <dlentry id="x6">
     <dt id="x7">Desc</dt>
-    <dd id="x8">Same as <codeph>Asc</codeph>, in descending order.</dd>
+    <dd id="x8">Same as <codeph id="x-6">Asc</codeph>, in descending order.</dd>
    </dlentry>
    <dlentry id="x9">
     <dt id="x10">LimitTo</dt>
-    <dd id="x11">Takes an <codeph>Int</codeph> argument. Only return up to the specified number of
+    <dd id="x11">Takes an <codeph id="x-7">Int</codeph> argument. Only return up to the specified number of
      results.</dd>
    </dlentry>
    <dlentry id="x12">
     <dt id="x13">OffsetBy</dt>
-    <dd id="x14">Takes an <codeph>Int</codeph> argument. Skip the specified number of results.</dd>
+    <dd id="x14">Takes an <codeph id="x-8">Int</codeph> argument. Skip the specified number of results.</dd>
    </dlentry>
   </dl>
   <p id="x15">The following code defines a function that will break down results into pages. It returns all

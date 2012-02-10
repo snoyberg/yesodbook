@@ -11,8 +11,8 @@
   <p id="x5">But it gets better still. You can apply functions within an interpolation. You can use
    string and numeric literals in an interpolation. You can use qualified modules. Both parentheses
    and the dollar sign can be used to group statements together. And at the end, the
-    <codeph>toHtml</codeph> function is applied to the result, meaning <i id="x6">any</i> instance
-   of <codeph>ToHtml</codeph> can be interpolated. Take, for instance, the following code.</p>
+    <codeph id="x-3">toHtml</codeph> function is applied to the result, meaning <i id="x6">any</i> instance
+   of <codeph id="x-4">ToHtml</codeph> can be interpolated. Take, for instance, the following code.</p>
   <fig id="x7">
    <title id="x8">Variable Interpolation</title>
    <codeblock id="x9" outputclass="haskell">-- Just ignore the quasiquote stuff for now, and that shamlet thing.

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>http and httpLbs</title>
- <conbody>
-  <p>So let's tie it together. The <codeph>http</codeph> function gives you access to the streaming
-   interface (i.e., it returns a <codeph>Response</codeph> using a <codeph>BufferedSource</codeph>)
-   while <codeph>httpLbs</codeph> returns a lazy <codeph>ByteString</codeph>. Both of these return
-   values in the <codeph>ResourceT</codeph> transformer so that they can access the
-    <codeph>Manager</codeph> and have connections handled properly in the case of exceptions.</p>
-  <p>Here are a bunch of random comments about the library. Consider it the FAQ. Likewise, if you
+ <title id="x-1">http and httpLbs</title>
+ <conbody id="x-2">
+  <p id="x-3">So let's tie it together. The <codeph id="x-4">http</codeph> function gives you access to the streaming
+   interface (i.e., it returns a <codeph id="x-5">Response</codeph> using a <codeph id="x-6">BufferedSource</codeph>)
+   while <codeph id="x-7">httpLbs</codeph> returns a lazy <codeph id="x-8">ByteString</codeph>. Both of these return
+   values in the <codeph id="x-9">ResourceT</codeph> transformer so that they can access the
+    <codeph id="x-10">Manager</codeph> and have connections handled properly in the case of exceptions.</p>
+  <p id="x-11">Here are a bunch of random comments about the library. Consider it the FAQ. Likewise, if you
    have a question, please ask it so that this section can be updated.</p>
-  <dl>
-   <dlentry>
-    <dt>How do I ignore the remainder of a response body without reading it?</dt>
-    <dd>Connect it to the <codeph>sinkNull</codeph> sink.</dd>
+  <dl id="x-12">
+   <dlentry id="x-13">
+    <dt id="x-14">How do I ignore the remainder of a response body without reading it?</dt>
+    <dd id="x-15">Connect it to the <codeph id="x-16">sinkNull</codeph> sink.</dd>
    </dlentry>
-   <dlentry>
-    <dt>I want to share a single <codeph>Manager</codeph> across my entire application. How can I do
+   <dlentry id="x-17">
+    <dt id="x-18">I want to share a single <codeph id="x-19">Manager</codeph> across my entire application. How can I do
      this?</dt>
-    <dd>Use the <codeph>newManager</codeph> function at the beginning of your application, and pass
+    <dd id="x-20">Use the <codeph id="x-21">newManager</codeph> function at the beginning of your application, and pass
      it to all functions that need it.</dd>
    </dlentry>
   </dl>

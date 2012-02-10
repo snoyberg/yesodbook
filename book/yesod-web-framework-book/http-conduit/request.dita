@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="conceptId">
- <title>Request</title>
- <conbody>
-  <p>The easiest way to creating a <codeph>Request</codeph> is with the <codeph>parseUrl</codeph>
-   function. This function will return a value in any <codeph>Failure</codeph> monad, such as
-    <codeph>Maybe</codeph> or <codeph>IO</codeph>. The last of those is the most commonly used, and
+ <title id="x-1">Request</title>
+ <conbody id="x-2">
+  <p id="x-3">The easiest way to creating a <codeph id="x-4">Request</codeph> is with the <codeph id="x-5">parseUrl</codeph>
+   function. This function will return a value in any <codeph id="x-6">Failure</codeph> monad, such as
+    <codeph id="x-7">Maybe</codeph> or <codeph id="x-8">IO</codeph>. The last of those is the most commonly used, and
    results in a runtime exception whenever an invalid URL is provided. However, you can use a
    different monad if, for example, you want to validate user input.</p>
-  <codeblock outputclass="haskell">import Network.HTTP.Conduit
+  <codeblock id="x-9" outputclass="haskell">import Network.HTTP.Conduit
 import System.Environment (getArgs)
 import qualified Data.ByteString.Lazy as L
 import Control.Monad.IO.Class (liftIO)
@@ -17,20 +17,19 @@ main :: IO ()
 main = do
     args &lt;- getArgs
     case args of
-        [urlString] ->
+        [urlString] -&gt;
             case parseUrl urlString of
-                Nothing -> putStrLn "Sorry, invalid URL"
-                Just req -> withManager $ \manager -> do
+                Nothing -&gt; putStrLn "Sorry, invalid URL"
+                Just req -&gt; withManager $ \manager -&gt; do
                     Response _ _ lbs &lt;- httpLbs req manager
                     liftIO $ L.putStr lbs
-        _ -> putStrLn "Sorry, please provide example one URL"</codeblock>
-  <p>The <codeph>Request</codeph> type is abstract so that <codeph>http-conduit</codeph> can add new
-   settings in the future without breaking the API (see the <xref
-    href="../../../blogs/2011/10/settings-types.dita#conceptId" format="dita">Settings Type</xref>
+        _ -&gt; putStrLn "Sorry, please provide example one URL"</codeblock>
+  <p id="x-10">The <codeph id="x-11">Request</codeph> type is abstract so that <codeph id="x-12">http-conduit</codeph> can add new
+   settings in the future without breaking the API (see the <xref id="x-13" href="../../../blogs/2011/10/settings-types.dita#conceptId" format="dita">Settings Type</xref>
    chapter for more information). In order to make changes to individual records, you use record
-   notation. For example, a modification to our program that issues <codeph>HEAD</codeph> requests
+   notation. For example, a modification to our program that issues <codeph id="x-14">HEAD</codeph> requests
    and prints the response headers would be:</p>
-  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+  <codeblock id="x-15" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
 import Network.HTTP.Conduit
 import System.Environment (getArgs)
 import qualified Data.ByteString.Lazy as L
@@ -40,36 +39,36 @@ main :: IO ()
 main = do
     args &lt;- getArgs
     case args of
-        [urlString] ->
+        [urlString] -&gt;
             case parseUrl urlString of
-                Nothing -> putStrLn "Sorry, invalid URL"
-                Just req -> withManager $ \manager -> do
+                Nothing -&gt; putStrLn "Sorry, invalid URL"
+                Just req -&gt; withManager $ \manager -&gt; do
                     let reqHead = req { method = "HEAD" }
                     Response status headers _ &lt;- http reqHead manager
                     liftIO $ do
                         print status
                         mapM_ print headers
-        _ -> putStrLn "Sorry, please provide example one URL"</codeblock>
-  <p>There are a number of different configuration settings in the API, some noteworthy ones
+        _ -&gt; putStrLn "Sorry, please provide example one URL"</codeblock>
+  <p id="x-16">There are a number of different configuration settings in the API, some noteworthy ones
    are:</p>
-  <dl>
-   <dlentry>
-    <dt>proxy</dt>
-    <dd>Allows you to pass the request through the given proxy server.</dd>
+  <dl id="x-17">
+   <dlentry id="x-18">
+    <dt id="x-19">proxy</dt>
+    <dd id="x-20">Allows you to pass the request through the given proxy server.</dd>
    </dlentry>
-   <dlentry>
-    <dt>redirectCount</dt>
-    <dd>Indicate how many redirects to follow. Default is 10.</dd>
+   <dlentry id="x-21">
+    <dt id="x-22">redirectCount</dt>
+    <dd id="x-23">Indicate how many redirects to follow. Default is 10.</dd>
    </dlentry>
-   <dlentry>
-    <dt>checkStatus</dt>
-    <dd>Check the status code of the return value. By default, gives an exception for any non-2XX
+   <dlentry id="x-24">
+    <dt id="x-25">checkStatus</dt>
+    <dd id="x-26">Check the status code of the return value. By default, gives an exception for any non-2XX
      response.</dd>
    </dlentry>
-   <dlentry>
-    <dt>requestBody</dt>
-    <dd>The request body to be sent. Be sure to also update the <codeph>method</codeph>. For the
-     common case of url-encoded data, you can use the <codeph>urlEncodedBody</codeph> function.</dd>
+   <dlentry id="x-27">
+    <dt id="x-28">requestBody</dt>
+    <dd id="x-29">The request body to be sent. Be sure to also update the <codeph id="x-30">method</codeph>. For the
+     common case of url-encoded data, you can use the <codeph id="x-31">urlEncodedBody</codeph> function.</dd>
    </dlentry>
   </dl>
  </conbody>

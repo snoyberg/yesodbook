@@ -26,22 +26,21 @@
   <p id="x-18">In <codeph id="x-19">Application.hs</codeph>, we call <codeph id="x-20">mkYesodDispatch</codeph>, which creates our
    dispatch function. For this to work, all handler functions must be in scope, so be sure to add an
    import statement for any new handler modules you create.</p>
-  <p id="x-21">Other than than, <filepath>Application.hs</filepath> is pretty simple. It provides
-   two functions: <codeph>withDevelAppPort</codeph> is used by <cmdname id="x-22">yesod
+  <p id="x-21">Other than than, <filepath id="x-32">Application.hs</filepath> is pretty simple. It provides
+   two functions: <codeph id="x-33">withDevelAppPort</codeph> is used by <cmdname id="x-22">yesod
     devel</cmdname> to launch your app, and <codeph id="x-23">getApplication</codeph> is used by the
    executable to launch.</p>
-  <p id="x-24"><filepath>Foundation.hs</filepath> is much more exciting. It:</p>
+  <p id="x-24"><filepath id="x-34">Foundation.hs</filepath> is much more exciting. It:</p>
   <ul id="ul_ero_hah_oe">
    <li id="x-25">Declares your foundation datatype</li>
-   <li id="x-26">Declares a number of instances, such as <codeph>Yesod</codeph>,
-     <codeph>YesodAuth</codeph>, and <codeph>YesodPersist</codeph></li>
-   <li id="x-27">Imports the messages files. If you look for the line starting with <codeph
-     id="x-28">mkMessage</codeph>, you will see that it specifies the folder containing the messages
+   <li id="x-26">Declares a number of instances, such as <codeph id="x-35">Yesod</codeph>,
+     <codeph id="x-36">YesodAuth</codeph>, and <codeph id="x-37">YesodPersist</codeph></li>
+   <li id="x-27">Imports the messages files. If you look for the line starting with <codeph id="x-28">mkMessage</codeph>, you will see that it specifies the folder containing the messages
      (<filepath id="x-29">messages</filepath>) and the default language (en, for English).</li>
   </ul>
   <p id="x-30">This is the right file for adding extra instances for your foundation, such as
-    <codeph>YesodAuthEmail</codeph> or <codeph>YesodBreadcrumbs</codeph>.</p>
+    <codeph id="x-38">YesodAuthEmail</codeph> or <codeph id="x-39">YesodBreadcrumbs</codeph>.</p>
   <p id="x-31">We'll be referring back to this file later, as we discussed some of the special
-   implementations of <codeph>Yesod</codeph> typeclass methods.</p>
+   implementations of <codeph id="x-40">Yesod</codeph> typeclass methods.</p>
  </conbody>
 </concept>

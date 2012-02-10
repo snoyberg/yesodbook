@@ -4,7 +4,7 @@
  <title id="x-1">xml-hamlet</title>
  <conbody id="x-2">
   <p id="x-3" outputclass="haskell">Thanks to the simplicity of Haskell's data type system, creating
-            XML content with the <codeph>Text.XML API</codeph> is easy, if a bit verbose. The
+            XML content with the <codeph id="x-24">Text.XML API</codeph> is easy, if a bit verbose. The
             following code:</p>
   <codeblock outputclass="haskell" id="x-4">{-# LANGUAGE OverloadedStrings #-}
 import Text.XML
@@ -64,11 +64,10 @@ main =
      <li id="x-14">If you want to have whitespace at the end of a line, use a # at the end. At the beginning,
       use a backslash.</li>
     </ul></li>
-   <li id="x-15">An <codeph>xml</codeph> interpolation will return a list of <codeph id="x-16"
-                    >Node</codeph>s. So you still need to wrap up the output in all the normal
-                    <codeph>Document</codeph> and root <codeph>Element</codeph> constructs.</li>
-   <li id="x-17">There is no support for the special <codeph>.class</codeph> and
-                    <codeph>#id</codeph> attribute forms.</li>
+   <li id="x-15">An <codeph id="x-25">xml</codeph> interpolation will return a list of <codeph id="x-16">Node</codeph>s. So you still need to wrap up the output in all the normal
+                    <codeph id="x-26">Document</codeph> and root <codeph id="x-27">Element</codeph> constructs.</li>
+   <li id="x-17">There is no support for the special <codeph id="x-28">.class</codeph> and
+                    <codeph id="x-29">#id</codeph> attribute forms.</li>
   </ul>
   <p id="x-18">And like normal Hamlet, you can use variable interpolation and control structures. So a
    slightly more complex example would be:</p>
@@ -117,9 +116,8 @@ personNodes person = [xml|
   <p id="x-20">A few more notes:</p>
   <ul id="ul_4f926e00-4348-4801-97a1-a9d95fb18a04">
    <li id="x-21">The caret-interpolation (^{...}) takes a list of nodes, and so can easily embed
-                other <codeph>xml</codeph>-quotations.</li>
-   <li id="x-22">Unlike Hamlet, hash-interpolations (#{...}) are not polymorphic, and can <i
-                    id="x-23">only</i> accept <codeph>Text</codeph> values.</li>
+                other <codeph id="x-30">xml</codeph>-quotations.</li>
+   <li id="x-22">Unlike Hamlet, hash-interpolations (#{...}) are not polymorphic, and can <i id="x-23">only</i> accept <codeph id="x-31">Text</codeph> values.</li>
   </ul>
  </conbody>
 </concept>

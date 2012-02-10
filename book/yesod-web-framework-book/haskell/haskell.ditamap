@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="haskell">
- <title>Haskell</title>
- <topicref href="haskell.dita">
-  <topicref href="terminology.dita"/>
-  <topicref href="tools.dita"/>
-  <topicref href="language-pragmas.dita"/>
-  <topicref href="overloaded-strings.dita"/>
-  <topicref href="type-families.dita"/>
-  <topicref href="template-haskell.dita"/>
-  <topicref href="quasi-quotes.dita"/>
-  <topicref href="summary.dita"/>
+ <title id="x-1">Haskell</title>
+ <topicref id="x-2" href="haskell.dita">
+  <topicref id="x-3" href="terminology.dita"/>
+  <topicref id="x-4" href="tools.dita"/>
+  <topicref id="x-5" href="language-pragmas.dita"/>
+  <topicref id="x-6" href="overloaded-strings.dita"/>
+  <topicref id="x-7" href="type-families.dita"/>
+  <topicref id="x-8" href="template-haskell.dita"/>
+  <topicref id="x-9" href="quasi-quotes.dita"/>
+  <topicref id="x-10" href="summary.dita"/>
  </topicref>
 </map>

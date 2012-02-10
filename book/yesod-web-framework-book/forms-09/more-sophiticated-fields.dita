@@ -81,7 +81,7 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x5"><codeph>selectFieldList</codeph> takes a list of pairs. The first item in the pair is
+  <p id="x5"><codeph id="x-3">selectFieldList</codeph> takes a list of pairs. The first item in the pair is
             the text displayed to the user in the drop-down list, and the second item is the actual
             Haskell value. Of course, the code above looks really repetitive; we can get the same
             result using the Enum and Bounded instance GHC automatically derives for us.</p>
@@ -163,9 +163,9 @@ getCarR = do
     &lt;input type=submit&gt;
 |]</codeblock>
   </fig>
-  <p id="x9"><codeph>[minBound..maxBound]</codeph> gives us a list of all the different
-                <codeph>Color</codeph> values. We then apply a <codeph>map</codeph> and
-                <codeph>&amp;&amp;&amp;</codeph> (a.k.a, the fan-out operator) to turn that into a
+  <p id="x9"><codeph id="x-4">[minBound..maxBound]</codeph> gives us a list of all the different
+                <codeph id="x-5">Color</codeph> values. We then apply a <codeph id="x-6">map</codeph> and
+                <codeph id="x-7">&amp;&amp;&amp;</codeph> (a.k.a, the fan-out operator) to turn that into a
             list of pairs.</p>
   <p id="x10">Some people prefer radio buttons to drop-down lists. Fortunately, this is just a
             one-word change.</p>

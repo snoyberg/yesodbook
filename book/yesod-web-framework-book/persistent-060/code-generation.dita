@@ -20,7 +20,7 @@ main = return ()
             definitions. (You can also declare your entities in a separate file using
                 <apiname id="x9">persistent-template:Database.Persist.TH:persistFile</apiname>.)
                 <apiname id="x10">persistent-template:Database.Persist.TH:mkPersist</apiname> takes that list
-            of entities and declares:</p><ul id="x2"><li id="x3">One Haskell datatype for each entity.</li><li id="x4">A <codeph>PersistEntity</codeph> instance for each datatype defined.</li></ul><p id="bb3">The interesting part is how to use this datatype once it is defined.</p><codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
+            of entities and declares:</p><ul id="x2"><li id="x3">One Haskell datatype for each entity.</li><li id="x4">A <codeph id="x-3">PersistEntity</codeph> instance for each datatype defined.</li></ul><p id="bb3">The interesting part is how to use this datatype once it is defined.</p><codeblock id="x5" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell, OverloadedStrings, GADTs #-}
 import Database.Persist
 import Database.Persist.TH
 import Database.Persist.Sqlite
@@ -37,13 +37,13 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     michael &lt;- get michaelId
     liftIO $ print michael
 -- STOP
-</codeblock><p id="bb4">We start off with some standard database connection code. In this case, we used the single-connection functions. Persistent also comes built in with connection pool functions, which we will generally want to use in production.</p><p id="bb5">In this example, we have seen two functions: <codeph>insert</codeph> creates a new
+</codeblock><p id="bb4">We start off with some standard database connection code. In this case, we used the single-connection functions. Persistent also comes built in with connection pool functions, which we will generally want to use in production.</p><p id="bb5">In this example, we have seen two functions: <codeph id="x-4">insert</codeph> creates a new
             record in the database and returns its ID. Like everything else in Persistent, IDs are
             type safe. We'll get into more details of how these IDs work later. So when you call
                 <codeph id="x7">insert $ Person "Michael" 25</codeph>, it gives you a value back of
             type <codeph id="x8">PersonId</codeph>.</p>
-<p id="bb6">The next function we see is <codeph>get</codeph>, which attempts to load a value from
+<p id="bb6">The next function we see is <codeph id="x-5">get</codeph>, which attempts to load a value from
             the database using an <codeph id="x11">Id</codeph>. In Persistent, you never need to
             worry that you are using the key from the wrong table: trying to load up a different
-            entity (like <codeph>House</codeph>) using a <codeph id="x12">PersonId</codeph> will
+            entity (like <codeph id="x-6">House</codeph>) using a <codeph id="x12">PersonId</codeph> will
             never compile.</p></conbody></concept>
