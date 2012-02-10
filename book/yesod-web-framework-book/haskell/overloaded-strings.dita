@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Overloaded Strings</title>
+ <conbody>
+  <p>What's the type of <codeph>"hello"</codeph>? Traditionally, it's <codeph>String</codeph>, which
+   is defined as <codeph>type String = [Char]</codeph>. Unfortunately, there are a number of
+   limitations with this:</p>
+  <ul id="ul_nev_fdx_ff">
+   <li>It's a very inefficient implementation of textual data. We need to allocate extra memory for
+    each cons cell, plus the characters themselves each take up a full machine word.</li>
+   <li>Sometimes we have string-like data that's not actually text, such as
+     <codeph>ByteString</codeph>s and HTML.</li>
+  </ul>
+  <p>To work around these limitations, GHC has a language extension called
+    <codeph>OverloadedStrings</codeph>. When enabled, literal strings no longer have the monomorphic
+   type <codeph>String</codeph>; instead, they have the type <codeph>IsString a => a</codeph>, where
+    <codeph>IsString</codeph> is defined as:</p>
+  <codeblock outputclass="haskell">class IsString a where
+    fromString :: String -> a</codeblock>
+  <p>There are <codeph>IsString</codeph> instances available for a number of types in Haskell, such
+   as <codeph>Text</codeph> (a much more efficient packed <codeph>String</codeph> type),
+    <codeph>ByteString</codeph>, and <codeph>Html</codeph>. Virtually every example in this book
+   will assume that this language extension is turned on.</p>
+  <p>Unfortunately, there is one drawback to this extension: it can sometimes confuse GHC's type
+   checker. Imagine we have:</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
+import Data.Text (Text)
+
+class DoSomething a where
+    something :: a -> IO ()
+
+instance DoSomething String where
+    something _ = putStrLn "String"
+
+instance DoSomething Text where
+    somethign _ = putStrLn "Text"
+
+main :: IO ()
+main = something "hello"</codeblock>
+  <p>Will the program print out <codeph>String</codeph> or <codeph>Text</codeph>? It's not clear. So
+   instead, you'll need to give an explicit type annotation to specify whether
+    <codeph>"hello"</codeph> should be treated as a <codeph>String</codeph> or
+   <codeph>Text</codeph>.</p>
+ </conbody>
+</concept>

@@ -4,6 +4,7 @@
     <title id="x-1">Yesod Web Framework Book</title>
     <topichead id="basics-part" navtitle="Basics">
         <mapref id="x-2" href="yesod-web-framework-book/introduction.ditamap"/>
+        <mapref href="yesod-web-framework-book/haskell/haskell.ditamap"/>
         <mapref id="x-3" href="yesod-web-framework-book/basics.ditamap"/>
         <mapref id="x-4" href="yesod-web-framework-book/shakespearean-templates.ditamap"/>
         <mapref id="x-5" href="yesod-web-framework-book/widgets-09.ditamap"/>

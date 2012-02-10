@@ -9,6 +9,8 @@
         <codeblock id="x-4" outputclass="haskell">mkYesod "HelloWorld" [parseRoutes|
 / HomeR GET
 |]</codeblock>
+        <note><codeph>mkYesod</codeph> is a Template Haskell function, and
+                <codeph>parseRoutes</codeph> is a QuasiQuoter.</note>
         <p id="x-5">In English, all this means is: <q id="x-6">In the HelloWorld application, create
                 one route. I'd like to call it <codeph>HomeR</codeph>, it should listen for requests
                 to <codeph id="x-7">/</codeph> (the root of the application), and should answer
@@ -17,43 +19,57 @@
                 >The R suffix on resource names is simply convention, but it's a fairly universally
                 followed convention. It makes it just a bit easier to read and understand
                 code.</note></p>
-        <p id="x-10">As mentioned, most modern web frameworks have some kind of routing system.
-            Let's take a quick example from Django:<lq id="x-12"
-                    ><codeblock id="x-13" outputclass="python">urlpatterns = patterns('',
-    (r'^articles/2003/$', 'news.views.special_case_2003'),
-    (r'^articles/(\d{4})/$', 'news.views.year_archive'),
-    (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
-    (r'^articles/(\d{4})/(\d{2})/(\d+)/$', 'news.views.article_detail'),
-)</codeblock><cite
-                    id="x-14"
-            >https://docs.djangoproject.com/en/dev/topics/http/urls/</cite></lq>These routes are
-            specified via a regular expression. While this is declarative, the routes are really
-            being resolved by running some extra code. This has some practical ramifications.
-            Firstly, there's no great way to optimize the routing: the only way to determine which
-            route matches is to go through every single regular expression linearly. Yesod's routes
-            are broken down into individual pieces and routed to based on an efficient data
-            structure.</p>
-        <p id="x-15">But a more important issue is overlapping. Yesod will stop you from accidently
-            writing two routes that would match the same URL. This fits in with Yesod's overall
-            philosophy of catching as many errors at possible at compile time.</p>
-        <note id="x-16">You're probably wondering what the Django example would look like in Yesod.
-            It looks very similar
-            actually:<codeblock id="x-17" outputclass="haskell">/articles/!2003 News2003R GET
-/articles/#Year NewsYearR GET
-/articles/#Year/#Month NewsMonthR GET
-/articles/#Year/#Month/#ArticleId NewsArticleR GET</codeblock>But
-            if you notice, the first two routes overlap! By adding the exclamation point in front of
-            the <codeph>2003</codeph>, you can tell Yesod to ignore the overlapping for this
-            route.</note>
-        <p id="x-20">One other quick note: you may have noticed that <codeph>parseRoutes</codeph> is
-            called with a bit of a strange syntax with the square brackets and pipes. That's because
-            it's a <term id="x-21">quasi-quoter</term>. Quasiquotation is a powerful Haskell feature
-            that allows you to embed any arbitrary syntax within your Haskell source files. This
-            allows us to keep our route declarations short and sweet.</p>
-        <p id="x-22">A lot of the examples you'll see in the book will use quasi-quotation in one way or
-            another. However, many developers prefer to keep their code and declarations separate.
-            Yesod also lets you declare your routes in external files using <term id="x-23">Template
-                Haskell</term>:<codeblock id="x-24" outputclass="haskell">mkYesod "HelloWorld" $(parseRoutesFile "routes")</codeblock></p>
-        <p id="x-25">In general, we recommend you use external files for actual development. This is
-            the approach taken by the scaffolding tool, and most production Yesod code. But for
-            short examples and tutorials, quasi-quotation is a great fit.</p></conbody></concept>
+        <p>The <codeph>mkYesod</codeph> TH function generates quite a bit of code here: a route data
+            type, a dispatch function, and a render function. We'll look at this in more detail in
+                <xref href="../routing-and-handlers/routing-and-handlers.dita#routing-and-handlers"
+                format="dita">the routing chapter</xref>. But by using the
+                <codeph>-ddump-splices</codeph> GHC option, we can get an immediate look at the
+            generated code. A much cleaned up version of it is:</p>
+        <codeblock outputclass="haskell">{-# LANGUAGE TypeFamilies, MultiParamTypeClasses, OverloadedStrings #-}
+import Yesod.Routes.Dispatch
+import Yesod.Routes.Class
+import Yesod.Core
+
+data HelloWorld = HelloWorld
+
+-- START
+instance RenderRoute HelloWorld where
+  data Route HelloWorld = HomeR
+    deriving (Show, Eq, Read)
+  renderRoute HomeR = ([], [])
+
+instance YesodDispatch HelloWorld HelloWorld where
+    yesodDispatch master sub toMaster app404 app405 method pieces =
+        case dispatch pieces of
+            Just f -> f
+                master
+                sub
+                toMaster
+                app404
+                app405
+                method
+            Nothing -> app404
+      where
+        dispatch = Yesod.Routes.Dispatch.toDispatch
+            [ Yesod.Routes.Dispatch.Route [] False onHome
+            ]
+        onHome [] = Just $ \master sub toMaster _app404 app405 method ->
+            case method of
+                "GET" -> yesodRunner
+                    (fmap chooseRep getHomeR)
+                    master
+                    sub
+                    (Just HomeR)
+                    toMaster
+                _ -> app405 HomeR
+-- STOP
+
+getHomeR = return ()
+
+main :: IO ()
+main = return ()</codeblock>
+        <p>Some of that will likely not make sense yet. In particular, the implementation of
+                <codeph>yesodDispatch</codeph> is a bit hairy to accomodate different dispatch
+            approaches and fit the model necessary for our high-performance routing structures.
+            However, the <codeph>RenderRoute</codeph> implementation with its associated data type
+            should already give you a good feel for what's going on under the surface.</p></conbody></concept>

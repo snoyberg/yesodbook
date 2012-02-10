@@ -3,14 +3,15 @@
 <map id="basics-map">
     <title id="x-1">Basics</title>
     <topicref id="basics" chunk="to-content" href="basics/basics.dita">
-        <topicref id="getting-yesod" href="basics/getting-yesod.dita"/>
-        <topicref id="scaffolded-site" href="basics/scaffolded-site.dita"/>
         <topicref id="hello-world" href="basics/hello-world.dita"/>
-        <topicref id="routing" href="basics/routing.dita"/>
+        <topicref id="routing" href="basics/routing.dita">
+            <topicref href="basics/routing-comparison.dita"/>
+        </topicref>
         <topicref id="handler-function" href="basics/handler-function.dita"/>
         <topicref id="the-foundation" href="basics/the-foundation.dita"/>
         <topicref id="running" href="basics/running.dita"/>
         <topicref id="resources-and-type-safe-urls" href="basics/resources-and-type-safe-urls.dita"/>
+        <topicref id="scaffolded-site" href="basics/scaffolded-site.dita"/>
         <topicref id="development-server" href="basics/development-server.dita"/>
         <topicref id="summary" href="basics/summary.dita"/>
     </topicref>

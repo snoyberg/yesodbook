@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Terminology</title>
+ <conbody>
+  <p>Even for those familiar with Haskell as a language, there can sometimes be some confusion about
+   terminology. Let's establish some base terms that we can use throughout this book. FIXME</p>
+  <dl>
+   <dlentry>
+    <dt>Data type</dt>
+    <dd>This is one of the core building blocks for a strongly typed language like Haskell. Some
+     data types, like <codeph>Int</codeph>, can be treated as primitive values, while other data
+     types will build on top of these to create more complicated values. For example, you might
+     represent a person
+     with:<codeblock outputclass="haskell">data Person = Person Text Int</codeblock>Here, the
+      <codeph>Text</codeph> would give the person's name, and the <codeph>Int</codeph> would give
+     the person's age. Due to its simplicity, this specific example type will recur throughout the
+     book. There are essentially three ways you can create a new data type:<ul id="ul_unf_nuw_ff">
+      <li>A <codeph>type</codeph> declaration such as <codeph>type GearCount = Int</codeph> merely
+       creates a synonym for an existing type. The type system will do nothing to prevent you from
+       using an <codeph>Int</codeph> where you asked for a <codeph>GearCount</codeph>. Using this
+       can make your code more self-documenting.</li>
+      <li>A <codeph>newtype</codeph> declaration such as <codeph>newtype Make = Make Text</codeph>.
+       In this case, you cannot accidently use a <codeph>Text</codeph> in place of a
+        <codeph>Make</codeph>; the compiler will stop you. The newtype wrapper always disappears
+       during compilation, and will introduce no overhead.</li>
+      <li>A <codeph>data</codeph> declaration, such as <codeph>Person</codeph> above. You can also
+       create Algebraic Data Types (ADTs), such as <codeph>data Vehicle = Bicycle GearCount | Car
+        Make Model</codeph>.</li>
+     </ul></dd>
+   </dlentry>
+   <dlentry>
+    <dt>Data constructor</dt>
+    <dd>In our examples above, <codeph>Person</codeph>, <codeph>Make</codeph>,
+      <codeph>Bicycle</codeph>, and <codeph>Car</codeph> are all data constructors.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Type constructor</dt>
+    <dd>In our examples above, <codeph>Person</codeph>, <codeph>Make</codeph>, and
+      <codeph>Vehicle</codeph> are all type constructors.</dd>
+   </dlentry>
+   <dlentry>
+    <dt>Type variables</dt>
+    <dd>Consider the data type <codeph>data Maybe a = Just a | Nothing</codeph>. In this case,
+      <codeph>a</codeph> is a type variable.</dd>
+   </dlentry>
+  </dl>
+ </conbody>
+</concept>

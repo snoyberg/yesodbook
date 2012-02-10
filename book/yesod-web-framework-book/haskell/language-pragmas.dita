@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="conceptId">
+ <title>Language Pragmas</title>
+ <conbody>
+  <p>GHC will run by default in something very close to Haskell98 mode. It also ships with a large
+   number of language extensions, allowing more powerful type classes, syntax changes, and more.
+   There are multiple ways to tell GHC to turn on these extensions. For most of the code snippets in
+   this book, you'll see <term>language pragmas</term>, which look like this:</p>
+  <codeblock outputclass="haskell">{-# LANGUAGE MyLanguageExtension #-}</codeblock>
+  <p>These should always appear at the top of your source file. Additionally, there are two other
+   recommended approaches:</p>
+  <ul id="ul_ano_hnw_ff">
+   <li>On the GHC command line, pass an extra argument
+    <userinput>-XMyLanguageExtension</userinput>.</li>
+   <li>In your <codeph>cabal</codeph> file, add an <codeph>extensions</codeph> block.</li>
+  </ul>
+  <p>I personally never use the GHC command line argument approach. It's a personal preference, but
+   I like to have my settings clearly stated in a file. In general it's recommended to avoid putting
+   extensions in your <codeph>cabal</codeph> file; however, in the <xref
+    href="../scaffolding-and-the-site-template/scaffolding-and-the-site-template.dita#scaffolding-and-the-site-template"
+    format="dita">Yesod scaffolded site</xref> we specifically use this approach to avoid the
+   boilerplate of specifying the same language pragmas in every source file.</p>
+  <p>We'll end up using quite a few language extensions in this book (the scaffolding uses 11). We
+   will not cover the meaning of all of them. Instead, please see the <xref
+    href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghc-language-features.html"
+    format="html" scope="external">GHC documentation</xref>.</p>
+ </conbody>
+</concept>
