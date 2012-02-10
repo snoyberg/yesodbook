@@ -2,7 +2,7 @@
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="haskell">
  <title id="x-1">Haskell</title>
- <topicref id="x-2" href="haskell.dita">
+ <topicref id="haskell" href="haskell.dita" chunk="to-content">
   <topicref id="x-3" href="terminology.dita"/>
   <topicref id="x-4" href="tools.dita"/>
   <topicref id="x-5" href="language-pragmas.dita"/>
