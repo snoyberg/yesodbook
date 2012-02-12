@@ -4,8 +4,8 @@
   <p id="x1">Yesod uses the Shakespearean family of template languages as its standard approach to HTML, CSS
    and Javascript creation. This language family shares some common syntax, as well as overarching
     principles:<ul id="ul_49ef34dd-2fd1-41b2-9c21-eb1bf09ac57a">
-    <li id="x2">As little interference to the underlying template language as possible, while
-     providing conveniences where unobtrusive.</li>
+    <li id="x2">As little interference to the underlying language as possible, while providing
+     conveniences where unobtrusive.</li>
     <li id="x3">Compile-time guarantees on well-formed content.</li>
     <li id="x4">Strict type safety, extending to the prevention of XSS (cross-site scripting) attacks.</li>
     <li id="x5">Automated checking of valid URLs, whenever possible, through <term id="x6">type-safe

@@ -13,9 +13,10 @@
    repositories. On Debian-based systems, you can get a good start by running <codeph id="x-6">sudo apt-get
     install cabal-install</codeph>. There are, however, a few caveats with this approach:</p>
   <ul id="ul_dst_upw_ff">
-   <li id="x-7">There are some additional build tools (<cmdname id="x-8">alex</cmdname> and <cmdname id="x-9">happy</cmdname>
-    in particular) that are needed by some packages. This are installed automatically by the Haskell
-    Platform, but won't necessarily be installed by using you package manager.</li>
+   <li id="x-7">There are some additional build tools (<cmdname id="x-8">alex</cmdname> and <cmdname
+     id="x-9">happy</cmdname> in particular) that are needed by some packages. This are installed
+    automatically by the Haskell Platform, but won't necessarily be installed by using your package
+    manager.</li>
    <li id="x-10">The version of GHC available in your repositories may be significantly dated, meaning some
     newer features will not be available to you. In the most extreme case, you may have a version of
     GHC too old for Yesod.</li>
@@ -24,6 +25,10 @@
    installing the package from the Haskell Platform website, make sure you have installed the <xref id="x-12" href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml" format="html" scope="external">required C libraries</xref>. On Debian-based systems, you would need to
    run:</p>
   <codeblock id="x-13" outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
+  <note>Some distributions actually include the Haskell Platform already. On Debian, you can run
+    <cmdname>sudo apt-get install haskell-platform</cmdname>. The same caveats of outdated versions
+   apply, but if you're using a distribution that provides the Haskell Platform, this is likely the
+   easiest approach to getting up-and-running quickly.</note>
   <p id="x-14">Regardless of how you've installed your tools, you should sure to put <codeph id="x-15">cabal</codeph>'s
    bin folder in your <codeph id="x-16">PATH</codeph> variable. On Mac and Linux, this will be
     <codeph id="x-17">$HOME/.cabal/bin</codeph> and on Windows it will be

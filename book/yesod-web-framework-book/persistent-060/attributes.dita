@@ -32,8 +32,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
             SQL, it makes the column nullable.</p>
         <p id="x8">The <codeph id="x3">default</codeph> attribute is backend specific, and uses
             whatever syntax is understood by the database. In this case, it uses the database's
-            built-in <codeph id="x-6">now()</codeph> function. Suppose that we now want to add a field for
-            favorite programming language:</p><codeblock id="x4" outputclass="haskell">-- START
+            built-in <codeph id="x-6">now()</codeph> function. Suppose that we now want to add a
+            field for a person's favorite programming language:</p><codeblock id="x4" outputclass="haskell">-- START
 {-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist

@@ -45,10 +45,10 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
     update personId [PersonAge =. 27]
 -- STOP
     resultsForPage 1 &gt;&gt;= liftIO . print</codeblock>
-  <p id="x6"><codeph id="x-5">update</codeph> takes two arguments: an ID, and a list of
-                <codeph id="x-6">Update</codeph>s. The simplest update is assignment, but it's not always the
-            best. What if you want to increase someones age by 1, but you don't have their current
-            age? Persistent has you covered:</p>
+  <p id="x6"><codeph id="x-5">update</codeph> takes two arguments: an ID, and a list of <codeph
+                id="x-6">Update</codeph>s. The simplest update is assignment, but it's not always
+            the best. What if you want to increase someone's age by 1, but you don't have their
+            current age? Persistent has you covered:</p>
   <codeblock id="x7" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, GeneralizedNewtypeDeriving, TemplateHaskell,
              OverloadedStrings, GADTs, FlexibleContexts #-}
 import Database.Persist

@@ -13,7 +13,7 @@
             &lt;p&gt;Sorry, I lied, you don't have any friends.
         $else
             &lt;ul&gt;
-                $forall friend &lt;- friends
-                    &lt;li&gt;#{friendName friend} (#{friendAge friend} years old)
+                $forall Friend name age &lt;- friends
+                    &lt;li&gt;#{name} (#{age} years old)
         &lt;footer&gt;^{copyright}</codeblock>
  </conbody></concept>

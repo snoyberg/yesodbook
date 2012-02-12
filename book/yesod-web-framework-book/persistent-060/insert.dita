@@ -37,10 +37,10 @@
     <codeph id="x-13">Maybe</codeph> wrapper means an extra runtime check for <codeph id="x-14">Just</codeph>, instead
    of a more error-proof compile time check.</p>
   <p id="x18">Finally, there's a semantic mismatch with embedding the ID within the value. The
-    <codeph id="x-15">Person</codeph> is the value. Two people are identical (in the context of a database) if
-   all their fields are the same. By embedding the ID in the value, we're no longer talking about a
-   person, but about a row in the database. Equality is no longer really equality, it's identity: is
-   this the <i id="x19">same person</i>. as opposed to an equivalent person.</p>
+    <codeph id="x-15">Person</codeph> is the value. Two people are identical (in the context of a
+   database) if all their fields are the same. By embedding the ID in the value, we're no longer
+   talking about a person, but about a row in the database. Equality is no longer really equality,
+   it's identity: is this the <i id="x19">same person</i>, as opposed to an equivalent person.</p>
   <p id="x20">In other words, there are some annoyances with having the ID separated out, but overall, it's
    the <i id="x21">right</i> approach, which in the grand scheme of things leads to better, less buggy
    code.</p>

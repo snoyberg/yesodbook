@@ -26,8 +26,8 @@ lift . throwError :: errValue -&gt; ReaderT Error</codeblock>
   <ul id="ul_d29d1697-acc1-4f67-8cc6-a1b8305f865a">
    <li id="x-15">A transformer can be used to add functionality to an existing monad.</li>
    <li id="x-16">A transformer must always wrap around an existing monad.</li>
-   <li id="x-17">The functionality available in a wrapped monad will be dependendant not only on the monad
-    transformer, but also on the inner monad that is being wrapped.</li>
+   <li id="x-17">The functionality available in a wrapped monad will be dependent not only on the
+    monad transformer, but also on the inner monad that is being wrapped.</li>
   </ul>
   <p id="x-18">A great example of that last point is the <codeph id="x-28">IO</codeph> monad. No matter how
    many layers of transformers you have around an <codeph id="x-29">IO</codeph>, there's still an
