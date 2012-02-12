@@ -80,14 +80,21 @@ main = warpDebug 3000 Monadic</codeblock>
             attribute of the input tag. In our example, we use that to specify the width of the
             field.</p>
         <p id="x-13">You might be wondering what the story is with the "this is not used" and
-            "neither is this" values. <codeph id="x-25">mreq</codeph> takes a <codeph id="x-26">FieldSettings</codeph>
-            as its second argument, which allows you to specify an <codeph id="x-27">id</codeph> or
-                <codeph id="x-28">name</codeph> attribute, as well as give a label and tooltip. The label and
-            tooltip are then passed into the <codeph id="x-29">FieldView</codeph> value. These records are
-            used in applicative forms, but don't really serve much of a purpose in monadic forms. By
-            giving a dummy string value, you're essentially passing in a default
-                <codeph id="x-30">FieldSettings</codeph> which says "automatically generate the
-                <codeph id="x-31">id</codeph> and <codeph id="x-32">name</codeph>."</p>
+            "neither is this" values. <codeph id="x-25">mreq</codeph> takes a <codeph id="x-26"
+                >FieldSettings</codeph> as its second argument. Since <codeph>FieldSettings</codeph>
+            provides an <codeph>IsString</codeph> instance, the strings are essentially expanded by
+            the compiler
+            to:<codeblock outputclass="haskell">fromString "this is not used" == FieldSettings
+    { fsLabel = "this is not used"
+    , fsTooltip = Nothing
+    , fsId = Nothing
+    , fsName = Nothing
+    , fsClass = []
+    }</codeblock>In
+            the case of applicative forms, the <codeph>fsLabel</codeph> and
+                <codeph>fsTooltip</codeph> values are used when constructing your HTML. In the case
+            of monadic forms, Yesod does not generate any of the "wrapper" HTML for you, and
+            therefore these values are ignored.</p>
         <p id="x-14">The other interesting bit is the <codeph id="x-15">extra</codeph> value.
                 <codeph id="x-33">GET</codeph> forms include an extra field to indicate that they have been
             submitted, and <codeph id="x-34">POST</codeph> forms include a security tokens to prevent CSRF

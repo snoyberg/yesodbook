@@ -13,4 +13,69 @@
                 <li id="x-5"><codeph id="x-6">setUltDestReferer</codeph> sets the destination based on the
                         <codeph id="x-7">Referer</codeph> header (the page that led the user to the current
                     page).</li>
-            </ul></p></conbody></concept>
+            </ul></p>
+        <p>Let's look at a small sample app. It will allow the user to set his/her name in the
+            session, and then tell the user his/her name from another route. If the name hasn't been
+            set yet, the user will be redirected to the set name page, with an ultimate destination
+            set to come back to the current page.</p>
+        <codeblock>{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+             QuasiQuotes, MultiParamTypeClasses #-}
+import Yesod
+
+data UltDest = UltDest
+
+mkYesod "UltDest" [parseRoutes|
+/ RootR GET
+/setname SetNameR GET POST
+/sayhello SayHelloR GET
+|]
+
+instance Yesod UltDest
+
+instance RenderMessage UltDest FormMessage where
+    renderMessage _ _ = defaultFormMessage
+
+getRootR = defaultLayout [whamlet|
+&lt;p>
+    &lt;a href=@{SetNameR}>Set your name
+&lt;p>
+    &lt;a href=@{SayHelloR}>Say hello
+|]
+
+-- Display the set name form
+getSetNameR = defaultLayout [whamlet|
+&lt;form method=post>
+    My name is #
+    &lt;input type=text name=name>
+    . #
+    &lt;input type=submit value="Set name">
+|]
+
+-- Retreive the submitted name from the user
+postSetNameR :: Handler ()
+postSetNameR = do
+    -- Get the submitted name and set it in the session
+    name &lt;- runInputPost $ ireq textField "name"
+    setSession "name" name
+
+    -- After we get a name, redirect to the ultimate destination.
+    -- If no destination is set, default to the homepage
+    redirectUltDest RootR
+
+getSayHelloR = do
+    -- Lookup the name value set in the session
+    mname &lt;- lookupSession "name"
+    case mname of
+        Nothing -> do
+            -- No name in the session, set the current page as
+            -- the ultimate destination and redirect to the
+            -- SetName page
+            setUltDestCurrent
+            setMessage "Please tell me your name"
+            redirect SetNameR
+        Just name -> defaultLayout [whamlet|
+&lt;p>Welcome #{name}
+|]
+
+main :: IO ()
+main = warpDebug 3000 UltDest</codeblock></conbody></concept>

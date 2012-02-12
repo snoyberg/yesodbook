@@ -54,14 +54,14 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In
-                <codeph id="x-3">carAForm</codeph>, we use the <codeph id="x-4">&lt;$&gt;</codeph> and
-                <codeph id="x-5">&lt;*&gt;</codeph> operators. This should not be surprising; these are
-            almost always used in applicative-style code. (For more information on applicative code,
-            see <xref id="x4" href="http://www.haskell.org/haskellwiki/Applicative_functor" format="html" scope="external">the Haskell wiki</xref>.) And we have one line for
-            each record in our <codeph id="x-6">Car</codeph> datatype. Perhaps unsurprisingly, we have a
-                <codeph id="x-7">textField</codeph> for the <codeph id="x-8">Text</codeph> record, and an
-                <codeph id="x-9">intField</codeph> for the <codeph id="x-10">Int</codeph> record.</p>
+  <p id="x3">Here, we've explicitly split up applicative and monadic forms. In <codeph id="x-3"
+                >carAForm</codeph>, we use the <codeph id="x-4">&lt;$&gt;</codeph> and <codeph
+                id="x-5">&lt;*&gt;</codeph> operators. This should not be surprising; these are
+            almost always used in applicative-style code. And we have one line for each record in
+            our <codeph id="x-6">Car</codeph> datatype. Perhaps unsurprisingly, we have a <codeph
+                id="x-7">textField</codeph> for the <codeph id="x-8">Text</codeph> record, and an
+                <codeph id="x-9">intField</codeph> for the <codeph id="x-10">Int</codeph>
+            record.</p>
   <p id="x5">Let's look a bit more closely at the <codeph id="x-11">areq</codeph> function. Its (simplified)
             type signature is <codeph id="x6">Field a -&gt; FieldSettings -&gt; Maybe a -&gt; AForm
                 a</codeph>. So that first argument is going to determine the datatype of this field,

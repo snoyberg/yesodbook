@@ -6,9 +6,11 @@
   <dl id="x2">
    <dlentry id="x3">
     <dt id="x4">Applicative</dt>
-    <dd id="x5">These are the most commonly used (it's what appeared in the synopsis). Applicative gives us
-     some nice properties of letting error messages coallesce together and keep a very high-level,
-     declarative approach.</dd>
+    <dd id="x5">These are the most commonly used (it's what appeared in the synopsis). Applicative
+     gives us some nice properties of letting error messages coallesce together and keep a very
+     high-level, declarative approach. (For more information on applicative code, see <xref
+      href="http://www.haskell.org/haskellwiki/Applicative_functor" format="html" scope="external"
+      >the Haskell wiki</xref>.)</dd>
    </dlentry>
    <dlentry id="x6">
     <dt id="x7">Monadic</dt>

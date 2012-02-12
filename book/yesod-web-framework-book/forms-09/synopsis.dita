@@ -39,8 +39,9 @@ data Person = Person
 -- Declare the form. The type signature is a bit intimidating, but here's the
 -- overview:
 --
--- * The Html parameter is used for encoding some extra information, such as a
--- nonce for avoiding CSRF attacks
+-- * The Html parameter is used for encoding some extra information. See the
+-- discussion regarding runFormGet and runFormPost below for further
+-- explanation.
 --
 -- * We have the sub and master site types, as usual.
 --

@@ -33,16 +33,18 @@
    is:<codeblock outputclass="haskell" id="x17">renderMyRoute :: MyRoute -&gt; Text
 renderMyRoute Home = "http://example.com/profile/home"
 renderMyRoute Time = "http://example.com/display/time"</codeblock></p>
-  <p id="x18">URL rendering functions are actually a bit more complicated than this. They need to
-   address query string parameters, handle records within the constructor, and more intelligently
-   handle the domain name. But in practice, you don't need to worry about this, since Yesod will
-   automatically create your render functions. The one thing to point out is that the type signature
-   is actually a little more complicated to handle query
-   strings:<codeblock outputclass="haskell" id="x19">type Query = [(Text, Text)]
+  <p id="x18">
+   <note>URL rendering functions are actually a bit more complicated than this. They need to address
+    query string parameters, handle records within the constructor, and more intelligently handle
+    the domain name. But in practice, you don't need to worry about this, since Yesod will
+    automatically create your render functions. The one thing to point out is that the type
+    signature is actually a little more complicated to handle query
+    strings:<codeblock outputclass="haskell" id="x19">type Query = [(Text, Text)]
 type Render url = url -&gt; Query -&gt; Text
 renderMyRoute :: Render MyRoute
 renderMyRoute Home _ = ...
-renderMyRoute Time _ = ...</codeblock></p>
+renderMyRoute Time _ = ...</codeblock></note>
+  </p>
   <p id="x20">OK, we have our render function, and we have type-safe URLs embedded in the templates.
    How does this fit together exactly? Instead of generating an <codeph id="x-4">Html</codeph> (or
     <codeph id="x-5">Css</codeph> or <codeph id="x-6">Javascript</codeph>) value directly, Shakespearean templates

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="synopsis"><title id="x-1">Synopsis</title><conbody id="x-2">
-        <p id="x-3">Hamlet and Cassius are both whitespace-sensitive formats, using indentation to denote
-            nesting. Lucius is an alternative CSS format to Cassius, and works instead as a superset
-            of CSS. Julius is a simple passthrough language allowing variable interpolation into
-            your Javascript.</p>
+        <p>There are four main languages at play: Hamlet is an HTML templating language, Julius is
+            for Javascript, and Cassius and Lucius are both for CSS. Hamlet and Cassius are both
+            whitespace-sensitive formats, using indentation to denote nesting. By contrast, Lucius
+            is a superset of CSS, keeping CSS's braces for denoting nesting. Julius is a simple
+            passthrough language for producing Javascript; the only added feature is variable
+            interpolation.</p>
     </conbody></concept>

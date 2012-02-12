@@ -32,9 +32,9 @@
     <li id="x15">You can easily switch between external file and debug mode with some simple CPP macros,
      meaning you can keep rapid development and still achieve high performance in production.</li>
    </ul></p>
-  <p id="x16">Since these are special quasiquoters and TH functions, you need to be sure to enable
-   the appropriate language extensions and use correct syntax. You can see a simple example of each
-   in the figures.</p>
+  <p id="x16">Since these are special QuasiQuoters and Template Haskell functions, you need to be
+   sure to enable the appropriate language extensions and use correct syntax. You can see a simple
+   example of each in the figures.</p>
   <fig id="x17">
    <title id="x18">Quasiquoter</title>
    <codeblock id="x19" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-} -- we're using Text below
