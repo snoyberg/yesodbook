@@ -26,7 +26,7 @@
   <p id="x-18">In <codeph id="x-19">Application.hs</codeph>, we call <codeph id="x-20">mkYesodDispatch</codeph>, which creates our
    dispatch function. For this to work, all handler functions must be in scope, so be sure to add an
    import statement for any new handler modules you create.</p>
-  <p id="x-21">Other than than, <filepath id="x-32">Application.hs</filepath> is pretty simple. It provides
+  <p id="x-21">Other than that, <filepath id="x-32">Application.hs</filepath> is pretty simple. It provides
    two functions: <codeph id="x-33">withDevelAppPort</codeph> is used by <cmdname id="x-22">yesod
     devel</cmdname> to launch your app, and <codeph id="x-23">getApplication</codeph> is used by the
    executable to launch.</p>

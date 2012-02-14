@@ -6,7 +6,7 @@
   <p id="x-3">The <codeph id="x-12">Import</codeph> module was born out of a few commonly recurring
    patterns.</p>
   <ul id="ul_skn_hbh_oe">
-   <li id="x-4">I want to define some helper functions (maybe the <codeph id="x-5">&lt;&gt; = mappend</codeph> opterator)
+   <li id="x-4">I want to define some helper functions (maybe the <codeph id="x-5">&lt;&gt; = mappend</codeph> operator)
     to be used by all handlers.</li>
    <li id="x-6">I'm always adding the same five import statements (<codeph id="x-13">Data.Text</codeph>,
      <codeph id="x-14">Control.Applicative</codeph>, etc) to every handler module.</li>

@@ -24,7 +24,7 @@
     install cabal-dev</cmdname>.</p>
   <p id="x-10">Note that you really do need to use the <cmdname id="x-11">cabal install</cmdname>
    (or <cmdname id="x-12">cabal-dev install</cmdname>) command. Most likely, you do not yet have all
-   the dependenceis in place needed by your site. For example, none of the database backends, nor
+   the dependencies in place needed by your site. For example, none of the database backends, nor
    the Javascript minifier (<apiname id="x-13">hjsmin</apiname>) are installed when installing the
     <codeph id="x-22">yesod</codeph> package.</p>
   <p id="x-14">Finally, to launch your development site, you would use <cmdname id="x-15">yesod devel</cmdname> (or

@@ -7,11 +7,11 @@
    is actually broken up into two files:</p>
   <ul id="ul_jjz_kch_oe">
    <li id="x-4"><filepath id="x-5">templates/default-layout-wrapper.hamlet</filepath> contains just the basic shell of
-    a page. This file is interpretted as plain Hamlet, not as a Widget, and therefore cannot refer
+    a page. This file is interpreted as plain Hamlet, not as a Widget, and therefore cannot refer
     to other widgets, embed i18n strings, or add extra CSS/JS.</li>
    <li id="x-6"><filepath id="x-7">templates/default-layout.hamlet</filepath> is where you would put the bulk of your
     page. You <b id="x-8">must</b> remember to include the <codeph id="x-9">widget</codeph> value in the page, as that
-    contains the per-page contents. This file is interpretted as a Widget.</li>
+    contains the per-page contents. This file is interpreted as a Widget.</li>
   </ul>
   <p id="x-10">Also, since default-layout is included via the <codeph id="x-12">widgetFile</codeph> function,
    any Lucius, Cassius, or Julius files named <filepath id="x-11">default-layout.*</filepath> will

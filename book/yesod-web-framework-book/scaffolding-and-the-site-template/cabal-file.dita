@@ -12,7 +12,7 @@
     <p id="x-9">The <codeph id="x-10">library-only</codeph> flag should only be used by
         <cmdname id="x-25">yesod devel</cmdname>; you should never be explicitly passing it into
         <cmdname id="x-26">cabal</cmdname>. There is an additional flag, <codeph id="x-11">dev</codeph>, that
-      allows cabal to continue to building an executable, but turns on some of the same features as
+      allows cabal to build an executable, but turns on some of the same features as
       the library-only flag, i.e., no optimizations and reload versions of the Shakespearean
       template functions.</p>
   <p id="x-12">In general, you will build as follows:</p>
