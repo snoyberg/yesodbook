@@ -14,6 +14,8 @@
             into a ready-to-use skeleton for your sites. It is highly recommended for all sites.
             This chapter will explain the overall structure of the scaffolding, how to use it, and
             some of its less-than-obvious features.</p>
+        <p>For the most part, this chapter will not contain code samples. It is recommended that you
+            follow along with an actual scaffolded site.</p>
         <note id="x-9">Due to the nature of the scaffolded site, it is the most fluid component of Yesod, and
             can change from version to version. It is possible that the information in this chapter
             is slightly outdated.</note></conbody></concept>

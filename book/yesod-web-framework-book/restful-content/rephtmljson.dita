@@ -49,10 +49,17 @@ main = warpDebug 4000 R
 </codeblock><p id="rhj2">Our <codeph id="x-4">getRootR</codeph> handler creates a page with three links and some
             Javascript which intercept clicks on the links and performs asynchronous requests. If
             the user has Javascript enabled, clicking on the link will cause a request to be sent
-            with an <codeph id="x-5">Accept</codeph> header of <codeph id="x-6">application/json</codeph>. In that
-            case, <codeph id="x-7">getNameR</codeph> will return the JSON representation defined on line
-            40.</p><p id="rhj3">If the user disables Javascript, clicking on the link will send the user to the appropriate URL. A web browser places priority on an HTML representation of the data, and therefore the page defined on lines 36-38 will be returned.</p><p id="rhj4">We can of course extend this to work with XML, Atom feeds, or even binary
+            with an <codeph id="x-5">Accept</codeph> header of <codeph id="x-6"
+                >application/json</codeph>. In that case, <codeph id="x-7">getNameR</codeph> will
+            return the JSON representation instead.</p><p id="rhj3">If the user disables Javascript, clicking on the link will send the user to the
+            appropriate URL. A web browser places priority on an HTML representation of the data,
+            and therefore the page defined by the widget will be returned.</p><p id="rhj4">We can of course extend this to work with XML, Atom feeds, or even binary
             representations of the data. A fun exercise could be writing a web application that
             serves data simply using the default <codeph id="x-8">Show</codeph> instances of datatypes, and
             then writing a web client that parses the results using the default
-                <codeph id="x-9">Read</codeph> instances.</p></conbody></concept>
+                <codeph id="x-9">Read</codeph> instances.</p>
+        <note>You might be concerned about efficiency here. Doesn't this approach mean we have to
+            generate both an HTML and JSON response for each request? Thanks to laziness, that's not
+            the case. In <codeph>getNameR</codeph>, neither <codeph>widget</codeph> nor
+                <codeph>json</codeph> will be evaluated until the appropriate response type has been
+            selected, and therefore only one of them will ever be run.</note></conbody></concept>

@@ -17,4 +17,4 @@
             is written in Haskell, you have the full flexibility of the language at your
             disposal.</p>
         <p id="x-6">This chapter will cover how to set up an "auth" solution in Yesod and discuss some
-            trade-offs in the different authentication options.</p><p id="outline">This chapter is just an outline. It will contain the sections:</p></conbody></concept>
+            trade-offs in the different authentication options.</p></conbody></concept>
