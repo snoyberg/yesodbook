@@ -53,7 +53,7 @@ data Post = Post { postTitle :: Text, postBlogId :: Key &lt;what goes here?&gt; 
     <codeph id="x-24">SqlPersist</codeph>, or <codeph id="x-25">Mongo</codeph>, but then our datatypes will only work
    for a single backend. For an individual application, that might be acceptable, but what about
    libraries defining datatypes to be used by multiple applications, using multiple backends?</p>
-  <p id="x20">So thinks got a little more complicated. Our types are actually:</p>
+  <p id="x20">So things got a little more complicated. Our types are actually:</p>
   <codeblock id="x21" outputclass="haskell">data BlogGeneric backend = Blog { blogTitle :: Text }
 data PostGeneric backend = Post { postTitle :: Text, postBlogId :: Key backend (BlogGeneric backend) }</codeblock>
   <p id="x22">Notice that we still keep the short names for the constructors and the records. Finally, to
