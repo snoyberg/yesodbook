@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="general-recommendations"><title>General Recommendations</title><conbody><p id="x1">Here are some general hints from the Yesod community on how to get the most out of Shakespeare. (If you have more, please add them in a comment to this paragraph:</p>
-<ul id="x2">
-<li id="x3">For actual sites, use external files. For libraries, it's OK to use quasiquoters, assuming they aren't too long.</li>
-<li id="x4">Patrick Brisbin has put together a <xref id="x5" href="https://github.com/pbrisbin/html-template-syntax">Vim code highlighter</xref> that can help out immensely.</li>
-<li id="x6">You should almost always start Hamlet tags on their own line instead of embedding start/end tags after an existing tag. The only exception to this is the occasional &lt;i&gt; or &lt;b&gt; tag inside a large block of text.</li>
-</ul></conbody></concept>

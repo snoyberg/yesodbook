@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="line-numberingsyntax-highlighting-added"><title>Line numbering/syntax highlighting added</title><body><foreign outputclass="markdown">For everyone who's been asking for it, I've just adding syntax highlighting and line numbering to most of the Haskell code snippets. I'm using John McFarlane's very nice [illuminate](https://github.com/jgm/illuminate) package for this. If you notice any problems, please let me know.</foreign></body></topic>

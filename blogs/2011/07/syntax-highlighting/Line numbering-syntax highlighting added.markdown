@@ -1,1 +1,0 @@
-For everyone who's been asking for it, I've just adding syntax highlighting and line numbering to most of the Haskell code snippets. I'm using John McFarlane's very nice [illuminate](https://github.com/jgm/illuminate) package for this. If you notice any problems, please let me know.

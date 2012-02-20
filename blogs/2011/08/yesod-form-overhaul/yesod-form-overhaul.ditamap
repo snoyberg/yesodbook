@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="yesod-form-overhaul"><title>Yesod form overhaul</title><topicref id="motivation" href="yesod-form-overhaul/motivation.dita"/><topicref id="somemessage" href="yesod-form-overhaul/somemessage.dita"/><topicref id="less-general-types" href="yesod-form-overhaul/less-general-types.dita"/><topicref id="monadic-field-parser" href="yesod-form-overhaul/monadic-field-parser.dita"/><topicref id="the-check-functions" href="yesod-form-overhaul/the-check-functions.dita"/></map>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="julius-javascript"><title>Julius (Javascript)</title><conbody>
-  <codeblock outputclass="julius" id="x1">$(function(){
-    $("section.#{sectionClass}").hide();
-    $("#mybutton").click(function(){document.location = "@{SomeRouteR}";});
-    ^{addBling}
-});</codeblock>
- </conbody></concept>

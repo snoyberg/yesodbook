@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="monad-control"><title>monad-control</title><topicref id="overview" href="monad-control/overview.dita"/><topicref id="intuition" href="monad-control/intuition.dita"/><topicref id="types" href="monad-control/types.dita"><topicref id="monadtranscontrol" href="monad-control/monadtranscontrol.dita"/><topicref id="monadcontrolio" href="monad-control/monadcontrolio.dita"/></topicref><topicref id="real-life-examples" href="monad-control/real-life-examples.dita"/><topicref id="lost-state" href="monad-control/lost-state.dita"/><topicref id="more-complicated-cases" href="monad-control/more-complicated-cases.dita"/></map>

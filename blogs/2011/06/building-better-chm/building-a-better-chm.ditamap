@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="building-a-better-chm"><title>Building a Better CHM</title><topicref id="the-problem" href="building-a-better-chm/the-problem.dita"/><topicref id="the-solution" href="building-a-better-chm/the-solution.dita"><topicref id="wai-handler-launch" href="building-a-better-chm/wai-handler-launch.dita"/><topicref id="template-haskell" href="building-a-better-chm/template-haskell.dita"/><topicref id="modifying-an-executable" href="building-a-better-chm/modifying-an-executable.dita"/></topicref></map>

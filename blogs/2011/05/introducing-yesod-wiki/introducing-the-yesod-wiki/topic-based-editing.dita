@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="topic-based-editing"><title>Topic-based editing</title><conbody>  <p id="x1">At Suite Solutions, our business is documentation. The vast majority of our clients author in a
-   data format called <xref id="x2" href="http://en.wikipedia.org/wiki/Darwin_Information_Typing_Architecture" format="html" scope="external">DITA</xref>. There are a number of very cool features about DITA, but for our
-   purposes today the most important is topic-based authoring.</p>
-  <p id="x3">Instead of authoring a book, or a blog post, or a FAQ, you author individual topics. These
-   topics are intended to be concise and cover a single idea. Then, to produce a larger document,
-   you organize these topics together into a map.</p>
- </conbody></concept>

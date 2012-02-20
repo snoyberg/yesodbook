@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="new-blog-system"><title>New Blog System</title><body><foreign outputclass="html">&lt;p&gt;I decided I would like to streamline &lt;a href="http://www.snoyman.com/"&gt;my domain name&lt;/a&gt; by making the homepage my blog. I've always considered Wordpress to be a temporary solution as it is too heavy for my needs, so I finally decided to bite the bullet and make &lt;a href="http://github.com/snoyberg/bloggy"&gt;my own blog system&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It's nothing fancy, but it allows me to make my blog posts in Vim and track them with Git, so I consider it a significant improvement to my wordflow.&lt;/p&gt;
-&lt;p&gt;I decided to outsource comments to &lt;a href="http://disqus.com/"&gt;Disqus&lt;/a&gt;; I don't have much experience with them, so I wouldn't mind hearing any feedback on it.&lt;/p&gt;
-&lt;p&gt;And as you might guess, it's built on &lt;a href="http://www.yesodweb.com/code.html"&gt;Yesod Web Framework&lt;/a&gt;. This blog was the final project in my queue before tidying up Yesod for its first release. Currently, it has some major space leaks, some of which come from &lt;a href="http://github.com/snoyberg/yaml/tree/data-object-yaml"&gt;underlying libraries&lt;/a&gt;. Once those are addressed, I'll try to do some basic code clean-up, document a bit more and release!&lt;/p&gt;
-&lt;p&gt;Also, expect this blog to contain a significant increase in web development discussions as I move from developing a web framework to &lt;a href="http://www.yesodweb.com/"&gt;developing web sites&lt;/a&gt;.&lt;/p&gt;
-</foreign></body></topic>

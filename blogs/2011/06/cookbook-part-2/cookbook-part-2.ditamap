@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="cookbook-part-2"><title>Cookbook, part 2</title><topicref id="json-web-service" href="cookbook-part-2/json-web-service.dita"><topicref id="server" href="cookbook-part-2/server.dita"/><topicref id="client" href="cookbook-part-2/client.dita"/></topicref><topicref id="persistent-raw-sql" href="cookbook-part-2/persistent-raw-sql.dita"/><topicref id="internationalized-julius" href="cookbook-part-2/internationalized-julius.dita"/></map>
