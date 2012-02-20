@@ -12,6 +12,6 @@ Executable to-docbook
                      , dita
                      , dtd
                      , xml-hamlet
-                     , xml-enumerator
-                     , uri-enumerator-file
-                     , uri-enumerator
+                     , xml-conduit
+                     , uri-conduit
+                     , text

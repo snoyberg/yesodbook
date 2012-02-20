@@ -2,9 +2,9 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE PatternGuards #-}
 import Prelude hiding (writeFile)
-import DITA.Parse
-import qualified DITA.Types as D
-import qualified DITA.Util as DU
+import Dita.Parse
+import qualified Dita.Types as D
+import qualified Dita.Util as DU
 import Data.DTD.Cache
 import Network.URI.Conduit
 import Network.URI.Conduit.File
@@ -20,11 +20,11 @@ catalogFile = "catalog-dita.xml"
 ditamap :: FilePath
 ditamap = "book/yesod-web-framework-book.ditamap"
 
-getSettings :: IO (DITASettings IO)
+getSettings :: IO (DitaSettings IO)
 getSettings = do
     cache <- newDTDCacheFile catalogFile
     let sm = toSchemeMap [fileScheme]
-    return DITASettings
+    return DitaSettings
         { dsDTDCache = cache
         , dsSchemeMap = sm
         , dsGetFileId = Nothing
@@ -37,7 +37,7 @@ main :: IO ()
 main = do
     ds <- getSettings
     dm <- decodeString ditamap
-    doc <- runDITA_ ds $ loadDoc dm
+    doc <- runDita_ ds $ loadDoc dm
     let doctype = Doctype "book" $ Just $ PublicID
                     "-//OASIS//DTD DocBook XML V4.2//EN"
                     "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
