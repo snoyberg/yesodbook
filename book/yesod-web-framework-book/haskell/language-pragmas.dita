@@ -8,8 +8,8 @@
    There are multiple ways to tell GHC to turn on these extensions. For most of the code snippets in
    this book, you'll see <term id="x-4">language pragmas</term>, which look like this:</p>
   <codeblock id="x-5" outputclass="haskell">{-# LANGUAGE MyLanguageExtension #-}</codeblock>
-  <p id="x-6">These should always appear at the top of your source file. Additionally, there are two other
-   recommended approaches:</p>
+  <p id="x-6">These should always appear at the top of your source file. Additionally, there are two
+   other common approaches:</p>
   <ul id="ul_ano_hnw_ff">
    <li id="x-7">On the GHC command line, pass an extra argument
     <userinput id="x-8">-XMyLanguageExtension</userinput>.</li>

@@ -7,7 +7,9 @@
     <li id="x2">As little interference to the underlying language as possible, while providing
      conveniences where unobtrusive.</li>
     <li id="x3">Compile-time guarantees on well-formed content.</li>
-    <li id="x4">Strict type safety, extending to the prevention of XSS (cross-site scripting) attacks.</li>
+    <li id="x4">Strict type safety, extending to the prevention of <xref
+      href="http://en.wikipedia.org/wiki/Cross-site_scripting" format="html" scope="external">XSS
+      (cross-site scripting)</xref> attacks.</li>
     <li id="x5">Automated checking of valid URLs, whenever possible, through <term id="x6">type-safe
      URLs</term>.</li>
    </ul></p>

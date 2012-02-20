@@ -3,6 +3,5 @@
 <concept id="hamlet-syntax"><title id="x-1">Hamlet Syntax</title><conbody id="x-2">
         <p id="x-3">Hamlet is the most sophisticated of the languages. Not only does it provide
             syntax for generating HTML, it also allows for basic control structures: conditionals,
-            looping, and maybes. While in general Shakespearean templates tend to be logic-less,
-            some control is given within HTML for practical purposes.</p>
+            looping, and maybes.</p>
     </conbody></concept>

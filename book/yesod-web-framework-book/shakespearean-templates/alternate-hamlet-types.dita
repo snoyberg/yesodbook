@@ -16,12 +16,12 @@
       <codeph id="x-3">shamlet</codeph>, embedding can be completely replaced with normal variable
      interpolation (with a hash).</li>
    </ul></p>
-  <p id="x12">Internationalized (from now on, i18n) is a bit more complicated than normal Hamlet. This is
-   based around the idea of a message datatype, very similar in concept and implementation to a
-   type-safe URL. As a motivating example, let's say we want to have an application that tells you
-   hello and how many apples you have eaten. We could represent those messages with a
-   datatype.<codeblock id="x13" outputclass="haskell">data Msg = Hello | Apples Int</codeblock>Next, we would
-   want to be able to convert that into something human-readable, so we define some render
+  <p id="x12">Dealing with internationalization (i18n) in Hamlet is a bit complicated. Hamlet
+   supports i18n via a message datatype, very similar in concept and implementation to a type-safe
+   URL. As a motivating example, let's say we want to have an application that tells you hello and
+   how many apples you have eaten. We could represent those messages with a
+   datatype.<codeblock id="x13" outputclass="haskell">data Msg = Hello | Apples Int</codeblock>Next,
+   we would want to be able to convert that into something human-readable, so we define some render
    functions:<codeblock outputclass="haskell" id="x14">renderEnglish :: Msg -&gt; Text
 renderEnglish Hello = "Hello"
 renderEnglish (Apples 0) = "You did not buy any apples."

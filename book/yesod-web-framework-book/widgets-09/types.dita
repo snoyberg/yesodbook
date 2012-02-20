@@ -35,14 +35,14 @@ page = [whamlet|
 &lt;p&gt;This is my page. I hope you enjoyed it.
 ^{footer}
 |]</codeblock>
-  <p id="x11">If you've been paying close attention, you might be confused. We used
-    <codeph id="x-8">lift</codeph> before on <codeph id="x-9">Widget</codeph>, but <codeph id="x-10">GWidget</codeph> isn't
-   actually a monad transformer. What's going on here? Well, in older versions of Yesod, it
-    <i id="x-11">was</i> a transformer around the <codeph id="x-12">Handler</codeph> type. Unfortunately, this led to
-   difficult-to-parse error messages. As a result, <codeph id="x-13">GWidget</codeph> is now a
-    <codeph id="x-14">newtype</codeph> wrapper that hides away its monad-transformer essence. But we still
-   want to be able to <codeph id="x-15">lift</codeph> functions from the inner <codeph id="x-16">Handler</codeph>
-   monad.</p>
+  <p id="x11">If you've been paying close attention, you might be confused. We used <codeph id="x-8"
+    >lift</codeph> on <codeph id="x-9">Widget</codeph> in the ID generation example above, but
+    <codeph id="x-10">GWidget</codeph> isn't actually a monad transformer. What's going on here?
+   Well, in older versions of Yesod, it <i id="x-11">was</i> a transformer around the <codeph
+    id="x-12">Handler</codeph> type. Unfortunately, this led to difficult-to-parse error messages.
+   As a result, <codeph id="x-13">GWidget</codeph> is now a <codeph id="x-14">newtype</codeph>
+   wrapper that hides away its monad-transformer essence. But we still want to be able to <codeph
+    id="x-15">lift</codeph> functions from the inner <codeph id="x-16">Handler</codeph> monad.</p>
   <p id="x-17">To solve this, Yesod provides an alternate, more general <codeph id="x-18">lift</codeph> function that
    works for both standard <codeph id="x-19">MonadTrans</codeph> instances, and special
     <codeph id="x-20">newtype</codeph> wrappers like <codeph id="x-21">GWidget</codeph>. As a result, you can pretend

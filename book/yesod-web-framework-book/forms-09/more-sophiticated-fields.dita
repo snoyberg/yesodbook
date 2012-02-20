@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="more-sophiticated-fields"><title id="x-1">More sophisticated fields</title><conbody id="x-2">
-  <p id="x1">Our color entry field is nice, but it's not exactly user-friendly. What we really want is a
-   dropdown list.</p>
+  <p id="x1">Our color entry field is nice, but it's not exactly user-friendly. What we really want
+            is a drop-down list.</p>
   <fig id="x2">
    <title id="x3">Drop-down lists</title>
    <codeblock id="x4" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,

@@ -3,8 +3,9 @@
 <concept id="types"><title id="x-1">Types</title><conbody id="x-2">  <p id="x1">Before we jump into syntax, let's take a look at the various types involved. We
    mentioned in the introduction that types help protect us from XSS attacks. For example, let's say
    that we have an HTML template that should display someone's name; it might look like
-    this:<codeblock outputclass="hamlet" id="x2">&lt;p&gt;Hello, my name is #{name}</codeblock><note id="x3">Yes, <codeph id="x-3">#{...}</codeph> is how we do variable interpolation in
-   Shakespeare.</note></p>
+    this:<codeblock outputclass="hamlet" id="x2">&lt;p&gt;Hello, my name is #{name}</codeblock><note
+    id="x3"><codeph id="x-3">#{...}</codeph> is how we do variable interpolation in
+    Shakespeare.</note></p>
   <p id="x4">What should happen to <varname id="x5">name</varname>, and what should its datatype be?
    A naive approach would be to use a <codeph id="x-4">Text</codeph> value, and insert it verbatim. But that
    would give us quite a problem when <codeph id="x6">name="&lt;script
