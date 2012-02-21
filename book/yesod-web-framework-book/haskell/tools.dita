@@ -14,7 +14,7 @@
     install cabal-install</codeph>. There are, however, a few caveats with this approach:</p>
   <ul id="ul_dst_upw_ff">
    <li id="x-7">There are some additional build tools (<cmdname id="x-8">alex</cmdname> and <cmdname
-     id="x-9">happy</cmdname> in particular) that are needed by some packages. This are installed
+     id="x-9">happy</cmdname> in particular) that are needed by some packages. These are installed
     automatically by the Haskell Platform, but won't necessarily be installed by using your package
     manager.</li>
    <li id="x-10">The version of GHC available in your repositories may be significantly dated, meaning some
