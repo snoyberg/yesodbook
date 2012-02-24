@@ -8,13 +8,12 @@
    variable from the scope in which the template was called will be used. Let me state that again:
    Hamlet automatically has access to the variables in scope when it's called. There is no need to
    specifically pass variables in.</p>
-  <p id="x5">But it gets better still. You can apply functions within an interpolation. You can use
-   string and numeric literals in an interpolation. You can use qualified modules. Both parentheses
-   and the dollar sign can be used to group statements together. And at the end, the
-    <codeph id="x-3">toHtml</codeph> function is applied to the result, meaning <i id="x6">any</i> instance
-   of <codeph id="x-4">ToHtml</codeph> can be interpolated. Take, for instance, the following code.</p>
-  <fig id="x7">
-   <title id="x8">Variable Interpolation</title>
+  <p id="x5">You can apply functions within an interpolation. You can use string and numeric
+   literals in an interpolation. You can use qualified modules. Both parentheses and the dollar sign
+   can be used to group statements together. And at the end, the <codeph id="x-3">toHtml</codeph>
+   function is applied to the result, meaning <i id="x6">any</i> instance of <codeph id="x-4"
+    >ToHtml</codeph> can be interpolated. Take, for instance, the following code.</p>
+  
    <codeblock id="x9" outputclass="haskell">-- Just ignore the quasiquote stuff for now, and that shamlet thing.
 -- It will be explained later.
 {-# LANGUAGE QuasiQuotes #-}
@@ -34,17 +33,15 @@ main = putStrLn $ renderHtml [shamlet|
 &lt;p&gt;
     Let's do some funny stuff with my name: #
     &lt;b&gt;#{sort $ map toLower (name person)}
-&lt;p&gt;Oh, and in 5 years I'll be #{show ((+) (age person) 5)} years old.
+&lt;p&gt;Oh, and in 5 years I'll be #{show (5 + (age person))} years old.
 |]
   where
     person = Person "Michael" 26</codeblock>
-  </fig>
+  
   <p id="x10">What about our much-touted type-safe URLs? They are almost identical to variable
    interpolation in every way, except they start with an at-sign (@) instead. In addition, there is
    embedding via a caret (^) which allows you to embed another template of the same type. The next
    code sample demonstrates both of these.</p>
-  <fig id="x11">
-   <title id="x12">URL Interpolation and Embedding</title>
    <codeblock outputclass="haskell" id="x13">{-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE OverloadedStrings #-}
 import Text.Hamlet (HtmlUrl, hamlet)
@@ -70,5 +67,4 @@ main = putStrLn $ renderHtml $ [hamlet|
     &lt;p&gt;This is my page.
     ^{footer}
 |] render</codeblock>
-  </fig>
  </conbody></concept>

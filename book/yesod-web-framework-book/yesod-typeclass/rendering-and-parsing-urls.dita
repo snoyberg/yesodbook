@@ -9,9 +9,10 @@
             application.</p><p id="rpu3">You might think we could get that information from the user's request, but we still
             need to deal with ports. And even if we get the port number from the request, are we
             using HTTP or HTTPS? And even if you know <i id="x3">that</i>, such an approach would
-            break one of our RESTful principles: depending on how the user submitted a request would
-            generate different URLs. For example, we would generate different URLs depending if the
-            user connected to "example.com" or "www.example.com".</p><p id="rpu4">And finally, Yesod doesn't make any assumption about <i id="x4">where</i> you host your application. For example, I may have a mostly static site (http://static.example.com/), but I'd like to stick a Yesod-powered Wiki at /wiki/. There is no reliable way for an application to determine what subpath it is being hosted from. So instead of doing all of this guesswork, Yesod needs you to tell it the <term id="x5">application root</term>.</p><p id="rpu5">Using the wiki example, you would write your <codeph id="x-4">Yesod</codeph> instance as:</p><codeblock outputclass="haskell" id="x6">instance Yesod MyWiki where
+            mean that, depending on how the user submitted a request would generate different URLs.
+            For example, we would generate different URLs depending if the user connected to
+            "example.com" or "www.example.com". For Search Engine Optimization, we want to be able
+            to consolidate on a single canonical URL.</p><p id="rpu4">And finally, Yesod doesn't make any assumption about <i id="x4">where</i> you host your application. For example, I may have a mostly static site (http://static.example.com/), but I'd like to stick a Yesod-powered Wiki at /wiki/. There is no reliable way for an application to determine what subpath it is being hosted from. So instead of doing all of this guesswork, Yesod needs you to tell it the <term id="x5">application root</term>.</p><p id="rpu5">Using the wiki example, you would write your <codeph id="x-4">Yesod</codeph> instance as:</p><codeblock outputclass="haskell" id="x6">instance Yesod MyWiki where
     approot _ = "http://static.example.com/wiki" -- FIXME this is out-of-date</codeblock><p id="rpu6">Notice that there is no trailing slash there. Next, when Yesod wants to construct a URL
             for <codeph id="x-5">SomePathR</codeph>, it determines that the relative path for
                 <codeph id="x-6">SomePathR</codeph> is <codeph id="x-7">/some/path</codeph>, appends that to your

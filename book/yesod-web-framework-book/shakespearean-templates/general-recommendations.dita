@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="general-recommendations"><title id="x-1">General Recommendations</title><conbody id="x-2"><p id="x1">Here are some general hints from the Yesod community on how to get the most out of Shakespeare. (If you have more, please add them in a comment to this paragraph:</p>
+<concept id="general-recommendations"><title id="x-1">General Recommendations</title><conbody id="x-2"><p id="x1">Here are some general hints from the Yesod community on how to get the most out of
+                                                  Shakespeare.</p>
 <ul id="x2">
 <li id="x3">For actual sites, use external files. For libraries, it's OK to use quasiquoters, assuming they aren't too long.</li>
 <li id="x4">Patrick Brisbin has put together a <xref id="x5" scope="external" href="https://github.com/pbrisbin/html-template-syntax" format="html">Vim code

@@ -3,8 +3,9 @@
 <concept id="conceptId">
  <title id="x-1">Terminology</title>
  <conbody id="x-2">
-  <p id="x-3">Even for those familiar with Haskell as a language, there can sometimes be some confusion about
-   terminology. Let's establish some base terms that we can use throughout this book. FIXME</p>
+  <p id="x-3">Even for those familiar with Haskell as a language, there can sometimes be some
+   confusion about terminology. Let's establish some base terms that we can use throughout this
+   book.</p>
   <dl id="x-4">
    <dlentry id="x-5">
     <dt id="x-6">Data type</dt>

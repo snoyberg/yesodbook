@@ -8,27 +8,30 @@
    need Cabal, which is the standard Haskell build tool. Not only do we use Cabal for building our
    local code, but it can automatically download and install dependencies from Hackage, the Haskell
    package repository.</p>
-  <p id="x-4">If you're on Windows or Mac, it is strongly recommended to download the <xref id="x-5" href="http://hackage.haskell.org/platform/" format="html" scope="external">Haskell
-    Platform</xref>. On Linux, many distributions include GHC and Cabal in their package
-   repositories. On Debian-based systems, you can get a good start by running <codeph id="x-6">sudo apt-get
-    install cabal-install</codeph>. There are, however, a few caveats with this approach:</p>
-  <ul id="ul_dst_upw_ff">
-   <li id="x-7">There are some additional build tools (<cmdname id="x-8">alex</cmdname> and <cmdname
-     id="x-9">happy</cmdname> in particular) that are needed by some packages. These are installed
-    automatically by the Haskell Platform, but won't necessarily be installed by using your package
-    manager.</li>
-   <li id="x-10">The version of GHC available in your repositories may be significantly dated, meaning some
-    newer features will not be available to you. In the most extreme case, you may have a version of
-    GHC too old for Yesod.</li>
-  </ul>
-  <p id="x-11">For now, my recommendation is to stick with a Haskell Platform install on Linux. Before
-   installing the package from the Haskell Platform website, make sure you have installed the <xref id="x-12" href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml" format="html" scope="external">required C libraries</xref>. On Debian-based systems, you would need to
-   run:</p>
-  <codeblock id="x-13" outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
-  <note>Some distributions actually include the Haskell Platform already. On Debian, you can run
-    <cmdname>sudo apt-get install haskell-platform</cmdname>. The same caveats of outdated versions
-   apply, but if you're using a distribution that provides the Haskell Platform, this is likely the
-   easiest approach to getting up-and-running quickly.</note>
+  <p id="x-4">If you're on Windows or Mac, it is strongly recommended to download the <xref id="x-5"
+    href="http://hackage.haskell.org/platform/" format="html" scope="external">Haskell
+    Platform</xref>. On Linux, many distributions include the Haskell Platform in their
+   repositories. On Debian-based systems, for example, you can get started by running <codeph>sudo
+    apt-get install haskell-platform</codeph>. If your distribution does not include the Haskell
+   Platform, you can install it manually by following the instructions on the Haskell Platform's
+   page.</p>
+  <p>One important tool you'll need to update is <cmdname>alex</cmdname>. The Haskell Platform
+   includes version 2, while the Javascript minifier Yesod uses, <apiname>hjsmin</apiname>, requires
+   version three. Be sure to <cmdname>cabal install alex</cmdname> after getting set up with the
+   Haskell Platform, or you'll run into error messages about the
+    <apiname>language-javascript</apiname> package.</p>
+  <note>Some people like to live in the bleeding edge and install the latest version of GHC before
+   it is available in the Haskell Platform. We try to keep Yesod up-to-date with all current
+   versions of GHC, but we only officially support the Haskell Platform. If you do go the route of
+   manually install GHC, here are a few notes:<ul id="ul_da4256c1-39b0-4276-8c64-d88825acb6d8">
+    <li>You'll need to install some additional build tools, <cmdname>alex</cmdname> and
+      <cmdname>happy</cmdname> in particular.</li>
+    <li>Make sure to install all of the <xref id="x-12"
+      href="http://www.vex.net/%7Etrebla/haskell/haskell-platform.xhtml" format="html"
+      scope="external">required C libraries</xref>. On Debian-based systems, you would need to
+     run:<codeblock id="x-13" outputclass="shell">sudo apt-get install libedit-dev libbsd-dev libgmp3-dev zlib1g-dev freeglut3-dev</codeblock>
+    </li>
+   </ul></note>
   <p id="x-14">Regardless of how you've installed your tools, you should sure to put <codeph id="x-15">cabal</codeph>'s
    bin folder in your <codeph id="x-16">PATH</codeph> variable. On Mac and Linux, this will be
     <codeph id="x-17">$HOME/.cabal/bin</codeph> and on Windows it will be
@@ -40,8 +43,12 @@
     Hackage.</li>
    <li id="x-23"><cmdname id="x-24">cabal install yesod</cmdname> will install Yesod and all its dependencies.</li>
   </ul>
-  <note id="x-25">Many people in the community prefer to perform sandboxed builds of their Haskell packages. I
-   won't go into details on how to use these in the book, but the two most commonly used tools are
-    <xref id="x-26" href="http://hackage.haskell.org/package/cabal-dev" format="html" scope="external">cabal-dev</xref> and <xref id="x-27" href="http://hackage.haskell.org/package/virthualenv" format="html" scope="external">virthualenv</xref>.</note>
+  <note id="x-25">Many people in the community prefer to perform sandboxed builds of their Haskell
+   packages, which prevents your install Yesod from breaking existing packages, or packages you
+   install in the future from breaking your Yesod install. I won't go into details on how to use
+   these in the book, but the two most commonly used tools are <xref id="x-26"
+    href="http://hackage.haskell.org/package/cabal-dev" format="html" scope="external"
+    >cabal-dev</xref> and <xref id="x-27" href="http://hackage.haskell.org/package/virthualenv"
+    format="html" scope="external">virthualenv</xref>.</note>
  </conbody>
 </concept>

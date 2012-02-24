@@ -40,12 +40,11 @@ renderEnglish (Apples i) = T.concat ["You bought ", T.pack $ show i, " apples."]
    synonym:<codeblock outputclass="haskell" id="x17">type Render url = url -&gt; [(Text, Text)] -&gt; Text
 type Translate msg = msg -&gt; Html
 type HtmlUrlI18n msg url = Translate msg -&gt; Render url -&gt; Html</codeblock>At
-   this point, you can pass <codeph id="x-4">renderEnglish</codeph>, <codeph id="x-5">renderSpanish</codeph>, or
-    <codeph id="x-6">renderKlingon</codeph> to this template, and it will generate nicely translated output
-   (depending, of course, on the quality of your translators). A full sample program follows.</p>
-  <fig id="x18">
-   <title id="x19">i18n Example</title>
-   <codeblock outputclass="haskell" id="x20">{-# LANGUAGE QuasiQuotes #-}
+   this point, you can pass <codeph id="x-4">renderEnglish</codeph>, <codeph id="x-5"
+    >renderSpanish</codeph>, or <codeph id="x-6">renderKlingon</codeph> to this template, and it
+   will generate nicely translated output (depending, of course, on the quality of your
+   translators). The complete program is:</p>
+  <codeblock outputclass="haskell" id="x20">{-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE OverloadedStrings #-}
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -82,5 +81,4 @@ $doctype 5
 main :: IO ()
 main = putStrLn $ renderHtml
      $ (template 5) (toHtml . renderEnglish) renderUrl</codeblock>
-  </fig>
  </conbody></concept>

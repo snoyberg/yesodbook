@@ -15,8 +15,6 @@
    appear in the head? Or if you want some Javascript to appear in the body instead of the head? For
    these purposes, Yesod provides two additional type classes: <codeph id="x-10">ToWidgetHead</codeph> and
     <codeph id="x-11">ToWidgetBody</codeph>. These work exactly as they seem they should.</p>
-  <note id="x4">There is no <codeph id="x-12">ToWidgetBody</codeph> instance for Lucius and Cassius, since you
-   can't put a style tag in the body.</note>
   <p id="x5">In addition, there are a number of other functions for creating specific kinds of Widgets:</p>
   <dl id="x6">
    <dlentry id="x7">

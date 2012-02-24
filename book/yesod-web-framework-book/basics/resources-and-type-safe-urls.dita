@@ -64,4 +64,4 @@ main = return ()</codeblock>
             year/month/slug setup. In a traditional web framework, you would need to go through
             every single reference to your blog post route and update appropriately. If you miss
             one, you'll have 404s at runtime. In Yesod, all you do is update your route and compile:
-            GHC will automatically find every single line of code that needs to be corrected.</p></conbody></concept>
+            GHC will pinpoint every single line of code that needs to be corrected.</p></conbody></concept>

@@ -13,9 +13,9 @@
    entity-encode the name, so that <codeph id="x-5">&lt;</codeph> becomes <codeph id="x-6">&amp;lt;</codeph>.</p>
   <p id="x7">An equally naive approach is to simply entity-encode <b id="x8">every</b> piece of text
    that gets embedded. What happens when you have some preexisting HTML generated from another
-   process? For example, in this book, all Haskell code snippets are run through a colorizing
-   function that wraps up words in appropriate <codeph id="x9">span</codeph> tags. If we entity
-   escaped everything, code snippets would be completely unreadable!</p>
+   process? For example, on the Yesod website, all Haskell code snippets are run through a
+   colorizing function that wraps up words in appropriate <codeph id="x9">span</codeph> tags. If we
+   entity escaped everything, code snippets would be completely unreadable!</p>
   <p id="x10">Instead, we have an <codeph id="x-7">Html</codeph> datatype. In order to generate an
     <codeph id="x-8">Html</codeph> value, we have two options for APIs: the <codeph id="x-9">ToHtml</codeph> typeclass
    provides a way to convert <codeph id="x-10">String</codeph> and <codeph id="x-11">Text</codeph> values into
@@ -36,7 +36,7 @@
    really security, as it is very uncommon to be interpolating user input to CSS and Javascript.
    Instead, it provides some compile-time sanity checks that we haven't accidently stuck some HTML
    in our CSS.</p>
-  <note id="x16">One other advantage on the CSS side is some helper datatypes for colors and units. While this
-   feature is not covered in this chapter, I encourage you to look at the API documentation and try
-   it out yourself.</note>
+  <note id="x16">One other advantage on the CSS side is some helper datatypes for colors and units.
+   For example:<codeblock outputclass="lucius">.red { color: #{colorRed} }</codeblock>Please see the
+   Haddock documentation for more details.</note>
  </conbody></concept>
