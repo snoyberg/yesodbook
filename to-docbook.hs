@@ -82,11 +82,11 @@ renderTopic title t = [xml|
 $if title
     <title>#{DU.text $ D.topicTitle t}
 <para>
-^{concatMap render $ D.topicContent t}
+^{concatMap (render t) $ D.topicContent t}
 |]
 
-render :: D.Element -> [X.Node]
-render e =
+render :: D.Topic -> D.Element -> [X.Node]
+render topic e =
     case D.elementName e of
         "conbody" -> kids
         "p" -> to "para"
@@ -100,7 +100,10 @@ render e =
             | Just url <- DU.getAttrText "href" e -> [xml|
 <link xlink:href=#{url}>^{kids}
 |]
-            | otherwise -> kids -- FIXME
+            | Just (D.Href { D.hrefElem = D.HrefElemElem (D.TopicId tid) (D.ElemId eid) }) <- DU.getAttrHref "href" e, Just "xref" <- DU.getAttrText "outputclass" e -> [xml|
+<xref linkend=#{tid}-#{eid}
+|]
+            | otherwise -> kids
         "codeph" -> to "literal"
         "q" -> to "quote"
         "i" -> to "emphasis"
@@ -144,12 +147,12 @@ render e =
         <imagedata fileref=images/#{T.drop (T.length "/home/snoyman/haskell/book/book/yesod-web-framework-book/") $ uriPath uri}>
 |]
                 Nothing -> error $ "image missing href: " ++ show e
-        "simpletable" -> simpletable e
+        "simpletable" -> simpletable topic e
         name -> [xml|
 <para>FIXME: Unknown element: #{nameLocalName name}
 |]
   where
-    kids = concatMap renderN $ D.elementChildren e
+    kids = concatMap (renderN topic) $ D.elementChildren e
     to name = [NodeElement $ Element name attrs kids]
     toPara name =
         [NodeElement $ Element name attrs kids']
@@ -158,9 +161,12 @@ render e =
             case D.elementChildren e of
                 (D.NodeElement (D.Element "p" _ _ _):_) -> kids
                 _ -> [xml|<para>^{kids}|]
-    attrs = [] -- FIXME
+    attrs =
+        case (D.elementName e, DU.getAttrText "id" e) of
+            ("fig", Just id') -> [("xml:id", T.concat [D.unTopicId $ D.topicId topic, "-", id'])]
+            _ -> [] -- FIXME
 
-simpletable e = [xml|
+simpletable topic e = [xml|
 <table>
     <title>
     <tgroup cols=#{count}>
@@ -183,7 +189,7 @@ simpletable e = [xml|
     row x = return $ NodeElement $ Element "row" [] $ concatMap entry $ x $/ element "stentry"
 
     entry x = [xml|
-<entry>^{concatMap renderN $ D.elementChildren e}
+<entry>^{concatMap (renderN topic) $ D.elementChildren e}
 |]
       where
         D.NodeElement e = node x
@@ -219,11 +225,11 @@ fromNode =
     children (D.NodeElement e) = D.elementChildren e
     children _ = []
 
-renderN :: D.Node -> [X.Node]
-renderN (D.NodeElement e) = render e
-renderN (D.NodeContent t) = [NodeContent t]
-renderN (D.NodeComment t) = [NodeComment t]
-renderN (D.NodeInstruction t) = [NodeInstruction t]
+renderN :: D.Topic -> D.Node -> [X.Node]
+renderN topic (D.NodeElement e) = render topic e
+renderN _ (D.NodeContent t) = [NodeContent t]
+renderN _ (D.NodeComment t) = [NodeComment t]
+renderN _ (D.NodeInstruction t) = [NodeInstruction t]
 
 fixDoubleParas :: Bool -> Node -> [Node]
 fixDoubleParas False (NodeElement (Element "para" attrs inside)) =

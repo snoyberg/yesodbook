@@ -83,7 +83,7 @@ main = warpDebug 3000 MyApp</codeblock>
             adjustments to the widget itself before calling <codeph id="x-19"
                 >widgetToPageContent</codeph>. It's actually very easy to do: we just use
             do-notation again, as in <xref href="#using-widgets/last-minute-widget-adjustment"
-                format="dita">Last-Minute Widget Adjustment</xref>.</p>
+                format="dita" outputclass="xref">Last-Minute Widget Adjustment</xref>.</p>
   <fig id="last-minute-widget-adjustment">
             <title id="x16">Last-Minute Widget Adjustment</title>
             <codeblock id="x17" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
