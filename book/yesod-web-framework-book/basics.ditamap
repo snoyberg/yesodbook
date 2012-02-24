@@ -4,9 +4,7 @@
     <title id="x-1">Basics</title>
     <topicref id="basics" chunk="to-content" href="basics/basics.dita">
         <topicref id="hello-world" href="basics/hello-world.dita"/>
-        <topicref id="routing" href="basics/routing.dita">
-            <topicref id="x-2" href="basics/routing-comparison.dita"/>
-        </topicref>
+        <topicref id="routing" href="basics/routing.dita"/>
         <topicref id="handler-function" href="basics/handler-function.dita"/>
         <topicref id="the-foundation" href="basics/the-foundation.dita"/>
         <topicref id="running" href="basics/running.dita"/>
