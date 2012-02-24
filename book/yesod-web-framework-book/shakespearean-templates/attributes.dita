@@ -3,7 +3,7 @@
 <concept id="attributes"><title id="x-1">Attributes</title><conbody id="x-2">
   <p id="x1">In that last example, we put an href attribute on the "a" tag. Let's elaborate on the
     syntax:<ul id="ul_zmk_qnu_id">
-    <li id="x2">You can have interpolations on the right-hand-side of the equals sign.</li>
+    <li id="x2">You can have interpolations within the attribute value.</li>
     <li id="x3">The equals sign and value for an attribute are optional, just like in HTML. So
       <codeph id="x4">&lt;input type=checkbox checked&gt;</codeph> is perfectly valid.</li>
     <li id="x5">There are two convenience attributes: for id, you can use the hash, and for classes,
