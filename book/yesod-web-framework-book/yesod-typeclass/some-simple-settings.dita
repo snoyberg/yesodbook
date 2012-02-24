@@ -8,10 +8,14 @@
   <dl id="x-4">
    <dlentry id="x-5">
     <dt id="x-6">encryptKey</dt>
-    <dd id="x-7">Yesod uses client-side sessions, which are stored in encrypted, cryptographically-hashed
-     cookies. Well, as long as you provide an encryption key. If this function returns Nothing, then
-     sessions are disabled. This can be a useful optimization on sites that don't need session
-     facilities, as it avoids an encrypt/decrypt pair on each request.</dd>
+    <dd id="x-7">Yesod uses client-side sessions, which are stored in encrypted,
+     cryptographically-hashed cookies. Well, as long as you provide an encryption key. If this
+     function returns Nothing, then sessions are disabled. This can be a useful optimization on
+     sites that don't need session facilities, as it avoids an encrypt/decrypt pair on each
+      request.<note>The combination of encryption and hashing guarantees two properties: the session
+      payload is tamper-proof, and is opaque. Encryption without hashing would allow a user to
+      randomly change the cookie data and still have it accepted by the server, while hashing
+      without encryption would allow inspection of the data.</note></dd>
    </dlentry>
    <dlentry id="x-8">
     <dt id="x-9">clientSessionDuration</dt>

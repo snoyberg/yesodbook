@@ -31,11 +31,10 @@
    provided by the <apiname id="x14">blaze-html</apiname> package. This allows Hamlet to interact
    with all other blaze-html packages, and lets Hamlet provide a general solution for producing
    blaze-html values. Also, we get to take advantage of blaze-html's amazing performance.</note>
-  <p id="x15">Similarly, we have <codeph id="x-18">Css</codeph>/<codeph id="x-19">ToCss</codeph>, as well as
-    <codeph id="x-20">Javascript</codeph>/<codeph id="x-21">ToJavascript</codeph>. In those cases, the goal is not
-   really security, as it is very uncommon to be interpolating user input to CSS and Javascript.
-   Instead, it provides some compile-time sanity checks that we haven't accidently stuck some HTML
-   in our CSS.</p>
+  <p id="x15">Similarly, we have <codeph id="x-18">Css</codeph>/<codeph id="x-19">ToCss</codeph>, as
+   well as <codeph id="x-20">Javascript</codeph>/<codeph id="x-21">ToJavascript</codeph>. These
+   provide some compile-time sanity checks that we haven't accidently stuck some HTML in our
+   CSS.</p>
   <note id="x16">One other advantage on the CSS side is some helper datatypes for colors and units.
    For example:<codeblock outputclass="lucius">.red { color: #{colorRed} }</codeblock>Please see the
    Haddock documentation for more details.</note>

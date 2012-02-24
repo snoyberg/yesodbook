@@ -94,19 +94,20 @@ main = warpDebug 3000 MFormExample</codeblock>
             the case of applicative forms, the <codeph>fsLabel</codeph> and
                 <codeph>fsTooltip</codeph> values are used when constructing your HTML. In the case
             of monadic forms, Yesod does not generate any of the "wrapper" HTML for you, and
-            therefore these values are ignored.</p>
+            therefore these values are ignored. However, we still keep the
+                <codeph>FieldSettings</codeph> parameter to allow you to override the
+                <codeph>id</codeph> and <codeph>name</codeph> attributes of your fields if
+            desired.</p>
         <p id="x-14">The other interesting bit is the <codeph id="x-15">extra</codeph> value.
-                <codeph id="x-33">GET</codeph> forms include an extra field to indicate that they have been
-            submitted, and <codeph id="x-34">POST</codeph> forms include a security tokens to prevent CSRF
-            attacks. If you don't include this extra hidden field in your form, Yesod will not
-            accept it.</p>
+                <codeph id="x-33">GET</codeph> forms include an extra field to indicate that they
+            have been submitted, and <codeph id="x-34">POST</codeph> forms include a security tokens
+            to prevent CSRF attacks. If you don't include this extra hidden field in your form,
+            Yesod will not accept it.</p>
         <p id="x-16">Other than that, things are pretty straight-forward. We create our
                 <codeph id="x-35">personRes</codeph> value by combining together the <codeph id="x-36">nameRes</codeph>
             and <codeph id="x-37">ageRes</codeph> values, and then return a tuple of the person and the
             widget. And in the <codeph id="x-38">getRootR</codeph> function, everything looks just like an
             applicative form. In fact, you could swap out our monadic form with an applicative one
             and the code would still work.</p>
-        <note id="x-17">Well, that's not <b id="x-18">exactly</b> true. It would compile and build,
-            but you wouldn't have a submit button.</note>
     </conbody>
 </concept>
