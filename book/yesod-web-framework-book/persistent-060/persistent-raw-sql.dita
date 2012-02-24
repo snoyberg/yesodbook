@@ -11,12 +11,8 @@
         <note id="x4">Actually, you <i id="x5">can</i> express a LIKE operator directly in the
             normal syntax due to a feature added in Persistent 0.6, which allows backend-specific
             operators. But this is still a good example, so let's roll with it.</note>
-  <codeblock id="x3" outputclass="haskell">{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE QuasiQuotes #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE GADTs, FlexibleContexts #-}
+  <codeblock id="x3" outputclass="haskell">{-# LANGUAGE OverloadedStrings, TemplateHaskell, QuasiQuotes, TypeFamilies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving, GADTs, FlexibleContexts #-}
 import Database.Persist.Sqlite (withSqliteConn)
 import Database.Persist.TH (mkPersist, persist, share, mkMigrate, sqlSettings)
 import Database.Persist.GenericSql (runSqlConn, runMigration, SqlPersist)

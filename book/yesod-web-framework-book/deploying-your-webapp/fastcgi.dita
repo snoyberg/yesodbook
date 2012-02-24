@@ -4,8 +4,8 @@
     -d /home/michael/sites/mysite \
     -s /tmp/mysite.socket \
     -n \
-    -M 511
-    -u michael
+    -M 511 \
+    -u michael \
     -- /home/michael/sites/mysite/dist/build/mysite-fastcgi/mysite-fastcgi</codeblock><p id="fastcgi3">You will also need to configure your frontend server to speak to your app over FastCGI. This is relatively painless in Nginx:</p><codeblock outputclass="nginx-conf" id="x2">server {
     listen 80;
     server_name www.myserver.com;

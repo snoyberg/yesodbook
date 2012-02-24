@@ -7,15 +7,19 @@
   <dl id="x2">
    <dlentry id="x3">
     <dt id="x4">runFormPost</dt>
-    <dd id="x5">This will run your form against any submitted <codeph id="x-3">POST</codeph> parameter. If
-     this is not a <codeph id="x-4">POST</codeph> submission, it will return a <codeph id="x-5">FormMissing</codeph>.
-     This automatically inserts a security token as a hidden form field to avoid <xref id="x6" href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" format="html" scope="external">CSRF</xref> attacks.</dd>
+    <dd id="x5">This will run your form against any submitted <codeph id="x-3">POST</codeph>
+     parameters. If this is not a <codeph id="x-4">POST</codeph> submission, it will return a
+      <codeph id="x-5">FormMissing</codeph>. This automatically inserts a security token as a hidden
+     form field to avoid <xref id="x6"
+      href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" format="html" scope="external"
+      >CSRF</xref> attacks.</dd>
    </dlentry>
    <dlentry id="x7">
     <dt id="x8">runFormGet</dt>
-    <dd id="x9">Same as <codeph id="x-6">runFormPost</codeph>, for GET submissions. In order to distinguish a
-     normal <codeph id="x-7">GET</codeph> page load from a <codeph id="x-8">GET</codeph> submission, it includes an
-     extra <codeph id="x-9">_hasdata</codeph> hidden field in the form.</dd>
+    <dd id="x9">Same as <codeph id="x-6">runFormPost</codeph>, for GET parameters. In order to
+     distinguish a normal <codeph id="x-7">GET</codeph> page load from a <codeph id="x-8"
+      >GET</codeph> submission, it includes an extra <codeph id="x-9">_hasdata</codeph> hidden field
+     in the form.</dd>
    </dlentry>
    <dlentry id="x10">
     <dt id="x11">runFormPostNoNonce</dt>

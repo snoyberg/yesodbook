@@ -38,8 +38,8 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
             that <codeph id="x-5">NULL=NULL</codeph> is false, whereas Haskell says <codeph id="x-6">Nothing ==
                 Nothing</codeph> is <codeph id="x-7">True</codeph>).</p>
         <p id="x7">In addition to providing nice guarantees at the database level about consistency
-            of your data, uniqueness constraints can also be used to perfect some specific queries
-            within your Haskell code, like the <codeph id="x-8">getBy</codeph> demonstrated above. This
-            happens via the <codeph id="x-9">Unique</codeph> associated type. In the example above, we end up
-            with a new constructor:</p>
+            of your data, uniqueness constraints can also be used to perform some specific queries
+            within your Haskell code, like the <codeph id="x-8">getBy</codeph> demonstrated above.
+            This happens via the <codeph id="x-9">Unique</codeph> associated type. In the example
+            above, we end up with a new constructor:</p>
         <codeblock outputclass="haskell" id="x8">PersonName :: String -&gt; String -&gt; Unique Person</codeblock></conbody></concept>

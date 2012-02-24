@@ -18,7 +18,7 @@
             session, and then tell the user his/her name from another route. If the name hasn't been
             set yet, the user will be redirected to the set name page, with an ultimate destination
             set to come back to the current page.</p>
-        <codeblock>{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
+        <codeblock outputclass="haskell">{-# LANGUAGE OverloadedStrings, TypeFamilies, TemplateHaskell,
              QuasiQuotes, MultiParamTypeClasses #-}
 import Yesod
 

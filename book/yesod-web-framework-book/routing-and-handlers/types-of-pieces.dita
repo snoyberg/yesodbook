@@ -8,7 +8,7 @@ import qualified Data.Text as T
 import Web.PathPieces
 data Fibs = Fibs
 -- START
-newtype Natural = Natural Int -- we might even like to go with Word here
+newtype Natural = Natural Int
 -- STOP
     deriving (Show, Read, Eq, Num, Ord)
 -- START
@@ -16,7 +16,7 @@ instance PathPiece Natural where
     toPathPiece (Natural i) = T.pack $ show i
     fromPathPiece s =
         case reads $ T.unpack s of
-            (i, _):_
+            (i, ""):_
                 | i &lt; 1 -&gt; Nothing
                 | otherwise -&gt; Just $ Natural i
             [] -&gt; Nothing

@@ -20,21 +20,21 @@ import Yesod
 import Control.Applicative
 import Data.Text (Text)
 
-data Monadic = Monadic
+data MFormExample = MFormExample
 
-mkYesod "Monadic" [parseRoutes|
+mkYesod "MFormExample" [parseRoutes|
 / RootR GET
 |]
 
-instance Yesod Monadic
+instance Yesod MFormExample
 
-instance RenderMessage Monadic FormMessage where
+instance RenderMessage MFormExample FormMessage where
     renderMessage _ _ = defaultFormMessage
 
 data Person = Person { personName :: Text, personAge :: Int }
     deriving Show
 
-personForm :: Html -&gt; MForm Monadic Monadic (FormResult Person, Widget)
+personForm :: Html -&gt; MForm MFormExample MFormExample (FormResult Person, Widget)
 personForm extra = do
     (nameRes, nameView) &lt;- mreq textField "this is not used" Nothing
     (ageRes, ageView) &lt;- mreq intField "neither is this" Nothing
@@ -67,7 +67,7 @@ getRootR = do
 |]
 
 main :: IO ()
-main = warpDebug 3000 Monadic</codeblock>
+main = warpDebug 3000 MFormExample</codeblock>
         <p id="x-8">Similar to the applicative <codeph id="x-9">areq</codeph>, we use <codeph id="x-10">mreq</codeph> for monadic forms. (And yes, there's also
                 <codeph id="x-19">mopt</codeph> for optional fields.) But there's a big difference:
                 <codeph id="x-20">mreq</codeph> gives us back a pair of values. Instead of hiding away the

@@ -37,12 +37,12 @@
                 <stentry id="x13">Datatypes (VARCHAR, INTEGER, etc)</stentry>
                 <stentry id="x14">PersistValue</stentry>
             </strow>
-            <strow id="x15">
-                <stentry id="x16">Table</stentry>
-                <stentry id="x17">PersistEntity</stentry>
-            </strow>
             <strow id="x18">
                 <stentry id="x19">Column</stentry>
                 <stentry id="x20">PersistField</stentry>
+            </strow>
+            <strow id="x15">
+                <stentry id="x16">Table</stentry>
+                <stentry id="x17">PersistEntity</stentry>
             </strow>
         </simpletable></conbody></concept>

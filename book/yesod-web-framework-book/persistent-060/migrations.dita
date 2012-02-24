@@ -65,5 +65,4 @@ main = withSqliteConn ":memory:" $ runSqlConn $ do
                 <codeph id="x-18">printMigration</codeph> function. This function will print out the
             migrations which <codeph id="x-19">runMigration</codeph> would perform for you. This may be useful
             for performing migrations that Persistent is not capable of, for adding arbitrary SQL to
-            a migration, or just to log what migrations occurred.</p><note id="x14" type="other" othertype="advanced"><p id="m10">Although there is no official Persistent integration, there is a Haskell package that
-                can assist with running migrations called <apiname id="x15">dbmigrations</apiname>.</p></note></conbody></concept>
+            a migration, or just to log what migrations occurred.</p></conbody></concept>

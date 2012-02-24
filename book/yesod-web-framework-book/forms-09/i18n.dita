@@ -19,8 +19,8 @@
     be:<codeblock id="x4" outputclass="haskell">instance RenderMessage MyApp FormMessage where
     renderMessage _ _ = defaultFormMessage</codeblock>This
     is provided automatically by the scaffolded site.</li>
-   <li id="x5">In order to allow multiple different message types to co-exist, we use an existential
+   <!-- Perhaps include this later? <li id="x5">In order to allow multiple different message types to co-exist, we use an existential
     type called <codeph id="x-12">SomeMessage</codeph>. You will occassionally need to wrap your values inside
-    of it, though this is not common in normal library use.</li>
+    of it, though this is not common in normal library use.</li>-->
   </ul>
  </conbody></concept>

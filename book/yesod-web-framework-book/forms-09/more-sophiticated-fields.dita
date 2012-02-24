@@ -168,10 +168,11 @@ getCarR = do
                 <codeph id="x-7">&amp;&amp;&amp;</codeph> (a.k.a, the fan-out operator) to turn that into a
             list of pairs.</p>
   <p id="x10">Some people prefer radio buttons to drop-down lists. Fortunately, this is just a
-            one-word change.</p>
-  <fig id="x11">
-   <title id="x12">Radio buttons</title>
-   <codeblock id="x13" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
+            one-word change. For example, see <xref href="#more-sophiticated-fields/radio-buttons"
+                format="dita">Radio buttons</xref></p>
+  <fig id="radio-buttons">
+            <title id="x12">Radio buttons</title>
+            <codeblock id="x13" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies #-}
 import Yesod
 import Yesod.Form.Jquery
@@ -246,5 +247,5 @@ getCarR = do
         ^{widget}
     &lt;input type=submit&gt;
 |]</codeblock>
-  </fig>
+        </fig>
  </conbody></concept>
