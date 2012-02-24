@@ -39,8 +39,8 @@ main = do
     dm <- decodeString ditamap
     doc <- runDita_ ds $ loadDoc dm
     let doctype = Doctype "book" $ Just $ PublicID
-                    "-//OASIS//DTD DocBook XML V4.2//EN"
-                    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
+                    "-//OASIS//DTD DocBook XML V5.0//EN"
+                    "http://www.docbook.org/xml/5.0/dtd/docbook.dtd"
     writeFile def
         { rsPretty = False
         } "yesod.xml" $ Document
@@ -98,7 +98,7 @@ render e =
                 _ -> to "function"
         "xref"
             | Just url <- DU.getAttrText "href" e -> [xml|
-<ulink url=#{url}>^{kids}
+<link xlink:href=#{url}>^{kids}
 |]
             | otherwise -> kids -- FIXME
         "codeph" -> to "literal"
@@ -111,7 +111,10 @@ render e =
         "lq" -> toPara "blockquote"
         "codeblock" ->
             case D.elementChildren e of
-                [D.NodeContent t] -> [xml|<programlisting>#{removeStartStop t}|]
+                [D.NodeContent t] ->
+                    case DU.getAttrText "outputclass" e of
+                        Just "haskell" -> [xml|<programlisting language=haskell>#{removeStartStop t}|]
+                        _ -> [xml|<programlisting >#{removeStartStop t}|]
                 _ -> to "programlisting"
         "msgblock" ->
             case D.elementChildren e of
