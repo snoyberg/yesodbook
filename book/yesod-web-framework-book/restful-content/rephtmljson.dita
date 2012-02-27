@@ -3,8 +3,7 @@
 <concept id="rephtmljson"><title id="x-1">RepHtmlJson</title><conbody id="x-2"><p id="rhj1">An example to the contrary is <codeph id="x-3">RepHtmlJson</codeph>, which provides either an
             HTML or JSON representation. This instance helps greatly in programming AJAX
             applications that degrade nicely. Here is an example that returns either HTML or JSON
-            data, depending on what the client wants.</p><codeblock id="x1" outputclass="haskell">-- START
-{-# LANGUAGE QuasiQuotes, TypeFamilies, OverloadedStrings #-}
+            data, depending on what the client wants.</p><codeblock id="x1" outputclass="haskell">{-# LANGUAGE QuasiQuotes, TypeFamilies, OverloadedStrings #-}
 {-# LANGUAGE MultiParamTypeClasses, TemplateHaskell #-}
 import Yesod
 data R = R
@@ -19,7 +18,7 @@ getRootR = defaultLayout $ do
     addScriptRemote "http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"
     addJulius [julius|
 $(function(){
-    $("a").click(function(){
+    $("#ajax a").click(function(){
         jQuery.getJSON($(this).attr("href"), function(o){
             $("div").text(o.name);
         });
@@ -29,12 +28,24 @@ $(function(){
 |]
     let names = words "Larry Moe Curly"
     addHamlet [hamlet|
-&lt;div id="results"&gt;
-    Your results will be placed here if you have Javascript enabled.
-&lt;ul&gt;
+&lt;h2>AJAX Version
+&lt;div #results>
+    AJAX results will be placed here when you click #
+    the names below.
+&lt;ul #ajax>
     $forall name &lt;- names
-        &lt;li&gt;
-            &lt;a href="@{NameR name}"&gt;#{name}
+        &lt;li>
+            &lt;a href=@{NameR name}>#{name}
+
+&lt;h2>HTML Version
+&lt;p>
+    Clicking the names below will redirect the page #
+    to an HTML version.
+&lt;ul #html>
+    $forall name &lt;- names
+        &lt;li>
+            &lt;a href=@{NameR name}>#{name}
+
 |]
 
 getNameR name = do
@@ -44,9 +55,7 @@ getNameR name = do
     let json = object ["name" .= name]
     defaultLayoutJson widget json
 
-main = warpDebug 4000 R
--- STOP
-</codeblock><p id="rhj2">Our <codeph id="x-4">getRootR</codeph> handler creates a page with three links and some
+main = warpDebug 4000 R</codeblock><p id="rhj2">Our <codeph id="x-4">getRootR</codeph> handler creates a page with three links and some
             Javascript which intercept clicks on the links and performs asynchronous requests. If
             the user has Javascript enabled, clicking on the link will cause a request to be sent
             with an <codeph id="x-5">Accept</codeph> header of <codeph id="x-6"

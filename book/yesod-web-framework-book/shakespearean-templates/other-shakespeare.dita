@@ -34,6 +34,8 @@ main = forM_ items $ \item -&gt; TLIO.putStrLn
     all play together well.</li>
    <li id="x-8">We use a quasiquoter named <codeph id="x-9">lt</codeph>, which generates lazy text. There is also
      <codeph id="x-10">st</codeph>.</li>
+   <li>Also, there are longer names for these quasiquoters (<codeph>ltext</codeph> and
+     <codeph>stext</codeph>).</li>
   </ul>
  </conbody>
 </concept>
