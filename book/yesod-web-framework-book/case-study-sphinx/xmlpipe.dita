@@ -25,7 +25,7 @@
    with documents as a whole, but in our case, we're going to need to use the low-level Event
    interface to ensure minimal memory impact. So the function we're interested in is:</p>
   <codeblock id="x-12" outputclass="haskell">renderBuilder :: Resource m =&gt; RenderSettings -&gt; Conduit Event m Builder b</codeblock>
-  <p id="x-13">In plain English, that means renderBytes takes some settings (we'll just use the
+  <p id="x-13">In plain English, that means renderBuilder takes some settings (we'll just use the
    defaults), and will then convert a stream of <codeph id="x-42">Event</codeph>s to a stream of
     <codeph id="x-43">Builder</codeph>s. This is looking pretty good, all we need now is a stream of
     <codeph id="x-44">Event</codeph>s.</p>

@@ -198,7 +198,10 @@ removeStartStop t
     | any (== "-- START") ls = T.unlines $ go False ls
     | otherwise = t
   where
-    ls = T.lines t
+    ls = map killCRLF $ T.lines t
+    killCRLF t
+        | T.null t || T.last t /= '\r' = t
+        | otherwise = T.init t
     go _ [] = []
     go _ ("-- START":rest) = go True rest
     go _ ("-- STOP":rest) = go False rest

@@ -17,7 +17,8 @@ Purchase: קנה
 ItemCount count: קנית #{showInt count} #{plural count "דבר" "דברים"}.
 SwitchLanguage: החלף שפה ל:
 Switch: החלף</codeblock>
-  <codeblock id="x-5" outputclass="haskell">{-# LANGUAGE OverloadedStrings, QuasiQuotes, TemplateHaskell, TypeFamilies,
+  <codeblock id="x-5" outputclass="haskell">-- @i18n-synopsis.hs
+{-# LANGUAGE OverloadedStrings, QuasiQuotes, TemplateHaskell, TypeFamilies,
     MultiParamTypeClasses #-}
 import Yesod
 

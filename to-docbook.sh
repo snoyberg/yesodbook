@@ -7,6 +7,6 @@ cp yesod.xml ../oreilly/book.xml
 cd book/yesod-web-framework-book
 for f in $(find . -name \*.png)
 do
-    mkdir -p ../oreilly/images/$(dirname $f)
-    cp $f ../oreilly/images/$f
+    mkdir -p /c/haskell/oreilly/images/$(dirname $f)
+    cp $f /c/haskell/oreilly/images/$f
 done

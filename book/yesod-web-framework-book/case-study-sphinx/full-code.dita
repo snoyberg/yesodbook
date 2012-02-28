@@ -130,7 +130,7 @@ getResult docid doc qstring = do
     let excerpt =
             case excerpt' of
                 ST.Ok bss -&gt; preEscapedLazyText $ decodeUtf8With ignore $ L.concat bss
-                _ -&gt; return ()
+                _ -&gt; ""
     return Result
         { resultId = docid
         , resultTitle = docTitle doc

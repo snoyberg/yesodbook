@@ -370,7 +370,10 @@ to try again.
 &gt;         &lt;input type=submit value=_{MsgNewEntry}&gt;
 &gt; |]
 
-A form for comments, very similar to our entryForm above.
+A form for comments, very similar to our entryForm above. It takes the
+EntryId of the entry the comment is attached to. By using pure, we embed
+this value in the resulting Comment output, without having it appear in the
+generated HTML.
 
 &gt; commentForm :: EntryId -&gt; Form Comment
 &gt; commentForm entryId = renderDivs $ Comment

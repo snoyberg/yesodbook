@@ -2,7 +2,8 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="json-web-service"><title id="x-1">JSON Web Service</title><conbody id="x-2">
   <p id="x1">Let's create a very simple web service: it takes a JSON request and returns a JSON
-            response. We're going to write the server in WAI/Warp, and the client in
-                <apiname id="x-3">http-conduit</apiname>. We'll be using <apiname id="x2">aeson</apiname> for
-            JSON parsing and rendering.</p>
+            response. We're going to write the server in WAI/Warp, and the client in <apiname
+                id="x-3">http-conduit</apiname>. We'll be using <apiname id="x2">aeson</apiname> for
+            JSON parsing and rendering. We could also write the server in Yesod itself, but for such
+            a simple example, the extra features of Yesod don't add much.</p>
  </conbody></concept>
