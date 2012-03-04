@@ -72,10 +72,12 @@ main = do
     let cursor = fromDocument doc
     print $ T.concat $
         cursor $/ element "head" &amp;/ element "title" &amp;// content</codeblock>
-  <p id="x-30"><codeph id="x-31">$/</codeph> says to apply the axis on the right to the cursor on
-   the left. <codeph id="x-32">&amp;/</codeph> is almost identical, but is instead used to combine
-   two axes together. This is a general rule in <codeph id="x-53">Text.XML.Cursor</codeph>: operators
-   beginning with $ directly apply an axis, while &amp; will combine two together. <codeph id="x-33">&amp;//</codeph> is used for applying an axis to all descendants.</p>
+  <p id="x-30"><codeph id="x-31">$/</codeph> says to apply the axis on the right to the children of
+   the cursor on the left. <codeph id="x-32">&amp;/</codeph> is almost identical, but is instead
+   used to combine two axes together. This is a general rule in <codeph id="x-53"
+    >Text.XML.Cursor</codeph>: operators beginning with $ directly apply an axis, while &amp; will
+   combine two together. <codeph id="x-33">&amp;//</codeph> is used for applying an axis to all
+   descendants.</p>
   <p id="x-34">Let's go for a more complex, if more contrived, example. We have a document that looks
    like:</p>
   <codeblock id="x-35" outputclass="xml">&lt;html&gt;

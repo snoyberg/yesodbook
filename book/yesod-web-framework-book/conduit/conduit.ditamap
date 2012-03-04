@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map id="x-1">
- <title id="x-2">Conduits</title>
- <topicref href="conduits.dita" id="conduit" chunk="to-content">
-  <topicref id="x-3" href="../../../blogs/conduit/conduit/goals.dita"/>
-  <topicref id="x-4" href="../../../blogs/conduit/conduit/conduits-in-five-minutes.dita"/>
-  <topicref id="x-5" href="structure.dita"/>
-  <topicref id="x-6" conref="../../../blogs/conduit/resourcet/resourcet-book.ditamap#top"/>
-  <topicref id="x-7" conref="../../../blogs/conduit/conduit/source/source-book.ditamap#top"/>
-  <topicref id="x-8" conref="../../../blogs/conduit/conduit/sink/sink-book.ditamap#top"/>
-  <topicref id="x-9" conref="../../../blogs/conduit/conduit/conduit/conduit-book.ditamap#top"/>
-  <topicref id="x-10" conref="../../../blogs/conduit/conduit/buffering/buffering-book.ditamap#top"/>
- </topicref>
+    <title id="x-2">Conduits</title>
+    <topicref href="conduits.dita" id="conduit" chunk="to-content">
+        <topicref id="x-4" href="../../../blogs/conduit/conduit/conduits-in-five-minutes.dita"/>
+        <topicref id="x-5" href="structure.dita"/>
+        <topicref id="x-6" conref="../../../blogs/conduit/resourcet/resourcet-book.ditamap#top"/>
+        <topicref id="x-7" conref="../../../blogs/conduit/conduit/source/source-book.ditamap#top"/>
+        <topicref id="x-8" conref="../../../blogs/conduit/conduit/sink/sink-book.ditamap#top"/>
+        <topicref id="x-9" conref="../../../blogs/conduit/conduit/conduit/conduit-book.ditamap#top"/>
+        <topicref id="x-10"
+            conref="../../../blogs/conduit/conduit/buffering/buffering-book.ditamap#top"/>
+    </topicref>
 </map>

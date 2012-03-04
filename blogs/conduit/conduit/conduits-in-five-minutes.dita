@@ -5,8 +5,8 @@
  <conbody>
   <p>While a good understanding of the lower-level mechanics of conduits is advisable, you can get
    very far without it. Let's start off with some high-level examples. Don't worry if some of the
-   details seem a bit magical right now. We'll cover everything in the course of this series. Let's
-   start with the terminology, and then some sample code.</p>
+   details seem a bit magical right now. We'll cover everything in the course of this appendix.
+   Let's start with the terminology, and then some sample code.</p>
   <dl>
    <dlentry>
     <dt>Source</dt>
@@ -100,9 +100,9 @@ fibs = sourceState
 -- the isolate conduit to make sure the sum sink only consumes 10 values.
 sumTenFibs :: Int
 sumTenFibs =
-        runST -- runs fine in pure code
-      $ runResourceT
-      $ fibs
+       runST -- runs fine in pure code
+     $ runResourceT
+     $ fibs
     $= CL.isolate 10 -- fuse the source and conduit into a source
     $$ sumSink
 
@@ -110,9 +110,9 @@ sumTenFibs =
 -- operators.
 sumTenFibs2 :: Int
 sumTenFibs2 =
-        runST
-      $ runResourceT
-      $ fibs
+       runST
+     $ runResourceT
+     $ fibs
     $$ CL.isolate 10
     =$ sumSink
 

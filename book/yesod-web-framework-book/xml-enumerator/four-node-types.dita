@@ -5,14 +5,16 @@
  <conbody id="x-2">
   <p id="x-3">XML documents are a tree of nested nodes. There are in fact four different types of nodes
    allowed: elements, content (i.e., text), comments, and processing instructions.</p>
-  <note id="x-4">You may not be familiar with that last one, it's less commonly used. It is marked up
-   as:<codeblock id="x-5" outputclass="xml">&lt;?target data?&gt;</codeblock>There are two commonly held
-   misconceptions about processing instructions. Let's set them to rest now:<ul id="ul_zfo_vsx_md">
-    <li id="x-6">PIs don't have attributes. While often times you'll see processing instructions that appear
-     to have attributes, there are in fact no rules about that data of an instruction.</li>
-    <li id="x-7">The &lt;?xml ...?&gt; stuff at the beginning of a document is not a processing instruction. It
-     is simply the beginning of the document, and happens to look an awful lot like a PI. The
-     difference though is that the &lt;?xml ...?&gt; line will not appear in your parsed content.</li>
+  <note id="x-4">You may not be familiar with that last one, it's less commonly used. It is marked
+   up as:<codeblock id="x-5" outputclass="xml">&lt;?target data?&gt;</codeblock>There are two
+   surprising facts about processing instructions (PIs):<ul id="ul_zfo_vsx_md">
+    <li id="x-6">PIs don't have attributes. While often times you'll see processing instructions
+     that appear to have attributes, there are in fact no rules about that data of an
+     instruction.</li>
+    <li id="x-7">The <codeph>&lt;?xml ...?&gt;</codeph> stuff at the beginning of a document is not
+     a processing instruction. It is simply the beginning of the document (known as the XML
+     declaration), and happens to look an awful lot like a PI. The difference though is that the
+      <codeph>&lt;?xml ...?&gt;</codeph> line will not appear in your parsed content.</li>
    </ul></note>
   <p id="x-8">Since processing instructions have two pieces of text associated with them (the target and the
    data), we have a simple data type:</p>

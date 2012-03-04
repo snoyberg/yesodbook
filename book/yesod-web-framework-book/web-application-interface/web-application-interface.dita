@@ -5,15 +5,17 @@
             some cases, we even had interfaces on top of interfaces. And all of this led to much
             duplicated effort: a Python application designed to work with FastCGI wouldn't work with
             mod_python; mod_python only exists for certain webservers; and these programming
-            language specific extensions need to be written for each programming language.</p><p id="intro4">Haskell has its own history. We originally had the <apiname id="x1">cgi</apiname> package, which provided a monadic interface. The <apiname id="x2">fastcgi</apiname> package then provided the same interface. Meanwhile, it seemed that the majority of Haskell web development focused on the standalone server. The problem is that each server comes with its own interface, meaning that you need to target a specific backend. This means that it is impossible to share common features, like GZIP encoding, development servers, and testing frameworks.</p><p id="intro5">WAI attempts to solve this, by providing a generic and efficient interface between web servers and applications. Any <b id="x3">handler</b> supporting the interface can serve any WAI application, while any application using the interface can run on any handler.</p><p id="intro6">At the time of writing, there are various backends, including Warp, FastCGI, and
-            development server. There are even more esoteric backends like
-                <apiname id="x-3">wai-handler-webkit</apiname> for creating desktop apps. <apiname id="x4">wai-extra</apiname> provides many common middlewares like GZIP, JSON-P and virtual
-            hosting. <apiname id="x5">wai-test</apiname> makes it easy to write unit tests, and
-                <apiname id="x6">wai-handler-devel</apiname> lets you develop your applications
-            without worrying about stopping to compile. Yesod targets WAI, and Happstack is in the
-            process of converting over as well. It's also used by some applications that skip the
-            framework entirely, including the new Hoogle.</p>
-        <note id="x-4">Yesod provides an alternate approach for a devel server, known as yesod devel. The
-            different with wai-handler-devel is that yesod devel actually compiles your code each
-            time, respecting all settings in your cabal file. This is the recommended aproach for
-            general Yesod development.</note></conbody></concept>
+            language specific web server  extensions need to be written for each programming
+            language.</p><p id="intro4">Haskell has its own history. We originally had the <apiname id="x1">cgi</apiname> package, which provided a monadic interface. The <apiname id="x2">fastcgi</apiname> package then provided the same interface. Meanwhile, it seemed that the majority of Haskell web development focused on the standalone server. The problem is that each server comes with its own interface, meaning that you need to target a specific backend. This means that it is impossible to share common features, like GZIP encoding, development servers, and testing frameworks.</p><p id="intro5">WAI attempts to solve this, by providing a generic and efficient interface between web servers and applications. Any <b id="x3">handler</b> supporting the interface can serve any WAI application, while any application using the interface can run on any handler.</p><p id="intro6">At the time of writing, there are various backends, including Warp, FastCGI, and
+            development server. There are even more esoteric backends like <apiname id="x-3"
+                >wai-handler-webkit</apiname> for creating desktop apps. <apiname id="x4"
+                >wai-extra</apiname> provides many common middleware components like GZIP, JSON-P
+            and virtual hosting. <apiname id="x5">wai-test</apiname> makes it easy to write unit
+            tests, and <apiname id="x6">wai-handler-devel</apiname> lets you develop your
+            applications without worrying about stopping to compile. Yesod targets WAI, and
+            Happstack is in the process of converting over as well. It's also used by some
+            applications that skip the framework entirely, including the new Hoogle.</p>
+        <note id="x-4">Yesod provides an alternate approach for a devel server, known as
+                <cmdname>yesod devel</cmdname>. The difference from wai-handler-devel is that yesod
+            devel actually compiles your code each time, respecting all settings in your cabal file.
+            This is the recommended aproach for general Yesod development.</note></conbody></concept>

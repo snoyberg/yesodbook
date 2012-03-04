@@ -45,6 +45,6 @@ useMyFileError1 =
    unchanged. Finally, we wrap everything back up into our original ErrorT.</p>
   <p id="x18">This is the entire pattern of monad-control: we embed the extra features of our monad
    transformer inside the value. Once in the value, the type system ignores it and focuses on the
-   new outermost monad. When we're done playing around with that inner monad, we can pull our state
-   back out and reconstruct our original monad stack.</p>
+   inner monad. When we're done playing around with that inner monad, we can pull our state back out
+   and reconstruct our original monad stack.</p>
  </conbody></concept>

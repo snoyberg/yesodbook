@@ -23,7 +23,7 @@ main = do
                 Just req -&gt; withManager $ \manager -&gt; do
                     Response _ _ lbs &lt;- httpLbs req manager
                     liftIO $ L.putStr lbs
-        _ -&gt; putStrLn "Sorry, please provide example one URL"</codeblock>
+        _ -&gt; putStrLn "Sorry, please provide exactly one URL"</codeblock>
   <p id="x-10">The <codeph id="x-11">Request</codeph> type is abstract so that <codeph id="x-12">http-conduit</codeph> can add new
    settings in the future without breaking the API (see the <xref id="x-13" href="../../../blogs/2011/10/settings-types.dita#conceptId" format="dita">Settings Type</xref>
    chapter for more information). In order to make changes to individual records, you use record

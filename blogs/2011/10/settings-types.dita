@@ -50,8 +50,8 @@
   <p>With this approach, no one can write code like (2), so you can freely add new records without
    any fear of code breaking.</p>
   <p>The one downside of this approach is that it's not immediately obvious from the Haddocks that
-   you can actually change the settings via record syntax. That's the point of this chapter: to give
-   everyone using this approach a page to link to that will explain to users what's going on.</p>
+   you can actually change the settings via record syntax. That's the point of this chapter: to
+   clarify what's going on in the libraries that use this technique.</p>
   <p>I personally use this technique in a few places, feel free to have a look at the Haddocks to
    see what I mean.</p>
   <ul id="ul_iih_pve_wd">

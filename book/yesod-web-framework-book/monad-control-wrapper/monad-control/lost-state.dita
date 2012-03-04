@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="lost-state"><title id="x-1">Lost State</title><conbody id="x-2">
-  <p id="x1">Let's rewind a bit to our onExceptionError. It uses onException under the surface, which has a
-   type signature: <codeph id="x2">IO a -&gt; IO b -&gt; IO a</codeph>. Let me ask you something: what happened to
-   the b in the output? Well, it was thoroughly ignored. But that seems to cause us a bit of a
-   problem. After all, we store on transformer state information in the value of the inner monad. If
-   we ignore it, we're essentially ignoring the monadic side effects as well!</p>
-  <p id="x3">And the answer is that, yes, this does happen with monad-control. Certain functions will drop
-   some of the monadic side effects. This is put best by Bas, in the comments on the relevant
-    functions:<lq id="x4">Note, any monadic side effects in m of the "release" computation will be
-    discarded; it is run only for its side effects in IO.</lq>In practice, monad-control will
-   usually be doing the right thing for you, but you need to be aware that some side effects may be
-   disappearing.</p>
+  <p id="x1">Let's rewind a bit to our onExceptionError. It uses onException under the surface,
+   which has a type signature: <codeph id="x2">IO a -&gt; IO b -&gt; IO a</codeph>. Let me ask you
+   something: what happened to the b in the output? Well, it was thoroughly ignored. But that seems
+   to cause us a bit of a problem. After all, we store our transformer state information in the
+   value of the inner monad. If we ignore it, we're essentially ignoring the monadic side effects as
+   well!</p>
+  <p id="x3">And the answer is that, yes, this does happen with monad-control. Certain functions
+   will drop some of the monadic side effects. This is put best by Bas, in the comments on the
+   relevant functions:<lq id="x4">Note, any monadic side effects in m of the "release" computation
+    will be discarded; it is run only for its side effects in IO.</lq>In practice, monad-control
+   will usually be doing the right thing for you, but you need to be aware that some side effects
+   may disappear.</p>
  </conbody></concept>

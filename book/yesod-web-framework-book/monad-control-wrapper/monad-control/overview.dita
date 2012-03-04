@@ -6,9 +6,9 @@
    logging- and compose them together easily. Though I swore I'd never write a monad tutorial, I'm
    going to employ a painful analogy here: monads are like onions. (Monads are not like cakes.) By
    that, I mean <i id="x2">layers</i>.</p>
-  <p id="x3">We have the core monad- also known as the innermost or bottom monad. I'll likely use all forms
-   of terminology here. On top of this core, we add layers, each adding a new feature and spreading
-   outward/upward. As a motivating example, let's consider an Error monad stacked on top of the IO
+  <p id="x3">We have the core monad- also known as the innermost or bottom monad. On top of this
+   core, we add layers, each adding a new feature and spreading outward/upward. As a motivating
+   example, let's consider an Error monad stacked on top of the IO
    monad:<codeblock id="x4" outputclass="haskell">newtype ErrorT e m a = ErrorT { runErrorT :: m (Either e a) }
 type MyStack = ErrorT MyError IO</codeblock>Now
    pay close attention here: ErrorT is just a simple newtype around an Either wrapped in a monad.
