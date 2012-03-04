@@ -23,7 +23,7 @@
                 <codeph id="x-19">-ddump-splices</codeph> GHC option, we can get an immediate look at the
             generated code. A much cleaned up version of it is:</p>
         <codeblock id="x-20" outputclass="haskell">{-# LANGUAGE TypeFamilies, MultiParamTypeClasses, OverloadedStrings #-}
-import Yesod.Routes.Dispatch
+import qualified Yesod.Routes.Dispatch
 import Yesod.Routes.Class
 import Yesod.Core
 

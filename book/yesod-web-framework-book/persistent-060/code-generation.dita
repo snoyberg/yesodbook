@@ -77,6 +77,13 @@ instance PersistEntity Person where
         (FTTypeCon Nothing "Int")
         []
 -- STOP
+    data Unique Person typ = IgnoreThis
+    entityDef = undefined
+    halfDefined = undefined
+    persistUniqueToFieldNames = undefined
+    persistUniqueToValues = undefined
+    persistUniqueKeys = undefined
+    persistIdField = undefined
 main :: IO ()
 main = return ()</codeblock><p id="bb3">As you might expect, our <codeph>Person</codeph> datatype closely matches the definition
             we gave in the original Template Haskell version. We also have a Generalized Algebraic
