@@ -2,10 +2,10 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE PatternGuards #-}
 import Prelude hiding (writeFile)
-import DITA.Parse
-import qualified DITA.Types as D
-import qualified DITA.Util as DU
-import DITA.Util.ClassMap
+import Dita.Parse
+import qualified Dita.Types as D
+import qualified Dita.Util as DU
+import Dita.Util.ClassMap
 import Data.DTD.Cache
 import Network.URI.Conduit
 import Network.URI.Conduit.File
@@ -14,7 +14,7 @@ import qualified Text.XML as X
 import Text.Hamlet.XML
 import Text.XML.Cursor.Generic
 import qualified Data.Text as T
-import DITA.Output.HTML
+import Dita.Output.HTML
 
 catalogFile :: FilePath
 catalogFile = "catalog-dita.xml"
@@ -22,11 +22,11 @@ catalogFile = "catalog-dita.xml"
 ditamap :: FilePath
 ditamap = "book/yesod-web-framework-book.ditamap"
 
-getSettings :: IO (DITASettings IO)
+getSettings :: IO (DitaSettings IO)
 getSettings = do
     cache <- newDTDCacheFile catalogFile
     let sm = toSchemeMap [fileScheme]
-    return DITASettings
+    return DitaSettings
         { dsDTDCache = cache
         , dsSchemeMap = sm
         , dsGetFileId = Nothing
@@ -42,7 +42,7 @@ main = do
     out <- decodeString "html/"
     classmapFile <- decodeString "classmap.css"
     classmap <- loadClassMap (toSchemeMap [fileScheme]) classmapFile
-    runDITA_ ds $ do
+    runDita_ ds $ do
         doc <- loadDoc dm
         writeHtmlDocs out $ docToHtmlDocs def
             { hsClassMap = classmap

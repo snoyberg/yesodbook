@@ -16,6 +16,7 @@ import Text.Hamlet.XML (xml)
 import Dita.Util.ClassMap
 import Control.Monad.Trans.Reader
 import qualified Dita.Types
+import Data.String (fromString)
 
 main :: IO ()
 main = do
@@ -45,15 +46,19 @@ xmlToHtml classmap d@(Document a e@(Element _ _ cs0) b)
     | hasClass "topic/topic" e = Document a (Element "html" [] cs) b
     | otherwise = d
   where
-    cs = tags ++ concatMap getBody cs0
+    cs = tags ++ concatMap (getBody 1) cs0
     tags = filter isTag cs0
     isTag (NodeElement (Element "bundle-tag" _ _)) = True
     isTag _ = False
-    getBody (NodeElement e@(Element _ as cs))
+    getBody level (NodeElement e@(Element _ as cs))
         | hasClass "topic/body" e = runReader (fmap concat $ mapM goNode cs) classmap
-        | hasClass "topic/topic" e = concatMap getBody cs
+        | hasClass "topic/topic" e = concatMap (getBody $ level + 1) cs
+        | hasClass "topic/title" e =
+            [ NodeElement $ Element (fromString $ 'h' : show level) []
+                [NodeContent $ text e]
+            ]
         | otherwise = []
-    getBody _ = []
+    getBody _ _ = []
 
 goNode :: Node -> Reader ClassMap [Node]
 goNode (NodeContent t) = return [NodeContent t]
