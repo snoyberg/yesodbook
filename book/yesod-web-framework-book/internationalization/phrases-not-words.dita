@@ -12,7 +12,7 @@
 AddEnd: to your cart.
 PurchaseStart: You have purchased
 PurchaseEnd: , congratulations!
-Turtles count@Int: #{show count} #{plural "turtle" "turtles"}</codeblock>
+Turtles count@Int: #{show count} #{plural count "turtle" "turtles"}</codeblock>
   <p id="x-5">STOP RIGHT THERE! This is all well and good from a programming perspective, but
    translations are <i id="x-6">not</i> programming. There are a many things that could go wrong
    with this, such as:</p>
