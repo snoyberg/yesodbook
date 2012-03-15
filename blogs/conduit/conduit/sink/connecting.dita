@@ -19,10 +19,6 @@ main = runResourceT $ do
             SinkNoData res -> return res
     liftIO $ putStrLn $ "Got a result: " ++ show res
   where
-    start (SinkData push close) = loop [1..10] push close
-    start (SinkNoData res) = return res
-    start (SinkLift msink) = msink >>= start
-
     loop [] _push close = close
     loop (x:xs) push close = do
         mres &lt;- push x
