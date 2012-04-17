@@ -18,6 +18,7 @@ Person
     firstName String
     lastName String
     age Int Gt Desc
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do

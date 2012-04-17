@@ -12,6 +12,7 @@ share [mkPersist sqlSettings, mkSave "entityDefs"] [persist|
 Person
     name String
     age Int
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
@@ -36,10 +37,12 @@ share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
 Person
     name String
     age Int
+    deriving Show
 Car
     color String
     make String
     model String
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do

@@ -11,9 +11,11 @@ share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
 Person
     name String
     age Int Maybe
+    deriving Show
 BlogPost
     title String
     authorId PersonId
+    deriving Show
 |]
 
 main :: IO ()

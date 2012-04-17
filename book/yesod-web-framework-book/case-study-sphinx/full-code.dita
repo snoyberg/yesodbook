@@ -174,7 +174,7 @@ getSearchR = do
             FormSuccess qstring -&gt; getResults qstring
             _ -&gt; return []
     defaultLayout $ do
-        addLucius [lucius|
+        toWidget [lucius|
 .excerpt {
     color: green; font-style: italic
 }
@@ -202,7 +202,7 @@ getXmlpipeR = do
     let conn = mrValue managedConn
     lift $ mrReuse managedConn True
     let source = fullDocSource conn C.$= renderBuilder def
-        flushSource = fmap C.Chunk source
+        flushSource = C.mapOutput C.Chunk source
     sendWaiResponse $ ResponseSource status200 headers flushSource
 
 entityToEvents :: (Entity Doc) -&gt; [X.Event]
@@ -214,14 +214,14 @@ entityToEvents (Entity docid doc) =
     , X.EventEndElement document
     ]
 
-fullDocSource :: Connection -&gt; C.Source IO X.Event
+fullDocSource :: Connection -&gt; C.Source (C.ResourceT IO) X.Event
 fullDocSource conn = mconcat
     [ CL.sourceList startEvents
     , docSource conn
     , CL.sourceList endEvents
     ]
 
-docSource :: Connection -&gt; C.Source IO X.Event
+docSource :: Connection -&gt; C.Source (C.ResourceT IO) X.Event
 docSource conn = selectSourceConn conn [] [] C.$= CL.concatMap entityToEvents
 
 toName :: Text -&gt; X.Name

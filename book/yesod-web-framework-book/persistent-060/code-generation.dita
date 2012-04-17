@@ -11,6 +11,7 @@ mkPersist sqlSettings [persist|
 Person
     name String
     age Int
+    deriving Show
 |]
 -- STOP
 main = return ()
@@ -22,7 +23,8 @@ main = return ()
                 <apiname id="x10">persistent-template:Database.Persist.TH:mkPersist</apiname> takes that list
             of entities and declares:</p><ul id="x2"><li id="x3">One Haskell datatype for each entity.</li><li id="x4">A <codeph id="x-3">PersistEntity</codeph> instance for each datatype defined.</li></ul>
         <p>The example above generates code that looks like the following:</p>
-        <codeblock outputclass="haskell">-- START
+        <codeblock outputclass="haskell">{-# OPTIONS_GHC -Wwarn #-}
+-- START
 {-# LANGUAGE TypeFamilies, GeneralizedNewtypeDeriving, OverloadedStrings, GADTs #-}
 import Database.Persist
 import Database.Persist.Store
@@ -95,6 +97,7 @@ mkPersist sqlSettings [persist|
 Person
     name String
     age Int
+    deriving Show
 |]
 -- START
 main = withSqliteConn ":memory:" $ runSqlConn $ do

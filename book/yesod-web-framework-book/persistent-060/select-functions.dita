@@ -58,6 +58,7 @@ Person
     lastName String
     age Int Gt Desc
     UniqueName firstName lastName
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
@@ -98,6 +99,7 @@ Person
     lastName String
     age Int Gt Desc
     UniqueName firstName lastName
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do

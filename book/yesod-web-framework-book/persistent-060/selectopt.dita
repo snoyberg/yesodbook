@@ -42,6 +42,7 @@ Person
     lastName String
     age Int Gt Desc
     UniqueName firstName lastName
+    deriving Show
 |]
 
 -- START

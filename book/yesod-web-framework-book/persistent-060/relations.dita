@@ -14,9 +14,11 @@ import Data.Time
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persist|
 Person
     name String
+    deriving Show
 Car
     ownerId PersonId Eq
     name String
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
