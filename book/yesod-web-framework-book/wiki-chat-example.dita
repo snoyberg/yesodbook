@@ -283,7 +283,7 @@ getWikiR page = do
 
     -- Generate a form with the current contents as the default value.
     -- Note that we use the Textarea wrapper to get a &lt;textarea&gt;.
-    ((_, form), _) &lt;- generateFormPost $ wikiForm $ fmap Textarea mtext
+    (form, _) &lt;- generateFormPost $ wikiForm $ fmap Textarea mtext
     defaultLayout $ do
         case mtext of
             -- We're treating the input as markdown. The markdown package

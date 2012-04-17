@@ -7,6 +7,7 @@
                 >deleteSession</codeph> clears a value for a key.</p><codeblock id="x4" outputclass="haskell">{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, MultiParamTypeClasses, OverloadedStrings #-}
 import Yesod
 import Control.Applicative ((&lt;$&gt;), (&lt;*&gt;))
+import qualified Web.ClientSession as CS
 
 data SessionExample = SessionExample
 
@@ -35,7 +36,10 @@ postRoot = do
     redirect Root
 
 instance Yesod SessionExample where
-    clientSessionDuration _ = 1
+    -- Make the session timeout 1 minute so that it's easier to play with
+    makeSessionBackend _ = do
+        key &lt;- CS.getKey CS.defaultKeyFile
+        return $ Just $ clientSessionBackend key 1
 
 instance RenderMessage SessionExample FormMessage where
     renderMessage _ _ = defaultFormMessage

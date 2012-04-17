@@ -16,7 +16,7 @@ instance Yesod R
 getRootR = defaultLayout $ do
     setTitle "Homepage"
     addScriptRemote "http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"
-    addJulius [julius|
+    toWidget [julius|
 $(function(){
     $("#ajax a").click(function(){
         jQuery.getJSON($(this).attr("href"), function(o){
@@ -27,7 +27,7 @@ $(function(){
 });
 |]
     let names = words "Larry Moe Curly"
-    addHamlet [hamlet|
+    [whamlet|
 &lt;h2>AJAX Version
 &lt;div #results>
     AJAX results will be placed here when you click #
@@ -51,7 +51,7 @@ $(function(){
 getNameR name = do
     let widget = do
             setTitle $ toHtml name
-            addHamlet [hamlet|Looks like you have Javascript off. Name: #{name}|]
+            [whamlet|Looks like you have Javascript off. Name: #{name}|]
     let json = object ["name" .= name]
     defaultLayoutJson widget json
 

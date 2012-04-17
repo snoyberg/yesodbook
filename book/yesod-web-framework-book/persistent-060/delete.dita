@@ -31,6 +31,7 @@ Person sql=the-person-table
     lastName String sql=fldLastName
     age Int Gt Desc "sql=The Age of the Person"
     UniqueName firstName lastName
+    deriving Show
 |]
 
 resultsForPage pageNumber = do
@@ -77,6 +78,7 @@ Person sql=the-person-table
     lastName String sql=fldLastName
     age Int Gt Desc "sql=The Age of the Person"
     UniqueName firstName lastName
+    deriving Show
 |]
 
 resultsForPage pageNumber = do

@@ -71,7 +71,7 @@ personForm = renderDivs $ Person
 getRootR :: Handler RepHtml
 getRootR = do
     -- Generate the form to be displayed
-    ((_, widget), enctype) &lt;- generateFormPost personForm
+    (widget, enctype) &lt;- generateFormPost personForm
     defaultLayout [whamlet|
 &lt;p&gt;The widget generated contains only the contents of the form, not the form tag itself. So...
 &lt;form method=post action=@{PersonR} enctype=#{enctype}&gt;

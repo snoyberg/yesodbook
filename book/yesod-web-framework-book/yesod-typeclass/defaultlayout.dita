@@ -19,7 +19,7 @@ instance Yesod Layout where
 -- START
     defaultLayout contents = do
         PageContent title headTags bodyTags &lt;- widgetToPageContent $ do
-            addCassius [cassius|
+            toWidget [cassius|
 #body
     font-family: sans-serif
 #wrapper
@@ -41,8 +41,8 @@ $doctype 5
 -- STOP
 getRootR = defaultLayout $ do
     setTitle "Root test"
-    addCassius [cassius|body
+    toWidget [cassius|body
     color: red
 |]
-    addHamlet [hamlet|&lt;h1&gt;Hello|]
+    toWidget [hamlet|&lt;h1&gt;Hello|]
 main = warpDebug 4000 Layout</codeblock></conbody></concept>

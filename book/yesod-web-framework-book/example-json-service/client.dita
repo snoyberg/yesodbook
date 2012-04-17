@@ -38,7 +38,7 @@ main = withManager $ \manager -&gt; do
     let valueBS = encode value
     req' &lt;- liftIO $ parseUrl "http://localhost:3000/"
     let req = req' { method = "POST", requestBody = RequestBodyLBS valueBS }
-    Response status headers body &lt;- http req manager
+    Response status version headers body &lt;- http req manager
     resValue &lt;- body $$ sinkParser json
     liftIO $ handleResponse resValue
 

@@ -21,7 +21,7 @@ main = do
             case parseUrl urlString of
                 Nothing -&gt; putStrLn "Sorry, invalid URL"
                 Just req -&gt; withManager $ \manager -&gt; do
-                    Response _ _ lbs &lt;- httpLbs req manager
+                    Response _ _ _ lbs &lt;- httpLbs req manager
                     liftIO $ L.putStr lbs
         _ -&gt; putStrLn "Sorry, please provide exactly one URL"</codeblock>
   <p id="x-10">The <codeph id="x-11">Request</codeph> type is abstract so that <codeph id="x-12">http-conduit</codeph> can add new
@@ -44,7 +44,7 @@ main = do
                 Nothing -&gt; putStrLn "Sorry, invalid URL"
                 Just req -&gt; withManager $ \manager -&gt; do
                     let reqHead = req { method = "HEAD" }
-                    Response status headers _ &lt;- http reqHead manager
+                    Response status _ headers _ &lt;- http reqHead manager
                     liftIO $ do
                         print status
                         mapM_ print headers

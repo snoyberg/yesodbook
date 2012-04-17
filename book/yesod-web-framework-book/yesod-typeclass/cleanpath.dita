@@ -42,9 +42,9 @@ instance Yesod Slash where
         | otherwise = Left $ filter (not . T.null) s
 
 getRootR = defaultLayout [whamlet|
-&lt;p
+&lt;p>
     &lt;a href=@{RootR}&gt;RootR
-&lt;p
+&lt;p>
     &lt;a href=@{FooR}&gt;FooR
 |]
 

@@ -20,6 +20,7 @@ Person
     firstName String
     lastName String
     age Int Gt Desc
+    deriving Show
 |]
 
 -- We keep our connection pool in the foundation. At program initialization, we

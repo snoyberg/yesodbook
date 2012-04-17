@@ -19,6 +19,7 @@ Person
     name String
     age Int Maybe
     created UTCTime default=now()
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
@@ -47,6 +48,7 @@ Person
     age Int Maybe
     created UTCTime default=now()
     language String default='Haskell'
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
@@ -71,6 +73,7 @@ Person
     created UTCTime default=now()
     language String default='Haskell'
     country String "default='El Salvador'"
+    deriving Show
 |]
 
 main = withSqliteConn ":memory:" $ runSqlConn $ do
@@ -94,6 +97,7 @@ Person sql=the-person-table
     lastName String sql=fldLastName
     age Int Gt Desc "sql=The Age of the Person"
     UniqueName firstName lastName
+    deriving Show
 |]
 -- STOP
 

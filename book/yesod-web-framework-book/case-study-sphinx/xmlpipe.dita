@@ -92,13 +92,13 @@ entityToEvents (Entity docid doc) =
    database. For most of this book, we've used the <codeph id="x-52">selectList</codeph> function, but
    Persistent also provides the (more powerful) <codeph id="x-53">selectSourceConn</codeph> function. So we
    end up with the function:</p>
-  <codeblock id="x-32" outputclass="haskell">docSource :: Connection -&gt; C.Source IO X.Event
+  <codeblock id="x-32" outputclass="haskell">docSource :: Connection -&gt; C.Source (C.ResourceT IO) X.Event
 docSource conn = selectSourceConn conn [] [] C.$= CL.concatMap entityToEvents</codeblock>
   <p id="x-33">The $= operator joins together a source and a conduit into a new source. Now that we
    have our <codeph id="x-54">Event</codeph> source, all we need to do is surround it with the document start
    and end events. With <codeph id="x-55">Source</codeph>'s <codeph id="x-56">Monoid</codeph> instance, this is a piece
    of cake:</p>
-  <codeblock id="x-34" outputclass="haskell">fullDocSource :: Connection -&gt; C.Source IO X.Event
+  <codeblock id="x-34" outputclass="haskell">fullDocSource :: Connection -&gt; C.Source (C.ResourceT IO) X.Event
 fullDocSource conn = mconcat
     [ CL.sourceList startEvents
     , docSource conn
