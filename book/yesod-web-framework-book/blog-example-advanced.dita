@@ -320,7 +320,7 @@ new entry.
 &gt; getBlogR = do
 &gt;     muser &lt;- maybeAuth
 &gt;     entries &lt;- runDB $ selectList [] [Desc EntryPosted]
-&gt;     ((_, entryWidget), enctype) &lt;- generateFormPost entryForm
+&gt;     (entryWidget, enctype) &lt;- generateFormPost entryForm
 &gt;     defaultLayout $ do
 &gt;         setTitleI MsgBlogArchiveTitle
 &gt;         [whamlet|
@@ -390,7 +390,7 @@ logged in.
 &gt;         comments &lt;- selectList [] [Asc CommentPosted]
 &gt;         return (entry, map entityVal comments)
 &gt;     muser &lt;- maybeAuth
-&gt;     ((_, commentWidget), enctype) &lt;-
+&gt;     (commentWidget, enctype) &lt;-
 &gt;         generateFormPost (commentForm entryId)
 &gt;     defaultLayout $ do
 &gt;         setTitleI $ MsgEntryTitle $ entryTitle entry
