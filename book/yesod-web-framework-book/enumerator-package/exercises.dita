@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="exercises"><title id="x-1">Exercises</title><conbody id="x-2"><ol id="x1"><li id="x2">Write an enumeratee which takes hex chars (eg, "DEADBEEF") to Word8s. Its type signature should be <codeph id="x3">Enumeratee Char Word8 m b</codeph>.</li><li id="x4">Write the opposite enumeratee, eg <codeph id="x5">Enumeratee Word8 Char m b</codeph>.</li><li id="x6">Create a quickcheck property that ensures that these two functions work correctly.</li></ol></conbody></concept>

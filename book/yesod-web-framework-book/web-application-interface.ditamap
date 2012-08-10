@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="web-application-interface"><title id="x-1">Web Application Interface</title><topicref id="wai" chunk="to-content" href="web-application-interface/web-application-interface.dita"><topicref id="the-interface" href="web-application-interface/the-interface.dita"><topicref id="response-body" href="web-application-interface/response-body.dita"/><topicref id="request-body" href="web-application-interface/request-body.dita"/></topicref><topicref id="hello-world" href="web-application-interface/hello-world.dita"/><topicref id="middleware" href="web-application-interface/middleware.dita"/></topicref></map>

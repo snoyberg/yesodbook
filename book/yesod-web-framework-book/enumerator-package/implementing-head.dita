@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="implementing-head"><title id="x-1">Implementing head</title><conbody id="x-2"><p id="ihead1">As a last example, let's actually implement the head function.</p><codeblock outputclass="haskell" id="x1">head' :: Monad m =&gt; Iteratee a m (Maybe a)
-head' =
-    continue go
-  where
-    go (Chunks []) = continue go
-    go (Chunks (x:xs)) = yield (Just x) (Chunks xs)
-    go EOF = yield Nothing EOF</codeblock><p id="ihead2">Like our sum6 function, this also wraps an inner "go" function with a continue. However, we now have <i id="x2">three</i> clauses for our go function. The first handles the case of <codeph id="x3">Chunks []</codeph>. To quote the enumerator docs:</p><p id="ihead3">(Chunks []) is used to indicate that a stream is still active, but currently has no available data. Iteratees should ignore empty chunks.</p><p id="ihead4">The second clause handles the case where we are given some data. In this case, we yield the first element in the list, and return the rest as leftover data. The third clause handles the end of input by returning Nothing.</p></conbody></concept>

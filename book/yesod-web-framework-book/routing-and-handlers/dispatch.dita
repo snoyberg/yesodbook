@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="dispatch"><title id="x-1">Dispatch</title><conbody id="x-2"><p id="dispatch1">Once you have specified your routes, Yesod will take care of all the pesky details
-            of URL dispatch for you. You just need to make sure to provide the appropriate <term
-                id="x1">handler functions</term>. For subsite routes, you do not need to write any
-            handler functions, but you do for the other two. We mentioned the naming rules above
-                (<codeph id="x-3">MyHandlerR GET</codeph> becomes <codeph id="x-4"
-                >getMyHandlerR</codeph>, <codeph id="x-5">MyOtherHandlerR</codeph> becomes <codeph
-                id="x-6">handleMyOtherHandlerR</codeph>). Now we need the type signature.</p></conbody></concept>

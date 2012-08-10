@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="syntax"><title id="x-1">Syntax</title><conbody id="x-2">
-        <p id="x-3">All Shakespearean languages share the same interpolation syntax, and are able to
-            utilize type-safe URLs. They differ in the syntax specific for their target language
-            (HTML, CSS, or Javascript).</p>
-    </conbody></concept>

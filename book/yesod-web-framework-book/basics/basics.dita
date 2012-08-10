@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="basics"><title id="x-1">Basics</title><conbody id="x-2">
-        <p id="x-3">The first step with any new technology is getting it running. The goal of this chapter is
-            to get you started with a simple Yesod application, and cover some of the basic concepts
-            and terminology.</p>
-    </conbody></concept>

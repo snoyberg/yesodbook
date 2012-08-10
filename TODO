@@ -1,3 +1,0 @@
-Missing ideas in the book:
-
-* Create a Persistent SQL key from an Int: Key $ PersistInt64 i

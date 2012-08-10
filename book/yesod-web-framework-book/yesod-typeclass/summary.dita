@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="summary"><title id="x-1">Summary</title><conbody id="x-2"><p id="s1">The Yesod typeclass has a number of overrideable methods that allow you to configure your
-            application. They are all optional, and provide
-            sensible defaults. By using built-in Yesod constructs like
-                <codeph id="x-3">defaultLayout</codeph> and <codeph id="x-4">getMessage</codeph>, you'll get a
-            consistent look-and-feel throughout your site, including pages automatically generated
-            by Yesod such as error pages and authentication.</p><p id="s2">We haven't covered all the methods in the Yesod typeclass in this chapter. For a full
-            listing of methods available, you should consult the Haddock documentation.</p></conbody></concept>

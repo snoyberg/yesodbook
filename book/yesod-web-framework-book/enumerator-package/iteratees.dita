@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="iteratees"><title id="x-1">Iteratees</title><conbody id="x-2">
-        <p id="x-3">An Iteratee is a data consumer. It is the core type of the enumerator package, on which
-            the other types are based.</p>
-    </conbody></concept>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="conceptId">
- <title>Conduit</title>
- <conbody>
-  <p>This section covers the final major datatype in our package, conduits. While sources produce a
-   stream of data and sinks consume a stream, conduits transform a stream.</p>
- </conbody>
-</concept>

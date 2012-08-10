@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
-<map id="map-introduction"><title id="x-1">Introduction</title><topicref id="introduction" chunk="to-content" href="introduction/introduction.dita"><topicref id="type-safety" href="introduction/type-safety.dita"/><topicref id="concise" href="introduction/concise.dita"/><topicref id="performance" href="introduction/performance.dita"/><topicref id="modular" href="introduction/modular.dita"/><topicref id="a-solid-foundation" href="introduction/a-solid-foundation.dita"/><topicref id="introduction-to-haskell" href="introduction/introduction-to-haskell.dita"/></topicref></map>

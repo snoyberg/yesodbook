@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="manipulation"><title id="x-1">Manipulation</title><conbody id="x-2">
-        <p id="x-3">Querying is only half the battle. We also need to be able to add data to and modify
-            existing data in the database.</p>
-    </conbody></concept>
